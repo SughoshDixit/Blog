@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "deploy": "gh-pages-clean master -d build",
+    "deploy": "gh-pages master -d build",
     "start": "next start"
 
   },
