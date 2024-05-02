@@ -1,16 +1,20 @@
 {
-  "name": "bits-of-code",
+  "homepage": "https://SughoshDixit.github.io/Blog",
+  "name": "blog",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "deploy": "gh-pages-clean master -d build",
     "start": "next start"
+
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "firebase": "^9.23.0",
     "firebase-admin": "^10.0.2",
+    "gh-pages": "^2.2.0",
     "gray-matter": "^4.0.3",
     "markdown-to-txt": "^2.0.0",
     "next": "12.1.0",
