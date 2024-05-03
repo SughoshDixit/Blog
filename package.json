@@ -13,6 +13,7 @@
     "bcryptjs": "^2.4.3",
     "firebase": "^9.23.0",
     "firebase-admin": "^10.0.2",
+    "firebaseui": "^6.1.0",
     "gray-matter": "^4.0.3",
     "markdown-to-txt": "^2.0.0",
     "next": "12.1.0",
