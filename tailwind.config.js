@@ -6,8 +6,16 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      colors: {
+        primary: "#FF6B6B",
+        secondary: "#4ECDC4",
+        tertiary: "#FFE66D",
+        accent: "#FFB677",
+        dark: "#2B2D42",
+        light: "#EDF2F4",
+      },
       boxShadow: {
-        2: "0 1px 3px 0 rgb(11 17 29 / 98%), 0 1px 2px 0 rgb(9 18 35 / 90%)",
+        2: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
       },
       fontFamily: {
         sans: ["Inter", ...fontFamily.sans],
@@ -17,11 +25,11 @@ module.exports = {
           css: {
             color: theme("colors.gray.700"),
             a: {
-              color: theme("colors.blue.500"),
+              color: theme("colors.primary"),
               "&:hover": {
-                color: theme("colors.blue.700"),
+                color: theme("colors.primary"),
               },
-              code: { color: theme("colors.blue.400") },
+              code: { color: theme("colors.primary") },
             },
             "h2,h3,h4": {
               "scroll-margin-top": spacing[32],
@@ -33,13 +41,13 @@ module.exports = {
         },
         dark: {
           css: {
-            color: theme("colors.gray.300"),
+            color: theme("colors.light"),
             a: {
-              color: theme("colors.blue.400"),
+              color: theme("colors.primary"),
               "&:hover": {
-                color: theme("colors.blue.600"),
+                color: theme("colors.primary"),
               },
-              code: { color: theme("colors.blue.400") },
+              code: { color: theme("colors.primary") },
             },
             blockquote: {
               borderLeftColor: theme("colors.gray.700"),
@@ -60,9 +68,9 @@ module.exports = {
                 "&:before": { backgroundColor: theme("colors.gray.500") },
               },
             },
-            strong: { color: theme("colors.gray.300") },
+            strong: { color: theme("colors.light") },
             thead: {
-              color: theme("colors.gray.100"),
+              color: theme("colors.light"),
             },
             tbody: {
               tr: {
