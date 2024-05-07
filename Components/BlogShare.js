@@ -13,7 +13,7 @@ function BlogShare({ data }) {
             href={`https://twitter.com/intent/tweet?text=${
               data.Title
             } by @PSughosh
-            &url=SughoshDixit.github.io${String(
+            &url=sughoshblog.vercel.app/${String(
               data.Title.split(" ").join("-").toLowerCase()
             )}
             &hashtags=${data.Tags.split(" ")}`}
