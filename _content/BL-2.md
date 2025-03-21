@@ -28,6 +28,6 @@ As I continue this journey, I carry with me invaluable lessons in selflessness, 
 
 To anyone who has ever wondered what it means to find purpose, I say — give yourself the opportunity to serve. You'll be amazed at how much it changes you.
 
-# Jai Shri Ram!
+# Bharat Mata Ki Jay!
 
 # Sughosh Dixit
