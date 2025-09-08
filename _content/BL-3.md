@@ -11,7 +11,7 @@ isPublished: true
 
 Let me tell you a story.  
 
-In pre-independent India, in 1935, in the small town of Bijapur (now Vijayapura), was born the third son of the Dixit family. The Dixits, though respected as Vaidik Brahmins, were not wealthy. His father, Shri Ananth Rao Dixit, was associated with the Congress, but as was often the case in those days, respect and recognition did not equate to financial security.  
+In pre-independent Bharat, in 1935, in the small town of Bijapur (now Vijayapura), was born the third son of the Dixit family. The Dixits, though respected as Vaidik Brahmins, were not wealthy. His father, Shri Ananth Rao Dixit, was associated with the Congress, but as was often the case in those days, respect and recognition did not equate to financial security.  
 
 This third son—my grandfather, Lt. **Annaji Ananth Dixit**—was slow to speak in childhood, but by the grace of Bhausaheb Maharaj, his voice eventually blossomed. His early years were filled with struggle: some days he didn’t know where the next meal would come from. Yet, by virtue of being born into a Brahmin family, kind neighbors would offer him food out of reverence. Even as a child, life had already begun teaching him grit and endurance.  
 
