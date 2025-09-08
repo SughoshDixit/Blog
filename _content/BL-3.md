@@ -35,9 +35,16 @@ Academics never came easy to Annaji, but sheer determination saw him through mat
 
 Two of Annaji’s sons—Ajit and my father—dreamt of serving the nation in uniform. Ajit joined the **Border Security Force (BSF)**, later excelling in commando training and qualifying for the **Special Forces**. My father initially joined the Army but stepped back, as the family felt one son’s service was sacrifice enough.  
 
-Then, tragedy struck. In 1990, the family had newly settled in Bangalore when officers arrived at their doorstep with news that would break any parent: **Ajit Annaji Dixit had been martyred near Ayodhya**, drowned in the sacred Sarayu river at the age of just 22.  
+Then, tragedy struck. In 1990, the family had newly settled in Bangalore when officers arrived at their doorstep with news that would break any parent:  
+**Ajit Annaji Dixit had been martyred near Ayodhya**, drowned in the sacred Sarayu river at the age of just 22.  
 
-My grandparents never saw his body—only his ashes, returned with honor, draped in the tri-color. Their world shattered. To this day, I cannot imagine the depth of that grief. A parent losing a son is unthinkable; to lose him in the prime of life, in service to the nation, is a wound that never truly heals. Yet, my Ajju and Ajji bore it with dignity. That resilience makes me bow my head before them every single day.  
+> My grandparents never saw his body—only his ashes, returned with honor, draped in the tri-color. Their world shattered. To this day, I cannot imagine the depth of that grief. A parent losing a son is unthinkable; to lose him in the prime of life, in service to the nation, is a wound that never truly heals. Yet, my Ajju and Ajji bore it with dignity. That resilience makes me bow my head before them every single day. I was not even born then, but I can still feel the pain they used to go through when something related to the Army or defense was being played on the TV.
+
+Theirs was not just personal grief—it was a sacrifice that became part of Bharat Mata’s story. Imagine a young man, trained to defend his motherland with valor, never returning home, leaving behind only sacred ashes. Imagine two parents, watching their son depart in uniform with pride, only to welcome him back as a memory wrapped in the nation’s flag.  
+
+For my Ajju and Ajji, every sight of the Tiranga carried both reverence and piercing sorrow. Every Independence Day, every Republic Day, every news of soldiers at the border—it reopened wounds that never closed. Yet, they never cursed destiny, never turned bitter. They carried that unbearable pain with a quiet dignity, transforming their suffering into a symbol of strength.  
+
+Their son’s martyrdom was not just the loss of a life, it was the offering of an entire family’s peace at the altar of the nation. And still, my grandparents lived on, teaching us not to bow to despair but to rise with resilience. That is why, when I think of sacrifice, courage, and patriotism, I first think of **Ajit**, and then of his parents—because they bore the heaviest weight any citizen can bear: the cost of freedom, paid in their own bloodline. 
 
 ![Remembrance, strength and pride](/Ajju/WhatsApp%20Image%202025-09-03%20at%2022.41.37_8f735b23.jpg)  
 <em>We remember with pride and love.</em>  
