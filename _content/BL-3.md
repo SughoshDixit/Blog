@@ -60,10 +60,7 @@ By the time I was born in 1998, their lives were interwoven with mine. They rais
 
 He was not just my grandfather—he was my **best friend**. The most active, patriotic, and fun-loving man I have ever known.  
 
-When Ajji passed away in 2019, Ajju’s heart broke. Yet, even in old age, even in grief, he never complained, never faltered. His mental strength was boundless. He endured pain that would break most men—the loss of his wife, the eternal ache of his martyred son—and still remained a pillar of positivity and love.  
-
-<video controls src="/Ajju/VID_20210504_102107.mp4" style={{ width: '100%', maxHeight: '480px' }}></video>  
-<em>A brief clip with Ajju that captures his warmth.</em>  
+When Ajji passed away in 2019, Ajju’s heart broke. Yet, even in old age, even in grief, he never complained, never faltered. His mental strength was boundless. He endured pain that would break most men—the loss of his wife, the eternal ache of his martyred son—and still remained a pillar of positivity and love.
 
 ---
 
