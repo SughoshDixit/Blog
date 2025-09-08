@@ -44,7 +44,7 @@ Theirs was not just personal grief—it was a sacrifice that became part of Bhar
 
 For my Ajju and Ajji, every sight of the Tiranga carried both reverence and piercing sorrow. Every Independence Day, every Republic Day, every news of soldiers at the border—it reopened wounds that never closed. Yet, they never cursed destiny, never turned bitter. They carried that unbearable pain with a quiet dignity, transforming their suffering into a symbol of strength.  
 
-Their son’s martyrdom was not just the loss of a life, it was the offering of an entire family’s peace at the altar of the nation. And still, my grandparents lived on, teaching us not to bow to despair but to rise with resilience. That is why, when I think of sacrifice, courage, and patriotism, I first think of **Ajit**, and then of his parents—because they bore the heaviest weight any citizen can bear: the cost of freedom, paid in their own bloodline. 
+Their son’s martyrdom was not just the loss of a life, it was the offering of an entire family’s peace at the altar of the nation. And still, my grandparents lived on, teaching us not to bow to despair but to rise with resilience. That is why, when I think of sacrifice, courage, and patriotism, I first think of **Ajit the breveheart**, and then of his parents—because they bore the heaviest weight any citizen can bear: the cost of freedom, paid in their own bloodline. 
 
 ![Remembrance, strength and pride](/Ajju/WhatsApp%20Image%202025-09-03%20at%2022.41.37_8f735b23.jpg)  
 <em>We remember with pride and love.</em>  
