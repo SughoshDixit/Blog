@@ -1,6 +1,6 @@
 ---
 Id: 3
-Title: A heartfelt Ode and a Tribute to My Ajjju - Father of a braveheart 
+Title: A heartfelt Ode and a Tribute to My Ajjju
 Author: Sughosh P Dixit
 Tags: Ajja Grandfather SeniorBraveHeart Grit Active 
 Topic: Personal
