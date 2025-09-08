@@ -1,10 +1,10 @@
 ---
 Id: 3
-Title: A heartfelt Ode and a Tribute to My Ajjju
+Title: A heartfelt Ode and a Tribute to Ajjju
 Author: Sughosh P Dixit
-Tags: Ajja Grandfather SeniorBraveHeart Grit Active 
+Tags: Ajja Grandfather SeniorBraveHeart Grit Active Suggajja 
 Topic: Personal
-Abstract: Miss you man Ajju - Suggajja!
+Abstract: Lifestory of Ajju - !
 HeaderImage: /Ajju/WhatsApp Image 2025-09-03 at 22.48.16_c74e6520.jpg
 isPublished: true
 ---
