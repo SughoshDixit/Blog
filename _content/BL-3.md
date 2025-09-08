@@ -36,7 +36,7 @@ Academics never came easy to Annaji, but sheer determination saw him through mat
 Two of Annaji’s sons—Ajit and my father—dreamt of serving the nation in uniform. Ajit joined the **Border Security Force (BSF)**, later excelling in commando training and qualifying for the **Special Forces**. My father initially joined the Army but stepped back, as the family felt one son’s service was sacrifice enough.  
 
 Then, tragedy struck. In 1990, the family had newly settled in Bangalore when officers arrived at their doorstep with news that would break any parent:  
-**Ajit Annaji Dixit had been martyred near Ayodhya**, drowned in the sacred Sarayu river at the age of just 22.  
+**Ajit Annaji Dixit had been martyred near Ayodhya**, drowned in the sacred Sarayu river at the age of just 25.  
 
 > My grandparents never saw his body—only his ashes, returned with honor, draped in the tri-color. Their world shattered. To this day, I cannot imagine the depth of that grief. A parent losing a son is unthinkable; to lose him in the prime of life, in service to the nation, is a wound that never truly heals. Yet, my Ajju and Ajji bore it with dignity. That resilience makes me bow my head before them every single day. I was not even born then, but I can still feel the pain they used to go through when something related to the Army or defense was being played on the TV.
 
