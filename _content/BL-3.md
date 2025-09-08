@@ -1,6 +1,6 @@
 ---
 Id: 3
-Title: An Ode and a Tribute to My Ajjju 
+Title: A heartfelt Ode and a Tribute to My Ajjju - Father of a braveheart 
 Author: Sughosh P Dixit
 Tags: Ajja Grandfather SeniorBraveHeart Grit Active 
 Topic: Personal
@@ -16,7 +16,7 @@ In pre-independent India, in 1935, in the small town of Bijapur (now Vijayapura)
 This third son—my grandfather, Lt. **Annaji Ananth Dixit**—was slow to speak in childhood, but by the grace of Bhausaheb Maharaj, his voice eventually blossomed. His early years were filled with struggle: some days he didn’t know where the next meal would come from. Yet, by virtue of being born into a Brahmin family, kind neighbors would offer him food out of reverence. Even as a child, life had already begun teaching him grit and endurance.  
 
 ![Annaji through the years](/Ajju/IMG_20211115_185607-COLLAGE.jpg)  
-<em>A collage of memories of Annaji (Ajju).</em>  
+<em>Ajju loved selfies.</em>  
 
 ---
 
