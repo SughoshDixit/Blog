@@ -12,13 +12,13 @@ function Header({ topic, topicName, topicCount }) {
       )}
 
       {!topic && (
-        <div className="pt-24 px-12 mx-auto max-w-7xl">
+        <div className="pt-28 px-6 md:px-12 mx-auto max-w-7xl">
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
-            <p className="px-0 mb-2 text-lg font-bold text-gray-800 md:text-xl lg:px-24 dark:text-gray-300">
+            <p className="px-0 mb-3 text-lg font-semibold text-gray-800 md:text-xl lg:px-24 dark:text-gray-300">
               Sughosh's Blog
             </p>
 
-            <h1 className="mb-8 text-4xl font-bold leading-none tracking-normal text-gray-900 md:text-6xl md:tracking-tight dark:text-gray-50">
+            <h1 className="mb-10 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 md:text-6xl dark:text-gray-50">
               <span>Live</span>{" "}
               <span className="block w-full py-2 text-transparent bg-clip-text leading-12 bg-gradient-to-r from-blue-400 to-purple-500 lg:inline">
                 To

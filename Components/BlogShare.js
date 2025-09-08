@@ -11,12 +11,12 @@ function BlogShare({ data }) {
             rel="noopener noreferrer"
             target="_blank"
             href={`https://twitter.com/intent/tweet?text=${
-              data.Title
+              data?.Title || ""
             } by @PSughosh
             &url=sughoshblog.vercel.app/${String(
-              data.Title.split(" ").join("-").toLowerCase()
+              (data?.Title || "").split(" ").join("-").toLowerCase()
             )}
-            &hashtags=${data.Tags.split(" ")}`}
+            &hashtags=${(data?.Tags || "").split(" ").join(",")}`}
           >
             Tweet
           </a>

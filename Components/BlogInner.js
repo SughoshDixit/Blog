@@ -15,7 +15,7 @@ function BlogInner({ data, content, headings }) {
         <div className="p-4">
           <div className="flex flex-col items-center">
             <div className="flex justify-around">
-              {data.Tags.split(" ").map((tag) => (
+              {(data?.Tags || "").split(" ").filter(Boolean).map((tag) => (
                 <p
                   key={tag}
                   className="inline-block px-3 ml-3 py-1 mb-4 text-xs font-semibold tracking-wider text-gray-50 uppercase rounded-full bg-indigo-500 dark:bg-indigo-600"

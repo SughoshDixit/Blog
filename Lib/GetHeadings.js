@@ -1,7 +1,8 @@
 export async function getHeadings(source) {
   // Get each line individually, and filter out anything that
   // isn't a heading.
-  const headingLines = source.split("\n").filter((line) => {
+  const safeSource = typeof source === "string" ? source : "";
+  const headingLines = safeSource.split("\n").filter((line) => {
     return line.match(/^###*\s/);
   });
 

@@ -160,7 +160,7 @@ function Comments({ id }) {
                       {comment.userName}
                     </strong>{" "}
                     <span className="text-xs text-gray-500 dark:text-gray-400">
-                      {comment.date.split(" ").slice(1, 4).join("-")}
+                      {String(comment?.date || "").split(" ").slice(1, 4).join("-")}
                     </span>
                     {comment && user && comment.userId === user.uid && (
                       <span
@@ -170,7 +170,7 @@ function Comments({ id }) {
                         <AiFillDelete />
                       </span>
                     )}
-                    {comment.comment.split("\n").map((com, index) => (
+                    {String(comment?.comment || "").split("\n").map((com, index) => (
                       <p
                         className="text-sm text-gray-600 dark:text-gray-300"
                         key={index}

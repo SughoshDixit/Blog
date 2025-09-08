@@ -56,8 +56,8 @@ export default function Home({ blogs, topics }) {
         <Navbar topics={topics} />
         <Header />
 
-        <div className="px-0.5 md:px-7 pb-14 pt-6 mx-auto">
-          <div className="flex flex-wrap">
+        <div className="px-4 md:px-8 pb-16 pt-8 mx-auto max-w-7xl">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {blogs &&
               blogs.map(
                 (blog) =>
