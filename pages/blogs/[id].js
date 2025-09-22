@@ -1,4 +1,5 @@
 import { getAllBlogPosts, getAllTopics } from "../../Lib/Data";
+import readingTime from "reading-time";
 import { serialize } from "next-mdx-remote/serialize";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
@@ -34,6 +35,7 @@ export const getStaticProps = async (context) => {
   );
 
   const { data, content } = page;
+  const readTime = readingTime(content).text;
   const mdxSource = await serialize(content, {
     scope: data,
     mdxOptions: { remarkPlugins: [remarkHeadingId] },
@@ -48,11 +50,12 @@ export const getStaticProps = async (context) => {
       id: params.id,
       headings: headings,
       topics: allTopics,
+      readTime: readTime,
     },
   };
 };
 
-function id({ data, content, id, headings, topics }) {
+function id({ data, content, id, headings, topics, readTime }) {
   return (
     <>
       <Head>
@@ -82,7 +85,7 @@ function id({ data, content, id, headings, topics }) {
       <div className="min-h-screen relative bg-white dark:bg-gray-900">
         <Navbar topics={topics} />
         <div className="py-24">
-          <BlogInner data={data} content={content} headings={headings} />
+          <BlogInner data={data} content={content} headings={headings} readTime={readTime} />
           <LikeBtn id={id} />
           <BlogShare data={data} />
 

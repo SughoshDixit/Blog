@@ -2,7 +2,19 @@ import { MDXRemote } from "next-mdx-remote";
 import { BsThreeDots } from "react-icons/bs";
 import Toc from "./Toc";
 
-function BlogInner({ data, content, headings }) {
+function BlogInner({ data, content, headings, readTime }) {
+  const mdxComponents = {
+    img: (props) => (
+      <img
+        loading="lazy"
+        decoding="async"
+        referrerPolicy="no-referrer"
+        crossOrigin="anonymous"
+        className="mx-auto my-4 rounded-md"
+        {...props}
+      />
+    ),
+  };
   return (
     <div className="mx-auto flex justify-center max-w-screen-xl px-6">
       <div className="rounded-lg shadow-lg bg-white dark:bg-gray-900 pb-8">
@@ -27,13 +39,16 @@ function BlogInner({ data, content, headings }) {
             <a className="block mt-2 text-2xl sm:text-4xl font-semibold text-gray-800 dark:text-gray-100">
               {data.Title}
             </a>
+            {readTime && (
+              <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">{readTime}</p>
+            )}
 
             <p className="text-5xl pt-2">
               <BsThreeDots />
             </p>
 
             <article className="prose max-w-xs sm:max-w-sm md:max-w-prose lg:prose-lg py-7 dark:prose-dark ">
-              <MDXRemote {...content} />
+              <MDXRemote {...content} components={mdxComponents} />
             </article>
 
             <div className="mt-3">
@@ -48,6 +63,9 @@ function BlogInner({ data, content, headings }) {
                 <p className="text-sm font-medium leading-4 text-gray-600 dark:text-gray-200">
                   Author
                 </p>
+              <div className="mt-4 text-sm text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 rounded-md p-3 max-w-prose">
+                <strong>In one line:</strong> The world is fragmenting into agile coalitions; India’s path is confidence with realism.
+              </div>
               </div>
             </div>
           </div>
