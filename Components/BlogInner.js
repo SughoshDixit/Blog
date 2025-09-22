@@ -16,7 +16,7 @@ function BlogInner({ data, content, headings, readTime }) {
     ),
   };
   return (
-    <div className="mx-auto max-w-screen-xl px-6 md:flex md:gap-8">
+    <div className="mx-auto max-w-screen-xl px-4 sm:px-6 md:flex md:gap-8">
       <div className="md:flex-1 rounded-lg shadow-lg bg-white dark:bg-gray-900 pb-8">
         <img
           className="object-cover w-full h-72"
@@ -26,11 +26,11 @@ function BlogInner({ data, content, headings, readTime }) {
 
         <div className="p-4">
           <div className="flex flex-col items-center">
-            <div className="flex justify-around">
+            <div className="flex flex-wrap gap-2 justify-center">
               {(data?.Tags || "").split(" ").filter(Boolean).map((tag) => (
                 <p
                   key={tag}
-                  className="inline-block px-3 ml-3 py-1 mb-4 text-xs font-semibold tracking-wider text-gray-50 uppercase rounded-full bg-indigo-500 dark:bg-indigo-600"
+                  className="inline-block px-3 py-1 mb-2 text-xs font-semibold tracking-wider text-gray-50 uppercase rounded-full bg-indigo-500 dark:bg-indigo-600"
                 >
                   {tag}
                 </p>
