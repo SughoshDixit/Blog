@@ -15,8 +15,10 @@ isPublished: true
 - **Part 2**: India’s “**Panchamrit**” approach blends dignity, engagement, economy, security, and culture to project a confident, civilizational diplomacy.
 - **Takeaway**: To move toward leadership, India needs **decades of steady R&D, capacity-building, and neighborhood realism**.
 
-> Who is this for: curious readers of geopolitics, policy students, builders in tech/AI, and anyone who wants a crisp Indian lens on the world.
-> Why it matters: it connects the big-picture shifts with India’s options over the next 10–20 years.
+<div class="bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-700 rounded-md p-3 my-3 text-sm">
+<p><strong>Who is this for:</strong> curious readers of geopolitics, policy students, builders in tech/AI, and anyone who wants a crisp Indian lens on the world.</p>
+<p class="mt-1"><strong>Why it matters:</strong> it connects the big-picture shifts with India’s options over the next 10–20 years.</p>
+</div>
 
 2025 has been a great reading year—I finished three books (and counting)! 📚 For this one, I stepped into a different genre to understand where the world is headed and, more importantly, where Bharat fits into it. It was an eye-opening read. Dr. Ram Madhav raises many points that deserve wider public attention. Sadly, we still get trapped in echo chambers—of people or ideas. 🪞
 
