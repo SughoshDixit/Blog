@@ -10,7 +10,7 @@ function BlogInner({ data, content, headings, readTime }) {
         decoding="async"
         referrerPolicy="no-referrer"
         crossOrigin="anonymous"
-        className="mx-auto my-4 rounded-md"
+        className="mx-auto my-4 rounded-md w-full md:w-auto"
         {...props}
       />
     ),
@@ -57,7 +57,7 @@ function BlogInner({ data, content, headings, readTime }) {
               </details>
             </div>
 
-            <article className="prose max-w-xs sm:max-w-sm md:max-w-prose lg:prose-lg py-7 dark:prose-dark ">
+            <article className="prose prose-sm sm:prose md:prose-lg max-w-none md:max-w-prose py-7 dark:prose-dark ">
               <MDXRemote {...content} components={mdxComponents} />
             </article>
 
