@@ -16,8 +16,8 @@ function BlogInner({ data, content, headings, readTime }) {
     ),
   };
   return (
-    <div className="mx-auto flex justify-center max-w-screen-xl px-6">
-      <div className="rounded-lg shadow-lg bg-white dark:bg-gray-900 pb-8">
+    <div className="mx-auto max-w-screen-xl px-6 md:flex md:gap-8">
+      <div className="md:flex-1 rounded-lg shadow-lg bg-white dark:bg-gray-900 pb-8">
         <img
           className="object-cover w-full h-72"
           src={data.HeaderImage}
@@ -47,6 +47,16 @@ function BlogInner({ data, content, headings, readTime }) {
               <BsThreeDots />
             </p>
 
+            {/* Mobile TOC */}
+            <div className="md:hidden mb-4 border border-gray-200 dark:border-gray-700 rounded-md">
+              <details>
+                <summary className="px-3 py-2 cursor-pointer text-sm font-semibold text-gray-700 dark:text-gray-200">On this page</summary>
+                <div className="px-3 pb-2">
+                  <Toc headings={headings} />
+                </div>
+              </details>
+            </div>
+
             <article className="prose max-w-xs sm:max-w-sm md:max-w-prose lg:prose-lg py-7 dark:prose-dark ">
               <MDXRemote {...content} components={mdxComponents} />
             </article>
@@ -71,7 +81,7 @@ function BlogInner({ data, content, headings, readTime }) {
           </div>
         </div>
       </div>
-      <div className="toc ml-auto max-w-sm">
+      <div className="hidden md:block md:w-72 lg:w-80 ml-auto">
         <Toc headings={headings} />
       </div>
     </div>

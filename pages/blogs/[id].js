@@ -4,6 +4,7 @@ import { serialize } from "next-mdx-remote/serialize";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
 import Head from "next/head";
+import Script from "next/script";
 import BlogInner from "../../Components/BlogInner";
 import BlogShare from "../../Components/BlogShare";
 import Comments from "../../Components/Comments";
@@ -62,6 +63,7 @@ function id({ data, content, id, headings, topics, readTime }) {
         <title>{data.Title}</title>
         <meta name="title" content={data.Title} />
         <meta name="description" content={data.Abstract} />
+        <link rel="canonical" href={`https://sughoshblog.vercel.app/blogs/${id}`} />
 
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://sughoshdixit.github.io/" />
@@ -81,6 +83,24 @@ function id({ data, content, id, headings, topics, readTime }) {
           content={`https://raw.githubusercontent.com/SughoshDixit/Blog/main/public${data.HeaderImage}`}
         />
       </Head>
+
+      <Script id="ld-json-article" type="application/ld+json">
+        {JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: data.Title,
+          description: data.Abstract,
+          image: [`https://raw.githubusercontent.com/SughoshDixit/Blog/main/public${data.HeaderImage}`],
+          author: {
+            '@type': 'Person',
+            name: data.Author,
+          },
+          mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': `https://sughoshblog.vercel.app/blogs/${id}`,
+          },
+        })}
+      </Script>
 
       <div className="min-h-screen relative bg-white dark:bg-gray-900">
         <Navbar topics={topics} />
