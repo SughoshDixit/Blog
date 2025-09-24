@@ -330,12 +330,20 @@ body.sidebar-open {
   }
   
   /* Mobile engagement positioning */
-  .article-preview .flex.flex-col.sm\\:flex-row {
-    gap: 0.75rem;
+  .article-preview .flex.items-center.justify-between {
+    flex-direction: row !important;
+    align-items: center !important;
   }
   
-  .article-preview .flex.justify-end {
-    justify-content: flex-end !important;
+  .article-preview .flex-shrink-0 {
+    flex-shrink: 0 !important;
+  }
+  
+  /* Ensure engagement buttons are horizontal */
+  .article-preview .flex.items-center.space-x-3 {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
   }
   
   /* Mobile navigation */
