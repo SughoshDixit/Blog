@@ -11,13 +11,6 @@ isPublished: true
 
 ## Celebrating 100 Years of RSS
 
-## Table of Contents
-- [A Moment I'll Never Forget](#a-moment-ill-never-forget)
-- [My Transformation Journey](#my-transformation-journey)
-- [The Ironic Beauty of Service](#the-ironic-beauty-of-service)
-- [Moving Forward with Gratitude](#moving-forward-with-gratitude)
-
----
 
 Being part of the Akhila Bharateeya Pratinidhi Sabha 2025 has been an unforgettable experience. This year marks the centenary of the Rashtriya Swayamsevak Sangh (RSS), and I couldn't be more grateful to contribute to this historic milestone. Over the past six days, I've felt a deep sense of purpose and pride, soaking in the energy and inspiration all around me.
 

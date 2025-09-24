@@ -13,15 +13,6 @@ isPublished: true
 
 **Om Srimanmahaganadhipataye Namaha**
 
-## Table of Contents
-- [The Light of Bharatavarsha: A Journey of Gratitude](#the-light-of-bharatavarsha-a-journey-of-gratitude)
-- [The Spiritual Legacy of Bharat](#the-spiritual-legacy-of-bharat)
-- [A Tapestry of Cultural Diversity](#a-tapestry-of-cultural-diversity)
-- [Contributions to Civilization](#contributions-to-civilization)
-- [Champions of Social Reform and Progressive Thought](#champions-of-social-reform-and-progressive-thought)
-- [Conclusion: Honoring Our Heritage](#conclusion-honoring-our-heritage)
-
----
 
 ### The Light of Bharatavarsha: A Journey of Gratitude {#the-light-of-bharatavarsha-a-journey-of-gratitude}
 

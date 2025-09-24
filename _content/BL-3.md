@@ -9,13 +9,6 @@ HeaderImage: /Ajju/WhatsApp Image 2025-09-03 at 22.48.16_c74e6520.jpg
 isPublished: true
 ---
 
-## Table of Contents
-- [The Young Swayamsevak](#the-young-swayamsevak)
-- [A Braveheart's Father](#a-bravehearts-father)
-- [My Bond With Ajju and Ajji](#my-bond-with-ajju-and-ajji)
-- [Lessons for Us All](#lessons-for-us-all)
-
----
 
 Let me tell you a story.  
 

@@ -12,14 +12,6 @@ isPublished: true
 ## TL;DR
 **From Cloud Analyst to Data Scientist at Oracle in just 5 years—proving that with grit, continuous learning, and unwavering determination, you can transform your career and achieve your dreams. This is the story of how I turned my passion into my profession, one step at a time.**
 
-## Table of Contents
-- [The Early Days](#the-early-days)
-- [A Bold Step: Masters While Working Full-Time](#a-bold-step-masters-while-working-full-time)
-- [Growth at Oracle](#growth-at-oracle)
-- [Breaking Through](#breaking-through)
-- [Looking Back—and Ahead](#looking-back-and-ahead)
-
----
 
 Five years ago, I put down my academic hat and stepped into the corporate world with curiosity, ambition, and a lot of uncertainty. I was fortunate to graduate with five job offers on the table—a privilege I don't take lightly. Among them, Oracle stood out. For me, it was nothing short of a dream company, and I proudly chose it as the starting point of my career.
 
