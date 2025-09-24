@@ -26,6 +26,6 @@ export const getAllTopics = () => {
     const { data } = matter(fileContent);
     return data.Topic;
   });
-  const filteredTopics = new Set(allTopics.filter((t) => typeof t === "string" && t.trim().length > 0));
+  const filteredTopics = new Set(allTopics.filter((t) => t && typeof t === "string" && t.trim().length > 0));
   return [...filteredTopics];
 };

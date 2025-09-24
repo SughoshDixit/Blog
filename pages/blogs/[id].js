@@ -1,6 +1,7 @@
 import { getAllBlogPosts, getAllTopics } from "../../Lib/Data";
 import readingTime from "reading-time";
 import { serialize } from "next-mdx-remote/serialize";
+import rehypeSlug from "rehype-slug";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
 import Head from "next/head";
@@ -39,7 +40,10 @@ export const getStaticProps = async (context) => {
   const readTime = readingTime(content).text;
   const mdxSource = await serialize(content, {
     scope: data,
-    mdxOptions: { remarkPlugins: [remarkHeadingId] },
+    mdxOptions: {
+      remarkPlugins: [remarkHeadingId],
+      rehypePlugins: [rehypeSlug],
+    },
   });
 
   const headings = await getHeadings(content);
@@ -104,14 +108,36 @@ function id({ data, content, id, headings, topics, readTime }) {
 
       <div className="min-h-screen relative bg-white dark:bg-gray-900">
         <Navbar topics={topics} />
-        <div className="py-24">
-          <BlogInner data={data} content={content} headings={headings} readTime={readTime} />
-          <LikeBtn id={id} />
-          <BlogShare data={data} />
+        <div className="pt-20">
+          {/* best-effort visit counter per post */}
+          <Script id="visit-counter" strategy="afterInteractive">
+            {`fetch('/api/visits', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ pid: '${id}' }) }).catch(()=>{});`}
+          </Script>
+          
+          {/* Medium-style article layout */}
+          <div className="max-w-4xl mx-auto px-6">
+            <BlogInner data={data} content={content} headings={headings} readTime={readTime} />
+            
+            {/* Medium-style engagement section */}
+            <div className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
+              <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center space-x-4">
+                  <LikeBtn id={id} />
+                  <BlogShare data={data} />
+                </div>
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  {readTime}
+                </div>
+              </div>
+            </div>
 
-          <SWRConfig>
-            <Comments id={id} />
-          </SWRConfig>
+            {/* Medium-style comments section */}
+            <div className="mt-16">
+              <SWRConfig>
+                <Comments id={id} />
+              </SWRConfig>
+            </div>
+          </div>
 
           <Footer />
         </div>

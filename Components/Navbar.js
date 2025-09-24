@@ -5,6 +5,7 @@ import { BiTerminal } from "react-icons/bi";
 import { HiSun, HiMoon } from "react-icons/hi";
 import { CgUserlane } from "react-icons/cg";
 import { AiOutlineGoogle } from "react-icons/ai";
+import { FiBarChart2, FiSearch, FiHome, FiBookmark, FiUser, FiList, FiTrendingUp, FiX } from "react-icons/fi";
 import { auth, provider } from "../Firebase/Firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { IoLogOutOutline } from "react-icons/io5";
@@ -16,6 +17,9 @@ import { useDispatch } from "react-redux";
 function Navbar({ topics }) {
   const [isMounted, setIsMounted] = useState(false);
   const [isLogin, setLogin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const [viewAlert, setViewAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -28,8 +32,22 @@ function Navbar({ topics }) {
     if (user) {
       dispatch({ type: "STORE_USER", payload: user });
       setLogin(true);
+      setIsAdmin(user.email === "sughoshpdixit@gmail.com");
     }
   }, []);
+
+  // Add body class when sidebar is open
+  useEffect(() => {
+    if (sidebarOpen) {
+      document.body.classList.add('sidebar-open');
+    } else {
+      document.body.classList.remove('sidebar-open');
+    }
+    
+    return () => {
+      document.body.classList.remove('sidebar-open');
+    };
+  }, [sidebarOpen]);
 
   const toggleTheme = () => {
     if (isMounted) {
@@ -61,10 +79,19 @@ function Navbar({ topics }) {
           photo: res.user.photoURL,
           token: res.user.accessToken,
           uid: res.user.uid,
+          email: res.user.email,
         };
 
         localStorage.setItem("user", JSON.stringify(userObj));
         dispatch({ type: "STORE_USER", payload: userObj });
+        setIsAdmin(userObj.email === "sughoshpdixit@gmail.com");
+
+        // best-effort upsert user to backend
+        fetch('/api/users/upsert', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(userObj),
+        }).catch(() => {});
 
         setLogin(true);
         setViewAlert(true);
@@ -81,90 +108,194 @@ function Navbar({ topics }) {
   return (
     <>
       <Alert show={viewAlert} type="success" message={alertMessage} />
-      <header className="fixed w-full border-t-4 bg-white dark:bg-dark border-indigo-600 dark:border-indigo-900 shadow dark:shadow-2 z-50">
-        <div className="container mx-auto px-6 py-5">
-          <div className="flex items-center justify-between">
-            <div className="flex">
-              <Link href="/">
-                <a className="flex items-center hover:text-indigo-600 text-gray-800 dark:text-gray-50">
-                  <span className="text-xl font-semibold">
-                    <BiTerminal className="text-xl" />
-                  </span>
-                  <span className="mx-1 font-semibold text-base md:text-base">
-                    Latest
-                  </span>
-                </a>
-              </Link>
+      
+      {/* Top Navigation Bar */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-between px-4 py-3">
+          {/* Left side - Menu and Logo */}
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+            
+            <Link href="/">
+              <a className="flex items-center space-x-2 text-gray-900 hover:text-gray-600 dark:text-white dark:hover:text-gray-300 transition-colors">
+                <BiTerminal className="text-2xl" />
+                <span className="text-xl font-bold" style={{fontFamily: 'Charter, Georgia, serif'}}>Sughosh's Blog</span>
+              </a>
+            </Link>
+          </div>
 
-              <div className="dropdown inline-block relative mx-2">
-                <a className="flex items-center hover:text-indigo-600 text-gray-800 dark:text-gray-50 mx-6 cursor-pointer">
-                  <span className="text-xl font-semibold">
-                    <SiCodefactor className="text-sm" />
-                  </span>
-                  <span className="mx-1 font-semibold text-base md:text-base">
-                    Posts
-                  </span>
-
-                  <span className="text-xl font-semibold">
-                    <IoMdArrowDropdown className="text-xl" />
-                  </span>
-                </a>
-                <ul className="dropdown-menu absolute hidden text-gray-700 pt-1 bg-white dark:bg-dark w-40 pt-6 rounded-xl left-1/3">
-                  {topics.map((topic) => (
-                    <Link href={`/topic/${topic}`} key={topic}>
-                      <li className="cursor-pointer">
-                        <a className="rounded-xl bg-white dark:bg-dark text-gray-800 dark:text-gray-50 py-2 px-4 block whitespace-no-wrap">
-                          {topic}
-                        </a>
-                      </li>
-                    </Link>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="flex items-center -mx-3">
+          {/* Center - Search */}
+          <div className="flex-1 max-w-md mx-8">
+            <div className="relative">
               <button
-                className="flex items-center mx-2 lg:mx-4 text-base text-gray-800 hover:text-indigo-600 dark:text-gray-50"
-                onClick={toggleTheme}
+                onClick={() => setSearchOpen(!searchOpen)}
+                className="w-full flex items-center space-x-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               >
-                <span className="text-lg">
-                  {isMounted && theme === "dark" ? (
-                    <HiSun className="text-xl" />
-                  ) : (
-                    <HiMoon className="text-xl" />
-                  )}
-                </span>
-              </button>
-
-              <Link href="/about">
-                <a className="flex items-center mx-2 lg:mx-4 text-base text-gray-800 hover:text-indigo-600 dark:text-gray-50">
-                  <span className="text-xl">
-                    <CgUserlane className="text-xl" />
-                  </span>
-                </a>
-              </Link>
-
-              <button className="flex items-center mx-2 lg:mx-4 text-base text-gray-800 hover:text-indigo-600 dark:text-gray-50">
-                {isLogin ? (
-                  <span
-                    className="md:flex items-center"
-                    onClick={handelSignOut}
-                  >
-                    <span className="hidden md:block text-sm font-medium">Sign Out</span>
-                    <IoLogOutOutline className="text-xl mx-1" />
-                  </span>
-                ) : (
-                  <span className="md:flex items-center" onClick={handelSignIn}>
-                    <span className="hidden md:block text-sm font-medium"> Sign In</span>
-                    <AiOutlineGoogle className="text-xl mx-1" />
-                  </span>
-                )}
+                <FiSearch className="w-4 h-4" />
+                <span className="text-sm">Search</span>
               </button>
             </div>
           </div>
+
+          {/* Right side - Actions */}
+          <div className="flex items-center space-x-4">
+            <button
+              className="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"
+              onClick={toggleTheme}
+              title={isMounted && theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {isMounted && theme === "dark" ? (
+                <HiSun className="text-xl" />
+              ) : (
+                <HiMoon className="text-xl" />
+              )}
+            </button>
+
+            {isLogin ? (
+              <div className="flex items-center space-x-2">
+                <img 
+                  src="/about.jpeg" 
+                  alt="Profile" 
+                  className="w-8 h-8 rounded-full"
+                />
+                <button
+                  className="medium-button-outline text-sm"
+                  onClick={handelSignOut}
+                >
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              <button 
+                className="medium-button text-sm"
+                onClick={handelSignIn}
+              >
+                Sign In
+              </button>
+            )}
+          </div>
         </div>
       </header>
+
+      {/* Sidebar Navigation */}
+      <div className={`fixed left-0 top-0 h-full w-80 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 z-40 transform transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className="p-6">
+          {/* Close button */}
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Navigation</h2>
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+            >
+              <FiX className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Main Navigation */}
+          <nav className="space-y-2 mb-8">
+            <Link href="/">
+              <a className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                <FiHome className="w-5 h-5" />
+                <span>Home</span>
+              </a>
+            </Link>
+            
+            <Link href="/ai-gallery">
+              <a className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                <FiBookmark className="w-5 h-5" />
+                <span>AI Gallery</span>
+              </a>
+            </Link>
+            
+            <Link href="/about">
+              <a className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                <FiUser className="w-5 h-5" />
+                <span>About</span>
+              </a>
+            </Link>
+            
+            <Link href="/dashboard">
+              <a className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                <FiTrendingUp className="w-5 h-5" />
+                <span>Dashboard</span>
+                {isAdmin && (
+                  <span className="ml-auto inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200">Admin</span>
+                )}
+              </a>
+            </Link>
+            
+            <a 
+              href="https://sughoshdixit.github.io/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+            >
+              <FiList className="w-5 h-5" />
+              <span>Portfolio</span>
+            </a>
+          </nav>
+
+          {/* Topics Section */}
+          <div className="mb-8">
+            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">Topics</h3>
+            <div className="space-y-1">
+              {topics.map((topic) => (
+                <Link href={`/topic/${topic}`} key={topic}>
+                  <a className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                    {topic}
+                  </a>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Following Section */}
+          <div>
+            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">Following</h3>
+            <div className="space-y-2">
+              <div className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors cursor-pointer">
+                <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">A</span>
+                </div>
+                <span className="text-sm">AI Content</span>
+              </div>
+              <div className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors cursor-pointer">
+                <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">T</span>
+                </div>
+                <span className="text-sm">Tech Insights</span>
+              </div>
+              <div className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors cursor-pointer">
+                <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">D</span>
+                </div>
+                <span className="text-sm">Data Science</span>
+              </div>
+              <div className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors cursor-pointer">
+                <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">M</span>
+                </div>
+                <span className="text-sm">Machine Learning</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-30"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
     </>
   );
 }

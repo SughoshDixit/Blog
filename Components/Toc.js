@@ -1,8 +1,40 @@
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
 
 function Toc({ headings }) {
   const [active, setActive] = useState("");
+
+  const scrollToHeading = (headingId) => {
+    const element = document.getElementById(headingId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+      setActive(headingId);
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const headingElements = headings.map(heading => ({
+        id: heading.id,
+        element: document.getElementById(heading.id)
+      })).filter(item => item.element);
+
+      const scrollPosition = window.scrollY + 100;
+
+      for (let i = headingElements.length - 1; i >= 0; i--) {
+        const { id, element } = headingElements[i];
+        if (element.offsetTop <= scrollPosition) {
+          setActive(id);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [headings]);
 
   return (
     <nav className="sticky top-24 overflow-auto max-h-[70vh] p-2 rounded-md bg-white/70 dark:bg-gray-900/50 backdrop-blur border border-gray-200 dark:border-gray-700">
@@ -11,16 +43,14 @@ function Toc({ headings }) {
         {headings.map((heading, index) => (
           <li
             key={heading.uid}
-            className="mt-3 text-sm text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
+            className="mt-3 text-sm text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer"
             style={{
               paddingLeft: heading.level === 3 ? "1rem" : "",
               color: heading.id === active ? "#6366f1" : "",
             }}
-            onClick={(e) => {
-              setActive(heading.id);
-            }}
+            onClick={() => scrollToHeading(heading.id)}
           >
-            <Link href={`#${heading.id}`}>{heading.text}</Link>
+            {heading.text}
           </li>
         ))}
       </ul>
