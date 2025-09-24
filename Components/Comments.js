@@ -139,11 +139,11 @@ function Comments({ id }) {
   return (
     <>
       <Alert show={viewAlert} type={alertType} message={alertMessage} />
-      <div className="flex flex-wrap mb-6 mt-6 mx-auto max-w-screen-md">
-        <div className="relative container p-1 appearance-none label-floating">
+      <div className="mb-6 mt-6 mx-auto max-w-screen-md px-4 sm:px-0">
+        <div className="relative">
           <form>
             <textarea
-              className="resize-none tracking-wide py-2 px-4 mb-3 leading-relaxed appearance-none block w-full bg-gray-100 border border-gray-100 dark:bg-gray-800 dark:border-gray-800 rounded  focus:outline-none focus:bg-white focus:border-gray-300 dark:focus:bg-gray-900 dark:focus:border-gray-700"
+              className="resize-none tracking-wide py-3 px-4 mb-4 leading-relaxed appearance-none block w-full bg-gray-100 border border-gray-200 dark:bg-gray-800 dark:border-gray-700 rounded-lg focus:outline-none focus:bg-white focus:border-gray-300 dark:focus:bg-gray-900 dark:focus:border-gray-600 text-sm sm:text-base"
               id="message"
               type="text"
               placeholder="What are your thoughts..?"
@@ -157,9 +157,9 @@ function Comments({ id }) {
                 );
               }}
             />
-            <div className="text-right">
+            <div className="flex flex-col sm:flex-row sm:justify-end gap-3">
               <button
-                className="bg-indigo-500 dark:bg-indigo-600 text-white px-3 py-1.5 rounded text-sm font-semibold mr-5"
+                className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors w-full sm:w-auto"
                 onClick={(e) => {
                   e.preventDefault();
                   setComment("");
@@ -168,47 +168,51 @@ function Comments({ id }) {
                 Reset
               </button>
               <button
-                className="bg-indigo-500 dark:bg-indigo-600 text-white px-3 py-1.5 rounded text-sm font-semibold"
+                className="bg-indigo-500 hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors w-full sm:w-auto"
                 onClick={handelPost}
               >
-                Post
+                Post Comment
               </button>
             </div>
           </form>
         </div>
       </div>
-      <div className="mx-auto max-w-screen-md">
-        <div className="m-2 md:m-0">
+      <div className="mx-auto max-w-screen-md px-4 sm:px-0">
+        <div className="space-y-4">
           {data &&
             data.comments &&
             data.comments.map((comment) => (
-              <div className="space-y-4 py-3" key={comment.id}>
+              <div className="py-3" key={comment.id}>
                 <div className="flex">
-                  <div className="flex-shrink-0 mr-1.5 md:mr-3">
+                  <div className="flex-shrink-0 mr-3">
                     <img
-                      className="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10"
+                      className="mt-1 rounded-full w-8 h-8 sm:w-10 sm:h-10"
                       src={comment.userImage}
                       alt={comment.userName}
                     />
                   </div>
-                  <div className="flex-1 border border-gray-300 dark:border-gray-500 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed relative ">
-                    <strong className="text-gray-700 dark:text-gray-200">
-                      {comment.userName}
-                    </strong>{" "}
-                    <span className="text-xs text-gray-500 dark:text-gray-400">
-                      {String(comment?.date || "").split(" ").slice(1, 4).join("-")}
-                    </span>
-                    {comment && user && comment.userId === user.uid && (
-                      <span
-                        className="absolute right-6 top-5 cursor-pointer"
-                        onClick={(e) => handleDeleteComment(comment.id)}
-                      >
-                        <AiFillDelete />
-                      </span>
-                    )}
+                  <div className="flex-1 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-3 sm:px-4 sm:py-4 leading-relaxed relative">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center space-x-2">
+                        <strong className="text-sm sm:text-base text-gray-700 dark:text-gray-200">
+                          {comment.userName}
+                        </strong>
+                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                          {String(comment?.date || "").split(" ").slice(1, 4).join("-")}
+                        </span>
+                      </div>
+                      {comment && user && comment.userId === user.uid && (
+                        <button
+                          className="text-red-500 hover:text-red-700 p-1 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                          onClick={(e) => handleDeleteComment(comment.id)}
+                        >
+                          <AiFillDelete className="w-4 h-4" />
+                        </button>
+                      )}
+                    </div>
                     {String(comment?.comment || "").split("\n").map((com, index) => (
                       <p
-                        className="text-sm text-gray-600 dark:text-gray-300"
+                        className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed"
                         key={index}
                       >
                         {com}

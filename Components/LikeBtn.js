@@ -31,27 +31,35 @@ function LikeBtn({ id }) {
   };
 
   return (
-    <div className="justify-center pt-16 pb-6 flex flex-row items-center">
+    <div className="flex items-center justify-center pt-8 pb-4 sm:pt-16 sm:pb-6">
       {loading ? (
         <AiOutlineLoading
-          className="animate-spin"
-          style={{ fontSize: "1.5rem" }}
+          className="animate-spin text-gray-500"
+          style={{ fontSize: "1.25rem" }}
         />
       ) : (
-        <>
-          <button onClick={handelClick} disabled={loading ? true : false}>
+        <div className="flex items-center space-x-2">
+          <button 
+            onClick={handelClick} 
+            disabled={loading ? true : false}
+            className="flex items-center space-x-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 transition-colors p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
             {data && data.hasUserLiked ? (
               <AiFillHeart
-                style={{ fontSize: "2rem", color: "rgba(220, 38, 38)" }}
+                className="text-red-500"
+                style={{ fontSize: "1.5rem" }}
               />
             ) : (
-              <AiOutlineHeart style={{ fontSize: "2rem" }} />
+              <AiOutlineHeart 
+                className="text-gray-500"
+                style={{ fontSize: "1.5rem" }} 
+              />
             )}
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              {data && data.totalLikes}
+            </span>
           </button>
-          <span style={{ fontSize: "1rem", paddingLeft: "16px" }}>
-            {data && data.totalLikes}
-          </span>
-        </>
+        </div>
       )}
     </div>
   );

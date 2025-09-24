@@ -119,13 +119,13 @@ function id({ data, content, id, headings, topics, readTime }) {
             <BlogInner data={data} content={content} headings={headings} readTime={readTime} />
             
             {/* Medium-style engagement section */}
-            <div className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-                <div className="flex items-center space-x-4">
+            <div className="mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-gray-200 dark:border-gray-700">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
+                <div className="flex items-center justify-center sm:justify-start space-x-6">
                   <LikeBtn id={id} />
                   <BlogShare data={data} />
                 </div>
-                <div className="text-sm text-gray-500 dark:text-gray-400">
+                <div className="text-center sm:text-right text-sm text-gray-500 dark:text-gray-400">
                   {readTime}
                 </div>
               </div>
