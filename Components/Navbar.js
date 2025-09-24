@@ -140,7 +140,7 @@ function Navbar({ topics }) {
             <Link href="/">
               <a className="flex items-center space-x-2 text-gray-900 hover:text-gray-600 dark:text-white dark:hover:text-gray-300 transition-colors">
                 <BiTerminal className="text-2xl" />
-                <span className="text-xl font-bold" style={{fontFamily: 'Charter, Georgia, serif'}}>Sughosh's Blog</span>
+                <span className="text-xl font-bold" style={{fontFamily: 'Charter, Georgia, serif'}}>Sughosh's Chronicles</span>
               </a>
             </Link>
           </div>
@@ -221,7 +221,7 @@ function Navbar({ topics }) {
             <Link href="/">
               <a className="flex items-center space-x-2 text-gray-900 hover:text-gray-600 dark:text-white dark:hover:text-gray-300 transition-colors">
                 <BiTerminal className="text-xl" />
-                <span className="text-lg font-bold" style={{fontFamily: 'Charter, Georgia, serif'}}>Sughosh's Blog</span>
+                <span className="text-lg font-bold" style={{fontFamily: 'Charter, Georgia, serif'}}>Sughosh's Chronicles</span>
               </a>
             </Link>
           </div>

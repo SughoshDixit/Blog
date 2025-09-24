@@ -1,1 +1,1 @@
-Sughosh's Blog
+Sughosh's Chronicles

@@ -93,7 +93,7 @@ function BlogInner({ data, content, headings, readTime }) {
         </div>
         
         <div className="mt-6 text-xs sm:text-sm text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 rounded-lg p-3 sm:p-4">
-          <strong>In one line:</strong> The world is fragmenting into agile coalitions; India's path is confidence with realism.
+          <strong>In one line:</strong> Footballer, Musician by Passion, Data Science by Profession, Civilizationalist by Ideology
         </div>
       </div>
     </div>

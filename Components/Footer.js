@@ -14,7 +14,7 @@ function Footer() {
               <div className="w-8 h-8 bg-gray-900 dark:bg-white rounded-full flex items-center justify-center">
                 <span className="text-white dark:text-gray-900 font-bold text-sm">S</span>
               </div>
-              <span className="text-lg font-bold text-gray-900 dark:text-white">Sughosh's Blog</span>
+              <span className="text-lg font-bold text-gray-900 dark:text-white">Sughosh's Chronicles</span>
             </div>
             <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
               Stories and ideas for people who think differently.
