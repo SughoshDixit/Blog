@@ -63,7 +63,7 @@ function BlogEngagement({ blogId }) {
   }
 
   return (
-    <div className="flex items-center space-x-4">
+    <div className="flex items-center space-x-3">
       <div className="flex items-center space-x-1 text-gray-500 dark:text-gray-400">
         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
           <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" />
@@ -174,7 +174,7 @@ export default function Home({ blogs, topics }) {
                             {blog.data.Abstract}
                           </p>
                           
-                          <div className="flex items-center justify-between mt-4">
+                          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-4">
                             <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
                               <span className="reading-time text-xs sm:text-sm">{blog.readTime.text}</span>
                               <div className="article-tags">
@@ -190,7 +190,7 @@ export default function Home({ blogs, topics }) {
                                 )}
                               </div>
                             </div>
-                            <div className="flex-shrink-0">
+                            <div className="flex justify-end sm:justify-end">
                               <BlogEngagement blogId={blog.data.Title.split(" ").join("-").toLowerCase()} />
                             </div>
                           </div>
