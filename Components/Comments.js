@@ -1,14 +1,6 @@
 import { useState } from "react";
 import { checkAuth } from "../Lib/CheckAuth";
 import Alert from "./Alert";
-import {
-  collection,
-  addDoc,
-  Timestamp,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
-import { db } from "../Firebase/Firebase";
 import useSWR, { useSWRConfig } from "swr";
 import { useSelector } from "react-redux";
 import { AiFillDelete } from "react-icons/ai";
@@ -41,23 +33,49 @@ function Comments({ id }) {
       return;
     }
 
-    if (user) {
-      const ref = doc(db, "posts", id, "comments", commentId);
-      const response = await deleteDoc(ref);
-      setAlertMessage("Comment deleted successfully..");
-      setAlertType("success");
-      setViewAlert(true);
+    try {
+      const response = await fetch('/api/comments/delete', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          pid: id,
+          commentId: commentId,
+          userId: user.uid
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setAlertMessage("Comment deleted successfully..");
+        setAlertType("success");
+        setViewAlert(true);
+        mutate(`/api/comments/${id}`);
+      } else {
+        setAlertMessage(result.message || "Failed to delete comment");
+        setAlertType("error");
+        setViewAlert(true);
+      }
 
       setTimeout(() => {
         setViewAlert(false);
       }, 2000);
-
-      mutate(`/api/comments/${id}`);
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+      setAlertMessage("Failed to delete comment");
+      setAlertType("error");
+      setViewAlert(true);
+      setTimeout(() => {
+        setViewAlert(false);
+      }, 2000);
     }
   };
 
   const handelPost = async (e) => {
     e.preventDefault();
+    const commentText = comment;
     setComment("");
 
     const user = checkAuth();
@@ -71,32 +89,50 @@ function Comments({ id }) {
         setViewAlert(false);
       }, 2000);
 
-      setTimeout(() => {
-        setViewAlert(false);
-      }, 2000);
-
       return;
     }
 
-    if (comment && user) {
-      const docData = {
-        userName: user.name,
-        userImage: user.photo,
-        comment: comment,
-        date: Timestamp.now(),
-        userId: user.uid,
-      };
+    if (commentText && user) {
+      try {
+        const response = await fetch('/api/comments/post', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            pid: id,
+            comment: commentText,
+            userName: user.name,
+            userImage: user.photo,
+            userId: user.uid,
+          }),
+        });
 
-      const ref = collection(db, "posts", id, "comments");
-      const docRef = await addDoc(ref, docData);
-      setAlertMessage("Comment posted successfully..");
-      setAlertType("success");
-      setViewAlert(true);
+        const result = await response.json();
 
-      setTimeout(() => {
-        setViewAlert(false);
-      }, 2000);
-      mutate(`/api/comments/${id}`);
+        if (response.ok) {
+          setAlertMessage("Comment posted successfully..");
+          setAlertType("success");
+          setViewAlert(true);
+          mutate(`/api/comments/${id}`);
+        } else {
+          setAlertMessage(result.message || "Failed to post comment");
+          setAlertType("error");
+          setViewAlert(true);
+        }
+
+        setTimeout(() => {
+          setViewAlert(false);
+        }, 2000);
+      } catch (error) {
+        console.error("Error posting comment:", error);
+        setAlertMessage("Failed to post comment");
+        setAlertType("error");
+        setViewAlert(true);
+        setTimeout(() => {
+          setViewAlert(false);
+        }, 2000);
+      }
     }
   };
 
