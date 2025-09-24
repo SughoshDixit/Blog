@@ -19,18 +19,18 @@ function about({ topics }) {
       
       {/* Medium-style hero section */}
       <div className="pt-20 pb-16 bg-white dark:bg-gray-900">
-        <div className="max-w-4xl mx-auto px-6">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
             <div className="mb-8">
-              <img src="/about.jpeg" className="w-24 h-24 rounded-full mx-auto mb-6" alt="Sughosh Dixit" />
+              <img src="/about.jpeg" className="w-20 h-20 sm:w-24 sm:h-24 rounded-full mx-auto mb-6" alt="Sughosh Dixit" />
             </div>
-            <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6" style={{fontFamily: 'Charter, Georgia, serif'}}>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6" style={{fontFamily: 'Charter, Georgia, serif'}}>
               Hi, Namaste Sughosh here 🙏
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 mb-6">
+            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-6 px-4">
               Data Scientist at Oracle | Data Science Enthusiast | Masters in Data Science & Engineering | BITS Pilani
             </p>
-            <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto px-4">
               Consider me your go-to person for building any kind of applications, capable of single-handedly building cool Data Science applications. 
               I'm passionate about leveraging technology to solve real-world problems and sharing knowledge through content creation. 
               When I'm not coding, you'll find me on the football pitch! ⚽🔥
@@ -40,13 +40,13 @@ function about({ topics }) {
       </div>
 
       {/* Medium-style quick links */}
-      <div className="max-w-4xl mx-auto px-6 mb-16">
-        <div className="flex flex-wrap justify-center gap-4">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 mb-16">
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
           <a
             href="https://sughoshdixit.github.io/"
             target="_blank"
             rel="noopener noreferrer"
-            className="medium-button"
+            className="medium-button text-sm sm:text-base px-4 py-2 sm:px-6 sm:py-3"
           >
             Portfolio
           </a>
@@ -54,7 +54,7 @@ function about({ topics }) {
             href="https://github.com/SughoshDixit"
             target="_blank"
             rel="noopener noreferrer"
-            className="medium-button-outline"
+            className="medium-button-outline text-sm sm:text-base px-4 py-2 sm:px-6 sm:py-3"
           >
             GitHub
           </a>
@@ -62,7 +62,7 @@ function about({ topics }) {
             href="https://www.linkedin.com/in/sughosh-dixit/"
             target="_blank"
             rel="noopener noreferrer"
-            className="medium-button-outline"
+            className="medium-button-outline text-sm sm:text-base px-4 py-2 sm:px-6 sm:py-3"
           >
             LinkedIn
           </a>
@@ -70,7 +70,7 @@ function about({ topics }) {
             href="https://www.youtube.com/@sughoshdixit"
             target="_blank"
             rel="noopener noreferrer"
-            className="medium-button-outline"
+            className="medium-button-outline text-sm sm:text-base px-4 py-2 sm:px-6 sm:py-3"
           >
             YouTube
           </a>
@@ -78,7 +78,7 @@ function about({ topics }) {
             href="/Sughosh_Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="medium-button-outline"
+            className="medium-button-outline text-sm sm:text-base px-4 py-2 sm:px-6 sm:py-3"
           >
             Resume
           </a>
@@ -431,7 +431,7 @@ function about({ topics }) {
             </p>
           </div>
         </div>
-      </div>
+        </div>
 
       {/* GitHub Projects */}
       <div className="max-w-6xl mx-auto px-6 mb-12">

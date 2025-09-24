@@ -123,19 +123,19 @@ export default function Home({ blogs, topics }) {
         
         {/* Medium-style hero section */}
         <div className="pt-20 pb-16 bg-white dark:bg-gray-900">
-          <div className="max-w-4xl mx-auto px-6">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
-              <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6" style={{fontFamily: 'Charter, Georgia, serif'}}>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6" style={{fontFamily: 'Charter, Georgia, serif'}}>
                 Tech Insights & Innovation
               </h1>
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
+              <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto px-4">
                 Discover insights, tutorials, and thoughts on technology, data science, and innovation
               </p>
-              <div className="flex justify-center space-x-4">
-                <a href="#latest-posts" className="medium-button">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
+                <a href="#latest-posts" className="medium-button inline-flex items-center justify-center px-6 sm:px-8 py-3 text-sm sm:text-base">
                   Start reading
                 </a>
-                <a href="/about" className="medium-button-outline">
+                <a href="/about" className="medium-button-outline inline-flex items-center justify-center px-6 sm:px-8 py-3 text-sm sm:text-base">
                   About Me
                 </a>
               </div>
@@ -144,15 +144,15 @@ export default function Home({ blogs, topics }) {
         </div>
 
         {/* Medium-style articles section */}
-        <div id="latest-posts" className="max-w-4xl mx-auto px-6 pb-16">
+        <div id="latest-posts" className="max-w-4xl mx-auto px-4 sm:px-6 pb-16">
           <div className="space-y-8">
             {blogs &&
               blogs.map(
                 (blog) =>
                   blog.data.isPublished && (
                     <div key={blog.data.Id} className="article-preview">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1 pr-6">
+                      <div className="flex flex-col sm:flex-row items-start justify-between">
+                        <div className="flex-1 sm:pr-6 w-full">
                           <div className="author-info mb-3">
                             <img 
                               src="/about.jpeg" 
@@ -164,42 +164,44 @@ export default function Home({ blogs, topics }) {
                             <span className="text-sm text-gray-500 dark:text-gray-400">{blog.data.Date}</span>
                           </div>
                           
-                          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 hover:text-gray-600 dark:hover:text-gray-300 cursor-pointer leading-tight" style={{fontFamily: 'Charter, Georgia, serif'}}>
+                          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3 hover:text-gray-600 dark:hover:text-gray-300 cursor-pointer leading-tight" style={{fontFamily: 'Charter, Georgia, serif'}}>
                             <a href={`/blogs/${blog.data.Title.split(" ").join("-").toLowerCase()}`} className="hover:underline">
                               {blog.data.Title}
                             </a>
                           </h2>
                           
-                          <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2 leading-relaxed">
+                          <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2 leading-relaxed text-sm sm:text-base">
                             {blog.data.Abstract}
                           </p>
                           
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-4">
-                              <span className="reading-time">{blog.readTime.text}</span>
+                          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                            <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                              <span className="reading-time text-xs sm:text-sm">{blog.readTime.text}</span>
                               <div className="article-tags">
-                                {blog.data.Tags && blog.data.Tags.split(" ").filter(Boolean).slice(0, 4).map((tag, index) => (
-                                  <span key={index} className="article-tag">
+                                {blog.data.Tags && blog.data.Tags.split(" ").filter(Boolean).slice(0, 3).map((tag, index) => (
+                                  <span key={index} className="article-tag text-xs">
                                     {tag}
                                   </span>
                                 ))}
-                                {blog.data.Tags && blog.data.Tags.split(" ").filter(Boolean).length > 4 && (
-                                  <span className="article-tag bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-                                    +{blog.data.Tags.split(" ").filter(Boolean).length - 4}
+                                {blog.data.Tags && blog.data.Tags.split(" ").filter(Boolean).length > 3 && (
+                                  <span className="article-tag bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs">
+                                    +{blog.data.Tags.split(" ").filter(Boolean).length - 3}
                                   </span>
                                 )}
                               </div>
                             </div>
-                            <BlogEngagement blogId={blog.data.Title.split(" ").join("-").toLowerCase()} />
+                            <div className="flex justify-end">
+                              <BlogEngagement blogId={blog.data.Title.split(" ").join("-").toLowerCase()} />
+                            </div>
                           </div>
                         </div>
                         
                         {blog.data.HeaderImage && (
-                          <div className="flex-shrink-0 ml-4">
+                          <div className="flex-shrink-0 sm:ml-4 w-full sm:w-auto mt-4 sm:mt-0">
                             <img 
                               src={blog.data.HeaderImage} 
                               alt={blog.data.Title}
-                              className="w-32 h-32 object-cover rounded-lg"
+                              className="w-full sm:w-32 h-32 object-cover rounded-lg"
                             />
                           </div>
                         )}

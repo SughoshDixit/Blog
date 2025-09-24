@@ -23,15 +23,15 @@ function BlogInner({ data, content, headings, readTime }) {
           <img 
             src="/about.jpeg" 
             alt="Sughosh Dixit" 
-            className="w-12 h-12 rounded-full"
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full"
           />
           <div>
             <div className="text-sm font-medium text-gray-900 dark:text-white">{data.Author}</div>
-            <div className="text-sm text-gray-500 dark:text-gray-400">{data.Date} • {readTime}</div>
+            <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{data.Date} • {readTime}</div>
           </div>
         </div>
         
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4" style={{fontFamily: 'Charter, Georgia, serif'}}>
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 leading-tight" style={{fontFamily: 'Charter, Georgia, serif'}}>
           {data.Title}
         </h1>
         
@@ -39,7 +39,7 @@ function BlogInner({ data, content, headings, readTime }) {
           {(data?.Tags || "").split(" ").filter(Boolean).map((tag) => (
             <span
               key={tag}
-              className="article-tag"
+              className="article-tag text-xs sm:text-sm"
             >
               {tag}
             </span>
@@ -51,7 +51,7 @@ function BlogInner({ data, content, headings, readTime }) {
       {data.HeaderImage && (
         <div className="mb-8">
           <img
-            className="w-full h-96 object-cover rounded-lg"
+            className="w-full h-48 sm:h-64 lg:h-96 object-cover rounded-lg"
             src={data.HeaderImage}
             alt="Article Image"
           />
@@ -60,31 +60,31 @@ function BlogInner({ data, content, headings, readTime }) {
 
       {/* Medium-style article content */}
       <div className="article-content">
-        <article className="prose prose-lg max-w-none">
+        <article className="prose prose-sm sm:prose-lg max-w-none">
           <MDXRemote {...content} components={mdxComponents} />
         </article>
       </div>
 
       {/* Medium-style article footer */}
       <div className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center space-x-4">
             <img 
               src="/about.jpeg" 
               alt="Sughosh Dixit" 
-              className="w-12 h-12 rounded-full"
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full"
             />
             <div>
               <div className="text-sm font-medium text-gray-900 dark:text-white">{data.Author}</div>
-              <div className="text-sm text-gray-500 dark:text-gray-400">Data Scientist & Tech Writer</div>
+              <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Data Scientist & Tech Writer</div>
             </div>
           </div>
-          <button className="medium-button">
+          <button className="medium-button text-sm px-4 py-2 w-full sm:w-auto">
             Follow
           </button>
         </div>
         
-        <div className="mt-6 text-sm text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+        <div className="mt-6 text-xs sm:text-sm text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 rounded-lg p-3 sm:p-4">
           <strong>In one line:</strong> The world is fragmenting into agile coalitions; India's path is confidence with realism.
         </div>
       </div>
