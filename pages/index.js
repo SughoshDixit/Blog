@@ -49,33 +49,33 @@ function BlogEngagement({ blogId }) {
 
   if (loading) {
     return (
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-3 sm:space-x-4">
         <div className="flex items-center space-x-1">
-          <div className="w-4 h-4 bg-gray-200 rounded animate-pulse"></div>
-          <div className="w-6 h-4 bg-gray-200 rounded animate-pulse"></div>
+          <div className="w-3 h-3 sm:w-4 sm:h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+          <div className="w-4 h-3 sm:w-6 sm:h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
         </div>
         <div className="flex items-center space-x-1">
-          <div className="w-4 h-4 bg-gray-200 rounded animate-pulse"></div>
-          <div className="w-6 h-4 bg-gray-200 rounded animate-pulse"></div>
+          <div className="w-3 h-3 sm:w-4 sm:h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+          <div className="w-4 h-3 sm:w-6 sm:h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex items-center space-x-4">
-      <button className="text-gray-400 hover:text-gray-600 flex items-center space-x-1">
-        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+    <div className="flex items-center space-x-3 sm:space-x-4">
+      <div className="flex items-center space-x-1 text-gray-400 dark:text-gray-500">
+        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
           <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" />
         </svg>
-        <span className="text-sm text-gray-500">{engagement.likes}</span>
-      </button>
-      <button className="text-gray-400 hover:text-gray-600 flex items-center space-x-1">
-        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+        <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{engagement.likes}</span>
+      </div>
+      <div className="flex items-center space-x-1 text-gray-400 dark:text-gray-500">
+        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
           <path fillRule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clipRule="evenodd" />
         </svg>
-        <span className="text-sm text-gray-500">{engagement.comments}</span>
-      </button>
+        <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{engagement.comments}</span>
+      </div>
     </div>
   );
 }
@@ -190,7 +190,7 @@ export default function Home({ blogs, topics }) {
                                 )}
                               </div>
                             </div>
-                            <div className="flex justify-end">
+                            <div className="flex justify-center sm:justify-end">
                               <BlogEngagement blogId={blog.data.Title.split(" ").join("-").toLowerCase()} />
                             </div>
                           </div>
