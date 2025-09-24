@@ -58,11 +58,19 @@ function BlogInner({ data, content, headings, readTime }) {
         </div>
       )}
 
-      {/* Medium-style article content */}
-      <div className="article-content">
-        <article className="prose prose-sm sm:prose-lg max-w-none">
-          <MDXRemote {...content} components={mdxComponents} />
-        </article>
+      {/* Medium-style article content with TOC */}
+      <div className="flex gap-8">
+        {/* Main content */}
+        <div className="flex-1 article-content">
+          <article className="prose prose-sm sm:prose-lg max-w-none">
+            <MDXRemote {...content} components={mdxComponents} />
+          </article>
+        </div>
+        
+        {/* TOC Sidebar - Hidden on mobile, visible on desktop */}
+        <div className="hidden lg:block w-64 flex-shrink-0">
+          <Toc headings={headings} />
+        </div>
       </div>
 
       {/* Medium-style article footer */}

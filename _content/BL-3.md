@@ -9,6 +9,14 @@ HeaderImage: /Ajju/WhatsApp Image 2025-09-03 at 22.48.16_c74e6520.jpg
 isPublished: true
 ---
 
+## Table of Contents
+- [The Young Swayamsevak](#the-young-swayamsevak)
+- [A Braveheart's Father](#a-bravehearts-father)
+- [My Bond With Ajju and Ajji](#my-bond-with-ajju-and-ajji)
+- [Lessons for Us All](#lessons-for-us-all)
+
+---
+
 Let me tell you a story.  
 
 In pre-independent Bharat, in 1935, in the small town of Bijapur (now Vijayapura), was born the third son of the Dixit family. The Dixits, though respected as Vaidik Brahmins, were not wealthy. His father, Shri Ananth Rao Dixit, was associated with the Congress, but as was often the case in those days, respect and recognition did not equate to financial security.  
@@ -20,9 +28,9 @@ This third son—my grandfather, Lt. **Annaji Ananth Dixit**—was slow to speak
 
 ---
 
-### The Young Swayamsevak  
+### The Young Swayamsevak {#the-young-swayamsevak}
 
-In his youth, Annaji encountered the **Rashtriya Swayamsevak Sangh (RSS)** even before independence. Attending Shakhas then was not just about discipline—it was a silent yet powerful statement of resistance against the British, and a step towards unity among Hindus. He grew up amidst turbulent times: following Gandhi’s assassination in 1948, Brahmin families across Maharashtra and Karnataka were targeted in waves of anger. For months, the Dixit family remained indoors, surviving in silence, hoping the storm of violence would pass. I did not know about his Sangh background until last few years, when all of a sudden he started reciting "Namaste Sada Vatsale"!
+In his youth, Annaji encountered the **Rashtriya Swayamsevak Sangh (RSS)** even before independence. Attending Shakhas then was not just about discipline—it was a silent yet powerful statement of resistance against the British, and a step towards unity among Hindus. He grew up amidst turbulent times: following Gandhi's assassination in 1948, Brahmin families across Maharashtra and Karnataka were targeted in waves of anger. For months, the Dixit family remained indoors, surviving in silence, hoping the storm of violence would pass. I did not know about his Sangh background until last few years, when all of a sudden he started reciting "Namaste Sada Vatsale"!
 
 Academics never came easy to Annaji, but sheer determination saw him through matriculation, even if it meant copying to scrape by. He then trained in ITI and secured employment at **Kirloskar** in Harihara. With stability came marriage—to **Vanamala Deshpande**, my Ajji, who became his lifelong partner in every hardship and joy. Together they raised four children with dignity, even in the face of economic struggle. He was a movie buff by night, a hardworking father by day—borrowing when needed, but never failing to ensure his children had new clothes during festivals. Their perseverance ensured that all their children became graduates.  
 
@@ -31,9 +39,9 @@ Academics never came easy to Annaji, but sheer determination saw him through mat
 
 ---
 
-### A Braveheart’s Father  
+### A Braveheart's Father {#a-bravehearts-father}
 
-Two of Annaji’s sons—Ajit and my father—dreamt of serving the nation in uniform. Ajit joined the **Border Security Force (BSF)**, later excelling in commando training and qualifying for the **Special Forces**. My father initially joined the Army but stepped back, as the family felt one son’s service was sacrifice enough.  
+Two of Annaji's sons—Ajit and my father—dreamt of serving the nation in uniform. Ajit joined the **Border Security Force (BSF)**, later excelling in commando training and qualifying for the **Special Forces**. My father initially joined the Army but stepped back, as the family felt one son's service was sacrifice enough.  
 
 Then, tragedy struck. In 1990, the family had newly settled in Bangalore when officers arrived at their doorstep with news that would break any parent:  
 **Ajit Annaji Dixit had been martyred near Ayodhya**, drowned in the sacred Sarayu river at the age of just 25.  
@@ -51,7 +59,7 @@ Their son’s martyrdom was not just the loss of a life, it was the offering of 
 
 ---
 
-### My Bond With Ajju and Ajji  
+### My Bond With Ajju and Ajji {#my-bond-with-ajju-and-ajji}
 
 By the time I was born in 1998, their lives were interwoven with mine. They raised me with as much influence—if not more—than my own parents.  
 
@@ -64,9 +72,9 @@ When Ajji passed away in 2019, Ajju’s heart broke. Yet, even in old age, even 
 
 ---
 
-### Lessons for Us All  
+### Lessons for Us All {#lessons-for-us-all}
 
-The purpose of writing this is not to evoke pity. It is to remind everyone that **caring for our elders is not a burden—it is a privilege**. They are living libraries of resilience, courage, and love. No textbook can impart the life-lessons I gained simply by watching my Ajju and Ajji face life’s storms with unshakable dignity.  
+The purpose of writing this is not to evoke pity. It is to remind everyone that **caring for our elders is not a burden—it is a privilege**. They are living libraries of resilience, courage, and love. No textbook can impart the life-lessons I gained simply by watching my Ajju and Ajji face life's storms with unshakable dignity.  
 
 Ajju, I miss you, my man. I always will. But I carry your spirit with me, and I will always be proud to say:  
 

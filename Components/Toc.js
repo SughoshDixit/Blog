@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 function Toc({ headings }) {
   const [active, setActive] = useState("");
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const scrollToHeading = (headingId) => {
     const element = document.getElementById(headingId);
@@ -36,24 +38,39 @@ function Toc({ headings }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [headings]);
 
+  if (!headings || headings.length === 0) {
+    return null;
+  }
+
   return (
-    <nav className="sticky top-24 overflow-auto max-h-[70vh] p-2 rounded-md bg-white/70 dark:bg-gray-900/50 backdrop-blur border border-gray-200 dark:border-gray-700">
-      <p className="px-2 pb-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">On this page</p>
-      <ul className="pr-2">
-        {headings.map((heading, index) => (
-          <li
-            key={heading.uid}
-            className="mt-3 text-sm text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer"
-            style={{
-              paddingLeft: heading.level === 3 ? "1rem" : "",
-              color: heading.id === active ? "#6366f1" : "",
-            }}
-            onClick={() => scrollToHeading(heading.id)}
-          >
-            {heading.text}
-          </li>
-        ))}
-      </ul>
+    <nav className="toc-container p-4 rounded-lg bg-white/80 dark:bg-gray-900/80 backdrop-blur border border-gray-200 dark:border-gray-700 shadow-sm">
+      <div 
+        className="toc-header"
+        onClick={() => setIsCollapsed(!isCollapsed)}
+      >
+        <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Table of Contents</p>
+        {isCollapsed ? (
+          <FiChevronDown className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+        ) : (
+          <FiChevronUp className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+        )}
+      </div>
+      
+      {!isCollapsed && (
+        <ul className="toc-list">
+          {headings.map((heading, index) => (
+            <li
+              key={heading.uid || index}
+              className={`toc-item level-${heading.level} ${
+                heading.id === active ? "active" : ""
+              }`}
+              onClick={() => scrollToHeading(heading.id)}
+            >
+              {heading.text}
+            </li>
+          ))}
+        </ul>
+      )}
     </nav>
   );
 }

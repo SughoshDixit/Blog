@@ -11,9 +11,15 @@ isPublished: true
 
 ### TL;DR
 
-- **Part 1**: The global order is shifting from multi- to minilateralism; **U.S. power is pervasive**, **China’s rise is instructive**, and **coalitions like G20/BRICS/QUAD** are increasingly influential.
-- **Part 2**: India’s “**Panchamrit**” approach blends dignity, engagement, economy, security, and culture to project a confident, civilizational diplomacy.
+- **Part 1**: The global order is shifting from multi- to minilateralism; **U.S. power is pervasive**, **China's rise is instructive**, and **coalitions like G20/BRICS/QUAD** are increasingly influential.
+- **Part 2**: India's "**Panchamrit**" approach blends dignity, engagement, economy, security, and culture to project a confident, civilizational diplomacy.
 - **Takeaway**: To move toward leadership, India needs **decades of steady R&D, capacity-building, and neighborhood realism**.
+
+## Table of Contents
+- [Part 1: The World in Flux](#part-1-the-world-in-flux)
+- [Tech, Climate, Currency: The Tectonic Shifts](#tech-climate-currency-the-tectonic-shifts)
+- [Part 2: Reimagining India](#part-2-reimagining-india)
+- [Closing Thoughts](#closing-thoughts)
 
 <div class="bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-700 rounded-md p-3 my-3 text-sm">
 <p><strong>Who is this for:</strong> curious readers of geopolitics, policy students, builders in tech/AI, and anyone who wants a crisp Indian lens on the world.</p>
@@ -26,7 +32,7 @@ isPublished: true
 
 _Cover: The New World – 21st-Century Global Order and India_
 
-## Part 1: The World in Flux 🌍
+## Part 1: The World in Flux 🌍 {#part-1-the-world-in-flux}
 
 The book has two parts. Part 1 surveys the shifting world order—how we moved from unilateralism ➝ bilateralism ➝ multilateralism, and now increasingly toward minilateralism. It sets the context with helpful history and connects it to current patterns like the rise of nationalism across Europe and the return of conservative governments. 🧭
 
@@ -63,10 +69,10 @@ _G20: a minilateral platform shaping global coordination_
 
 Religion, culture, and identity politics play an outsized role in today’s geopolitics—something the book doesn’t shy away from.
 
-## Tech, Climate, Currency: The Tectonic Shifts ⚙️🌱💱
+## Tech, Climate, Currency: The Tectonic Shifts ⚙️🌱💱 {#tech-climate-currency-the-tectonic-shifts}
 
 ### AI: The Now, Not the Future 🤖
-We’re living through a technological revolution—especially with AI—that is reshaping everything from diplomacy to industry. **The future is already here.**
+We're living through a technological revolution—especially with AI—that is reshaping everything from diplomacy to industry. **The future is already here.**
 
 ![AI and chips](/New-India/OIP.webp)
 
@@ -83,9 +89,9 @@ Meanwhile, cultural “wokeism” has produced new social divides, even as parts
 
 > Not a breezy, novel-like read—but Part 2 is a must. Just three chapters, and it nails the Indian perspective. ✅
 
-## Part 2: Reimagining India 🇮🇳
+## Part 2: Reimagining India 🇮🇳 {#part-2-reimagining-india}
 
-The second part revisits independent India—where we started, what we’ve tried, and what comes next. It briskly tracks our foreign policy from Nehru to Jaishankar/Modi.
+The second part revisits independent India—where we started, what we've tried, and what comes next. It briskly tracks our foreign policy from Nehru to Jaishankar/Modi.
 
 ### Panchamrit: India’s Five Pillars of Foreign Policy 🪔
 
@@ -125,7 +131,7 @@ Since Nehru, India has pursued a “Neighborhood First” approach—rooted in A
 
 _Neighborhood First: people, ports, and partnerships_
 
-## Closing Thoughts 🧠✨
+## Closing Thoughts 🧠✨ {#closing-thoughts}
 
 Finally in conclusion the author brings out Sri Krishna says in the Bhagavad Gita - 
 

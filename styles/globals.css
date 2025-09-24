@@ -483,3 +483,78 @@ button:focus {
 .dropdown:hover .dropdown-menu {
   display: block;
 }
+
+/* Medium-style TOC */
+.toc-container {
+  position: sticky;
+  top: 6rem;
+  max-height: calc(100vh - 8rem);
+  overflow-y: auto;
+}
+
+.toc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+}
+
+.toc-header:hover {
+  color: #374151;
+}
+
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-item {
+  padding: 0.25rem 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 0.25rem;
+  padding-left: 0.5rem;
+  margin-left: -0.5rem;
+}
+
+.toc-item:hover {
+  background-color: #f3f4f6;
+  color: #1f2937;
+}
+
+.toc-item.active {
+  color: #6366f1;
+  font-weight: 500;
+  background-color: #eef2ff;
+}
+
+.toc-item.level-3 {
+  padding-left: 1rem;
+}
+
+.toc-item.level-4 {
+  padding-left: 1.5rem;
+}
+
+.dark .toc-header {
+  border-bottom-color: #374151;
+}
+
+.dark .toc-header:hover {
+  color: #d1d5db;
+}
+
+.dark .toc-item:hover {
+  background-color: #374151;
+  color: #f3f4f6;
+}
+
+.dark .toc-item.active {
+  color: #818cf8;
+  background-color: #1e1b4b;
+}
