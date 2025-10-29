@@ -221,8 +221,6 @@ In other words, "logical structure" becomes "min/max algebra," letting you score
 
 ## Common alternatives (and why we started with min/max) 🆚
 
-![T-norms Comparison](/DS-1/tnorms_comparison.png)
-
 Other popular t‑norms and t‑conorms:
 
 * Product t‑norm: `T(x,y)=x·y`; Probabilistic sum t‑conorm: `S(x,y)=x+y−xy`
