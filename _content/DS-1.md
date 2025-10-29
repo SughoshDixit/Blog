@@ -169,7 +169,6 @@ max(x, min(y,z)) = min(max(x,y), max(x,z))
 
 These are classic lattice identities for totally ordered sets. ✓
 
-![Properties Visualization](/DS-1/properties.png)
 
 > **Note on "counterexamples":** min and max do distribute over each other on a total order. Distributivity fails if you mix different t‑norms/t‑conorms (e.g., product t‑norm with max). See the exercises for a concrete counterexample in that setting.
 
@@ -190,7 +189,6 @@ These visuals reinforce how AND is bottlenecked by the weakest input, and OR is 
 
 ## Worked examples 💼
 
-![Worked Examples](/DS-1/worked_examples.png)
 
 **1️⃣ Two‑feature rule: "(A AND B) OR C"** 🔀
 Using min/max: `max(min(A,B), C)`
