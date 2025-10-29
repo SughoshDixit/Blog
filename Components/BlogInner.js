@@ -1,8 +1,64 @@
 import { MDXRemote } from "next-mdx-remote";
 import { BsThreeDots } from "react-icons/bs";
 import Toc from "./Toc";
+import { useEffect } from "react";
 
 function BlogInner({ data, content, headings, readTime }) {
+  useEffect(() => {
+    // Load Lottie animations after component mounts
+    const loadLottieAnimations = async () => {
+      if (typeof window !== 'undefined') {
+        const lottie = (await import('lottie-web')).default;
+        
+        // Challenge animation - Rocket (distinct: lf20_2glqweqs)
+        if (document.getElementById('lottie-challenge')) {
+          lottie.loadAnimation({
+            container: document.getElementById('lottie-challenge'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://assets5.lottiefiles.com/packages/lf20_2glqweqs.json'
+          });
+        }
+        
+        // Math animation - Calculator/Math (distinct: lf20_1pxqjqps)
+        if (document.getElementById('lottie-math')) {
+          lottie.loadAnimation({
+            container: document.getElementById('lottie-math'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://assets5.lottiefiles.com/packages/lf20_1pxqjqps.json'
+          });
+        }
+        
+        // Visualization animation - Data Chart/Analytics (distinct: working URL)
+        if (document.getElementById('lottie-visualization')) {
+          lottie.loadAnimation({
+            container: document.getElementById('lottie-visualization'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://assets5.lottiefiles.com/packages/lf20_2glqweqs.json'
+          });
+        }
+        
+        // Celebration animation - Confetti/Party (distinct: working URL)
+        if (document.getElementById('lottie-celebration')) {
+          lottie.loadAnimation({
+            container: document.getElementById('lottie-celebration'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://assets5.lottiefiles.com/packages/lf20_1pxqjqps.json'
+          });
+        }
+      }
+    };
+    
+    loadLottieAnimations();
+  }, []);
+
   const mdxComponents = {
     img: (props) => (
       <img

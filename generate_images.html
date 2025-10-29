@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DS-1 Visualizations</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        .chart-container { background: white; margin: 20px 0; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #333; }
+        h2 { color: #555; margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <h1>📊 DS-1 Visualizations Generator</h1>
+    <p><strong>Instructions:</strong> Right-click on each canvas below and select "Save image as..." to save the visualizations.</p>
+    
+    <h2>1. 3D Surface Visualization</h2>
+    <div class="chart-container">
+        <p>For 3D visualizations, please use the Python script with matplotlib or an online tool.</p>
+        <p>Expected: Two 3D surfaces showing min(x,y) and max(x,y) operations.</p>
+    </div>
+
+    <h2>2. Heatmaps</h2>
+    <div class="chart-container">
+        <canvas id="heatmap" width="800" height="400"></canvas>
+    </div>
+
+    <h2>3. Truth Table Extension</h2>
+    <div class="chart-container">
+        <canvas id="truthTable" width="700" height="700"></canvas>
+    </div>
+
+    <h2>4. Worked Examples</h2>
+    <div class="chart-container">
+        <canvas id="workedExamples" width="1000" height="600"></canvas>
+    </div>
+
+    <h2>5. Properties</h2>
+    <div class="chart-container">
+        <canvas id="properties" width="1200" height="400"></canvas>
+    </div>
+
+    <h2>6. T-norms Comparison</h2>
+    <div class="chart-container">
+        <canvas id="tnorms" width="1000" height="700"></canvas>
+    </div>
+
+    <script>
+        // Function to draw gradient heatmap
+        function drawHeatmap(canvasId, isMin) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            const imageData = ctx.createImageData(width, height);
+            const data = imageData.data;
+            
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const xVal = x / width;
+                    const yVal = y / height;
+                    const result = isMin ? Math.min(xVal, yVal) : Math.max(xVal, yVal);
+                    
+                    const index = (y * width + x) * 4;
+                    const color = isMin ? 
+                        [0, 100 + result * 155, 100 + result * 155] :  // Green tones
+                        [result * 255, 0, 200 - result * 200];          // Blue-purple tones
+                    
+                    data[index] = color[0];
+                    data[index + 1] = color[1];
+                    data[index + 2] = color[2];
+                    data[index + 3] = 255;
+                }
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+            
+            // Add labels
+            ctx.fillStyle = 'black';
+            ctx.font = '16px Arial';
+            ctx.fillText(isMin ? 'min(x,y) - AND' : 'max(x,y) - OR', 20, 30);
+            ctx.font = '12px Arial';
+            ctx.fillText('x', width / 2, height - 10);
+            ctx.save();
+            ctx.translate(10, height / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText('y', 0, 0);
+            ctx.restore();
+        }
+        
+        // Draw heatmaps
+        function createHeatmaps() {
+            // For now, create a combined heatmap
+            const canvas = document.getElementById('heatmap');
+            const ctx = canvas.getContext('2d');
+            
+            // Left side - min
+            const leftWidth = canvas.width / 2 - 10;
+            drawHeatmapSection(ctx, 0, 0, leftWidth, canvas.height, true);
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 16px Arial';
+            ctx.fillText('min(x,y) - AND 🔵', leftWidth / 4, 30);
+            
+            // Right side - max
+            drawHeatmapSection(ctx, leftWidth + 10, 0, leftWidth, canvas.height, false);
+            ctx.fillStyle = 'black';
+            ctx.fillText('max(x,y) - OR 🔥', leftWidth + leftWidth / 4, 30);
+        }
+        
+        function drawHeatmapSection(ctx, startX, startY, width, height, isMin) {
+            const imageData = ctx.createImageData(width, height);
+            const data = imageData.data;
+            
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const xVal = x / width;
+                    const yVal = y / height;
+                    const result = isMin ? Math.min(xVal, yVal) : Math.max(xVal, yVal);
+                    
+                    const index = (y * width + x) * 4;
+                    let color;
+                    if (isMin) {
+                        // Green tones for min
+                        color = [0, 100 + result * 100, 100 + result * 100];
+                    } else {
+                        // Purple/blue tones for max
+                        color = [result * 200, 0, 150 + result * 100];
+                    }
+                    
+                    data[index] = color[0];
+                    data[index + 1] = color[1];
+                    data[index + 2] = color[2];
+                    data[index + 3] = 255;
+                }
+            }
+            
+            ctx.putImageData(imageData, startX, startY);
+        }
+        
+        // Truth table
+        function drawTruthTable() {
+            const canvas = document.getElementById('truthTable');
+            const ctx = canvas.getContext('2d');
+            const size = 600;
+            const offset = 50;
+            
+            // Background
+            ctx.fillStyle = '#f0f0f0';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw grid
+            ctx.strokeStyle = '#ddd';
+            for (let i = 0; i <= 10; i++) {
+                const pos = offset + (size / 10) * i;
+                ctx.beginPath();
+                ctx.moveTo(pos, offset);
+                ctx.lineTo(pos, offset + size);
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.moveTo(offset, pos);
+                ctx.lineTo(offset + size, pos);
+                ctx.stroke();
+            }
+            
+            // Draw color gradient
+            for (let x = 0; x <= 10; x++) {
+                for (let y = 0; y <= 10; y++) {
+                    const xVal = x / 10;
+                    const yVal = y / 10;
+                    const result = Math.min(xVal, yVal);
+                    
+                    ctx.fillStyle = `rgb(0, ${100 + result * 100}, ${100 + result * 100})`;
+                    ctx.fillRect(offset + x * size / 10, offset + y * size / 10, size / 10, size / 10);
+                }
+            }
+            
+            // Highlight Boolean corners
+            const corners = [
+                {x: 0, y: 0, val: 0, color: 'darkred'},
+                {x: 0, y: 1, val: 0, color: 'orange'},
+                {x: 1, y: 0, val: 0, color: 'orange'},
+                {x: 1, y: 1, val: 1, color: 'green'}
+            ];
+            
+            corners.forEach(corner => {
+                const x = offset + corner.x * size;
+                const y = offset + corner.y * size;
+                
+                ctx.fillStyle = corner.color;
+                ctx.beginPath();
+                ctx.arc(x, y, 15, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 14px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(corner.val.toString(), x, y);
+                
+                // Label
+                ctx.fillStyle = 'black';
+                ctx.font = '10px Arial';
+                ctx.fillText(`(${corner.x},${corner.y})`, x, y + 25);
+            });
+            
+            // Labels
+            ctx.fillStyle = 'black';
+            ctx.font = '14px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('x', offset + size / 2, offset + size + 30);
+            ctx.save();
+            ctx.translate(20, offset + size / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText('y', 0, 0);
+            ctx.restore();
+            
+            ctx.font = 'bold 16px Arial';
+            ctx.fillText('Truth Table Extension: min(x,y) 📊', offset + size / 2, 30);
+        }
+        
+        // Worked examples
+        function drawWorkedExamples() {
+            const canvas = document.getElementById('workedExamples');
+            const ctx = canvas.getContext('2d');
+            
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Example 1
+            drawExample(ctx, 50, 50, 450, 250, 
+                'Example 1: (A AND B) OR C = 0.6',
+                [['C', 0.55], ['B', 0.8], ['A', 0.6], ['A∧B', 0.6], ['Result', 0.6]],
+                ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f7b731', '#26de81']
+            );
+            
+            // Example 2
+            drawExample(ctx, 550, 50, 450, 250,
+                'Example 2: (A AND B) OR C = 0.55',
+                [['C', 0.55], ['B', 0.2], ['A', 0.6], ['A∧B', 0.2], ['Result', 0.55]],
+                ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f7b731', '#26de81']
+            );
+            
+            // Example 3
+            drawExample(ctx, 50, 320, 450, 250,
+                'Example 3: A AND B AND C = 0.65',
+                [['C', 0.9], ['B', 0.65], ['A', 0.7], ['Result', 0.65]],
+                ['#95afc0', '#ecf0f1', '#d63031', '#00b894']
+            );
+            
+            // Example 4
+            drawExample(ctx, 550, 320, 450, 250,
+                'Example 4: Weak Link (0.1) Dominates',
+                [['C', 0.1], ['B', 0.65], ['A', 0.7], ['Result', 0.1]],
+                ['#e17055', '#fdcb6e', '#6c5ce7', '#2d3436']
+            );
+            
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 18px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Worked Examples: From Boolean Logic to Numeric Rules 🧮', canvas.width / 2, 30);
+        }
+        
+        function drawExample(ctx, x, y, width, height, title, data, colors) {
+            ctx.fillStyle = '#f9f9f9';
+            ctx.fillRect(x, y, width, height);
+            ctx.strokeStyle = '#ddd';
+            ctx.strokeRect(x, y, width, height);
+            
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 12px Arial';
+            ctx.textAlign = 'left';
+            ctx.fillText(title, x + 10, y + 25);
+            
+            const barHeight = 30;
+            const barWidth = width - 60;
+            const startY = y + 40;
+            
+            data.forEach((item, i) => {
+                const barY = startY + i * 35;
+                
+                ctx.fillStyle = colors[i];
+                const barLength = item[1] * barWidth;
+                ctx.fillRect(x + 50, barY, barLength, barHeight);
+                
+                ctx.fillStyle = 'black';
+                ctx.font = '11px Arial';
+                ctx.fillText(item[0], x + 10, barY + barHeight / 2 + 4);
+                ctx.textAlign = 'left';
+                ctx.fillText(item[1].toFixed(2), x + 50 + barLength + 5, barY + barHeight / 2 + 4);
+                ctx.textAlign = 'left';
+            });
+        }
+        
+        // Properties
+        function drawProperties() {
+            const canvas = document.getElementById('properties');
+            const ctx = canvas.getContext('2d');
+            
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Property 1: Commutativity
+            drawCommutativity(ctx, 50, 50, 300, 300);
+            
+            // Property 2: Neutral Elements
+            drawNeutralElements(ctx, 400, 50, 400, 300);
+            
+            // Property 3: Absorption
+            drawAbsorption(ctx, 850, 50, 300, 300);
+            
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 18px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Key Properties of min/max Operations 🎨', canvas.width / 2, 30);
+        }
+        
+        function drawCommutativity(ctx, x, y, width, height) {
+            ctx.fillStyle = '#f9f9f9';
+            ctx.fillRect(x, y, width, height);
+            
+            ctx.font = 'bold 14px Arial';
+            ctx.fillText('Commutativity 🔄', x + width / 2, y + 25);
+            
+            ctx.strokeStyle = 'purple';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(x + width / 3, y + height / 2, 30, 0, Math.PI * 2);
+            ctx.fillStyle = 'purple';
+            ctx.fill();
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.arc(x + width * 2 / 3, y + height / 2, 30, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            
+            ctx.strokeStyle = 'blue';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(x + width / 3 + 30, y + height / 2);
+            ctx.lineTo(x + width * 2 / 3 - 30, y + height / 2);
+            ctx.stroke();
+            
+            ctx.fillStyle = 'black';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('min(x,y)', x + width / 3, y + height / 2 + 5);
+            ctx.fillText('min(y,x)', x + width * 2 / 3, y + height / 2 + 5);
+        }
+        
+        function drawNeutralElements(ctx, x, y, width, height) {
+            ctx.fillStyle = '#f9f9f9';
+            ctx.fillRect(x, y, width, height);
+            
+            ctx.font = 'bold 14px Arial';
+            ctx.fillText('Neutral Elements 🎯', x + width / 2, y + 25);
+            
+            // Draw y=x line
+            ctx.strokeStyle = '#ccc';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([5, 5]);
+            ctx.beginPath();
+            ctx.moveTo(x + 30, y + height - 30);
+            ctx.lineTo(x + width - 30, y + 50);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            
+            // Draw min(x,1)
+            ctx.strokeStyle = 'blue';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(x + 30, y + height - 30);
+            ctx.lineTo(x + width - 30, y + 50);
+            ctx.stroke();
+            
+            ctx.fillStyle = 'blue';
+            ctx.font = '12px Arial';
+            ctx.fillText('min(x,1) = x', x + width - 80, y + 70);
+        }
+        
+        function drawAbsorption(ctx, x, y, width, height) {
+            ctx.fillStyle = '#f9f9f9';
+            ctx.fillRect(x, y, width, height);
+            
+            ctx.font = 'bold 14px Arial';
+            ctx.fillText('Absorption ✓', x + width / 2, y + 25);
+            
+            // Draw grid showing min(x, max(x,y)) = x
+            for (let i = 0; i < 10; i++) {
+                for (let j = 0; j < 10; j++) {
+                    const xVal = i / 9;
+                    const yVal = j / 9;
+                    const result = Math.min(xVal, Math.max(xVal, yVal));
+                    const error = Math.abs(result - xVal);
+                    
+                    const green = Math.min(255, error * 2550);
+                    ctx.fillStyle = `rgb(${255 - green}, 255, ${255 - green})`;
+                    ctx.fillRect(
+                        x + 30 + i * 20,
+                        y + 40 + j * 20,
+                        20, 20
+                    );
+                }
+            }
+        }
+        
+        // T-norms comparison
+        function drawTnorms() {
+            const canvas = document.getElementById('tnorms');
+            const ctx = canvas.getContext('2d');
+            
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.font = 'bold 18px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Alternative T-norms vs. Gödel (min/max) 🆚', canvas.width / 2, 30);
+            
+            // Draw plots for each t-norm
+            const yVal = 0.7;
+            
+            // Gödel
+            drawTnormPlot(ctx, 50, 80, 400, 250, 'Gödel T-norm (min) 📉', yVal, 'blue', 
+                (x) => Math.min(x, yVal));
+            
+            // Product
+            drawTnormPlot(ctx, 500, 80, 400, 250, 'Product T-norm ✖️', yVal, 'green',
+                (x) => x * yVal);
+            
+            // Lukasiewicz
+            drawTnormPlot(ctx, 50, 380, 400, 250, 'Łukasiewicz T-norm 📊', yVal, 'magenta',
+                (x) => Math.max(0, x + yVal - 1));
+            
+            // Comparison
+            drawComparison(ctx, 500, 380, 400, 250, 'Comparison 🔍', yVal);
+        }
+        
+        function drawTnormPlot(ctx, x, y, width, height, title, yVal, color, fn) {
+            ctx.fillStyle = '#f9f9f9';
+            ctx.fillRect(x, y, width, height);
+            
+            ctx.font = 'bold 12px Arial';
+            ctx.fillStyle = 'black';
+            ctx.textAlign = 'center';
+            ctx.fillText(title, x + width / 2, y + 20);
+            
+            // Axes
+            ctx.strokeStyle = '#ccc';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(x + 40, y + height - 40);
+            ctx.lineTo(x + width - 20, y + height - 40);
+            ctx.moveTo(x + 40, y + height - 40);
+            ctx.lineTo(x + 40, y + 30);
+            ctx.stroke();
+            
+            // Draw function
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            for (let i = 0; i <= width - 60; i++) {
+                const xVal = i / (width - 60);
+                const yResult = fn(xVal);
+                const plotY = y + height - 40 - (yResult * (height - 70));
+                if (i === 0) ctx.moveTo(x + 40 + i, plotY);
+                else ctx.lineTo(x + 40 + i, plotY);
+            }
+            ctx.stroke();
+            
+            // Reference line
+            ctx.strokeStyle = 'red';
+            ctx.setLineDash([5, 5]);
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            const refY = y + height - 40 - (yVal * (height - 70));
+            ctx.moveTo(x + 40, refY);
+            ctx.lineTo(x + width - 20, refY);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            
+            // Labels
+            ctx.fillStyle = 'black';
+            ctx.font = '10px Arial';
+            ctx.fillText('x', x + width / 2, y + height - 15);
+            ctx.save();
+            ctx.translate(x + 15, y + height / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText('T(x,y)', 0, 0);
+            ctx.restore();
+        }
+        
+        function drawComparison(ctx, x, y, width, height, title, yVal) {
+            ctx.fillStyle = '#f9f9f9';
+            ctx.fillRect(x, y, width, height);
+            
+            ctx.font = 'bold 12px Arial';
+            ctx.fillStyle = 'black';
+            ctx.textAlign = 'center';
+            ctx.fillText(title, x + width / 2, y + 20);
+            
+            // Axes
+            ctx.strokeStyle = '#ccc';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(x + 40, y + height - 40);
+            ctx.lineTo(x + width - 20, y + height - 40);
+            ctx.moveTo(x + 40, y + height - 40);
+            ctx.lineTo(x + 40, y + 30);
+            ctx.stroke();
+            
+            // Draw all three functions
+            const functions = [
+                {color: 'blue', fn: (x) => Math.min(x, yVal), label: 'Gödel'},
+                {color: 'green', fn: (x) => x * yVal, label: 'Product'},
+                {color: 'magenta', fn: (x) => Math.max(0, x + yVal - 1), label: 'Łukasiewicz'}
+            ];
+            
+            functions.forEach(func => {
+                ctx.strokeStyle = func.color;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                for (let i = 0; i <= width - 60; i++) {
+                    const xVal = i / (width - 60);
+                    const yResult = func.fn(xVal);
+                    const plotY = y + height - 40 - (yResult * (height - 70));
+                    if (i === 0) ctx.moveTo(x + 40 + i, plotY);
+                    else ctx.lineTo(x + 40 + i, plotY);
+                }
+                ctx.stroke();
+            });
+            
+            // Legend
+            let legendY = y + 35;
+            functions.forEach(func => {
+                ctx.strokeStyle = func.color;
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(x + 50, legendY);
+                ctx.lineTo(x + 70, legendY);
+                ctx.stroke();
+                ctx.fillStyle = 'black';
+                ctx.font = '10px Arial';
+                ctx.textAlign = 'left';
+                ctx.fillText(func.label, x + 75, legendY + 3);
+                legendY += 18;
+            });
+        }
+        
+        // Run all drawings
+        createHeatmaps();
+        drawTruthTable();
+        drawWorkedExamples();
+        drawProperties();
+        drawTnorms();
+    </script>
+</body>
+</html>

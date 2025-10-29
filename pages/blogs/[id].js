@@ -1,6 +1,7 @@
 import { getAllBlogPosts, getAllTopics } from "../../Lib/Data";
 import readingTime from "reading-time";
 import { serialize } from "next-mdx-remote/serialize";
+import { MDXRemote } from "next-mdx-remote";
 import rehypeSlug from "rehype-slug";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
@@ -36,6 +37,12 @@ export const getStaticProps = async (context) => {
       String(blog.data.Title.split(" ").join("-").toLowerCase()) === params.id
   );
 
+  if (!page) {
+    return {
+      notFound: true,
+    };
+  }
+
   const { data, content } = page;
   const readTime = readingTime(content).text;
   const mdxSource = await serialize(content, {
@@ -60,7 +67,7 @@ export const getStaticProps = async (context) => {
   };
 };
 
-function id({ data, content, id, headings, topics, readTime }) {
+function BlogPost({ data, content, id, headings, topics, readTime }) {
   return (
     <>
       <Head>
@@ -146,4 +153,4 @@ function id({ data, content, id, headings, topics, readTime }) {
   );
 }
 
-export default id;
+export default BlogPost;
