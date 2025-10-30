@@ -53,6 +53,28 @@ function BlogInner({ data, content, headings, readTime }) {
             path: 'https://assets5.lottiefiles.com/packages/lf20_1pxqjqps.json'
           });
         }
+        
+        // Parsing animation - Code/Text Processing (for DS-2)
+        if (document.getElementById('lottie-parsing')) {
+          lottie.loadAnimation({
+            container: document.getElementById('lottie-parsing'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://assets9.lottiefiles.com/packages/lf20_V9t630.json'
+          });
+        }
+        
+        // Algorithm animation - Process/Flowchart (for DS-2)
+        if (document.getElementById('lottie-algorithm')) {
+          lottie.loadAnimation({
+            container: document.getElementById('lottie-algorithm'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://assets9.lottiefiles.com/packages/lf20_jcikwtux.json'
+          });
+        }
       }
     };
     
