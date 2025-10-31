@@ -43,14 +43,14 @@ function BlogInner({ data, content, headings, readTime }) {
           });
         }
         
-        // Celebration animation - Confetti/Party (distinct: working URL)
+        // Celebration animation - Confetti/Party
         if (document.getElementById('lottie-celebration')) {
           lottie.loadAnimation({
             container: document.getElementById('lottie-celebration'),
             renderer: 'svg',
             loop: true,
             autoplay: true,
-            path: 'https://assets5.lottiefiles.com/packages/lf20_1pxqjqps.json'
+            path: 'https://assets9.lottiefiles.com/packages/lf20_X6UEgW5AHj.json'
           });
         }
         
@@ -73,6 +73,17 @@ function BlogInner({ data, content, headings, readTime }) {
             loop: true,
             autoplay: true,
             path: 'https://assets9.lottiefiles.com/packages/lf20_jcikwtux.json'
+          });
+        }
+        
+        // Stats animation - Analytics/Statistics (for DS-3)
+        if (document.getElementById('lottie-stats')) {
+          lottie.loadAnimation({
+            container: document.getElementById('lottie-stats'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://assets5.lottiefiles.com/packages/lf20_szlepvdj.json'
           });
         }
       }
