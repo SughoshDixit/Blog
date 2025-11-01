@@ -5,9 +5,30 @@ import { useEffect } from "react";
 
 function BlogInner({ data, content, headings, readTime }) {
   useEffect(() => {
-    // Load Lottie animations after component mounts
+    // Load Lottie animations after component mounts and MDX content is rendered
     const loadLottieAnimations = async () => {
       if (typeof window !== 'undefined') {
+        // Wait for MDX content to be rendered in the DOM
+        const waitForMDX = () => {
+          return new Promise((resolve) => {
+            const checkInterval = setInterval(() => {
+              // Check if any lottie container exists in the DOM
+              if (document.querySelector('[id^="lottie-"]')) {
+                clearInterval(checkInterval);
+                resolve();
+              }
+            }, 50);
+            
+            // Timeout after 2 seconds
+            setTimeout(() => {
+              clearInterval(checkInterval);
+              resolve();
+            }, 2000);
+          });
+        };
+        
+        await waitForMDX();
+        
         const lottie = (await import('lottie-web')).default;
         
         // Challenge animation - Rocket (distinct: lf20_2glqweqs)
@@ -84,6 +105,17 @@ function BlogInner({ data, content, headings, readTime }) {
             loop: true,
             autoplay: true,
             path: 'https://assets5.lottiefiles.com/packages/lf20_szlepvdj.json'
+          });
+        }
+        
+        // Rank animation - Ranking/Stratification (for DS-4)
+        if (document.getElementById('lottie-rank')) {
+          lottie.loadAnimation({
+            container: document.getElementById('lottie-rank'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://assets5.lottiefiles.com/packages/lf20_jcikwtux.json'
           });
         }
       }

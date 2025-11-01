@@ -11,7 +11,7 @@ isPublished: true
 
 # Day 3 — Percentiles and Quantiles: Understanding Data Distributions 📊
 
-<div style={{textAlign: 'center', margin: '2rem 0'}}>
+<div style={{textAlign:  'center', margin: '2rem 0'}}>
   <div id="lottie-stats" style={{width: '200px', height: '200px', margin: '0 auto'}}></div>
   <p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Understanding where your data sits! 📈</p>
 </div>
