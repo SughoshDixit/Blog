@@ -1,6 +1,6 @@
 ---
 Id: 1004
-Title: "Day 4 — Percentile Rank and Stratification (with Solved Examples)"
+Title: "Day 4 — Percentile Rank and Stratification"
 Author: Sughosh P Dixit
 Tags: Data Science Statistics Percentile Rank Stratification ECDF Quantiles Sampling
 Topic: Data Science
