@@ -1,6 +1,6 @@
 ---
 Id: 1004
-Title: "Day 4 — Percentile Rank and Stratification"
+Title: "Day 4 — Percentile Rank and Stratifications"
 Author: Sughosh P Dixit
 Tags: Data Science Statistics Percentile Rank Stratification ECDF Quantiles Sampling
 Topic: Data Science
@@ -101,7 +101,7 @@ Because ranks are monotone-invariant, your strata stay meaningful even if raw fe
 ## 🧩 Solved example — From raw features to strata
 
 | id | A  | B  |
-| -- | -- | -- |
+|----|----|----|
 | 1  | 10 | 5  |
 | 2  | 7  | 3  |
 | 3  | 12 | 9  |
@@ -115,29 +115,29 @@ Because ranks are monotone-invariant, your strata stay meaningful even if raw fe
 
 Use the empirical CDF (rank = i/n). Example (rounded):
 
-| A  | rankA | B  | rankB |
-| -- | ----- | -- | ----- |
-| 7  | 0.12  | 2  | 0.12  |
-| 8  | 0.25  | 3  | 0.25  |
-| 9  | 0.38  | 4  | 0.38  |
-| 10 | 0.50  | 5  | 0.50  |
-| 12 | 0.62  | 6  | 0.62  |
-| 15 | 0.75  | 8  | 0.75  |
-| 18 | 0.88  | 9  | 0.88  |
-| 20 | 1.00  | 10 | 1.00  |
+| A   | rankA | B   | rankB |
+|-----|-------|-----|-------|
+| 7   | 0.12  | 2   | 0.12  |
+| 8   | 0.25  | 3   | 0.25  |
+| 9   | 0.38  | 4   | 0.38  |
+| 10  | 0.50  | 5   | 0.50  |
+| 12  | 0.62  | 6   | 0.62  |
+| 15  | 0.75  | 8   | 0.75  |
+| 18  | 0.88  | 9   | 0.88  |
+| 20  | 1.00  | 10  | 1.00  |
 
 ### Step 2️⃣: Combine with min (AND-like) and max (OR-like)
 
-| id | A  | B  | rA   | rB   | rAND = min(rA,rB) | rOR = max(rA,rB) |
-| -- | -- | -- | ---- | ---- | ----------------- | ---------------- |
-| 1  | 10 | 5  | 0.50 | 0.50 | 0.50              | 0.50             |
-| 2  | 7  | 3  | 0.12 | 0.25 | 0.12              | 0.25             |
-| 3  | 12 | 9  | 0.62 | 0.88 | 0.62              | 0.88             |
-| 4  | 15 | 4  | 0.75 | 0.38 | 0.38              | 0.75             |
-| 5  | 8  | 8  | 0.25 | 0.75 | 0.25              | 0.75             |
-| 6  | 20 | 6  | 1.00 | 0.62 | 0.62              | 1.00             |
-| 7  | 9  | 2  | 0.38 | 0.12 | 0.12              | 0.38             |
-| 8  | 18 | 10 | 0.88 | 1.00 | 0.88              | 1.00             |
+| id | A   | B   | rA   | rB   | rAND = min(rA,rB) | rOR = max(rA,rB) |
+|----|-----|-----|------|------|-------------------|------------------|
+| 1  | 10  | 5   | 0.50 | 0.50 | 0.50              | 0.50             |
+| 2  | 7   | 3   | 0.12 | 0.25 | 0.12              | 0.25             |
+| 3  | 12  | 9   | 0.62 | 0.88 | 0.62              | 0.88             |
+| 4  | 15  | 4   | 0.75 | 0.38 | 0.38              | 0.75             |
+| 5  | 8   | 8   | 0.25 | 0.75 | 0.25              | 0.75             |
+| 6  | 20  | 6   | 1.00 | 0.62 | 0.62              | 1.00             |
+| 7  | 9   | 2   | 0.38 | 0.12 | 0.12              | 0.38             |
+| 8  | 18  | 10  | 0.88 | 1.00 | 0.88              | 1.00             |
 
 ### Step 3️⃣: Create strata from rAND
 

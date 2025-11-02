@@ -139,9 +139,9 @@ score 0.85 >= stability 0.9 > and flag 0 == or
 
 | Row | score | stability | flag | Result | Explanation |
 |-----|-------|-----------|------|--------|-------------|
-| A | 0.86 | 0.91 | 1 | ✅ True | 1 ∧ 1 ∨ 0 = 1 |
-| B | 0.86 | 0.70 | 0 | ✅ True | 1 ∧ 0 ∨ 1 = 1 |
-| C | 0.70 | 0.70 | 1 | ❌ False | 0 ∧ 0 ∨ 0 = 0 |
+| A   | 0.86  | 0.91      | 1    | ✅ True | 1 ∧ 1 ∨ 0 = 1 |
+| B   | 0.86  | 0.70      | 0    | ✅ True | 1 ∧ 0 ∨ 1 = 1 |
+| C   | 0.70  | 0.70      | 1    | ❌ False | 0 ∧ 0 ∨ 0 = 0 |
 
 ## ⚖️ Worked Example 2 — Why Precedence Matters
 
@@ -177,8 +177,8 @@ feature_x feature_y / 2 > z_score bonus + 3 >= and
 
 | Row | feature_x | feature_y | z_score | bonus | Result |
 |-----|-----------|-----------|---------|-------|--------|
-| 1 | 10 | 4 | 2.1 | 1.0 | ✅ True |
-| 2 | 5 | 4 | 2.5 | 0.2 | ❌ False |
+| 1   | 10        | 4         | 2.1     | 1.0   | ✅ True |
+| 2   | 5         | 4         | 2.5     | 0.2   | ❌ False |
 
 🧯 **Tip:** guard against division by zero in feature_y.
 
@@ -198,8 +198,8 @@ drift not quality 0.95 >= coverage 0.98 >= or and
 
 | Row | drift | quality | coverage | Result |
 |-----|-------|---------|----------|--------|
-| 1 | 1 | 0.97 | 0.90 | ❌ False |
-| 2 | 0 | 0.93 | 0.99 | ✅ True |
+| 1   | 1     | 0.97    | 0.90     | ❌ False |
+| 2   | 0     | 0.93    | 0.99     | ✅ True |
 
 ## 🏁 What You Gain
 

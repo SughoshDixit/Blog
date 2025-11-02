@@ -133,6 +133,17 @@ function BlogInner({ data, content, headings, readTime }) {
             path: 'https://assets5.lottiefiles.com/packages/lf20_jcikwtux.json'
           });
         }
+        
+        // Robust statistics animation - Shield/Protection (for DS-5)
+        if (document.getElementById('lottie-robust')) {
+          lottie.loadAnimation({
+            container: document.getElementById('lottie-robust'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://assets5.lottiefiles.com/packages/lf20_jcikwtux.json'
+          });
+        }
       }
     };
     
