@@ -1,9 +1,24 @@
 import { MDXRemote } from "next-mdx-remote";
 import { BsThreeDots } from "react-icons/bs";
 import Toc from "./Toc";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function BlogInner({ data, content, headings, readTime }) {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Check if mobile viewport
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   useEffect(() => {
     // Load Lottie animations after component mounts and MDX content is rendered
     const loadLottieAnimations = async () => {
@@ -124,6 +139,35 @@ function BlogInner({ data, content, headings, readTime }) {
     loadLottieAnimations();
   }, []);
 
+  const openModal = (src, alt) => {
+    if (isMobile) {
+      setSelectedImage({ src, alt });
+    }
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+  };
+
+  // Escape key handler
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && selectedImage) {
+        setSelectedImage(null);
+      }
+    };
+    
+    if (selectedImage) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden';
+    }
+    
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedImage]);
+
   const mdxComponents = {
     img: (props) => (
       <img
@@ -131,7 +175,8 @@ function BlogInner({ data, content, headings, readTime }) {
         decoding="async"
         referrerPolicy="no-referrer"
         crossOrigin="anonymous"
-        className="mx-auto my-4 rounded-md w-full md:w-auto"
+        className={`mx-auto my-4 rounded-md w-full md:w-auto ${isMobile ? 'cursor-pointer' : ''}`}
+        onClick={() => openModal(props.src, props.alt)}
         {...props}
       />
     ),
@@ -172,9 +217,10 @@ function BlogInner({ data, content, headings, readTime }) {
       {data.HeaderImage && (
         <div className="mb-8">
           <img
-            className="w-full h-48 sm:h-64 lg:h-96 object-cover rounded-lg"
+            className={`w-full h-48 sm:h-64 lg:h-96 object-cover rounded-lg ${isMobile ? 'cursor-pointer' : ''}`}
             src={data.HeaderImage}
             alt="Article Image"
+            onClick={() => openModal(data.HeaderImage, "Article Image")}
           />
         </div>
       )}
@@ -217,6 +263,41 @@ function BlogInner({ data, content, headings, readTime }) {
           <strong>In one line:</strong> Footballer, Musician by Passion, Data Science by Profession, Civilizationalist by Ideology
         </div>
       </div>
+
+      {/* Image Modal for Mobile */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
+          onClick={closeModal}
+        >
+          <div 
+            className="bg-white dark:bg-gray-800 rounded-xl max-w-4xl max-h-[90vh] overflow-auto w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-4 border-b border-gray-200 dark:border-gray-700 sticky top-0 bg-white dark:bg-gray-800 z-10">
+              <div className="flex items-center justify-end">
+                <button
+                  onClick={closeModal}
+                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                  aria-label="Close modal"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            
+            <div className="p-4">
+              <img 
+                src={selectedImage.src} 
+                alt={selectedImage.alt}
+                className="w-full h-auto max-h-[70vh] object-contain"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
