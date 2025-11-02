@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { getAllBlogPosts, getAllTopics } from "../Lib/Data";
+import { generateSlug } from "../Lib/utils";
 import { useState, useEffect } from "react";
 import { 
   FiTrendingUp, 
@@ -110,7 +111,7 @@ export default function Dashboard({ blogs, topics }) {
 
         // Process each blog
         for (const blog of publishedBlogs) {
-          const blogId = String(blog.data.Title.split(" ").join("-").toLowerCase());
+          const blogId = generateSlug(blog.data.Title);
           
           try {
             // Fetch likes

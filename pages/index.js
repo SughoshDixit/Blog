@@ -4,6 +4,7 @@ import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import BlogHeader from "../Components/BlogHeader";
 import { getAllBlogPosts, getAllTopics } from "../Lib/Data";
+import { generateSlug } from "../Lib/utils";
 import { useState, useEffect } from "react";
 
 export const getStaticProps = () => {
@@ -165,7 +166,7 @@ export default function Home({ blogs, topics }) {
                           </div>
                           
                           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3 hover:text-gray-600 dark:hover:text-gray-300 cursor-pointer leading-tight" style={{fontFamily: 'Charter, Georgia, serif'}}>
-                            <a href={`/blogs/${blog.data.Title.split(" ").join("-").toLowerCase()}`} className="hover:underline">
+                            <a href={`/blogs/${generateSlug(blog.data.Title)}`} className="hover:underline">
                               {blog.data.Title}
                             </a>
                           </h2>
@@ -191,7 +192,7 @@ export default function Home({ blogs, topics }) {
                               </div>
                             </div>
                             <div className="flex-shrink-0">
-                              <BlogEngagement blogId={blog.data.Title.split(" ").join("-").toLowerCase()} />
+                              <BlogEngagement blogId={generateSlug(blog.data.Title)} />
                             </div>
                           </div>
                         </div>

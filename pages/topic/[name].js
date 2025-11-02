@@ -1,5 +1,6 @@
 import React from "react";
 import { getAllBlogPosts, getAllTopics } from "../../Lib/Data";
+import { generateSlug } from "../../Lib/utils";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
@@ -78,7 +79,7 @@ function name({ blogs, topics, topicName }) {
                         </div>
                         
                         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 hover:text-gray-600 dark:hover:text-gray-300 cursor-pointer leading-tight" style={{fontFamily: 'Charter, Georgia, serif'}}>
-                          <a href={`/blogs/${blog.data.Title.split(" ").join("-").toLowerCase()}`} className="hover:underline">
+                          <a href={`/blogs/${generateSlug(blog.data.Title)}`} className="hover:underline">
                             {blog.data.Title}
                           </a>
                         </h2>

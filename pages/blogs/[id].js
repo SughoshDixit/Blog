@@ -1,4 +1,5 @@
 import { getAllBlogPosts, getAllTopics } from "../../Lib/Data";
+import { generateSlug } from "../../Lib/utils";
 import readingTime from "reading-time";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
@@ -20,7 +21,7 @@ export const getStaticPaths = () => {
   return {
     paths: allBlogs.map((blog) => ({
       params: {
-        id: String(blog.data.Title.split(" ").join("-").toLowerCase()),
+        id: generateSlug(blog.data.Title),
       },
     })),
     fallback: false,
@@ -34,7 +35,7 @@ export const getStaticProps = async (context) => {
 
   const page = allBlogs.find(
     (blog) =>
-      String(blog.data.Title.split(" ").join("-").toLowerCase()) === params.id
+      generateSlug(blog.data.Title) === params.id
   );
 
   if (!page) {

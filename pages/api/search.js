@@ -1,4 +1,5 @@
 import { getAllBlogPosts } from "../../Lib/Data";
+import { generateSlug } from "../../Lib/utils";
 
 export default function handler(req, res) {
   if (req.method !== 'GET') {
@@ -30,7 +31,7 @@ export default function handler(req, res) {
                topic.includes(searchQuery);
       })
       .map(blog => ({
-        id: blog.data.Title.split(" ").join("-").toLowerCase(),
+        id: generateSlug(blog.data.Title),
         title: blog.data.Title,
         abstract: blog.data.Abstract,
         author: blog.data.Author,
