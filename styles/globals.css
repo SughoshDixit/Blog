@@ -47,6 +47,22 @@ h1, h2, h3, h4, h5, h6 {
   color: #f3f4f6;
 }
 
+/* Ensure images in article content maintain aspect ratio */
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 2rem auto;
+  border-radius: 8px;
+}
+
+.article-content img[src*="/DS-"] {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
 /* Blog buttons */
 .medium-button {
   background-color: #1a8917;
