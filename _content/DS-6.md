@@ -11,6 +11,10 @@ isPublished: true
 
 # **Day 6 — Distribution Shape: Skewness and Kurtosis (Simple Guide + Visuals)** 📊✨
 
+<div style={{textAlign: 'center', margin: '2rem 0'}}>
+  <div id="lottie-shape" style={{width: '200px', height: '200px', margin: '0 auto'}}></div>
+  <p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Understanding distribution shape! 📈</p>
+</div>
 
 **TL;DR:**
 
@@ -50,6 +54,10 @@ One can be tall and thin, another flat and wide, another lopsided — and each t
 
 ## 2️⃣ Skewness = Asymmetry ↩️↪️
 
+<div style={{textAlign: 'center', margin: '1.5rem 0'}}>
+  <div id="lottie-visualization-skew" style={{width: '180px', height: '180px', margin: '0 auto'}}></div>
+</div>
+
 ➡️ **Positive skew (right-skewed):** long tail to the right — a few large values pull the distribution.
 
 ⬅️ **Negative skew (left-skewed):** long tail to the left — a few small values drag it down.
@@ -77,6 +85,10 @@ You don't need to calculate it manually — just know it quantifies tilt.
 ---
 
 ## 3️⃣ Kurtosis = Tail Weight 🦘
+
+<div style={{textAlign: 'center', margin: '1.5rem 0'}}>
+  <div id="lottie-visualization-kurt" style={{width: '180px', height: '180px', margin: '0 auto'}}></div>
+</div>
 
 🔺 **High kurtosis (leptokurtic):** heavy tails → many extremes.
 
@@ -125,11 +137,36 @@ Use shape diagnostics like `get_skewness_kurtosis()` to guide cleaning, binning,
 
 Imagine three histograms with the same mean and variance:
 
-| Shape | Skewness | Kurtosis | Description |
-|-------|----------|----------|-------------|
-| ⚪ Symmetric light-tailed | ≈ 0 | < 3 | Bell-shaped, few extremes |
-| 🟣 Symmetric heavy-tailed | ≈ 0 | > 3 | Frequent highs and lows |
-| 🟠 Right-skewed | > 0 | > 3 | Many small values, few big ones |
+<table>
+<thead>
+<tr>
+<th>Shape</th>
+<th>Skewness</th>
+<th>Kurtosis</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⚪ Symmetric light-tailed</td>
+<td>≈ 0</td>
+<td>&lt; 3</td>
+<td>Bell-shaped, few extremes</td>
+</tr>
+<tr>
+<td>🟣 Symmetric heavy-tailed</td>
+<td>≈ 0</td>
+<td>&gt; 3</td>
+<td>Frequent highs and lows</td>
+</tr>
+<tr>
+<td>🟠 Right-skewed</td>
+<td>&gt; 0</td>
+<td>&gt; 3</td>
+<td>Many small values, few big ones</td>
+</tr>
+</tbody>
+</table>
 
 All have identical center and spread — but completely different risk and outlier profiles.
 
@@ -248,7 +285,32 @@ And once you see it, you can't unsee it. 🎨📊
 
 ---
 
+## 📚 References
+
+1. Joanes, D. N., & Gill, C. A. (1998). Comparing measures of sample skewness and kurtosis. *Journal of the Royal Statistical Society: Series D (The Statistician)*, 47(1), 183-189.
+
+2. DeCarlo, L. T. (1997). On the meaning and use of kurtosis. *Psychological Methods*, 2(3), 292-307.
+
+3. Westfall, P. H. (2014). Kurtosis as peakedness, 1905–2014. R.I.P. *The American Statistician*, 68(3), 191-195.
+
+4. Pearson, K. (1895). Contributions to the mathematical theory of evolution. II. Skew variation in homogeneous material. *Philosophical Transactions of the Royal Society of London*, 186, 343-414.
+
+5. Fisher, R. A. (1930). The moments of the distribution for normal samples of measures of departure from normality. *Proceedings of the Royal Society of London. Series A*, 130(812), 16-28.
+
+6. Tukey, J. W. (1977). *Exploratory Data Analysis*. Addison-Wesley.
+
+7. Hoaglin, D. C., Mosteller, F., & Tukey, J. W. (Eds.). (1983). *Understanding Robust and Exploratory Data Analysis*. John Wiley & Sons.
+
+8. Rousseeuw, P. J., & Croux, C. (1993). Alternatives to the median absolute deviation. *Journal of the American Statistical Association*, 88(424), 1273-1283.
+
+9. D'Agostino, R. B., & Stephens, M. A. (Eds.). (1986). *Goodness-of-Fit Techniques*. Marcel Dekker.
+
+10. Hyndman, R. J., & Fan, Y. (1996). Sample quantiles in statistical packages. *The American Statistician*, 50(4), 361-365.
+
+---
+
 <div style={{textAlign: 'center', margin: '3rem 0', padding: '2rem', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', borderRadius: '15px', color: 'white'}}>
+  <div id="lottie-celebration" style={{width: '200px', height: '200px', margin: '0 auto'}}></div>
   <h3 style={{margin: '1rem 0', color: 'white'}}>Day 6 Complete! 🎉</h3>
   <p style={{margin: 0, fontSize: '1.1rem', opacity: 0.9}}>*This is Day 6 of my 30-day challenge documenting my Data Science journey at Oracle! Stay tuned for more insights and mathematical foundations of data science. 🚀*</p>
   <div style={{marginTop: '1.5rem'}}>

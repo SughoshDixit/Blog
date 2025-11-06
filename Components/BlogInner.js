@@ -106,6 +106,28 @@ function BlogInner({ data, content, headings, readTime }) {
           });
         }
         
+        // Skewness visualization animation (for DS-6)
+        if (document.getElementById('lottie-visualization-skew')) {
+          lottie.loadAnimation({
+            container: document.getElementById('lottie-visualization-skew'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://assets5.lottiefiles.com/packages/lf20_2glqweqs.json'
+          });
+        }
+        
+        // Kurtosis visualization animation (for DS-6)
+        if (document.getElementById('lottie-visualization-kurt')) {
+          lottie.loadAnimation({
+            container: document.getElementById('lottie-visualization-kurt'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://assets5.lottiefiles.com/packages/lf20_2glqweqs.json'
+          });
+        }
+        
         // Celebration animation - Confetti/Party (only if not already handled)
         const celebrationEl = document.getElementById('lottie-celebration');
         if (celebrationEl && !lottieAnimations.current.has('lottie-celebration')) {
@@ -258,18 +280,65 @@ function BlogInner({ data, content, headings, readTime }) {
   }, [selectedImage]);
 
   const mdxComponents = {
-    img: (props) => (
-      <img
-        loading="lazy"
-        decoding="async"
-        referrerPolicy="no-referrer"
-        crossOrigin="anonymous"
-        className={`mx-auto my-4 rounded-md max-w-full h-auto ${isMobile ? 'cursor-pointer w-full' : 'w-auto'}`}
-        style={{maxWidth: '100%', height: 'auto', display: 'block'}}
-        onClick={() => openModal(props.src, props.alt)}
-        {...props}
-      />
+    img: (props) => {
+      // Special handling for header images and DS-6 images
+      const isHeaderImage = props.src && props.src.includes('skewness_kurtosis_concept');
+      const isDSImage = props.src && props.src.includes('/DS-6/');
+      
+      return (
+        <img
+          loading="lazy"
+          decoding="async"
+          referrerPolicy="no-referrer"
+          crossOrigin="anonymous"
+          className={`mx-auto my-4 rounded-md ${isHeaderImage || isDSImage ? 'w-full' : 'max-w-full'} h-auto ${isMobile ? 'cursor-pointer' : ''}`}
+          style={{
+            maxWidth: '100%',
+            height: 'auto',
+            display: 'block',
+            objectFit: 'contain'
+          }}
+          onClick={() => openModal(props.src, props.alt)}
+          {...props}
+        />
+      );
+    },
+    table: (props) => (
+      <div className="overflow-x-auto my-6">
+        <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700" {...props} />
+      </div>
     ),
+    thead: (props) => (
+      <thead className="bg-gray-100 dark:bg-gray-800" {...props} />
+    ),
+    tbody: (props) => (
+      <tbody {...props} />
+    ),
+    tr: (props) => (
+      <tr className="border-b border-gray-200 dark:border-gray-700" {...props} />
+    ),
+    th: (props) => {
+      // Default to center alignment for numeric columns, left for text
+      const { children, ...rest } = props;
+      const isNumeric = typeof children === 'string' && /^[≈<>−+\d\s\.]+$/.test(String(children).trim());
+      const alignClass = isNumeric ? 'text-center' : 'text-left';
+      return (
+        <th className={`px-4 py-2 ${alignClass} font-semibold border border-gray-300 dark:border-gray-700`} {...rest}>
+          {children}
+        </th>
+      );
+    },
+    td: (props) => {
+      // Default to center alignment for numeric columns, left for text
+      const { children, ...rest } = props;
+      const isNumeric = typeof children === 'string' && /^[≈<>−+\d\s\.]+$/.test(String(children).trim());
+      const alignClass = isNumeric ? 'text-center' : 'text-left';
+      return (
+        <td className={`px-4 py-2 ${alignClass} border border-gray-300 dark:border-gray-700`} {...rest}>
+          {children}
+        </td>
+      );
+    },
   };
   return (
     <div className="max-w-4xl mx-auto">

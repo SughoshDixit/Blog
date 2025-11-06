@@ -100,44 +100,212 @@ Because ranks are monotone-invariant, your strata stay meaningful even if raw fe
 
 ## 🧩 Solved example — From raw features to strata
 
-| id | A  | B  |
-|----|----|----|
-| 1  | 10 | 5  |
-| 2  | 7  | 3  |
-| 3  | 12 | 9  |
-| 4  | 15 | 4  |
-| 5  | 8  | 8  |
-| 6  | 20 | 6  |
-| 7  | 9  | 2  |
-| 8  | 18 | 10 |
+<table>
+<thead>
+<tr>
+<th >id</th>
+<th >A</th>
+<th >B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td >1</td>
+<td >10</td>
+<td >5</td>
+</tr>
+<tr>
+<td >2</td>
+<td >7</td>
+<td >3</td>
+</tr>
+<tr>
+<td >3</td>
+<td >12</td>
+<td >9</td>
+</tr>
+<tr>
+<td >4</td>
+<td >15</td>
+<td >4</td>
+</tr>
+<tr>
+<td >5</td>
+<td >8</td>
+<td >8</td>
+</tr>
+<tr>
+<td >6</td>
+<td >20</td>
+<td >6</td>
+</tr>
+<tr>
+<td >7</td>
+<td >9</td>
+<td >2</td>
+</tr>
+<tr>
+<td >8</td>
+<td >18</td>
+<td >10</td>
+</tr>
+</tbody>
+</table>
 
 ### Step 1️⃣: Compute percentile ranks per feature
 
 Use the empirical CDF (rank = i/n). Example (rounded):
 
-| A   | rankA | B   | rankB |
-|-----|-------|-----|-------|
-| 7   | 0.12  | 2   | 0.12  |
-| 8   | 0.25  | 3   | 0.25  |
-| 9   | 0.38  | 4   | 0.38  |
-| 10  | 0.50  | 5   | 0.50  |
-| 12  | 0.62  | 6   | 0.62  |
-| 15  | 0.75  | 8   | 0.75  |
-| 18  | 0.88  | 9   | 0.88  |
-| 20  | 1.00  | 10  | 1.00  |
+<table>
+<thead>
+<tr>
+<th >A</th>
+<th >rankA</th>
+<th >B</th>
+<th >rankB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td >7</td>
+<td >0.12</td>
+<td >2</td>
+<td >0.12</td>
+</tr>
+<tr>
+<td >8</td>
+<td >0.25</td>
+<td >3</td>
+<td >0.25</td>
+</tr>
+<tr>
+<td >9</td>
+<td >0.38</td>
+<td >4</td>
+<td >0.38</td>
+</tr>
+<tr>
+<td >10</td>
+<td >0.50</td>
+<td >5</td>
+<td >0.50</td>
+</tr>
+<tr>
+<td >12</td>
+<td >0.62</td>
+<td >6</td>
+<td >0.62</td>
+</tr>
+<tr>
+<td >15</td>
+<td >0.75</td>
+<td >8</td>
+<td >0.75</td>
+</tr>
+<tr>
+<td >18</td>
+<td >0.88</td>
+<td >9</td>
+<td >0.88</td>
+</tr>
+<tr>
+<td >20</td>
+<td >1.00</td>
+<td >10</td>
+<td >1.00</td>
+</tr>
+</tbody>
+</table>
 
 ### Step 2️⃣: Combine with min (AND-like) and max (OR-like)
 
-| id | A   | B   | rA   | rB   | rAND = min(rA,rB) | rOR = max(rA,rB) |
-|----|-----|-----|------|------|-------------------|------------------|
-| 1  | 10  | 5   | 0.50 | 0.50 | 0.50              | 0.50             |
-| 2  | 7   | 3   | 0.12 | 0.25 | 0.12              | 0.25             |
-| 3  | 12  | 9   | 0.62 | 0.88 | 0.62              | 0.88             |
-| 4  | 15  | 4   | 0.75 | 0.38 | 0.38              | 0.75             |
-| 5  | 8   | 8   | 0.25 | 0.75 | 0.25              | 0.75             |
-| 6  | 20  | 6   | 1.00 | 0.62 | 0.62              | 1.00             |
-| 7  | 9   | 2   | 0.38 | 0.12 | 0.12              | 0.38             |
-| 8  | 18  | 10  | 0.88 | 1.00 | 0.88              | 1.00             |
+<table>
+<thead>
+<tr>
+<th >id</th>
+<th >A</th>
+<th >B</th>
+<th >rA</th>
+<th >rB</th>
+<th >rAND = min(rA,rB)</th>
+<th >rOR = max(rA,rB)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td >1</td>
+<td >10</td>
+<td >5</td>
+<td >0.50</td>
+<td >0.50</td>
+<td >0.50</td>
+<td >0.50</td>
+</tr>
+<tr>
+<td >2</td>
+<td >7</td>
+<td >3</td>
+<td >0.12</td>
+<td >0.25</td>
+<td >0.12</td>
+<td >0.25</td>
+</tr>
+<tr>
+<td >3</td>
+<td >12</td>
+<td >9</td>
+<td >0.62</td>
+<td >0.88</td>
+<td >0.62</td>
+<td >0.88</td>
+</tr>
+<tr>
+<td >4</td>
+<td >15</td>
+<td >4</td>
+<td >0.75</td>
+<td >0.38</td>
+<td >0.38</td>
+<td >0.75</td>
+</tr>
+<tr>
+<td >5</td>
+<td >8</td>
+<td >8</td>
+<td >0.25</td>
+<td >0.75</td>
+<td >0.25</td>
+<td >0.75</td>
+</tr>
+<tr>
+<td >6</td>
+<td >20</td>
+<td >6</td>
+<td >1.00</td>
+<td >0.62</td>
+<td >0.62</td>
+<td >1.00</td>
+</tr>
+<tr>
+<td >7</td>
+<td >9</td>
+<td >2</td>
+<td >0.38</td>
+<td >0.12</td>
+<td >0.12</td>
+<td >0.38</td>
+</tr>
+<tr>
+<td >8</td>
+<td >18</td>
+<td >10</td>
+<td >0.88</td>
+<td >1.00</td>
+<td >0.88</td>
+<td >1.00</td>
+</tr>
+</tbody>
+</table>
 
 ### Step 3️⃣: Create strata from rAND
 
@@ -208,6 +376,30 @@ Percentile ranks normalize features onto a **common [0,1] scale**.
 Combining them with **min (AND)** or **max (OR)** gives an interpretable, monotone score ideal for **sampling, prioritization, and reporting.**
 
 Simple ✅ Robust 🧩 Explainable 💡
+
+---
+
+## 📚 References
+
+1. Hyndman, R. J., & Fan, Y. (1996). Sample quantiles in statistical packages. *The American Statistician*, 50(4), 361-365.
+
+2. Serfling, R. J. (2009). *Approximation Theorems of Mathematical Statistics*. John Wiley & Sons.
+
+3. Mosteller, F., & Tukey, J. W. (1977). *Data Analysis and Regression: A Second Course in Statistics*. Addison-Wesley.
+
+4. Hoaglin, D. C., Mosteller, F., & Tukey, J. W. (Eds.). (1983). *Understanding Robust and Exploratory Data Analysis*. John Wiley & Sons.
+
+5. David, H. A., & Nagaraja, H. N. (2003). *Order Statistics* (3rd ed.). John Wiley & Sons.
+
+6. Parzen, E. (1979). Nonparametric statistical data modeling. *Journal of the American Statistical Association*, 74(365), 105-121.
+
+7. Koenker, R. (2005). *Quantile Regression*. Cambridge University Press.
+
+8. Langford, E. (2006). Quartiles in elementary statistics. *Journal of Statistics Education*, 14(3).
+
+9. Hyndman, R. J. (1996). Computing and graphing highest density regions. *The American Statistician*, 50(2), 120-126.
+
+10. Cramér, H. (1946). *Mathematical Methods of Statistics*. Princeton University Press.
 
 ---
 

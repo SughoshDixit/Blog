@@ -76,15 +76,44 @@ That scaling ensures robust z-scores align roughly with classical z-scores.
 
 ### Step 2️⃣ — Absolute deviations from the median
 
-| *x* | |*x* − 13| |
-|-----|----------|
-| 10  | 3        |
-| 12  | 1        |
-| 13  | 0        |
-| 13  | 0        |
-| 14  | 1        |
-| 15  | 2        |
-| 100 | 87       |
+<table>
+<thead>
+<tr>
+<th >*x*</th>
+<th >\|*x* − 13\|</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td >10</td>
+<td >3</td>
+</tr>
+<tr>
+<td >12</td>
+<td >1</td>
+</tr>
+<tr>
+<td >13</td>
+<td >0</td>
+</tr>
+<tr>
+<td >13</td>
+<td >0</td>
+</tr>
+<tr>
+<td >14</td>
+<td >1</td>
+</tr>
+<tr>
+<td >15</td>
+<td >2</td>
+</tr>
+<tr>
+<td >100</td>
+<td >87</td>
+</tr>
+</tbody>
+</table>
 
 Sorted deviations: `[0, 0, 1, 1, 2, 3, 87]`
 
@@ -94,14 +123,40 @@ Sorted deviations: `[0, 0, 1, 1, 2, 3, 87]`
 
 *z*ᵣ = 0.6745 × (*x* − 13) / 1
 
-| *x*  | *z*ᵣ      |
-|------|-----------|
-| 10   | −2.02     |
-| 12   | −0.67     |
-| 13   | 0.00      |
-| 14   | +0.67     |
-| 15   | +1.35     |
-| 100  | +58.68 🚨 |
+<table>
+<thead>
+<tr>
+<th >*x*</th>
+<th >*z*ᵣ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td >10</td>
+<td >−2.02</td>
+</tr>
+<tr>
+<td >12</td>
+<td >−0.67</td>
+</tr>
+<tr>
+<td >13</td>
+<td >0.00</td>
+</tr>
+<tr>
+<td >14</td>
+<td >+0.67</td>
+</tr>
+<tr>
+<td >15</td>
+<td >+1.35</td>
+</tr>
+<tr>
+<td >100</td>
+<td >+58.68 🚨</td>
+</tr>
+</tbody>
+</table>
 
 ✅ **Interpretation:**
 
@@ -182,14 +237,47 @@ A picture that says a thousand outliers. 😉
 
 ## 📋 Tiny Recap Table
 
-| *x*  | Classical *z* | Robust *z* |
-|------|---------------|------------|
-| 10   | −0.50         | −2.02      |
-| 12   | −0.43         | −0.67      |
-| 13   | −0.40         | 0.00       |
-| 14   | −0.37         | +0.67      |
-| 15   | −0.34         | +1.35      |
-| 100  | +2.45         | +58.68 🚨  |
+<table>
+<thead>
+<tr>
+<th >*x*</th>
+<th >Classical *z*</th>
+<th >Robust *z*</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td >10</td>
+<td >−0.50</td>
+<td >−2.02</td>
+</tr>
+<tr>
+<td >12</td>
+<td >−0.43</td>
+<td >−0.67</td>
+</tr>
+<tr>
+<td >13</td>
+<td >−0.40</td>
+<td >0.00</td>
+</tr>
+<tr>
+<td >14</td>
+<td >−0.37</td>
+<td >+0.67</td>
+</tr>
+<tr>
+<td >15</td>
+<td >−0.34</td>
+<td >+1.35</td>
+</tr>
+<tr>
+<td >100</td>
+<td >+2.45</td>
+<td >+58.68 🚨</td>
+</tr>
+</tbody>
+</table>
 
 **Robust z tells the truth — and the truth is loud.** 📣
 
@@ -205,6 +293,30 @@ A picture that says a thousand outliers. 😉
 * Use them when your data aren't "nice and Normal."
 
 They'll never overreact — or underreact — to the wild ones. 🔍💪
+
+---
+
+## 📚 References
+
+1. Hampel, F. R., Ronchetti, E. M., Rousseeuw, P. J., & Stahel, W. A. (2011). *Robust Statistics: The Approach Based on Influence Functions*. John Wiley & Sons.
+
+2. Huber, P. J., & Ronchetti, E. M. (2009). *Robust Statistics* (2nd ed.). John Wiley & Sons.
+
+3. Rousseeuw, P. J., & Croux, C. (1993). Alternatives to the median absolute deviation. *Journal of the American Statistical Association*, 88(424), 1273-1283.
+
+4. Leys, C., Ley, C., Klein, O., Bernard, P., & Licata, L. (2013). Detecting outliers: Do not use standard deviation around the mean, use absolute deviation around the median. *Journal of Experimental Social Psychology*, 49(4), 764-766.
+
+5. Mosteller, F., & Tukey, J. W. (1977). *Data Analysis and Regression: A Second Course in Statistics*. Addison-Wesley.
+
+6. Hoaglin, D. C., Mosteller, F., & Tukey, J. W. (Eds.). (1983). *Understanding Robust and Exploratory Data Analysis*. John Wiley & Sons.
+
+7. Wilcox, R. R. (2012). *Introduction to Robust Estimation and Hypothesis Testing* (3rd ed.). Academic Press.
+
+8. Maronna, R. A., Martin, R. D., & Yohai, V. J. (2019). *Robust Statistics: Theory and Methods* (2nd ed.). John Wiley & Sons.
+
+9. Iglewicz, B., & Hoaglin, D. C. (1993). How to detect and handle outliers. *ASQ Basic References in Quality Control: Statistical Techniques*, 16, 87-88.
+
+10. Rousseeuw, P. J., & Leroy, A. M. (2005). *Robust Regression and Outlier Detection*. John Wiley & Sons.
 
 ---
 

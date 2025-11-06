@@ -274,6 +274,30 @@ Replacing AND with min and OR with max gives a mathematically principled way to 
 
 ---
 
+## 📚 References
+
+1. Klement, E. P., Mesiar, R., & Pap, E. (2013). *Triangular Norms*. Springer Science & Business Media.
+
+2. Hájek, P. (2013). *Metamathematics of Fuzzy Logic* (Vol. 4). Springer Science & Business Media.
+
+3. Klir, G. J., & Yuan, B. (1995). *Fuzzy Sets and Fuzzy Logic: Theory and Applications*. Prentice Hall.
+
+4. Zadeh, L. A. (1965). Fuzzy sets. *Information and Control*, 8(3), 338-353.
+
+5. Gödel, K. (1932). Zum intuitionistischen Aussagenkalkül. *Anzeiger der Akademie der Wissenschaften in Wien*, 69, 65-66.
+
+6. Dubois, D., & Prade, H. (1980). *Fuzzy Sets and Systems: Theory and Applications*. Academic Press.
+
+7. Schweizer, B., & Sklar, A. (1983). *Probabilistic Metric Spaces*. North-Holland.
+
+8. Fodor, J., & Roubens, M. (1994). *Fuzzy Preference Modelling and Multicriteria Decision Support*. Springer Science & Business Media.
+
+9. Yager, R. R. (1980). On a general class of fuzzy connectives. *Fuzzy Sets and Systems*, 4(3), 235-242.
+
+10. Nguyen, H. T., & Walker, E. A. (2006). *A First Course in Fuzzy Logic* (3rd ed.). Chapman and Hall/CRC.
+
+---
+
 <div style={{textAlign: 'center', margin: '3rem 0', padding: '2rem', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', borderRadius: '15px', color: 'white'}}>
   <div id="lottie-celebration" style={{width: '200px', height: '200px', margin: '0 auto'}}></div>
   <h3 style={{margin: '1rem 0', color: 'white'}}>Day 1 Complete! 🎉</h3>

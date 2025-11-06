@@ -29,15 +29,16 @@ def get_font(size):
 
 def skewness_kurtosis_concept():
     """Main header image: Skewness & Kurtosis concept with improved visualizations"""
-    img = Image.new('RGB', (WIDTH, HEIGHT), color='#f8f9fa')
+    # Use dark blue background as shown in the description
+    img = Image.new('RGB', (WIDTH, HEIGHT), color='#1e3a5f')
     draw = ImageDraw.Draw(img)
     font_title = get_font(52)
     font_subtitle = get_font(30)
     font_label = get_font(24)
     
-    # Title with better styling
+    # Title with better styling - match dark blue theme
     title_bg = (WIDTH//2, 50, WIDTH//2, 110)
-    draw.rectangle([0, 0, WIDTH, 120], fill='#2d3748', outline='#1a202c', width=2)
+    draw.rectangle([0, 0, WIDTH, 120], fill='#0f172a', outline='#1e293b', width=2)
     draw.text((WIDTH//2, 80), 'Skewness & Kurtosis: Understanding Distribution Shape', 
               fill='white', font=font_title, anchor='mm')
     
@@ -79,15 +80,17 @@ def draw_improved_distribution(draw, x, y, w, h, title, subtitle, color, symmetr
     font_sub = get_font(20)
     font_small = get_font(18)
     
-    # Draw container with shadow effect
+    # Draw container with shadow effect - white panels on dark blue background
     shadow_offset = 4
+    # Shadow
     draw.rectangle([x + shadow_offset, y + shadow_offset, x + w + shadow_offset, y + h + shadow_offset],
-                  fill='#e2e8f0', outline='#cbd5e0', width=1)
-    draw.rectangle([x, y, x + w, y + h], fill='white', outline='#4a5568', width=2)
+                  fill='#0f172a', outline='#1e293b', width=1)
+    # Main panel - white background
+    draw.rectangle([x, y, x + w, y + h], fill='white', outline='#334155', width=2)
     
-    # Draw title
+    # Draw title - dark blue header matching the overall theme
     title_bg_height = 45
-    draw.rectangle([x, y, x + w, y + title_bg_height], fill='#2d3748', outline='#1a202c', width=1)
+    draw.rectangle([x, y, x + w, y + title_bg_height], fill='#1e3a5f', outline='#0f172a', width=1)
     draw.text((x + w//2, y + title_bg_height//2), title, fill='white', font=font_title, anchor='mm')
     
     # Draw subtitle

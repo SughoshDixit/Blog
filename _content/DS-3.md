@@ -188,6 +188,32 @@ Check invariance:
 
 Percentiles and quantiles are simple, powerful ways to describe "where" a value sits in the data. They're stable, interpretable, and play well with transformations. Whether you're setting thresholds, creating strata, or monitoring distributions, quantiles give you a clean, math‑first foundation.
 
+---
+
+## 📚 References
+
+1. Hyndman, R. J., & Fan, Y. (1996). Sample quantiles in statistical packages. *The American Statistician*, 50(4), 361-365.
+
+2. Serfling, R. J. (2009). *Approximation Theorems of Mathematical Statistics*. John Wiley & Sons.
+
+3. Mosteller, F., & Tukey, J. W. (1977). *Data Analysis and Regression: A Second Course in Statistics*. Addison-Wesley.
+
+4. David, H. A., & Nagaraja, H. N. (2003). *Order Statistics* (3rd ed.). John Wiley & Sons.
+
+5. Parzen, E. (1979). Nonparametric statistical data modeling. *Journal of the American Statistical Association*, 74(365), 105-121.
+
+6. Koenker, R. (2005). *Quantile Regression*. Cambridge University Press.
+
+7. Langford, E. (2006). Quartiles in elementary statistics. *Journal of Statistics Education*, 14(3).
+
+8. Cramér, H. (1946). *Mathematical Methods of Statistics*. Princeton University Press.
+
+9. Hoaglin, D. C., Mosteller, F., & Tukey, J. W. (Eds.). (1983). *Understanding Robust and Exploratory Data Analysis*. John Wiley & Sons.
+
+10. Shorack, G. R., & Wellner, J. A. (2009). *Empirical Processes with Applications to Statistics*. Society for Industrial and Applied Mathematics.
+
+---
+
 <div style={{textAlign: 'center', margin: '3rem 0', padding: '2rem', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', borderRadius: '15px', color: 'white'}}>
   <div id="lottie-celebration" style={{width: '200px', height: '200px', margin: '0 auto'}}></div>
   <h3 style={{margin: '1rem 0', color: 'white'}}>Day 3 Complete! 🎉</h3>
