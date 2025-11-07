@@ -16,15 +16,23 @@ isPublished: true
   <p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Understanding distribution shape! 📈</p>
 </div>
 
+> 💡 **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
+
+---
+
+## 🎯 Introduction
+
+While mean and variance tell us about the center and spread of data, [skewness](/key) and [kurtosis](/key) reveal the shape of the distribution. Understanding these shape features helps us choose appropriate methods for outlier detection, binning, and modeling.
+
 **TL;DR:**
 
-📈 Skewness tells you if data lean left or right (asymmetry). ↩️↪️
+📈 [Skewness](/key) tells you if data lean left or right (asymmetry). ↩️↪️
 
-🦘 Kurtosis tells you how heavy the tails are (how many extremes you see).
+🦘 [Kurtosis](/key) tells you how heavy the tails are (how many extremes you see).
 
 🎭 Two datasets can share the same mean and variance but look completely different — shape features reveal the hidden story.
 
-✅ Knowing shape helps you choose better outlier rules, bins, and models.
+✅ Knowing shape helps you choose better [outlier](/key) rules, bins, and models.
 
 ![Skewness & Kurtosis Concept](/DS-6/skewness_kurtosis_concept.png)
 
@@ -52,7 +60,7 @@ One can be tall and thin, another flat and wide, another lopsided — and each t
 
 ---
 
-## 2️⃣ Skewness = Asymmetry ↩️↪️
+## 2️⃣ [Skewness](/key) = Asymmetry ↩️↪️
 
 <div style={{textAlign: 'center', margin: '1.5rem 0'}}>
   <div id="lottie-visualization-skew" style={{width: '180px', height: '180px', margin: '0 auto'}}></div>
@@ -84,7 +92,7 @@ You don't need to calculate it manually — just know it quantifies tilt.
 
 ---
 
-## 3️⃣ Kurtosis = Tail Weight 🦘
+## 3️⃣ [Kurtosis](/key) = Tail Weight 🦘
 
 <div style={{textAlign: 'center', margin: '1.5rem 0'}}>
   <div id="lottie-visualization-kurt" style={{width: '180px', height: '180px', margin: '0 auto'}}></div>
@@ -271,13 +279,13 @@ Annotate each with "Skewness sign" and "Kurtosis ↑ / ↓".
 
 ---
 
-## 🎓 Takeaway
+## 🌟 Takeaway
 
 Every dataset has a shape signature.
 
-Skewness and kurtosis let you read it like a fingerprint — revealing tilt, tail, and trustworthiness.
+[Skewness](/key) and [kurtosis](/key) let you read it like a fingerprint — revealing tilt, tail, and trustworthiness.
 
-They don't just decorate your summary table — they guide how you treat outliers, split bins, and choose models.
+They don't just decorate your summary table — they guide how you treat [outliers](/key), split bins, and choose models.
 
 **Shape matters.**
 

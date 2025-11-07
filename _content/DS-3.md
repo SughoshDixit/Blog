@@ -16,19 +16,29 @@ isPublished: true
   <p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Understanding where your data sits! 📈</p>
 </div>
 
-**TL;DR:** Percentiles describe "how far up the data" a value sits. They come from the empirical CDF (ECDF) and order statistics. They are robust to outliers compared to means, and they behave nicely under monotone transforms (e.g., rescaling). Knowing your quantile definition (interpolation rule) matters because different tools use slightly different formulas.
+> 💡 **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
+
+---
+
+## 🎯 Introduction
+
+Percentiles and quantiles are fundamental tools for understanding data distributions. They tell us where values sit relative to the rest of the data, providing robust measures that resist outliers and work well with transformations.
+
+**TL;DR:**
+
+Percentiles describe "how far up the data" a value sits. They come from the empirical CDF ([ECDF](/key)) and [order statistics](/key). They are robust to outliers compared to means, and they behave nicely under [monotone transforms](/key) (e.g., rescaling). Knowing your [quantile](/key) definition (interpolation rule) matters because different tools use slightly different formulas.
 
 ![Percentiles Concept](/DS-3/percentiles_concept.png)
 
 ---
 
-## 🎯 What is a percentile?
+## 📘 What is a Percentile?
 
-- The p‑th percentile (e.g., p = 0.8 for the 80th) is a value such that p (≈ 80%) of the data are at or below it.
+- The p‑th [percentile](/key) (e.g., p = 0.8 for the 80th) is a value such that p (≈ 80%) of the data are at or below it.
 - We get percentiles from the empirical CDF:
-  - ECDF:  
+  - [ECDF](/key):  
     `Fₙ(x) = (1/n) · number of sample values ≤ x`
-  - Quantile (left inverse of CDF):  
+  - [Quantile](/key) (left inverse of CDF):  
     `Q(p) = inf { x : F(x) ≥ p }`  
     (for the ECDF, we get an empirical quantile)
 
@@ -36,11 +46,11 @@ In simple terms: sort your data; the p‑th percentile is somewhere at the p‑f
 
 ---
 
-## 📦 Order statistics (the building blocks)
+## 📦 Order Statistics (the building blocks)
 
 - Sort your n values: x(1) ≤ x(2) ≤ … ≤ x(n)
-- These sorted values are “order statistics.”
-- Quantiles are determined by positions along this sorted list (possibly between two entries with interpolation).
+- These sorted values are "[order statistics](/key)."
+- [Quantiles](/key) are determined by positions along this sorted list (possibly between two entries with interpolation).
 
 ---
 
@@ -184,9 +194,9 @@ Check invariance:
 
 ---
 
-## 🎓 Takeaway
+## 🌟 Takeaway
 
-Percentiles and quantiles are simple, powerful ways to describe "where" a value sits in the data. They're stable, interpretable, and play well with transformations. Whether you're setting thresholds, creating strata, or monitoring distributions, quantiles give you a clean, math‑first foundation.
+[Percentiles](/key) and [quantiles](/key) are simple, powerful ways to describe "where" a value sits in the data. They're stable, interpretable, and play well with transformations. Whether you're setting thresholds, creating strata, or monitoring distributions, quantiles give you a clean, math‑first foundation.
 
 ---
 

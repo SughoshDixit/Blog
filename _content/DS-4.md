@@ -16,21 +16,29 @@ isPublished: true
   <p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Ranking and stratifying data for insights! 📊</p>
 </div>
 
+> 💡 **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
+
+---
+
+## 🎯 Introduction
+
+[Percentile ranks](/key) provide a powerful way to normalize features onto a common scale, making it easy to combine multiple features and create meaningful [stratifications](/key) for analysis and sampling.
+
 **TL;DR:**
 
-Percentile ranks turn any numeric feature into a simple score in `[0,1]` that says *"what fraction of the data is at or below this value."*
+[Percentile ranks](/key) turn any numeric feature into a simple score in `[0,1]` that says *"what fraction of the data is at or below this value."*
 
-Because percentile ranks are order-based, they are **stable under rescaling** and other monotone transforms.
+Because percentile ranks are order-based, they are **stable under rescaling** and other [monotone transforms](/key).
 
-If you combine several features' ranks using **min (for AND-like behavior)** or **max (for OR-like behavior)**, you get a single score that you can cut into **strata** (e.g., quartiles/deciles) for sampling, prioritization, or analysis. 💡
+If you combine several features' ranks using **min (for AND-like behavior)** or **max (for OR-like behavior)**, you get a single score that you can cut into **[strata](/key)** (e.g., quartiles/deciles) for sampling, prioritization, or analysis. 💡
 
 ![Percentile Rank Concept](/DS-4/percentile_rank_concept.png)
 
 ---
 
-## 🧮 Percentile rank: a simple [0,1] scale
+## 🧮 Percentile Rank: A Simple [0,1] Scale
 
-* Given a feature **X** and a dataset of size **n**, the percentile rank of a value *xᵢ* is:
+* Given a feature **X** and a dataset of size **n**, the [percentile rank](/key) of a value *xᵢ* is:
 
   📊 `rankᵢ = Fₙ(xᵢ) = (1/n) × (# of values ≤ xᵢ)`
 
@@ -74,7 +82,7 @@ They're simple, monotone, and explainable ✅
 
 ---
 
-## 🧭 Stratification from combined ranks
+## 🧭 Stratification from Combined Ranks
 
 Once you have a single combined rank per observation (e.g., rAND), split the population into **strata**:
 
@@ -369,9 +377,9 @@ Using max is liberal — more points rise into higher strata.
 
 ---
 
-## 🎓 Takeaway
+## 🌟 Takeaway
 
-Percentile ranks normalize features onto a **common [0,1] scale**.
+[Percentile ranks](/key) normalize features onto a **common [0,1] scale**.
 
 Combining them with **min (AND)** or **max (OR)** gives an interpretable, monotone score ideal for **sampling, prioritization, and reporting.**
 

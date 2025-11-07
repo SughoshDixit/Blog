@@ -45,9 +45,13 @@ So grab your coffee ☕, get comfortable, and let's embark on this 30-day journe
   <p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Let's make Data Science accessible, one concept at a time! 🚀</p>
 </div>
 
+> 💡 **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
+
 ---
 
-**TL;DR:** We can extend Boolean rules to graded (0–1) "degrees of truth" by replacing AND with the minimum operator and OR with the maximum operator. This choice—known as the **Gödel t‑norm/t‑conorm**—preserves the algebraic properties we rely on in logic (commutativity, associativity, monotonicity, identity elements), remains conservative and interpretable, and lets us evaluate complex rule expressions on numeric features.
+**TL;DR:**
+
+We can extend [Boolean Logic](/key) rules to graded (0–1) "degrees of truth" by replacing AND with the minimum operator and OR with the maximum operator. This choice—known as the **[Gödel t‑norm](/key)/[t‑conorm](/key)**—preserves the algebraic properties we rely on in logic (commutativity, associativity, monotonicity, identity elements), remains conservative and interpretable, and lets us evaluate complex rule expressions on numeric features.
 
 ![3D Surfaces](/DS-1/3d_surfaces.png)
 
@@ -61,9 +65,9 @@ Real‑world rules often have shades of satisfaction. For example, two numeric c
 
 The central question: how should we generalize AND and OR for values in [0,1]?
 
-## T‑norms and T‑conorms at a glance 📐
+## [T‑norms](/key) and [T‑conorms](/key) at a glance 📐
 
-A t‑norm T generalizes logical AND to [0,1], and a t‑conorm (or s‑norm) S generalizes logical OR. Desiderata for AND‑like T and OR‑like S include:
+A [t‑norm](/key) T generalizes logical AND to [0,1], and a [t‑conorm](/key) (or s‑norm) S generalizes logical OR. Desiderata for AND‑like T and OR‑like S include:
 
 **For a t‑norm T:**
 * 🔄 Commutativity: `T(x,y) = T(y,x)`
@@ -75,10 +79,10 @@ A t‑norm T generalizes logical AND to [0,1], and a t‑conorm (or s‑norm) S 
 * 🔄 Commutativity, associativity, monotonicity
 * 🎯 Neutral element 0: `S(x,0) = x`
 
-Many pairs (T,S) exist. Today's focus is the Gödel pair:
+Many pairs (T,S) exist. Today's focus is the [Gödel](/key) pair:
 
-* 🟢 Gödel t‑norm (AND): `T(x,y) = min(x,y)`
-* 🔵 Gödel t‑conorm (OR): `S(x,y) = max(x,y)`
+* 🟢 [Gödel t‑norm](/key) (AND): `T(x,y) = min(x,y)`
+* 🔵 [Gödel t‑conorm](/key) (OR): `S(x,y) = max(x,y)`
 
 These are simple, conservative, and highly interpretable.
 
@@ -89,7 +93,7 @@ These are simple, conservative, and highly interpretable.
 
 ![Truth Table Extension](/DS-1/t-norm.png)
 
-## Gödel AND = min, OR = max ✨
+## [Gödel](/key) AND = min, OR = max ✨
 
 Define, for `x,y ∈ [0,1]`:
 
@@ -221,10 +225,10 @@ In other words, "logical structure" becomes "min/max algebra," letting you score
 
 ## Common alternatives (and why we started with min/max) 🆚
 
-Other popular t‑norms and t‑conorms:
+Other popular [t‑norms](/key) and [t‑conorms](/key):
 
-* Product t‑norm: `T(x,y)=x·y`; Probabilistic sum t‑conorm: `S(x,y)=x+y−xy`
-* Łukasiewicz t‑norm: `T(x,y)=max(0, x+y−1)`; t‑conorm: `S(x,y)=min(1, x+y)`
+* Product [t‑norm](/key): `T(x,y)=x·y`; Probabilistic sum [t‑conorm](/key): `S(x,y)=x+y−xy`
+* Łukasiewicz [t‑norm](/key): `T(x,y)=max(0, x+y−1)`; [t‑conorm](/key): `S(x,y)=min(1, x+y)`
 
 These can be smoother or more conservative/aggressive, but min/max are idempotent (`T(x,x)=x`), preserve ordering cleanly, and exactly recover Boolean logic on {0,1}. They're a standard, robust starting point.
 
@@ -248,7 +252,7 @@ These can be smoother or more conservative/aggressive, but min/max are idempoten
 💡 Hint: Reduce to sorted triples or use lattice theory for totally ordered sets.
 
 **3️⃣ A counterexample for mixed operators (bonus)** 🧩
-* Show that product t‑norm does not distribute over max. Find `x,y,z ∈ [0,1]` such that
+* Show that product [t‑norm](/key) does not distribute over max. Find `x,y,z ∈ [0,1]` such that
   
   ```
   x·max(y,z) ≠ max(x·y, x·z)
@@ -263,12 +267,14 @@ These can be smoother or more conservative/aggressive, but min/max are idempoten
 **4️⃣ Interpreting outputs** 🔍
 Given A=0.7, B=0.3, C=0.6, compute the rule score for "(A AND B) OR C" under:
 
-* 🟢 Gödel (min/max)
-* 🟡 Product t‑norm (AND) + probabilistic sum (OR)
+* 🟢 [Gödel](/key) (min/max)
+* 🟡 Product [t‑norm](/key) (AND) + probabilistic sum (OR)
 
 💭 Compare and discuss the differences.
 
-## Closing 🎯
+---
+
+## 🌟 Takeaway
 
 Replacing AND with min and OR with max gives a mathematically principled way to score rule satisfaction on real data. It preserves the essential logic laws, keeps monotonic behavior, and is easy to visualize and explain—an ideal foundation for building more sophisticated, quantitative rule systems over the rest of this series.
 

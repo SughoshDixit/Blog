@@ -3,10 +3,17 @@ import { BsThreeDots } from "react-icons/bs";
 import Toc from "./Toc";
 import { useEffect, useState, useRef } from "react";
 
+const LOTTIE_ANIMATIONS = {
+  boxplotIntro: "https://assets10.lottiefiles.com/packages/lf20_tutvdkg0.json",
+  analyticsPulse: "https://assets7.lottiefiles.com/packages/lf20_t9gkkhz4.json",
+  adjustedGuard: "/lottie/adjusted_guard.json",
+  skewTuning: "/lottie/skew_tuning.json",
+  densityRadar: "/lottie/density_radar.json"
+};
+
 function BlogInner({ data, content, headings, readTime }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
-  const lottieAnimations = useRef(new Map());
 
   useEffect(() => {
     // Check if mobile viewport
@@ -20,235 +27,68 @@ function BlogInner({ data, content, headings, readTime }) {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  useEffect(() => {
-    // Load Lottie animations after component mounts and MDX content is rendered
-    const loadLottieAnimations = async () => {
-      if (typeof window === 'undefined') return;
-      
-      // Wait for element using MutationObserver for more reliable detection
-      const waitForElement = (elementId) => {
-        return new Promise((resolve) => {
-          // Check if already exists
-          const existing = document.getElementById(elementId);
-          if (existing) {
-            resolve(existing);
-            return;
+  const LottiePlayer = ({ animation, height = 220, width = 220, loop = true, caption, className, style }) => {
+    const containerRef = useRef(null);
+
+    useEffect(() => {
+      let instance;
+
+      const load = async () => {
+        if (!animation || !LOTTIE_ANIMATIONS[animation]) {
+          if (process.env.NODE_ENV !== "production") {
+            console.warn(`Unknown Lottie animation key: ${animation}`);
           }
-          
-          // Use MutationObserver to watch for element appearance
-          const observer = new MutationObserver((mutations, obs) => {
-            const element = document.getElementById(elementId);
-            if (element) {
-              obs.disconnect();
-              resolve(element);
-            }
+          return;
+        }
+
+        try {
+          const { default: lottie } = await import("lottie-web");
+          if (!containerRef.current) return;
+
+          containerRef.current.innerHTML = "";
+          instance = lottie.loadAnimation({
+            container: containerRef.current,
+            renderer: "svg",
+            loop,
+            autoplay: true,
+            path: LOTTIE_ANIMATIONS[animation]
           });
-          
-          // Start observing
-          observer.observe(document.body, {
-            childList: true,
-            subtree: true
-          });
-          
-          // Fallback timeout
-          setTimeout(() => {
-            observer.disconnect();
-            const element = document.getElementById(elementId);
-            resolve(element || null);
-          }, 5000);
-        });
+        } catch (error) {
+          console.error(`Failed to load Lottie animation ${animation}:`, error);
+        }
       };
-      
-      console.log('Starting lottie animation loader...');
-      
-      // Wait for lottie-shape specifically
-      const shapeElement = await waitForElement('lottie-shape');
-      console.log('Shape element found:', shapeElement);
-      
-      // Also wait for celebration element
-      const celebrationElement = await waitForElement('lottie-celebration');
-      
-      // Add a small delay to ensure DOM is fully rendered
-      await new Promise(resolve => setTimeout(resolve, 300));
-      
-      const lottie = (await import('lottie-web')).default;
-        
-        // Challenge animation - Rocket (distinct: lf20_2glqweqs)
-        if (document.getElementById('lottie-challenge')) {
-          lottie.loadAnimation({
-            container: document.getElementById('lottie-challenge'),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: 'https://assets5.lottiefiles.com/packages/lf20_2glqweqs.json'
-          });
-        }
-        
-        // Math animation - Calculator/Math (distinct: lf20_1pxqjqps)
-        if (document.getElementById('lottie-math')) {
-          lottie.loadAnimation({
-            container: document.getElementById('lottie-math'),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: 'https://assets5.lottiefiles.com/packages/lf20_1pxqjqps.json'
-          });
-        }
-        
-        // Visualization animation - Data Chart/Analytics (distinct: working URL)
-        if (document.getElementById('lottie-visualization')) {
-          lottie.loadAnimation({
-            container: document.getElementById('lottie-visualization'),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: 'https://assets5.lottiefiles.com/packages/lf20_2glqweqs.json'
-          });
-        }
-        
-        // Skewness visualization animation (for DS-6)
-        if (document.getElementById('lottie-visualization-skew')) {
-          lottie.loadAnimation({
-            container: document.getElementById('lottie-visualization-skew'),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: 'https://assets5.lottiefiles.com/packages/lf20_2glqweqs.json'
-          });
-        }
-        
-        // Kurtosis visualization animation (for DS-6)
-        if (document.getElementById('lottie-visualization-kurt')) {
-          lottie.loadAnimation({
-            container: document.getElementById('lottie-visualization-kurt'),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: 'https://assets5.lottiefiles.com/packages/lf20_2glqweqs.json'
-          });
-        }
-        
-        // Celebration animation - Confetti/Party (only if not already handled)
-        const celebrationEl = document.getElementById('lottie-celebration');
-        if (celebrationEl && !lottieAnimations.current.has('lottie-celebration')) {
-          try {
-            const anim = lottie.loadAnimation({
-              container: celebrationEl,
-              renderer: 'svg',
-              loop: true,
-              autoplay: true,
-              path: 'https://assets9.lottiefiles.com/packages/lf20_X6UEgW5AHj.json'
-            });
-            lottieAnimations.current.set('lottie-celebration', anim);
-          } catch (error) {
-            console.error('Error loading lottie-celebration animation:', error);
-          }
-        }
-        
-        // Parsing animation - Code/Text Processing (for DS-2)
-        if (document.getElementById('lottie-parsing')) {
-          lottie.loadAnimation({
-            container: document.getElementById('lottie-parsing'),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: 'https://assets9.lottiefiles.com/packages/lf20_V9t630.json'
-          });
-        }
-        
-        // Algorithm animation - Process/Flowchart (for DS-2)
-        if (document.getElementById('lottie-algorithm')) {
-          lottie.loadAnimation({
-            container: document.getElementById('lottie-algorithm'),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: 'https://assets9.lottiefiles.com/packages/lf20_jcikwtux.json'
-          });
-        }
-        
-        // Stats animation - Analytics/Statistics (for DS-3)
-        if (document.getElementById('lottie-stats')) {
-          lottie.loadAnimation({
-            container: document.getElementById('lottie-stats'),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: 'https://assets5.lottiefiles.com/packages/lf20_szlepvdj.json'
-          });
-        }
-        
-        // Rank animation - Ranking/Stratification (for DS-4)
-        if (document.getElementById('lottie-rank')) {
-          lottie.loadAnimation({
-            container: document.getElementById('lottie-rank'),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: 'https://assets5.lottiefiles.com/packages/lf20_jcikwtux.json'
-          });
-        }
-        
-        // Robust statistics animation - Shield/Protection (for DS-5)
-        if (document.getElementById('lottie-robust')) {
-          lottie.loadAnimation({
-            container: document.getElementById('lottie-robust'),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: 'https://assets5.lottiefiles.com/packages/lf20_jcikwtux.json'
-          });
-        }
-        
-        // Shape/Statistics animation - Chart/Graph (for DS-6)
-        if (shapeElement) {
-          console.log('Loading lottie-shape animation into element:', shapeElement);
-          
-          // Check if animation already exists for this element
-          if (lottieAnimations.current.has('lottie-shape')) {
-            // Destroy existing animation
-            const existingAnim = lottieAnimations.current.get('lottie-shape');
-            if (existingAnim && existingAnim.destroy) {
-              existingAnim.destroy();
-            }
-            lottieAnimations.current.delete('lottie-shape');
-          }
-          
-          // Clear any existing content
-          shapeElement.innerHTML = '';
-          
-          try {
-            const anim = lottie.loadAnimation({
-              container: shapeElement,
-              renderer: 'svg',
-              loop: true,
-              autoplay: true,
-              path: 'https://assets5.lottiefiles.com/packages/lf20_szlepvdj.json'
-            });
-            lottieAnimations.current.set('lottie-shape', anim);
-            console.log('Lottie-shape animation loaded successfully!', anim);
-          } catch (error) {
-            console.error('Error loading lottie-shape animation:', error);
-          }
-        } else {
-          console.warn('lottie-shape element not found in DOM');
-        }
-        
-    };
-    
-    // Start loading immediately
-    loadLottieAnimations();
-    
-    return () => {
-      // Cleanup: destroy all animations
-      lottieAnimations.current.forEach((anim) => {
-        if (anim && anim.destroy) {
-          anim.destroy();
-        }
-      });
-      lottieAnimations.current.clear();
-    };
-  }, [content]);
+
+      load();
+
+      return () => {
+        instance?.destroy();
+      };
+    }, [animation, loop]);
+
+    const parsedHeight = typeof height === "string" ? parseInt(height, 10) || 220 : height;
+    const parsedWidth = typeof width === "string" ? parseInt(width, 10) || 220 : width;
+
+    return (
+      <div className="my-10 text-center">
+        <div
+          ref={containerRef}
+          className={className}
+          style={{
+            margin: "0 auto",
+            height: parsedHeight,
+            width: "100%",
+            maxWidth: parsedWidth,
+            ...style
+          }}
+        />
+        {caption && (
+          <p className="mt-3 text-sm sm:text-base text-gray-600 dark:text-gray-300 italic">
+            {caption}
+          </p>
+        )}
+      </div>
+    );
+  };
 
   const openModal = (src, alt) => {
     if (isMobile) {
@@ -280,27 +120,36 @@ function BlogInner({ data, content, headings, readTime }) {
   }, [selectedImage]);
 
   const mdxComponents = {
+    Lottie: (props) => <LottiePlayer {...props} />,
     img: (props) => {
-      // Special handling for header images and DS-6 images
+      // Special handling for header images and DS-6/DS-7 images
       const isHeaderImage = props.src && props.src.includes('skewness_kurtosis_concept');
-      const isDSImage = props.src && props.src.includes('/DS-6/');
+      const isDSImage = props.src && (props.src.includes('/DS-6/') || props.src.includes('/DS-7/'));
       
       return (
-        <img
-          loading="lazy"
-          decoding="async"
-          referrerPolicy="no-referrer"
-          crossOrigin="anonymous"
-          className={`mx-auto my-4 rounded-md ${isHeaderImage || isDSImage ? 'w-full' : 'max-w-full'} h-auto ${isMobile ? 'cursor-pointer' : ''}`}
-          style={{
-            maxWidth: '100%',
-            height: 'auto',
-            display: 'block',
-            objectFit: 'contain'
-          }}
-          onClick={() => openModal(props.src, props.alt)}
-          {...props}
-        />
+        <div className="my-6 flex justify-center">
+          <img
+            loading="lazy"
+            decoding="async"
+            referrerPolicy="no-referrer"
+            crossOrigin="anonymous"
+            className={`rounded-md ${isHeaderImage || isDSImage ? 'w-full max-w-5xl' : 'max-w-full'} h-auto ${isMobile ? 'cursor-pointer' : ''}`}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+              display: 'block',
+              objectFit: 'contain',
+              width: isHeaderImage || isDSImage ? '100%' : 'auto'
+            }}
+            onClick={() => openModal(props.src, props.alt)}
+            onError={(e) => {
+              // Hide broken images gracefully
+              console.warn(`Image failed to load: ${props.src}`);
+              e.target.style.display = 'none';
+            }}
+            {...props}
+          />
+        </div>
       );
     },
     table: (props) => (

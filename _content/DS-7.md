@@ -11,26 +11,33 @@ isPublished: true
 
 # **Day 7 — Boxplots, IQR, and Tukey Fences** 🧮📦
 
-<div style={{textAlign: 'center', margin: '2rem 0'}}>
-  <div id="lottie-boxplot" style={{width: '200px', height: '200px', margin: '0 auto'}}></div>
-  <p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Spotting outliers with boxplots and robust fences! 📊</p>
-</div>
+<p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem', textAlign: 'center'}}>Spotting outliers with boxplots and robust fences! 📊</p>
+
+<Lottie animation="boxplotIntro" height={240} width={340} caption="Boxplots turn quartiles into a quick visual scan for outliers." />
+
+> 💡 **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
+
+---
+
+## 🎯 Introduction
+
+[Boxplots](/key) provide a simple visual way to identify [outliers](/key) using the [IQR](/key) (Interquartile Range) and [Tukey fences](/key). This method is robust, doesn't assume normality, and works well with skewed or heavy-tailed data.
 
 **TL;DR:**
 
-Boxplots are the simplest visual way to spot outliers.
+[Boxplots](/key) are the simplest visual way to spot [outliers](/key).
 
-They rely on the **IQR (Interquartile Range)** — the middle 50% of your data — and build "fences" around it:
+They rely on the **[IQR](/key) (Interquartile Range)** — the middle 50% of your data — and build "fences" around it:
 
 🧱
 
-**IQR = Q₃ − Q₁**
+**[IQR](/key) = [Q₃](/key) − [Q₁](/key)**
 
-**Lower Fence = Q₁ − 1.5 × IQR**
+**Lower Fence = [Q₁](/key) − 1.5 × [IQR](/key)**
 
-**Upper Fence = Q₃ + 1.5 × IQR**
+**Upper Fence = [Q₃](/key) + 1.5 × [IQR](/key)**
 
-Points outside these fences are suspected outliers.
+Points outside these fences are suspected [outliers](/key).
 
 It's simple, robust, and doesn't assume your data are Normal. ✅
 
@@ -46,7 +53,7 @@ Find a rule-of-thumb for outliers that:
 * Works on skewed or heavy-tailed data,
 * Is visual, explainable, and easy to compute.
 
-Enter: **Tukey's fences**, the engine behind every boxplot. 💡
+Enter: **[Tukey fences](/key)**, the engine behind every [boxplot](/key). 💡
 
 ---
 
@@ -54,10 +61,10 @@ Enter: **Tukey's fences**, the engine behind every boxplot. 💡
 
 Think of your dataset as a landscape:
 
-* **The box** = the middle 50% (Q₁ → Q₃).
-* **The line inside** = the median (Q₂).
+* **The box** = the middle 50% ([Q₁](/key) → [Q₃](/key)).
+* **The line inside** = the [median](/key) ([Q₂](/key)).
 * **The whiskers** = data within the fences.
-* **The dots outside** = outliers.
+* **The dots outside** = [outliers](/key).
 
 Here's the anatomy in plain terms:
 
@@ -68,10 +75,14 @@ Here's the anatomy in plain terms:
          |               <- Median
 ```
 
-🧩 The **IQR** measures the width of the box — how spread the middle half is.
+🧩 The **[IQR](/key)** measures the width of the box — how spread the middle half is.
 
 * Larger IQR → more variability.
 * Smaller IQR → tight clustering.
+
+![Tukey Fences Layering](/DS-7/fence_layers_overview.png)
+
+<p style={{textAlign: 'center', fontStyle: 'italic', color: '#555'}}>Tukey's inner and outer fences wrap the box to flag suspicious points.</p>
 
 ![Boxplot Anatomy](/DS-7/boxplot_anatomy.png)
 
@@ -87,45 +98,44 @@ Let's take this simple dataset:
 
 ### 2️⃣ Find quartiles:
 
-* **Q₁** = lower 25th percentile = **4.5**
-* **Q₂** = median = **7**
-* **Q₃** = upper 75th percentile = **9**
+* **[Q₁](/key)** = lower 25th [percentile](/key) = **4.5**
+* **[Q₂](/key)** = [median](/key) = **7**
+* **[Q₃](/key)** = upper 75th [percentile](/key) = **9**
 
-### 3️⃣ Compute IQR:
+### 3️⃣ Compute [IQR](/key):
 
-**IQR = Q₃ − Q₁ = 9 − 4.5 = 4.5**
+**[IQR](/key) = [Q₃](/key) − [Q₁](/key) = 9 − 4.5 = 4.5**
 
-### 4️⃣ Compute Tukey fences:
+### 4️⃣ Compute [Tukey fences](/key):
 
-* **Lower fence** = Q₁ − 1.5 × IQR = 4.5 − 6.75 = **−2.25**
-* **Upper fence** = Q₃ + 1.5 × IQR = 9 + 6.75 = **15.75**
+* **Lower fence** = [Q₁](/key) − 1.5 × [IQR](/key) = 4.5 − 6.75 = **−2.25**
+* **Upper fence** = [Q₃](/key) + 1.5 × [IQR](/key) = 9 + 6.75 = **15.75**
 
-### 5️⃣ Flag outliers:
+### 5️⃣ Flag [outliers](/key):
 
-Any **x < −2.25** or **x > 15.75** is an outlier.
+Any **x < −2.25** or **x > 15.75** is an [outlier](/key).
 
-✅ Here, **30 > 15.75**, so **30 is an outlier**.
+✅ Here, **30 > 15.75**, so **30 is an [outlier](/key)**.
 
 💡 **That's it!**
 
-You've just built a nonparametric outlier detector — no mean, no SD, no assumptions.
+You've just built a [nonparametric](/key) [outlier](/key) detector — no mean, no [SD](/key), no assumptions.
 
 ![Step-by-Step Example](/DS-7/step_by_step_example.png)
+
+![Boxplot Workflow](/DS-7/boxplot_workflow.png)
 
 ---
 
 ## 📏 Variants: Mild vs. Extreme Fences
 
-<div style={{textAlign: 'center', margin: '2rem 0'}}>
-  <div id="lottie-fences" style={{width: '180px', height: '180px', margin: '0 auto'}}></div>
-</div>
 
-Tukey suggested two layers of scrutiny:
+[Tukey](/key) suggested two layers of scrutiny:
 
 | Fence Type | k-value | Meaning | Typical Symbol |
 |------------|---------|---------|----------------|
-| Inner Fence | 1.5 × IQR | Mild outlier | ○ open circle |
-| Outer Fence | 3 × IQR | Extreme outlier | ★ star |
+| Inner Fence | 1.5 × [IQR](/key) | Mild [outlier](/key) | ○ open circle |
+| Outer Fence | 3 × [IQR](/key) | Extreme [outlier](/key) | ★ star |
 
 This gives you nuance — not every far-off point is a villain; some are just adventurous. 😉
 
@@ -133,17 +143,14 @@ This gives you nuance — not every far-off point is a villain; some are just ad
 
 ---
 
-## 🧱 Why IQR Is Robust
+## 🧱 Why [IQR](/key) Is Robust
 
-<div style={{textAlign: 'center', margin: '2rem 0'}}>
-  <div id="lottie-robustness" style={{width: '180px', height: '180px', margin: '0 auto'}}></div>
-</div>
 
-Unlike the standard deviation, which squares every deviation (magnifying extremes), the **IQR only looks at the middle 50%**.
+Unlike the standard deviation, which squares every deviation (magnifying extremes), the **[IQR](/key) only looks at the middle 50%**.
 
-So if one value shoots off to ∞, IQR barely moves.
+So if one value shoots off to ∞, [IQR](/key) barely moves.
 
-That's why the **IQR + Tukey fences are robust** — they focus on the calm middle, not the noisy edges.
+That's why the **[IQR](/key) + [Tukey fences](/key) are [robust](/key)** — they focus on the calm middle, not the noisy edges.
 
 ![IQR Robustness](/DS-7/iqr_robustness.png)
 
@@ -151,23 +158,22 @@ That's why the **IQR + Tukey fences are robust** — they focus on the calm midd
 
 ## ⚙️ How It Connects to Data Science
 
-Boxplot fences are the conceptual ancestor of many robust methods:
+[Boxplot](/key) fences are the conceptual ancestor of many [robust](/key) methods:
 
 * `iqr_outliers` functions in Python/R use the same fence logic.
-* Feature capping/winsorizing often uses 1.5× or 3× IQR rules.
-* In anomaly detection, IQR acts as a simple yet reliable baseline score.
+* Feature capping/[winsorizing](/key) often uses 1.5× or 3× [IQR](/key) rules.
+* In anomaly detection, [IQR](/key) acts as a simple yet reliable baseline score.
 
-In short: **if you've drawn a boxplot, you've already done outlier detection!** ✨
+In short: **if you've drawn a [boxplot](/key), you've already done [outlier](/key) detection!** ✨
 
 ![Data Science Connections](/DS-7/data_science_connections.png)
+
+<Lottie animation="analyticsPulse" height={230} width={320} caption="Boxplot-driven features keep analytics pipelines grounded in distribution reality." />
 
 ---
 
 ## 📈 Visual Idea
 
-<div style={{textAlign: 'center', margin: '2rem 0'}}>
-  <div id="lottie-visualization" style={{width: '180px', height: '180px', margin: '0 auto'}}></div>
-</div>
 
 Show a clean boxplot with labeled parts:
 
@@ -202,16 +208,18 @@ Use two examples:
 
 ![Mini Exercise Solution](/DS-7/mini_exercise.png)
 
+![Outlier Action Plan](/DS-7/outlier_actions.png)
+
 ---
 
 ## 🌟 Takeaway
 
-* **Boxplots** = a picture of the middle + the fences around it.
-* **IQR** = robust measure of spread.
-* **Tukey fences** = simple, nonparametric outlier rule.
-* **Visual + mathematical + explainable** = the perfect first step in outlier analysis.
+* **[Boxplots](/key)** = a picture of the middle + the fences around it.
+* **[IQR](/key)** = [robust](/key) measure of spread.
+* **[Tukey fences](/key)** = simple, [nonparametric](/key) [outlier](/key) rule.
+* **Visual + mathematical + explainable** = the perfect first step in [outlier](/key) analysis.
 
-Boxplots don't just summarize data — they protect you from its surprises. 📦✨
+[Boxplots](/key) don't just summarize data — they protect you from its surprises. 📦✨
 
 ---
 
@@ -240,7 +248,6 @@ Boxplots don't just summarize data — they protect you from its surprises. 📦
 ---
 
 <div style={{textAlign: 'center', margin: '3rem 0', padding: '2rem', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', borderRadius: '15px', color: 'white'}}>
-  <div id="lottie-celebration" style={{width: '200px', height: '200px', margin: '0 auto'}}></div>
   <h3 style={{margin: '1rem 0', color: 'white'}}>Day 7 Complete! 🎉</h3>
   <p style={{margin: 0, fontSize: '1.1rem', opacity: 0.9}}>*This is Day 7 of my 30-day challenge documenting my Data Science journey at Oracle! Stay tuned for more insights and mathematical foundations of data science. 🚀*</p>
   <div style={{marginTop: '1.5rem'}}>

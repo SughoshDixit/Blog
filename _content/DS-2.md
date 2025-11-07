@@ -16,25 +16,29 @@ isPublished: true
   <p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Teaching computers to understand expressions! 🚀</p>
 </div>
 
-## 🚀 The Big Idea
+> 💡 **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
+
+---
+
+## 🎯 Introduction
 
 Humans read rules with ease. Computers need structure.
 
-When we write something like 👇
+When we write something like `score >= 0.85 and (stability > 0.9 or flag == 0)`, it looks natural to us but computers see a tangle of symbols. To evaluate this reliably, we teach machines three steps: tokenization, operator precedence, and postfix conversion.
 
-```
-score >= 0.85 and (stability > 0.9 or flag == 0)
-```
+**TL;DR:**
 
-…it looks natural to us but computers see a tangle of symbols. To evaluate this reliably, we teach machines three steps:
+How to teach computers to read and evaluate expressions step by step — by tokenizing text, enforcing operator precedence, and converting rules to postfix ([RPN](/key)) form for speed, clarity and consistency.
 
 1️⃣ **Tokenize** – split text into meanings (words, numbers, operators).
 
 2️⃣ **Respect precedence** – know which operators bind stronger.
 
-3️⃣ **Translate to postfix (RPN)** – remove parentheses so evaluation is fast and unambiguous.
+3️⃣ **Translate to postfix ([RPN](/key))** – remove parentheses so evaluation is fast and unambiguous.
 
 ✨ This gives us rules that are consistent, explainable, and lightning-fast to evaluate.
+
+---
 
 ## 💡 Where This Appears in Data Science
 
@@ -46,7 +50,7 @@ score >= 0.85 and (stability > 0.9 or flag == 0)
 
 📈 **Model monitoring & release criteria** – e.g. "(precision ≥ X and recall ≥ Y) or (lift ≥ Z)".
 
-🧱 **Feature-engineering DSLs** – describe derived features safely and consistently.
+🧱 **Feature-engineering [DSLs](/key)** – describe derived features safely and consistently.
 
 🧾 **Governance & auditability** – align rule text with its computation for traceable results.
 
@@ -93,7 +97,7 @@ A consistent order keeps rules predictable (high → low):
 
 ![Precedence Ladder](/DS-2/precedence_ladder.png)
 
-## 🔁 Step 3 — Infix → Postfix (RPN) 🚦
+## 🔁 Step 3 — Infix → Postfix ([RPN](/key)) 🚦
 
 Using the shunting-yard algorithm:
 
@@ -127,7 +131,7 @@ Use a simple stack:
 3️⃣ When you see an operator, pop the needed inputs, apply it, and push the result.
 4️⃣ Return the final value (1 for True, 0 for False).
 
-🧮 **AND/OR** use Boolean logic on those 1s and 0s.
+🧮 **AND/OR** use [Boolean Logic](/key) on those 1s and 0s.
 
 ## 🧩 Worked Example 1 — Full Evaluation
 
@@ -293,7 +297,9 @@ drift not quality 0.95 >= coverage 0.98 >= or and
 
 🔍 **Clarity** – no hidden precedence surprises.
 
-## 🧭 Takeaway
+---
+
+## 🌟 Takeaway
 
 Turning rule strings into tokens, honoring a clear precedence order, and evaluating postfix makes your logic solid, predictable, and explainable.
 

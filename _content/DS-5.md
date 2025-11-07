@@ -16,15 +16,23 @@ isPublished: true
   <p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Robust statistics that resist outliers! 💪</p>
 </div>
 
+> 💡 **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
+
+---
+
+## 🎯 Introduction
+
+When data contains outliers, traditional measures like mean and [SD](/key) can be misleading. [Robust statistics](/key) like the [median](/key) and [MAD](/key) provide stable estimates that resist distortion from extreme values.
+
 **TL;DR:**
 
-The mean and standard deviation (SD) can be swayed by outliers like reeds in the wind 🌾 — a single extreme value can pull them off course.
+The mean and standard deviation ([SD](/key)) can be swayed by outliers like reeds in the wind 🌾 — a single extreme value can pull them off course.
 
-The median and MAD (Median Absolute Deviation), on the other hand, are sturdy rocks in the statistical stream. 💪
+The [median](/key) and [MAD](/key) (Median Absolute Deviation), on the other hand, are sturdy rocks in the statistical stream. 💪
 
 They resist distortion and give reliable "center" and "spread" estimates, even when your data are skewed or heavy-tailed.
 
-Use them to compute robust z-scores, which catch anomalies without being fooled by outliers. 🚨
+Use them to compute robust [z-scores](/key), which catch anomalies without being fooled by [outliers](/key). 🚨
 
 ![Median & MAD Concept](/DS-5/median_mad_concept.png)
 
@@ -44,21 +52,21 @@ Use them to compute robust z-scores, which catch anomalies without being fooled 
 
 ## 📘 Key Definitions
 
-**Median:** the "middle" value after sorting your data (half below, half above).
+**[Median](/key):** the "middle" value after sorting your data (half below, half above).
 
-**MAD (Median Absolute Deviation):**
+**[MAD](/key) (Median Absolute Deviation):**
 
-* Compute the median *m*.
+* Compute the [median](/key) *m*.
 * Take absolute deviations |*x*ᵢ − *m*|.
-* Take the median of those deviations → that's MAD.
+* Take the [median](/key) of those deviations → that's [MAD](/key).
 
-**Robust z-score:**
+**Robust [z-score](/key):**
 
 *z*ᵣ = 0.6745 × (*x* − median) / MAD
 
-**Why 0.6745?** Because for a Normal distribution, MAD ≈ 0.6745 × SD.
+**Why 0.6745?** Because for a Normal distribution, [MAD](/key) ≈ 0.6745 × [SD](/key).
 
-That scaling ensures robust z-scores align roughly with classical z-scores.
+That scaling ensures robust [z-scores](/key) align roughly with classical [z-scores](/key).
 
 ![Key Definitions Visualization](/DS-5/key_definitions.png)
 
@@ -287,9 +295,9 @@ A picture that says a thousand outliers. 😉
 
 ## 🌟 Takeaway
 
-* Median + MAD = the sturdier cousins of mean/SD.
-* They stay centered when outliers appear.
-* Robust z-scores reveal what classical z-scores often hide.
+* [Median](/key) + [MAD](/key) = the sturdier cousins of mean/[SD](/key).
+* They stay centered when [outliers](/key) appear.
+* Robust [z-scores](/key) reveal what classical [z-scores](/key) often hide.
 * Use them when your data aren't "nice and Normal."
 
 They'll never overreact — or underreact — to the wild ones. 🔍💪

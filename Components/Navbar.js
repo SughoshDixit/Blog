@@ -311,6 +311,13 @@ function Navbar({ topics }) {
               </a>
             </Link>
             
+            <Link href="/key">
+              <a className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                <FiList className="w-5 h-5" />
+                <span>Key Terms</span>
+              </a>
+            </Link>
+            
             <Link href="/dashboard">
               <a className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
                 <FiTrendingUp className="w-5 h-5" />
