@@ -9,36 +9,9 @@ HeaderImage: /DS-1/truth_table_extension.png
 isPublished: true
 ---
 
-# Day 1 — Boolean Logic to Numbers: AND as min, OR as max 🧮
+# **Day 1 — Boolean Logic to Numbers: AND as min, OR as max** 🧮
 
-## 🚀 Welcome to My 30-Day Data Science Challenge!
-
-Hey there! I'm **Sughosh P Dixit**, a Data Scientist at Oracle Finance, and I'm excited to share something special with you. After completing my first year as a Data Scientist, I've decided to give back to the community by publishing **30 articles over 30 days**, each covering a different Data Science concept that I use in my day-to-day work.
-
-### Why This Challenge? 💡
-
-During my journey at Oracle, I've learned that the most valuable insights often come from the practical application of mathematical concepts in real-world scenarios. These aren't just theoretical exercises—they're the building blocks of the models, algorithms, and systems that power modern data-driven decision making.
-
-### What to Expect 📚
-
-Each day, I'll dive deep into a specific concept, covering:
-- **Mathematical foundations** with intuitive explanations
-- **Real-world applications** from my experience at Oracle
-- **Practical examples** you can implement immediately
-- **Visual representations** to make complex ideas accessible
-
-### The Journey Ahead 🗺️
-
-From Boolean logic and fuzzy systems (today's topic) to advanced machine learning techniques, time series analysis, and everything in between—we'll explore the full spectrum of Data Science concepts that form the backbone of modern analytics.
-
-### Join the Community! 🤝
-
-- **Follow along**: Bookmark this series and check back daily
-- **Engage**: Share your thoughts, questions, and implementations in the comments
-- **Connect**: Follow me on [LinkedIn](https://linkedin.com/in/sughosh-dixit) for updates and behind-the-scenes content
-- **Share**: Help others discover this series by sharing with your network
-
-So grab your coffee ☕, get comfortable, and let's embark on this 30-day journey together. Whether you're a seasoned data scientist or just starting out, there's something here for everyone!
+<p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem', textAlign: 'center'}}>Binary rules meet graded truth so we can score fuzzy conditions with confidence.</p>
 
 <div style={{textAlign: 'center', margin: '2rem 0'}}>
   <div id="lottie-challenge" style={{width: '200px', height: '200px', margin: '0 auto'}}></div>
@@ -49,13 +22,33 @@ So grab your coffee ☕, get comfortable, and let's embark on this 30-day journe
 
 ---
 
+## 🎯 Introduction
+
+Business rules rarely stay crisp yes/no. Real pipelines need to score "mostly true" conditions without breaking logical guarantees. Today we upgrade classical [Boolean Logic](/key) by letting truth values live in the continuous interval [0,1]. To keep intuition, we pick operators that behave just like AND and OR but respect the graded world.
+
 **TL;DR:**
 
-We can extend [Boolean Logic](/key) rules to graded (0–1) "degrees of truth" by replacing AND with the minimum operator and OR with the maximum operator. This choice—known as the **[Gödel t‑norm](/key)/[t‑conorm](/key)**—preserves the algebraic properties we rely on in logic (commutativity, associativity, monotonicity, identity elements), remains conservative and interpretable, and lets us evaluate complex rule expressions on numeric features.
+* Replace AND with the [Gödel t-norm](/key) `min(x,y)` and OR with the [Gödel t-conorm](/key) `max(x,y)` so logical laws still hold.
+* Graded truth lets us evaluate heuristic rules smoothly and conservatively—tightening any condition never increases the score.
+* These operators stay interpretable, support complex rule trees, and become the backbone for fuzzy logic and weak-supervision systems.
 
 ![3D Surfaces](/DS-1/3d_surfaces.png)
 
-## Why go beyond 0 or 1? 🤔
+---
+
+## 🚀 About the 30-Day Series
+
+I'm **Sughosh P Dixit**, Data Scientist at Oracle Finance. This is Day 1 of a 30-day series distilling the math and practical workflows I use every day. Expect:
+
+- **Foundational ideas** explained with visuals and intuition.
+- **Real project ties** from decision engines to monitoring.
+- **Hands-on examples** and ready-to-use snippets.
+
+Follow along, experiment, and share your takeaways—the goal is to build a robust toolkit together.
+
+---
+
+## 🤔 Why go beyond 0 or 1?
 
 Real‑world rules often have shades of satisfaction. For example, two numeric conditions might be "mostly satisfied" rather than strictly true or false. Moving from Boolean {0,1} to real‑valued [0,1] degrees of truth allows:
 

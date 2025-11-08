@@ -1,11 +1,9 @@
 import Head from "next/head";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
-import Header from "../Components/Header";
-import BlogHeader from "../Components/BlogHeader";
 import { getAllBlogPosts, getAllTopics } from "../Lib/Data";
 import { generateSlug } from "../Lib/utils";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 export const getStaticProps = () => {
   const allBlogs = getAllBlogPosts();
@@ -82,6 +80,55 @@ function BlogEngagement({ blogId }) {
 }
 
 export default function Home({ blogs, topics }) {
+  const publishedBlogs = useMemo(() => {
+    const withPublishFlag = Array.isArray(blogs)
+      ? blogs.filter((blog) => blog?.data?.isPublished)
+      : [];
+
+    return withPublishFlag.sort((a, b) => {
+      const dateA = new Date(a?.data?.Date || 0).getTime();
+      const dateB = new Date(b?.data?.Date || 0).getTime();
+      if (Number.isNaN(dateA) || Number.isNaN(dateB)) {
+        return 0;
+      }
+      return dateB - dateA;
+    });
+  }, [blogs]);
+
+  const trendingPosts = useMemo(
+    () => publishedBlogs.slice(0, 6),
+    [publishedBlogs]
+  );
+  const featureHighlight = trendingPosts[0];
+  const staffPicks = useMemo(
+    () => publishedBlogs.slice(1, 4),
+    [publishedBlogs]
+  );
+
+  const remainingPosts = useMemo(
+    () =>
+      publishedBlogs.filter(
+        (blog) => !staffPicks.includes(blog) && blog !== featureHighlight
+      ),
+    [publishedBlogs, staffPicks, featureHighlight]
+  );
+
+  const tagPills = useMemo(
+    () =>
+      topics
+        .filter((topic) => topic && typeof topic === "string")
+        .sort((a, b) => a.localeCompare(b)),
+    [topics]
+  );
+
+  const getImageForBlog = (blog) => {
+    const header = blog?.data?.HeaderImage;
+    if (header && header.trim().length > 0) {
+      return header;
+    }
+    return "https://miro.medium.com/v2/resize:fit:640/1*9dZCMV2XpN7dBDEHMyC-qA.png";
+  };
+
   return (
     <>
       <Head>
@@ -117,101 +164,329 @@ export default function Home({ blogs, topics }) {
         />
       </Head>
 
-      <div className="min-h-screen relative bg-white dark:bg-gray-900">
+      <div className="min-h-screen relative bg-[#f7f5f2] dark:bg-gray-900">
         <Navbar topics={topics} />
         {/* best-effort site visit counter */}
         <script dangerouslySetInnerHTML={{__html:`fetch('/api/visits',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({})}).catch(()=>{})`}} />
-        
-        {/* Medium-style hero section */}
-        <div className="pt-20 pb-16 bg-white dark:bg-gray-900">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <div className="text-center mb-16">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6" style={{fontFamily: 'Charter, Georgia, serif'}}>
-                Tech Insights & Innovation
-              </h1>
-              <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto px-4">
-                Discover insights, tutorials, and thoughts on technology, data science, and innovation
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
-                <a href="#latest-posts" className="medium-button inline-flex items-center justify-center px-6 sm:px-8 py-3 text-sm sm:text-base">
-                  Start reading
-                </a>
-                <a href="/about" className="medium-button-outline inline-flex items-center justify-center px-6 sm:px-8 py-3 text-sm sm:text-base">
-                  About Me
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        {/* Medium-style articles section */}
-        <div id="latest-posts" className="max-w-4xl mx-auto px-4 sm:px-6 pb-16">
-          <div className="space-y-8">
-            {blogs &&
-              blogs.map(
-                (blog) =>
-                  blog.data.isPublished && (
-                    <div key={blog.data.Id} className="article-preview">
-                      <div className="flex flex-col sm:flex-row items-start justify-between">
-                        <div className="flex-1 sm:pr-6 w-full">
-                          <div className="author-info mb-3">
-                            <img 
-                              src="/about.jpeg" 
-                              alt="Sughosh Dixit" 
-                              className="author-avatar"
-                            />
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">Sughosh Dixit</span>
-                            <span className="text-sm text-gray-500 dark:text-gray-400">•</span>
-                            <span className="text-sm text-gray-500 dark:text-gray-400">{blog.data.Date}</span>
-                          </div>
-                          
-                          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3 hover:text-gray-600 dark:hover:text-gray-300 cursor-pointer leading-tight" style={{fontFamily: 'Charter, Georgia, serif'}}>
-                            <a href={`/blogs/${generateSlug(blog.data.Title)}`} className="hover:underline">
-                              {blog.data.Title}
-                            </a>
-                          </h2>
-                          
-                          <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2 leading-relaxed text-sm sm:text-base">
-                            {blog.data.Abstract}
-                          </p>
-                          
-                          <div className="flex items-center justify-between mt-4">
-                            <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-                              <span className="reading-time text-xs sm:text-sm">{blog.readTime.text}</span>
-                              <div className="article-tags">
-                                {blog.data.Tags && blog.data.Tags.split(" ").filter(Boolean).slice(0, 3).map((tag, index) => (
-                                  <span key={index} className="article-tag text-xs">
-                                    {tag}
-                                  </span>
-                                ))}
-                                {blog.data.Tags && blog.data.Tags.split(" ").filter(Boolean).length > 3 && (
-                                  <span className="article-tag bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs">
-                                    +{blog.data.Tags.split(" ").filter(Boolean).length - 3}
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                            <div className="flex-shrink-0">
-                              <BlogEngagement blogId={generateSlug(blog.data.Title)} />
-                            </div>
-                          </div>
-                        </div>
-                        
-                        {blog.data.HeaderImage && (
-                          <div className="flex-shrink-0 sm:ml-4 w-full sm:w-auto mt-4 sm:mt-0">
-                            <img 
-                              src={blog.data.HeaderImage} 
-                              alt={blog.data.Title}
-                              className="w-full sm:w-32 h-32 object-cover rounded-lg"
-                            />
-                          </div>
-                        )}
+        <main className="pt-24 pb-16 bg-[#f7f5f2] dark:bg-gray-950 transition-colors duration-300">
+          {/* Hero */}
+          <section className="border-b border-[#e6dfd3] dark:border-gray-800">
+            <div className="max-w-7xl mx-auto px-4 md:px-8">
+              <div className="grid gap-12 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-center py-16">
+                <div>
+                  <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#f0e9dd] text-[#6b5d44] text-sm font-medium mb-6">
+                    Stay curious — welcome back to the chronicles
+                  </div>
+                  <h1
+                    className="text-4xl md:text-5xl lg:text-[56px] font-semibold leading-tight text-[#191919] dark:text-white mb-6"
+                    style={{ fontFamily: "Charter, Georgia, serif" }}
+                  >
+                    Stories on technology, data, and imagination.
+                  </h1>
+                  <p className="text-lg md:text-xl text-[#615947] dark:text-gray-300 max-w-2xl leading-relaxed mb-10">
+                    Dive into thoughtful essays, data science breakdowns, and playful experiments. Fresh reads land here every week, crafted for curious builders and creative thinkers.
+                  </p>
+                  <div className="flex flex-wrap gap-4">
+                    <a
+                      href="#latest-posts"
+                      className="medium-button inline-flex items-center justify-center px-8 py-3 text-base shadow-sm shadow-[#1a8917]/30"
+                    >
+                      Start reading
+                    </a>
+                    <a
+                      href="/about"
+                      className="medium-button-outline inline-flex items-center justify-center px-8 py-3 text-base"
+                    >
+                      Meet the author
+                    </a>
+                  </div>
+                </div>
+
+                {featureHighlight && (
+                  <article className="rounded-3xl border border-[#e6dfd3] dark:border-gray-800 bg-white dark:bg-gray-900 shadow-soft">
+                    <div className="p-8 space-y-6">
+                      <div className="flex items-center gap-3 text-sm text-[#6e6553] dark:text-gray-400">
+                        <span className="font-semibold">
+                          {featureHighlight.data.Author || "Sughosh Dixit"}
+                        </span>
+                        <span>•</span>
+                        <span>{featureHighlight.data.Date}</span>
+                      </div>
+                      <h2
+                        className="text-2xl md:text-3xl text-[#191919] dark:text-white font-semibold leading-tight"
+                        style={{ fontFamily: "Charter, Georgia, serif" }}
+                      >
+                        <a
+                          href={`/blogs/${generateSlug(featureHighlight.data.Title)}`}
+                          className="hover:underline"
+                        >
+                          {featureHighlight.data.Title}
+                        </a>
+                      </h2>
+                      <p className="text-base text-[#403a2f] dark:text-gray-300 leading-relaxed line-clamp-4">
+                        {featureHighlight.data.Abstract}
+                      </p>
+                      <div className="flex justify-between items-center pt-2 text-sm text-[#736b58] dark:text-gray-400">
+                        <span>{featureHighlight.readTime.text}</span>
+                        <BlogEngagement blogId={generateSlug(featureHighlight.data.Title)} />
                       </div>
                     </div>
-                  )
-              )}
-          </div>
-        </div>
+                    <img
+                      src={getImageForBlog(featureHighlight)}
+                      alt={featureHighlight.data.Title}
+                      className="w-full h-56 object-cover rounded-b-3xl"
+                    />
+                  </article>
+                )}
+              </div>
+            </div>
+          </section>
+
+          {/* Topics rail */}
+          {tagPills.length > 0 && (
+            <section className="border-b border-[#e6dfd3] dark:border-gray-800 bg-[#fdfaf5] dark:bg-gray-900/50">
+              <div className="max-w-7xl mx-auto px-4 md:px-8 py-6">
+                <div className="flex items-center gap-4 overflow-x-auto no-scrollbar">
+                  <span className="uppercase tracking-wider text-xs font-semibold text-[#8c8169] dark:text-gray-400">
+                    Explore topics
+                  </span>
+                  {tagPills.map((topic) => (
+                    <a
+                      key={topic}
+                      href={`/topic/${topic}`}
+                      className="inline-flex items-center whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-white text-[#4f4636] border border-[#e6dfd3] hover:border-[#cbbf9f] hover:bg-[#faf5ec] transition-colors dark:bg-gray-900 dark:text-gray-200 dark:border-gray-800 dark:hover:border-gray-700 dark:hover:bg-gray-800/80"
+                    >
+                      {topic}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Trending */}
+          {trendingPosts.length > 0 && (
+            <section className="border-b border-[#e6dfd3] dark:border-gray-800">
+              <div className="max-w-7xl mx-auto px-4 md:px-8 py-16">
+                <div className="flex items-center gap-3 mb-10 text-[#191919] dark:text-white">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-7 h-7"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 6v12m6-6H6"
+                    />
+                  </svg>
+                  <h2 className="text-2xl font-semibold tracking-tight" style={{ fontFamily: "Charter, Georgia, serif" }}>
+                    Trending on Sughosh's Chronicles
+                  </h2>
+                </div>
+                <div className="grid gap-10 md:grid-cols-2">
+                  {trendingPosts.map((post, index) => (
+                    <article key={post.data.Id} className="flex space-x-6">
+                      <span className="text-3xl md:text-[42px] font-bold text-[#d4c5a7] leading-none">
+                        {(index + 1).toString().padStart(2, "0")}
+                      </span>
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2 text-sm text-[#6e6553] dark:text-gray-400">
+                          <span className="font-medium">
+                            {post.data.Author || "Sughosh Dixit"}
+                          </span>
+                          <span>•</span>
+                          <span>{post.data.Date}</span>
+                        </div>
+                        <h3
+                          className="text-xl md:text-2xl font-semibold text-[#191919] dark:text-white leading-tight hover:underline"
+                          style={{ fontFamily: "Charter, Georgia, serif" }}
+                        >
+                          <a href={`/blogs/${generateSlug(post.data.Title)}`}>
+                            {post.data.Title}
+                          </a>
+                        </h3>
+                        <p className="text-sm text-[#494132] dark:text-gray-300 line-clamp-3">
+                          {post.data.Abstract}
+                        </p>
+                        <div className="flex items-center justify-between text-sm text-[#7c7461] dark:text-gray-400">
+                          <span>{post.readTime.text}</span>
+                          <BlogEngagement blogId={generateSlug(post.data.Title)} />
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Main feed */}
+          <section id="latest-posts" className="py-16">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 grid gap-16 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)]">
+              <div className="space-y-14">
+                {remainingPosts.map((blog) => (
+                  <article
+                    key={blog.data.Id}
+                    className="group rounded-3xl border border-transparent hover:border-[#dfd2b7] bg-white/80 dark:bg-gray-900/80 hover:bg-white transition-all duration-300 shadow-lg shadow-transparent hover:shadow-[0_16px_60px_-30px_rgba(0,0,0,0.45)]"
+                  >
+                    <div className="p-8 flex flex-col lg:flex-row gap-10">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex flex-wrap items-center gap-2 text-sm text-[#6e6553] dark:text-gray-400 mb-4">
+                          <span className="font-medium">
+                            {blog.data.Author || "Sughosh Dixit"}
+                          </span>
+                          <span>•</span>
+                          <span>{blog.data.Date}</span>
+                        </div>
+                        <h3
+                          className="text-2xl md:text-3xl font-semibold text-[#191919] dark:text-white mb-4 leading-tight"
+                          style={{ fontFamily: "Charter, Georgia, serif" }}
+                        >
+                          <a
+                            href={`/blogs/${generateSlug(blog.data.Title)}`}
+                            className="hover:underline decoration-2 decoration-[#1a8917]/50"
+                          >
+                            {blog.data.Title}
+                          </a>
+                        </h3>
+                        <p className="text-base md:text-lg text-[#4b4334] dark:text-gray-300 leading-relaxed line-clamp-4">
+                          {blog.data.Abstract}
+                        </p>
+                        <div className="flex flex-wrap items-center justify-between gap-4 mt-8 text-sm text-[#7c7461] dark:text-gray-400">
+                          <div className="flex flex-wrap items-center gap-3">
+                            <span>{blog.readTime.text}</span>
+                            {blog.data.Tags && (
+                              <div className="flex flex-wrap gap-2">
+                                {blog.data.Tags.split(" ")
+                                  .filter(Boolean)
+                                  .slice(0, 3)
+                                  .map((tag, index) => (
+                                    <span
+                                      key={index}
+                                      className="px-3 py-1 rounded-full bg-[#f0e9dd] text-[#5b5241] text-xs font-medium dark:bg-gray-800 dark:text-gray-300"
+                                    >
+                                      {tag}
+                                    </span>
+                                  ))}
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <BlogEngagement blogId={generateSlug(blog.data.Title)} />
+                            <a
+                              href={`/blogs/${generateSlug(blog.data.Title)}`}
+                              className="text-[#1a8917] hover:text-[#0f730c] font-semibold"
+                            >
+                              Continue reading →
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="lg:w-64 w-full">
+                        <img
+                          src={getImageForBlog(blog)}
+                          alt={blog.data.Title}
+                          className="w-full h-52 object-cover rounded-2xl shadow-md"
+                        />
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+
+              <aside className="space-y-12">
+                <div className="rounded-3xl border border-[#e6dfd3] dark:border-gray-800 bg-white dark:bg-gray-900 p-8 shadow-soft">
+                  <h2
+                    className="text-xl font-semibold text-[#191919] dark:text-white mb-6"
+                    style={{ fontFamily: "Charter, Georgia, serif" }}
+                  >
+                    Staff Picks
+                  </h2>
+                  <div className="space-y-6">
+                    {staffPicks.map((post) => (
+                      <article key={post.data.Id} className="space-y-2">
+                        <a
+                          href={`/blogs/${generateSlug(post.data.Title)}`}
+                          className="text-lg font-semibold text-[#191919] dark:text-white hover:underline leading-snug"
+                          style={{ fontFamily: "Charter, Georgia, serif" }}
+                        >
+                          {post.data.Title}
+                        </a>
+                        <p className="text-sm text-[#5e5645] dark:text-gray-400 line-clamp-2">
+                          {post.data.Abstract}
+                        </p>
+                        <div className="flex items-center gap-2 text-xs text-[#7c7461] dark:text-gray-400">
+                          <span>{post.data.Author || "Sughosh Dixit"}</span>
+                          <span>•</span>
+                          <span>{post.readTime.text}</span>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-3xl border border-[#e6dfd3] dark:border-gray-800 bg-[#fdfaf5] dark:bg-gray-900 p-8 shadow-soft">
+                  <h2 className="text-xl font-semibold text-[#191919] dark:text-white mb-4" style={{ fontFamily: "Charter, Georgia, serif" }}>
+                    Weekly digest
+                  </h2>
+                  <p className="text-sm text-[#5e5645] dark:text-gray-400 mb-6">
+                    Get the top three stories in your inbox every Sunday along with new experiments from the lab.
+                  </p>
+                  <form className="space-y-4">
+                    <input
+                      type="email"
+                      placeholder="Your email"
+                      className="w-full px-4 py-3 rounded-full border border-[#e6dfd3] focus:outline-none focus:border-[#1a8917] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-gray-900 dark:text-gray-200 dark:border-gray-800"
+                    />
+                    <button
+                      type="submit"
+                      className="w-full medium-button inline-flex items-center justify-center px-6 py-3 text-sm"
+                    >
+                      Sign me up
+                    </button>
+                  </form>
+                  <p className="text-xs text-[#9a8f75] dark:text-gray-500 mt-4">
+                    No spam, unsubscribe anytime.
+                  </p>
+                </div>
+
+                <div className="rounded-3xl border border-[#e6dfd3] dark:border-gray-800 bg-white dark:bg-gray-900 p-6 shadow-soft space-y-4">
+                  <h3 className="text-sm font-semibold text-[#7a705a] dark:text-gray-400 uppercase tracking-widest">
+                    Follow along
+                  </h3>
+                  <div className="space-y-3">
+                    <a
+                      href="/ai-gallery"
+                      className="flex items-center justify-between text-sm text-[#4f4636] dark:text-gray-200 hover:text-[#1a8917] transition-colors"
+                    >
+                      AI Gallery
+                      <span className="text-xs text-[#9a8f75] dark:text-gray-500">New drops weekly</span>
+                    </a>
+                    <a
+                      href="/dashboard"
+                      className="flex items-center justify-between text-sm text-[#4f4636] dark:text-gray-200 hover:text-[#1a8917] transition-colors"
+                    >
+                      Dashboard
+                      <span className="text-xs text-[#9a8f75] dark:text-gray-500">Behind the scenes</span>
+                    </a>
+                    <a
+                      href="/key"
+                      className="flex items-center justify-between text-sm text-[#4f4636] dark:text-gray-200 hover:text-[#1a8917] transition-colors"
+                    >
+                      Key Terms
+                      <span className="text-xs text-[#9a8f75] dark:text-gray-500">Data glossary</span>
+                    </a>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </section>
+        </main>
 
         <Footer />
       </div>
