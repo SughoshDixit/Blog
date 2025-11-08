@@ -164,27 +164,31 @@ export default function Home({ blogs, topics }) {
         />
       </Head>
 
-      <div className="min-h-screen relative bg-[#f7f5f2] dark:bg-gray-900">
+      <div className="min-h-screen relative bg-[#f7f5f2] dark:bg-[#050810] transition-colors duration-300">
         <Navbar topics={topics} />
         {/* best-effort site visit counter */}
         <script dangerouslySetInnerHTML={{__html:`fetch('/api/visits',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({})}).catch(()=>{})`}} />
 
-        <main className="pt-24 pb-16 bg-[#f7f5f2] dark:bg-gray-950 transition-colors duration-300">
+        <main className="pt-24 pb-16 bg-[#f7f5f2] dark:bg-[#050810] transition-colors duration-300">
           {/* Hero */}
-          <section className="border-b border-[#e6dfd3] dark:border-gray-800">
-            <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <section className="relative overflow-hidden border-b border-[#e6dfd3] dark:border-[#141b2c] bg-gradient-to-br from-[#fdfaf5] via-[#fbf7ef] to-[#f7f5f2] dark:from-[#0b1220] dark:via-[#101830] dark:to-[#0d1324]">
+            <div className="absolute inset-0 opacity-[0.18] dark:opacity-30 pointer-events-none mix-blend-plus-lighter">
+              <div className="absolute -top-32 -right-12 w-80 h-80 bg-[#e8dcc0] rounded-full blur-3xl dark:bg-[#28b981]/40"></div>
+              <div className="absolute -bottom-40 left-0 w-96 h-96 bg-[#f3e7d0] rounded-full blur-3xl dark:bg-[#2563eb]/20"></div>
+            </div>
+            <div className="relative max-w-7xl mx-auto px-4 md:px-8">
               <div className="grid gap-12 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-center py-16">
                 <div>
-                  <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#f0e9dd] text-[#6b5d44] text-sm font-medium mb-6">
+                  <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#f0e9dd] text-[#6b5d44] text-sm font-medium mb-6 shadow-sm shadow-[#cebfa4]/40 dark:bg-white/10 dark:text-[#f2ecd7] dark:shadow-none backdrop-blur">
                     Stay curious — welcome back to the chronicles
                   </div>
                   <h1
-                    className="text-4xl md:text-5xl lg:text-[56px] font-semibold leading-tight text-[#191919] dark:text-white mb-6"
+                    className="text-4xl md:text-5xl lg:text-[56px] font-semibold leading-tight text-[#191919] dark:text-[#f8f6ff] mb-6 drop-shadow-[0_12px_32px_rgba(255,255,255,0.15)]"
                     style={{ fontFamily: "Charter, Georgia, serif" }}
                   >
                     Stories on technology, data, and imagination.
                   </h1>
-                  <p className="text-lg md:text-xl text-[#615947] dark:text-gray-300 max-w-2xl leading-relaxed mb-10">
+                  <p className="text-lg md:text-xl text-[#615947] dark:text-[#c5cbe3] max-w-2xl leading-relaxed mb-10">
                     Dive into thoughtful essays, data science breakdowns, and playful experiments. Fresh reads land here every week, crafted for curious builders and creative thinkers.
                   </p>
                   <div className="flex flex-wrap gap-4">
@@ -204,9 +208,9 @@ export default function Home({ blogs, topics }) {
                 </div>
 
                 {featureHighlight && (
-                  <article className="rounded-3xl border border-[#e6dfd3] dark:border-gray-800 bg-white dark:bg-gray-900 shadow-soft">
+                  <article className="rounded-3xl border border-[#e6dfd3] dark:border-[#1b263d] bg-white dark:bg-[#121c2f]/95 shadow-soft">
                     <div className="p-8 space-y-6">
-                      <div className="flex items-center gap-3 text-sm text-[#6e6553] dark:text-gray-400">
+                      <div className="flex items-center gap-3 text-sm text-[#6e6553] dark:text-[#c3cbe4]/80">
                         <span className="font-semibold">
                           {featureHighlight.data.Author || "Sughosh Dixit"}
                         </span>
@@ -214,7 +218,7 @@ export default function Home({ blogs, topics }) {
                         <span>{featureHighlight.data.Date}</span>
                       </div>
                       <h2
-                        className="text-2xl md:text-3xl text-[#191919] dark:text-white font-semibold leading-tight"
+                        className="text-2xl md:text-3xl text-[#191919] dark:text-[#f5f7ff] font-semibold leading-tight"
                         style={{ fontFamily: "Charter, Georgia, serif" }}
                       >
                         <a
@@ -224,10 +228,10 @@ export default function Home({ blogs, topics }) {
                           {featureHighlight.data.Title}
                         </a>
                       </h2>
-                      <p className="text-base text-[#403a2f] dark:text-gray-300 leading-relaxed line-clamp-4">
+                      <p className="text-base text-[#403a2f] dark:text-[#d1d6eb] leading-relaxed line-clamp-4">
                         {featureHighlight.data.Abstract}
                       </p>
-                      <div className="flex justify-between items-center pt-2 text-sm text-[#736b58] dark:text-gray-400">
+                      <div className="flex justify-between items-center pt-2 text-sm text-[#736b58] dark:text-[#94a3c6]">
                         <span>{featureHighlight.readTime.text}</span>
                         <BlogEngagement blogId={generateSlug(featureHighlight.data.Title)} />
                       </div>
@@ -245,10 +249,10 @@ export default function Home({ blogs, topics }) {
 
           {/* Topics rail */}
           {tagPills.length > 0 && (
-            <section className="border-b border-[#e6dfd3] dark:border-gray-800 bg-[#fdfaf5] dark:bg-gray-900/50">
+            <section className="border-b border-[#e6dfd3] dark:border-[#141b2c] bg-[#fdfaf5] dark:bg-[#0a121f]">
               <div className="max-w-7xl mx-auto px-4 md:px-8 py-6">
                 <div className="flex items-center gap-4 overflow-x-auto no-scrollbar">
-                  <span className="uppercase tracking-wider text-xs font-semibold text-[#8c8169] dark:text-gray-400">
+                  <span className="uppercase tracking-wider text-xs font-semibold text-[#8c8169] dark:text-[#a0abc7]">
                     Explore topics
                   </span>
                   {tagPills.map((topic) => (
@@ -267,9 +271,9 @@ export default function Home({ blogs, topics }) {
 
           {/* Trending */}
           {trendingPosts.length > 0 && (
-            <section className="border-b border-[#e6dfd3] dark:border-gray-800">
+            <section className="border-b border-[#e6dfd3] dark:border-[#141b2c]">
               <div className="max-w-7xl mx-auto px-4 md:px-8 py-16">
-                <div className="flex items-center gap-3 mb-10 text-[#191919] dark:text-white">
+                <div className="flex items-center gap-3 mb-10 text-[#191919] dark:text-[#f5f6ff]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -291,11 +295,11 @@ export default function Home({ blogs, topics }) {
                 <div className="grid gap-10 md:grid-cols-2">
                   {trendingPosts.map((post, index) => (
                     <article key={post.data.Id} className="flex space-x-6">
-                      <span className="text-3xl md:text-[42px] font-bold text-[#d4c5a7] leading-none">
+                      <span className="text-3xl md:text-[42px] font-bold text-[#d4c5a7] leading-none dark:text-[#f3d6a8]">
                         {(index + 1).toString().padStart(2, "0")}
                       </span>
                       <div className="space-y-3">
-                        <div className="flex items-center gap-2 text-sm text-[#6e6553] dark:text-gray-400">
+                        <div className="flex items-center gap-2 text-sm text-[#6e6553] dark:text-[#aab5d5]">
                           <span className="font-medium">
                             {post.data.Author || "Sughosh Dixit"}
                           </span>
@@ -303,17 +307,17 @@ export default function Home({ blogs, topics }) {
                           <span>{post.data.Date}</span>
                         </div>
                         <h3
-                          className="text-xl md:text-2xl font-semibold text-[#191919] dark:text-white leading-tight hover:underline"
+                          className="text-xl md:text-2xl font-semibold text-[#191919] dark:text-[#f5f6ff] leading-tight hover:underline"
                           style={{ fontFamily: "Charter, Georgia, serif" }}
                         >
                           <a href={`/blogs/${generateSlug(post.data.Title)}`}>
                             {post.data.Title}
                           </a>
                         </h3>
-                        <p className="text-sm text-[#494132] dark:text-gray-300 line-clamp-3">
+                        <p className="text-sm text-[#494132] dark:text-[#c1c8e5] line-clamp-3">
                           {post.data.Abstract}
                         </p>
-                        <div className="flex items-center justify-between text-sm text-[#7c7461] dark:text-gray-400">
+                        <div className="flex items-center justify-between text-sm text-[#7c7461] dark:text-[#92a0c2]">
                           <span>{post.readTime.text}</span>
                           <BlogEngagement blogId={generateSlug(post.data.Title)} />
                         </div>
@@ -332,11 +336,11 @@ export default function Home({ blogs, topics }) {
                 {remainingPosts.map((blog) => (
                   <article
                     key={blog.data.Id}
-                    className="group rounded-3xl border border-transparent hover:border-[#dfd2b7] bg-white/80 dark:bg-gray-900/80 hover:bg-white transition-all duration-300 shadow-lg shadow-transparent hover:shadow-[0_16px_60px_-30px_rgba(0,0,0,0.45)]"
+                    className="group rounded-3xl border border-transparent hover:border-[#dfd2b7] bg-white/85 dark:bg-[#101a2d]/90 hover:bg-white transition-all duration-300 shadow-lg shadow-transparent hover:shadow-[0_16px_60px_-30px_rgba(0,0,0,0.45)] dark:hover:bg-[#162338]"
                   >
                     <div className="p-8 flex flex-col lg:flex-row gap-10">
                       <div className="flex-1 min-w-0">
-                        <div className="flex flex-wrap items-center gap-2 text-sm text-[#6e6553] dark:text-gray-400 mb-4">
+                        <div className="flex flex-wrap items-center gap-2 text-sm text-[#6e6553] dark:text-[#a4afcc] mb-4">
                           <span className="font-medium">
                             {blog.data.Author || "Sughosh Dixit"}
                           </span>
@@ -344,7 +348,7 @@ export default function Home({ blogs, topics }) {
                           <span>{blog.data.Date}</span>
                         </div>
                         <h3
-                          className="text-2xl md:text-3xl font-semibold text-[#191919] dark:text-white mb-4 leading-tight"
+                          className="text-2xl md:text-3xl font-semibold text-[#191919] dark:text-[#f6f7ff] mb-4 leading-tight"
                           style={{ fontFamily: "Charter, Georgia, serif" }}
                         >
                           <a
@@ -354,10 +358,10 @@ export default function Home({ blogs, topics }) {
                             {blog.data.Title}
                           </a>
                         </h3>
-                        <p className="text-base md:text-lg text-[#4b4334] dark:text-gray-300 leading-relaxed line-clamp-4">
+                        <p className="text-base md:text-lg text-[#4b4334] dark:text-[#c4cce6] leading-relaxed line-clamp-4">
                           {blog.data.Abstract}
                         </p>
-                        <div className="flex flex-wrap items-center justify-between gap-4 mt-8 text-sm text-[#7c7461] dark:text-gray-400">
+                        <div className="flex flex-wrap items-center justify-between gap-4 mt-8 text-sm text-[#7c7461] dark:text-[#8fa0c3]">
                           <div className="flex flex-wrap items-center gap-3">
                             <span>{blog.readTime.text}</span>
                             {blog.data.Tags && (
@@ -368,7 +372,7 @@ export default function Home({ blogs, topics }) {
                                   .map((tag, index) => (
                                     <span
                                       key={index}
-                                      className="px-3 py-1 rounded-full bg-[#f0e9dd] text-[#5b5241] text-xs font-medium dark:bg-gray-800 dark:text-gray-300"
+                                      className="px-3 py-1 rounded-full bg-[#f0e9dd] text-[#5b5241] text-xs font-medium dark:bg-[#1f2a44] dark:text-[#d1d7ef]"
                                     >
                                       {tag}
                                     </span>
@@ -380,7 +384,7 @@ export default function Home({ blogs, topics }) {
                             <BlogEngagement blogId={generateSlug(blog.data.Title)} />
                             <a
                               href={`/blogs/${generateSlug(blog.data.Title)}`}
-                              className="text-[#1a8917] hover:text-[#0f730c] font-semibold"
+                              className="text-[#1a8917] hover:text-[#0f730c] font-semibold dark:text-[#26c281] dark:hover:text-[#1fb877]"
                             >
                               Continue reading →
                             </a>
@@ -400,9 +404,9 @@ export default function Home({ blogs, topics }) {
               </div>
 
               <aside className="space-y-12">
-                <div className="rounded-3xl border border-[#e6dfd3] dark:border-gray-800 bg-white dark:bg-gray-900 p-8 shadow-soft">
+                <div className="rounded-3xl border border-[#e6dfd3] dark:border-[#1b263d] bg-white dark:bg-[#0f1b31] p-8 shadow-soft">
                   <h2
-                    className="text-xl font-semibold text-[#191919] dark:text-white mb-6"
+                    className="text-xl font-semibold text-[#191919] dark:text-[#f5f6ff] mb-6"
                     style={{ fontFamily: "Charter, Georgia, serif" }}
                   >
                     Staff Picks
@@ -412,15 +416,15 @@ export default function Home({ blogs, topics }) {
                       <article key={post.data.Id} className="space-y-2">
                         <a
                           href={`/blogs/${generateSlug(post.data.Title)}`}
-                          className="text-lg font-semibold text-[#191919] dark:text-white hover:underline leading-snug"
+                          className="text-lg font-semibold text-[#191919] dark:text-[#f4f6ff] hover:underline leading-snug"
                           style={{ fontFamily: "Charter, Georgia, serif" }}
                         >
                           {post.data.Title}
                         </a>
-                        <p className="text-sm text-[#5e5645] dark:text-gray-400 line-clamp-2">
+                        <p className="text-sm text-[#5e5645] dark:text-[#a9b6d8] line-clamp-2">
                           {post.data.Abstract}
                         </p>
-                        <div className="flex items-center gap-2 text-xs text-[#7c7461] dark:text-gray-400">
+                        <div className="flex items-center gap-2 text-xs text-[#7c7461] dark:text-[#8fa0c3]">
                           <span>{post.data.Author || "Sughosh Dixit"}</span>
                           <span>•</span>
                           <span>{post.readTime.text}</span>
@@ -430,18 +434,18 @@ export default function Home({ blogs, topics }) {
                   </div>
                 </div>
 
-                <div className="rounded-3xl border border-[#e6dfd3] dark:border-gray-800 bg-[#fdfaf5] dark:bg-gray-900 p-8 shadow-soft">
-                  <h2 className="text-xl font-semibold text-[#191919] dark:text-white mb-4" style={{ fontFamily: "Charter, Georgia, serif" }}>
+                <div className="rounded-3xl border border-[#e6dfd3] dark:border-[#1b263d] bg-[#fdfaf5] dark:bg-[#10192e] p-8 shadow-soft">
+                  <h2 className="text-xl font-semibold text-[#191919] dark:text-[#f4f6ff] mb-4" style={{ fontFamily: "Charter, Georgia, serif" }}>
                     Weekly digest
                   </h2>
-                  <p className="text-sm text-[#5e5645] dark:text-gray-400 mb-6">
+                  <p className="text-sm text-[#5e5645] dark:text-[#aab4d1] mb-6">
                     Get the top three stories in your inbox every Sunday along with new experiments from the lab.
                   </p>
                   <form className="space-y-4">
                     <input
                       type="email"
                       placeholder="Your email"
-                      className="w-full px-4 py-3 rounded-full border border-[#e6dfd3] focus:outline-none focus:border-[#1a8917] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-gray-900 dark:text-gray-200 dark:border-gray-800"
+                      className="w-full px-4 py-3 rounded-full border border-[#e6dfd3] focus:outline-none focus:border-[#1a8917] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
                     />
                     <button
                       type="submit"
@@ -450,36 +454,36 @@ export default function Home({ blogs, topics }) {
                       Sign me up
                     </button>
                   </form>
-                  <p className="text-xs text-[#9a8f75] dark:text-gray-500 mt-4">
+                  <p className="text-xs text-[#9a8f75] dark:text-[#7f8bae] mt-4">
                     No spam, unsubscribe anytime.
                   </p>
                 </div>
 
-                <div className="rounded-3xl border border-[#e6dfd3] dark:border-gray-800 bg-white dark:bg-gray-900 p-6 shadow-soft space-y-4">
-                  <h3 className="text-sm font-semibold text-[#7a705a] dark:text-gray-400 uppercase tracking-widest">
+                <div className="rounded-3xl border border-[#e6dfd3] dark:border-[#1b263d] bg-white dark:bg-[#0f192d] p-6 shadow-soft space-y-4">
+                  <h3 className="text-sm font-semibold text-[#7a705a] dark:text-[#97a3c7] uppercase tracking-widest">
                     Follow along
                   </h3>
                   <div className="space-y-3">
                     <a
                       href="/ai-gallery"
-                      className="flex items-center justify-between text-sm text-[#4f4636] dark:text-gray-200 hover:text-[#1a8917] transition-colors"
+                      className="flex items-center justify-between text-sm text-[#4f4636] dark:text-[#d7ddf5] hover:text-[#1a8917] dark:hover:text-[#2bd48d] transition-colors"
                     >
                       AI Gallery
-                      <span className="text-xs text-[#9a8f75] dark:text-gray-500">New drops weekly</span>
+                      <span className="text-xs text-[#9a8f75] dark:text-[#7f8bae]">New drops weekly</span>
                     </a>
                     <a
                       href="/dashboard"
-                      className="flex items-center justify-between text-sm text-[#4f4636] dark:text-gray-200 hover:text-[#1a8917] transition-colors"
+                      className="flex items-center justify-between text-sm text-[#4f4636] dark:text-[#d7ddf5] hover:text-[#1a8917] dark:hover:text-[#2bd48d] transition-colors"
                     >
                       Dashboard
-                      <span className="text-xs text-[#9a8f75] dark:text-gray-500">Behind the scenes</span>
+                      <span className="text-xs text-[#9a8f75] dark:text-[#7f8bae]">Behind the scenes</span>
                     </a>
                     <a
                       href="/key"
-                      className="flex items-center justify-between text-sm text-[#4f4636] dark:text-gray-200 hover:text-[#1a8917] transition-colors"
+                      className="flex items-center justify-between text-sm text-[#4f4636] dark:text-[#d7ddf5] hover:text-[#1a8917] dark:hover:text-[#2bd48d] transition-colors"
                     >
                       Key Terms
-                      <span className="text-xs text-[#9a8f75] dark:text-gray-500">Data glossary</span>
+                      <span className="text-xs text-[#9a8f75] dark:text-[#7f8bae]">Data glossary</span>
                     </a>
                   </div>
                 </div>

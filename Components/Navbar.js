@@ -124,7 +124,7 @@ function Navbar({ topics }) {
       <Alert show={viewAlert} type="success" message={alertMessage} />
       
       {/* Desktop Navigation */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#f7f5f2]/90 dark:bg-gray-900/90 border-b border-[#e6dfd3] dark:border-gray-800 backdrop-blur-xl desktop-nav">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#f7f5f2]/90 dark:bg-[#0b1220]/90 border-b border-[#e6dfd3] dark:border-[#141b2c] backdrop-blur-xl desktop-nav">
         <div className="flex items-center justify-between px-4 py-3">
           {/* Left side - Menu and Logo */}
           <div className="flex items-center space-x-4">
@@ -152,7 +152,7 @@ function Navbar({ topics }) {
             <div className="relative">
               <button
                 onClick={() => setSearchOpen(true)}
-                className="w-full flex items-center justify-between px-4 py-2 bg-white/80 dark:bg-gray-800 rounded-full text-[#716857] dark:text-gray-400 hover:bg-white dark:hover:bg-gray-700 transition-colors border border-[#e6dfd3] dark:border-gray-700 shadow-sm"
+                className="w-full flex items-center justify-between px-4 py-2 bg-white/80 dark:bg-[#111a2e] rounded-full text-[#716857] dark:text-[#c1c9e5] hover:bg-white dark:hover:bg-[#18243c] transition-colors border border-[#e6dfd3] dark:border-[#1c2a45] shadow-sm"
                 title="Search articles (Ctrl+K)"
               >
                 <div className="flex items-center space-x-2">
@@ -168,7 +168,7 @@ function Navbar({ topics }) {
 
           {/* Right side - Actions */}
           <div className="flex items-center space-x-4">
-            <div className="hidden lg:flex items-center space-x-6 text-sm text-[#645b4a] dark:text-gray-300">
+            <div className="hidden lg:flex items-center space-x-6 text-sm text-[#645b4a] dark:text-[#d5dcf3]">
               <Link href="/dashboard">
                 <a className="hover:text-[#1a8917] transition-colors">Write</a>
               </Link>
@@ -185,7 +185,7 @@ function Navbar({ topics }) {
               </Link>
             </div>
             <button
-              className="p-2 text-[#716857] hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"
+              className="p-2 text-[#716857] hover:text-gray-900 dark:text-[#c8d0ec] dark:hover:text-white transition-colors"
               onClick={toggleTheme}
               title={isMounted && theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             >
@@ -223,7 +223,7 @@ function Navbar({ topics }) {
       </header>
 
       {/* Mobile Navigation */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#f7f5f2]/95 dark:bg-gray-900 border-b border-[#e6dfd3] dark:border-gray-800 backdrop-blur-xl mobile-nav">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#f7f5f2]/95 dark:bg-[#0b1220]/90 border-b border-[#e6dfd3] dark:border-[#141b2c] backdrop-blur-xl mobile-nav">
         <div className="flex items-center justify-between px-4 py-3">
           {/* Left side - Menu and Logo */}
           <div className="flex items-center space-x-3">
@@ -250,14 +250,14 @@ function Navbar({ topics }) {
           <div className="flex items-center space-x-2">
             <button
               onClick={() => setSearchOpen(true)}
-              className="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors mobile-search"
+              className="p-2 text-gray-600 hover:text-gray-900 dark:text-[#d5dcf3] dark:hover:text-white transition-colors mobile-search"
               title="Search articles"
             >
               <FiSearch className="w-5 h-5" />
             </button>
 
             <button
-              className="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"
+              className="p-2 text-gray-600 hover:text-gray-900 dark:text-[#c8d0ec] dark:hover:text-white transition-colors"
               onClick={toggleTheme}
               title={isMounted && theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             >
