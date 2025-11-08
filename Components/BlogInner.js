@@ -9,9 +9,9 @@ const LOTTIE_ANIMATIONS = {
   adjustedGuard: "/lottie/adjusted_guard.json",
   skewTuning: "/lottie/skew_tuning.json",
   densityRadar: "/lottie/density_radar.json",
-  classicalVsRobust: "https://assets8.lottiefiles.com/packages/lf20_06a6pf9i.json",
-  breakdownFortress: "https://assets9.lottiefiles.com/packages/lf20_SQ1QFGQGXY.json",
-  robustWorkflow: "https://assets1.lottiefiles.com/private_files/lf30_ql2sx5.json"
+  classicalVsRobust: "/lottie/classical_vs_robust.json",
+  breakdownFortress: "/lottie/breakdown_fortress.json",
+  robustWorkflow: "/lottie/robust_workflow.json"
 };
 
 function BlogInner({ data, content, headings, readTime }) {
@@ -49,13 +49,37 @@ function BlogInner({ data, content, headings, readTime }) {
           if (!containerRef.current) return;
 
           containerRef.current.innerHTML = "";
-          instance = lottie.loadAnimation({
+
+          const animationSource = LOTTIE_ANIMATIONS[animation];
+          const isLocalAsset =
+            typeof animationSource === "string" && animationSource.startsWith("/lottie/");
+
+          let animationConfig = {
             container: containerRef.current,
             renderer: "svg",
             loop,
-            autoplay: true,
-            path: LOTTIE_ANIMATIONS[animation]
-          });
+            autoplay: true
+          };
+
+          if (isLocalAsset) {
+            const response = await fetch(animationSource);
+            if (!response.ok) {
+              throw new Error(
+                `Failed to fetch local Lottie asset (${animationSource}): ${response.status}`
+              );
+            }
+            const animationData = await response.json();
+
+            if (!animationData || typeof animationData !== "object") {
+              throw new Error(`Invalid animation data received for ${animation}`);
+            }
+
+            animationConfig = { ...animationConfig, animationData };
+          } else {
+            animationConfig = { ...animationConfig, path: animationSource };
+          }
+
+          instance = lottie.loadAnimation(animationConfig);
         } catch (error) {
           console.error(`Failed to load Lottie animation ${animation}:`, error);
         }
