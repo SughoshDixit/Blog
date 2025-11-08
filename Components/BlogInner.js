@@ -8,7 +8,10 @@ const LOTTIE_ANIMATIONS = {
   analyticsPulse: "https://assets7.lottiefiles.com/packages/lf20_t9gkkhz4.json",
   adjustedGuard: "/lottie/adjusted_guard.json",
   skewTuning: "/lottie/skew_tuning.json",
-  densityRadar: "/lottie/density_radar.json"
+  densityRadar: "/lottie/density_radar.json",
+  classicalVsRobust: "https://assets8.lottiefiles.com/packages/lf20_06a6pf9i.json",
+  breakdownFortress: "https://assets9.lottiefiles.com/packages/lf20_SQ1QFGQGXY.json",
+  robustWorkflow: "https://assets1.lottiefiles.com/private_files/lf30_ql2sx5.json"
 };
 
 function BlogInner({ data, content, headings, readTime }) {
