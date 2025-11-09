@@ -86,32 +86,140 @@ export default function Home({ blogs, topics }) {
       : [];
 
     return withPublishFlag.sort((a, b) => {
-      const dateA = new Date(a?.data?.Date || 0).getTime();
-      const dateB = new Date(b?.data?.Date || 0).getTime();
-      if (Number.isNaN(dateA) || Number.isNaN(dateB)) {
-        return 0;
+      const dateA = Date.parse(a?.data?.Date);
+      const dateB = Date.parse(b?.data?.Date);
+
+      const isValidDateA = !Number.isNaN(dateA);
+      const isValidDateB = !Number.isNaN(dateB);
+
+      if (isValidDateA && isValidDateB) {
+        return dateB - dateA;
       }
-      return dateB - dateA;
+
+      if (isValidDateA) {
+        return -1;
+      }
+
+      if (isValidDateB) {
+        return 1;
+      }
+
+      const idA = Number(a?.data?.Id) || 0;
+      const idB = Number(b?.data?.Id) || 0;
+      return idB - idA;
     });
   }, [blogs]);
 
+  const [engagementMap, setEngagementMap] = useState({});
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    const loadEngagement = async () => {
+      if (!Array.isArray(publishedBlogs) || publishedBlogs.length === 0) {
+        return;
+      }
+
+      try {
+        const entries = await Promise.all(
+          publishedBlogs.map(async (blog) => {
+            const slug = generateSlug(blog?.data?.Title);
+            if (!slug) return null;
+
+            try {
+              const [likesRes, commentsRes] = await Promise.all([
+                fetch(`/api/likes/${slug}`).catch(() => null),
+                fetch(`/api/comments/${slug}`).catch(() => null)
+              ]);
+
+              const likesJson = likesRes && likesRes.ok ? await likesRes.json() : {};
+              const commentsJson = commentsRes && commentsRes.ok ? await commentsRes.json() : {};
+
+              const likes = Number(likesJson?.totalLikes) || 0;
+              const comments = Array.isArray(commentsJson?.comments)
+                ? commentsJson.comments.length
+                : Number(commentsJson?.count) || 0;
+
+              return [slug, { likes, comments }];
+            } catch (error) {
+              console.error(`Error fetching engagement for ${slug}`, error);
+              return [slug, { likes: 0, comments: 0 }];
+            }
+          })
+        );
+
+        if (!isCancelled) {
+          setEngagementMap(Object.fromEntries(entries.filter(Boolean)));
+        }
+      } catch (error) {
+        if (!isCancelled) {
+          console.error('Error loading engagement data', error);
+          setEngagementMap({});
+        }
+      }
+    };
+
+    loadEngagement();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [publishedBlogs]);
+
+  const rankedBlogs = useMemo(() => {
+    return publishedBlogs
+      .map((blog) => {
+        const slug = generateSlug(blog?.data?.Title);
+        const engagement = engagementMap[slug] || { likes: 0, comments: 0 };
+        const dateValue = Date.parse(blog?.data?.Date);
+        const recencyScore = Number.isNaN(dateValue) ? 0 : dateValue;
+        const popularityScore = engagement.likes * 5000 + engagement.comments * 2000;
+        const compositeScore = recencyScore + popularityScore;
+
+        return {
+          ...blog,
+          _score: compositeScore
+        };
+      })
+      .sort((a, b) => b._score - a._score);
+  }, [publishedBlogs, engagementMap]);
+ 
   const trendingPosts = useMemo(
-    () => publishedBlogs.slice(0, 6),
-    [publishedBlogs]
+    () => rankedBlogs.slice(0, 6),
+    [rankedBlogs]
   );
-  const featureHighlight = trendingPosts[0];
-  const staffPicks = useMemo(
-    () => publishedBlogs.slice(1, 4),
-    [publishedBlogs]
+  const featureHighlight = rankedBlogs[0];
+  const recentPosts = useMemo(
+    () => rankedBlogs.slice(0, 5),
+    [rankedBlogs]
   );
 
   const remainingPosts = useMemo(
     () =>
-      publishedBlogs.filter(
-        (blog) => !staffPicks.includes(blog) && blog !== featureHighlight
+      rankedBlogs.filter((blog) =>
+        !recentPosts.some((recent) => recent?.data?.Id === blog?.data?.Id)
       ),
-    [publishedBlogs, staffPicks, featureHighlight]
+    [rankedBlogs, recentPosts]
   );
+
+  const POSTS_PER_PAGE = 6;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [remainingPosts.length]);
+
+  const paginatedPosts = useMemo(
+    () => remainingPosts.slice(0, currentPage * POSTS_PER_PAGE),
+    [remainingPosts, currentPage]
+  );
+
+  const totalPages = useMemo(
+    () => Math.ceil(remainingPosts.length / POSTS_PER_PAGE) || 1,
+    [remainingPosts.length]
+  );
+
+  const canLoadMore = paginatedPosts.length < remainingPosts.length;
 
   const tagPills = useMemo(
     () =>
@@ -333,7 +441,7 @@ export default function Home({ blogs, topics }) {
           <section id="latest-posts" className="py-16">
             <div className="max-w-7xl mx-auto px-4 md:px-8 grid gap-16 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)]">
               <div className="space-y-14">
-                {remainingPosts.map((blog) => (
+                {paginatedPosts.map((blog) => (
                   <article
                     key={blog.data.Id}
                     className="group rounded-3xl border border-transparent hover:border-[#dfd2b7] bg-white/85 dark:bg-[#101a2d]/90 hover:bg-white transition-all duration-300 shadow-lg shadow-transparent hover:shadow-[0_16px_60px_-30px_rgba(0,0,0,0.45)] dark:hover:bg-[#162338]"
@@ -409,10 +517,10 @@ export default function Home({ blogs, topics }) {
                     className="text-xl font-semibold text-[#191919] dark:text-[#f5f6ff] mb-6"
                     style={{ fontFamily: "Charter, Georgia, serif" }}
                   >
-                    Staff Picks
+                    Recent Posts
                   </h2>
                   <div className="space-y-6">
-                    {staffPicks.map((post) => (
+                    {recentPosts.map((post) => (
                       <article key={post.data.Id} className="space-y-2">
                         <a
                           href={`/blogs/${generateSlug(post.data.Title)}`}
@@ -489,6 +597,33 @@ export default function Home({ blogs, topics }) {
                 </div>
               </aside>
             </div>
+            {remainingPosts.length > 0 && (
+              <div className="max-w-7xl mx-auto px-4 md:px-8 mt-12 flex justify-center">
+                <div className="inline-flex items-center gap-4 px-6 py-3 rounded-full border border-[#e6dfd3] dark:border-[#141b2c] bg-white/90 dark:bg-[#0f192d]/90 text-sm text-[#695f4b] dark:text-[#bcc6e7] shadow-soft">
+                  <span className="text-xs uppercase tracking-[0.2em] text-[#9a8f75] dark:text-[#8794bc]">
+                    Page {currentPage} of {totalPages}
+                  </span>
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+                      disabled={currentPage === 1}
+                      className="px-3 py-2 rounded-full border border-transparent disabled:opacity-40 disabled:cursor-not-allowed hover:border-[#d9cdb2] hover:bg-[#faf5ec] dark:hover:border-[#1f2c47] dark:hover:bg-[#151f35]"
+                    >
+                      Previous
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setCurrentPage((prev) => (canLoadMore ? prev + 1 : prev))}
+                      disabled={!canLoadMore}
+                      className="px-4 py-2 rounded-full bg-[#1a8917] text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed shadow-sm shadow-[#1a8917]/40 dark:bg-[#26c281]"
+                    >
+                      {canLoadMore ? "Load more" : "All stories loaded"}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </section>
         </main>
 
