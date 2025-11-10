@@ -2,7 +2,7 @@
 Id: 1002
 Title: "Day 2 — Expressions as Algebra: Tokens, Precedence, and Infix → Postfix"
 Author: Sughosh P Dixit
-Date: "2024-12-02"
+Date: "2025-01-02"
 Tags: Data Science Mathematics Parsing Expressions Algorithms Rule Engines
 Topic: Data Science
 Abstract: "How to teach computers to read and evaluate expressions step by step — by tokenizing text, enforcing operator precedence, and converting rules to postfix (RPN) form for speed, clarity and consistency."

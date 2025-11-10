@@ -2,7 +2,7 @@
 Id: 1001
 Title: "Day 1 — Boolean Logic to Numbers: AND as min, OR as max"
 Author: Sughosh P Dixit
-Date: "2024-12-01"
+Date: "2025-01-01"
 Tags: Data Science Mathematics Boolean Logic Fuzzy Logic T-norms
 Topic: Data Science
 Abstract: "Extending Boolean rules to graded (0–1) degrees of truth by replacing AND with the minimum operator and OR with the maximum operator using Gödel t-norms."

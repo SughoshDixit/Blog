@@ -2,7 +2,7 @@
 Id: 1005
 Title: "Day 5 — Robust Location and Scale: Median & MAD (Simple Guide + Worked Example)"
 Author: Sughosh P Dixit
-Date: "2024-12-05"
+Date: "2025-01-05"
 Tags: Data Science Statistics Robust Statistics Median MAD Outliers Z-Scores Anomaly Detection
 Topic: Data Science
 Abstract: "The mean and standard deviation (SD) can be swayed by outliers like reeds in the wind — a single extreme value can pull them off course. The median and MAD (Median Absolute Deviation), on the other hand, are sturdy rocks in the statistical stream. They resist distortion and give reliable 'center' and 'spread' estimates, even when your data are skewed or heavy-tailed."

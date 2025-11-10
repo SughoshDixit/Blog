@@ -2,7 +2,7 @@
 Id: 1004
 Title: "Day 4 — Percentile Rank and Stratifications"
 Author: Sughosh P Dixit
-Date: "2024-12-04"
+Date: "2025-01-04"
 Tags: Data Science Statistics Percentile Rank Stratification ECDF Quantiles Sampling
 Topic: Data Science
 Abstract: "Percentile ranks turn any numeric feature into a simple score in [0,1] that says 'what fraction of the data is at or below this value.' Learn how to combine ranks with min/max and create strata for sampling, prioritization, or analysis."
