@@ -188,7 +188,32 @@ export default function Home({ blogs, topics }) {
     () => rankedBlogs.slice(0, 6),
     [rankedBlogs]
   );
-  const featureHighlight = rankedBlogs[0];
+  
+  // Feature the most recent post by date (or ID if no date) to ensure latest content is highlighted
+  const featureHighlight = useMemo(() => {
+    const sortedByRecency = [...publishedBlogs].sort((a, b) => {
+      const dateA = Date.parse(a?.data?.Date);
+      const dateB = Date.parse(b?.data?.Date);
+      
+      const isValidDateA = !Number.isNaN(dateA);
+      const isValidDateB = !Number.isNaN(dateB);
+      
+      if (isValidDateA && isValidDateB) {
+        return dateB - dateA; // Most recent first
+      }
+      
+      if (isValidDateA) return -1;
+      if (isValidDateB) return 1;
+      
+      // Fallback to ID if no dates
+      const idA = Number(a?.data?.Id) || 0;
+      const idB = Number(b?.data?.Id) || 0;
+      return idB - idA; // Highest ID first
+    });
+    
+    return sortedByRecency[0];
+  }, [publishedBlogs]);
+  
   const recentPosts = useMemo(
     () => rankedBlogs.slice(0, 5),
     [rankedBlogs]
@@ -196,10 +221,13 @@ export default function Home({ blogs, topics }) {
 
   const remainingPosts = useMemo(
     () =>
-      rankedBlogs.filter((blog) =>
-        !recentPosts.some((recent) => recent?.data?.Id === blog?.data?.Id)
-      ),
-    [rankedBlogs, recentPosts]
+      rankedBlogs.filter((blog) => {
+        // Exclude posts that are in recentPosts or the featureHighlight
+        const isInRecent = recentPosts.some((recent) => recent?.data?.Id === blog?.data?.Id);
+        const isFeatured = featureHighlight?.data?.Id === blog?.data?.Id;
+        return !isInRecent && !isFeatured;
+      }),
+    [rankedBlogs, recentPosts, featureHighlight]
   );
 
   const POSTS_PER_PAGE = 6;

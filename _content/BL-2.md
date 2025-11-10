@@ -2,6 +2,7 @@
 Id: 2
 Title: Reflections from the Akhila Bharateeya Pratinidhi Sabha 2025 
 Author: Sughosh P Dixit
+Date: "2024-11-21"
 Tags: RSS Leadership Service PersonalGrowth 
 Topic: RSS Centenary
 Abstract: My experience at the 100th year of RSS as a Prabandhak

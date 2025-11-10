@@ -2,6 +2,7 @@
 Id: 1007
 Title: "Day 7 — Boxplots, IQR, and Tukey Fences"
 Author: Sughosh P Dixit
+Date: "2024-12-07"
 Tags: Data Science Statistics Boxplots IQR Interquartile Range Tukey Fences Outliers Robust Statistics Nonparametric
 Topic: Data Science
 Abstract: "Boxplots are the simplest visual way to spot outliers. They rely on the IQR (Interquartile Range) — the middle 50% of your data — and build 'fences' around it. Points outside these fences are suspected outliers. It's simple, robust, and doesn't assume your data are Normal."

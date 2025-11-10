@@ -2,6 +2,7 @@
 Id: 5
 Title: "Five Years at Oracle: From Cloud Analyst to Data Scientist"
 Author: Sughosh P Dixit
+Date: "2024-11-24"
 Tags: Oracle Milestone Anniversary 5Years AI ML DataScience
 Topic: Experience
 Abstract: My journey at Oracle from being a fresh hire at Oracle to becoming a Data Scientist 

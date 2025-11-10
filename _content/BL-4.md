@@ -2,6 +2,7 @@
 Id: 4
 Title: India in a Shifting Global Order — Book Notes
 Author: Sughosh P Dixit
+Date: "2024-11-23"
 Tags: Geopolitics India ForeignPolicy GlobalOrder Multipolarity G20 BRICS QUAD AI Climate Dedollarization BookNotes
 Topic: Book
 Abstract: A blurb of a book on the Indian Perspective in the current world 
