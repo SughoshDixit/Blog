@@ -8,10 +8,20 @@ import { useState, useEffect, useMemo } from "react";
 export const getStaticProps = () => {
   const allBlogs = getAllBlogPosts();
   const allTopics = getAllTopics();
+  
+  // Remove content from blogs to reduce page data size
+  // Content is only needed on individual blog pages, not the home page listing
+  const blogsWithoutContent = allBlogs
+    .filter((blog) => blog && blog.data && blog.readTime)
+    .map((blog) => ({
+      data: blog.data,
+      readTime: blog.readTime,
+    }));
+  
   return {
     props: {
-      blogs: allBlogs,
-      topics: allTopics,
+      blogs: blogsWithoutContent,
+      topics: allTopics || [],
     },
   };
 };

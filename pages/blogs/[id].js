@@ -123,7 +123,7 @@ function BlogPost({ data, content, id, headings, topics, readTime }) {
           </Script>
           
           {/* Medium-style article layout */}
-          <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 overflow-x-hidden">
             <BlogInner data={data} content={content} headings={headings} readTime={readTime} />
             
             {/* Medium-style engagement section */}

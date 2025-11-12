@@ -149,38 +149,68 @@ function BlogInner({ data, content, headings, readTime }) {
   const mdxComponents = {
     Lottie: (props) => <LottiePlayer {...props} />,
     img: (props) => {
-      // Special handling for header images and DS-6/DS-7 images
+      // Special handling for header images and DS images
       const isHeaderImage = props.src && props.src.includes('skewness_kurtosis_concept');
-      const isDSImage = props.src && (props.src.includes('/DS-6/') || props.src.includes('/DS-7/'));
+      const isDSImage = props.src && (props.src.includes('/DS-6/') || props.src.includes('/DS-7/') || props.src.includes('/DS-11/') || props.src.includes('/DS-12/'));
       
       return (
-        <div className="my-6 flex justify-center">
+        <div className={`my-6 flex justify-center ${isHeaderImage || isDSImage ? 'bg-gray-50 dark:bg-gray-900 p-4 rounded-lg' : ''}`}>
           <img
             loading="lazy"
             decoding="async"
             referrerPolicy="no-referrer"
             crossOrigin="anonymous"
-            className={`rounded-md ${isHeaderImage || isDSImage ? 'w-full max-w-5xl' : 'max-w-full'} h-auto ${isMobile ? 'cursor-pointer' : ''}`}
+            className={`rounded-md ${isHeaderImage || isDSImage ? 'w-full max-w-5xl' : 'max-w-full'} h-auto ${isMobile ? 'cursor-pointer hover:opacity-90' : 'hover:opacity-90'} transition-opacity`}
             style={{
               maxWidth: '100%',
               height: 'auto',
               display: 'block',
+              visibility: 'visible',
+              opacity: 1,
               objectFit: 'contain',
-              width: isHeaderImage || isDSImage ? '100%' : 'auto'
+              width: isHeaderImage || isDSImage ? '100%' : 'auto',
+              backgroundColor: 'transparent'
             }}
             onClick={() => openModal(props.src, props.alt)}
             onError={(e) => {
-              // Hide broken images gracefully
-              console.warn(`Image failed to load: ${props.src}`);
-              e.target.style.display = 'none';
+              console.error(`Image failed to load: ${props.src}`, props.alt);
+              // Show error indicator but keep image visible
+              e.target.style.border = '2px dashed #d1d5db';
+              e.target.style.padding = '1rem';
+              e.target.style.minHeight = '100px';
+              e.target.alt = `Failed to load: ${props.alt || props.src}`;
+              // Add error overlay
+              const parent = e.target.parentElement;
+              if (parent && !parent.querySelector('.image-load-error')) {
+                const errorOverlay = document.createElement('div');
+                errorOverlay.className = 'image-load-error absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-800 bg-opacity-75 rounded-md';
+                errorOverlay.innerHTML = `<span class="text-xs text-gray-500 dark:text-gray-400">Image not found</span>`;
+                parent.style.position = 'relative';
+                parent.appendChild(errorOverlay);
+              }
+            }}
+            onLoad={(e) => {
+              // Remove error indicators on successful load
+              const parent = e.target.parentElement;
+              const errorOverlay = parent?.querySelector('.image-load-error');
+              if (errorOverlay) {
+                errorOverlay.remove();
+              }
+              e.target.style.border = 'none';
+              e.target.style.padding = '0';
             }}
             {...props}
           />
         </div>
       );
     },
+    pre: (props) => (
+      <div className="overflow-x-auto my-6" style={{ maxWidth: '100%' }}>
+        <pre className="overflow-x-auto p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-sm whitespace-pre" style={{ maxWidth: '100%' }} {...props} />
+      </div>
+    ),
     table: (props) => (
-      <div className="overflow-x-auto my-6">
+      <div className="overflow-x-auto my-6" style={{ maxWidth: '100%' }}>
         <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700" {...props} />
       </div>
     ),
@@ -217,7 +247,7 @@ function BlogInner({ data, content, headings, readTime }) {
     },
   };
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto w-full overflow-x-hidden">
       {/* Medium-style article header */}
       <div className="mb-8">
         <div className="flex items-center space-x-4 mb-6">
@@ -250,21 +280,71 @@ function BlogInner({ data, content, headings, readTime }) {
 
       {/* Medium-style article image */}
       {data.HeaderImage && (
-        <div className="mb-8">
+        <div className="mb-8 rounded-lg overflow-hidden bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 header-image-container" style={{ 
+          minHeight: '200px',
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
           <img
-            className={`w-full h-48 sm:h-64 lg:h-96 object-cover rounded-lg ${isMobile ? 'cursor-pointer' : ''}`}
+            className="w-full h-auto object-contain"
             src={data.HeaderImage}
-            alt="Article Image"
-            onClick={() => openModal(data.HeaderImage, "Article Image")}
+            alt="Article Header Image"
+            loading="eager"
+            style={{ 
+              maxHeight: '500px',
+              cursor: 'pointer',
+              display: 'block',
+              visibility: 'visible',
+              opacity: 1,
+              width: '100%',
+              height: 'auto',
+              padding: '1rem'
+            }}
+            onError={(e) => {
+              console.error(`Header image failed to load: ${data.HeaderImage}`);
+              // Show error state without hiding container
+              const parent = e.target.parentElement;
+              e.target.style.display = 'none';
+              if (parent && !parent.querySelector('.image-error')) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'image-error text-center p-8';
+                errorDiv.style.cssText = 'color: #6b7280; background-color: #f9fafb; border: 2px dashed #d1d5db; border-radius: 0.5rem; width: 100%;';
+                errorDiv.innerHTML = `
+                  <div>
+                    <p class="font-semibold mb-2" style="color: #374151;">Image not found</p>
+                    <p class="text-sm mb-2">
+                      <code style="background-color: #e5e7eb; padding: 0.25rem 0.5rem; border-radius: 0.25rem; color: #1f2937;">${data.HeaderImage.split('/').pop()}</code>
+                    </p>
+                    <p class="text-xs" style="color: #9ca3af;">Please ensure the image exists in the public directory.</p>
+                  </div>
+                `;
+                parent.appendChild(errorDiv);
+              }
+            }}
+            onLoad={(e) => {
+              // Remove any error messages if image loads successfully
+              const parent = e.target.parentElement;
+              const errorDiv = parent?.querySelector('.image-error');
+              if (errorDiv) {
+                errorDiv.remove();
+              }
+              // Ensure image is visible
+              e.target.style.display = 'block';
+              e.target.style.visibility = 'visible';
+              e.target.style.opacity = '1';
+            }}
+            onClick={() => openModal(data.HeaderImage, "Article Header Image")}
           />
         </div>
       )}
 
       {/* Medium-style article content with TOC */}
-      <div className="flex gap-8">
+      <div className="flex gap-8 w-full">
         {/* Main content */}
-        <div className="flex-1 article-content">
-          <article className="prose prose-sm sm:prose-lg max-w-none">
+        <div className="flex-1 article-content min-w-0 w-full">
+          <article className="prose prose-sm sm:prose-lg max-w-none break-words overflow-x-hidden">
             <MDXRemote {...content} components={mdxComponents} />
           </article>
         </div>

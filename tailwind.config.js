@@ -23,20 +23,67 @@ module.exports = {
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            color: theme("colors.gray.700"),
+            color: "#242424",
+            maxWidth: "none",
             a: {
-              color: theme("colors.primary"),
+              color: "#1a8917",
+              textDecoration: "none",
               "&:hover": {
-                color: theme("colors.primary"),
+                color: "#0f730c",
+                textDecoration: "underline",
               },
-              code: { color: theme("colors.primary") },
+              code: { color: "#1a8917" },
+            },
+            "h1, h2, h3, h4, h5, h6": {
+              color: "#191919",
+              fontWeight: "600",
+              lineHeight: "1.2",
+              marginTop: "1.5em",
+              marginBottom: "0.5em",
             },
             "h2,h3,h4": {
               "scroll-margin-top": spacing[32],
             },
-            code: { color: theme("colors.pink.500") },
-            "blockquote p:first-of-type::before": false,
-            "blockquote p:last-of-type::after": false,
+            p: {
+              color: "#242424",
+              marginTop: "1em",
+              marginBottom: "1em",
+            },
+            strong: {
+              color: "#191919",
+              fontWeight: "700",
+            },
+            code: { 
+              color: "#191919",
+              backgroundColor: "#f3f4f6",
+              padding: "0.125rem 0.375rem",
+              borderRadius: "0.25rem",
+              fontWeight: "400",
+            },
+            pre: {
+              color: "#191919",
+              backgroundColor: "#f3f4f6",
+            },
+            blockquote: {
+              color: "#4b5563",
+              borderLeftColor: "#d1d5db",
+              "p:first-of-type::before": false,
+              "p:last-of-type::after": false,
+            },
+            li: {
+              color: "#242424",
+            },
+            img: {
+              display: "block",
+              maxWidth: "100%",
+              height: "auto",
+              marginTop: "1.5rem",
+              marginBottom: "1.5rem",
+              marginLeft: "auto",
+              marginRight: "auto",
+              opacity: "1",
+              visibility: "visible",
+            },
           },
         },
         dark: {
@@ -76,6 +123,17 @@ module.exports = {
               tr: {
                 borderBottomColor: theme("colors.gray.700"),
               },
+            },
+            img: {
+              display: "block",
+              maxWidth: "100%",
+              height: "auto",
+              marginTop: "1.5rem",
+              marginBottom: "1.5rem",
+              marginLeft: "auto",
+              marginRight: "auto",
+              opacity: "1",
+              visibility: "visible",
             },
           },
         },

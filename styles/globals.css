@@ -38,39 +38,170 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Blog article content */
 .article-content {
-  font-family: 'Charter', Georgia, serif;
+  font-family: 'Charter', Georgia, serif !important;
   font-size: 21px;
   line-height: 1.58;
-  color: #242424;
+  color: #242424 !important;
+}
+
+.article-content p {
+  color: #242424 !important;
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4,
+.article-content h5,
+.article-content h6 {
+  color: #191919 !important;
+  font-family: 'Charter', Georgia, serif !important;
+}
+
+.article-content strong {
+  color: #191919 !important;
+  font-weight: 700 !important;
+}
+
+.article-content a {
+  color: #1a8917 !important;
+}
+
+.article-content a:hover {
+  color: #0f730c !important;
+}
+
+.article-content code {
+  color: #191919 !important;
+  background-color: #f3f4f6 !important;
+}
+
+.article-content li {
+  color: #242424 !important;
 }
 
 .dark .article-content {
-  color: #f3f4f6;
+  color: #f3f4f6 !important;
+}
+
+.dark .article-content p {
+  color: #f3f4f6 !important;
+}
+
+.dark .article-content h1,
+.dark .article-content h2,
+.dark .article-content h3,
+.dark .article-content h4,
+.dark .article-content h5,
+.dark .article-content h6 {
+  color: #f9fafb !important;
+}
+
+.dark .article-content strong {
+  color: #f9fafb !important;
+}
+
+.dark .article-content code {
+  color: #f3f4f6 !important;
+  background-color: #374151 !important;
+}
+
+.dark .article-content li {
+  color: #f3f4f6 !important;
 }
 
 /* Ensure images in article content maintain aspect ratio */
 .article-content img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+  max-width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
   margin: 2rem auto;
   border-radius: 8px;
+  background-color: transparent;
 }
 
-/* Special handling for DS-6 header image */
-.article-content img[src*="skewness_kurtosis_concept"] {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-  margin: 2rem 0;
-}
-
+/* Special handling for DS images */
+.article-content img[src*="skewness_kurtosis_concept"],
 .article-content img[src*="/DS-"] {
-  max-width: 100%;
-  width: 100%;
-  height: auto;
-  object-fit: contain;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  margin: 2rem 0 !important;
+  background-color: #f9fafb !important;
+  padding: 1rem !important;
+  border-radius: 8px !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.dark .article-content img[src*="skewness_kurtosis_concept"],
+.dark .article-content img[src*="/DS-"] {
+  background-color: #111827 !important;
+}
+
+/* Header image styling - ensure visibility */
+img[alt="Article Header Image"],
+img[alt*="Article Header Image"] {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  max-width: 100% !important;
+  height: auto !important;
+  background-color: transparent !important;
+}
+
+/* Article header image container */
+.header-image-container {
+  background-color: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.dark .header-image-container {
+  background-color: #1f2937 !important;
+  border-color: #374151 !important;
+}
+
+.dark .header-image-container .image-error {
+  background-color: #111827 !important;
+  border-color: #374151 !important;
+  color: #d1d5db !important;
+}
+
+/* Ensure all images in blog content are visible - override Tailwind prose defaults */
+.max-w-4xl img,
+.article-content img,
+.prose img,
+.prose-lg img,
+.prose-sm img {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  max-width: 100% !important;
+  height: auto !important;
+  margin: 1.5rem auto !important;
+}
+
+/* Override any Tailwind prose image styles that might hide images */
+.prose img[src],
+.prose-lg img[src],
+.prose-sm img[src] {
+  display: inline-block !important;
+  max-width: 100% !important;
+  height: auto !important;
+  margin: 1.5rem auto !important;
+}
+
+/* Ensure images in article content wrapper are visible */
+.article-content .prose img,
+.article-content .prose-lg img,
+.article-content .prose-sm img {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 /* Blog buttons */
@@ -240,9 +371,65 @@ h1, h2, h3, h4, h5, h6 {
   background: #4b5563;
 }
 
+/* Light mode prose content - ensure dark, visible text */
+.prose {
+  color: #242424 !important;
+}
+
+.prose p {
+  color: #242424 !important;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: #191919 !important;
+  font-weight: 600;
+}
+
+.prose strong {
+  color: #191919 !important;
+  font-weight: 700;
+}
+
+.prose a {
+  color: #1a8917 !important;
+}
+
+.prose a:hover {
+  color: #0f730c !important;
+}
+
+.prose code {
+  color: #191919 !important;
+  background-color: #f3f4f6 !important;
+}
+
+.prose pre {
+  background-color: #f3f4f6 !important;
+  color: #191919 !important;
+}
+
+.prose blockquote {
+  color: #4b5563 !important;
+  border-left-color: #d1d5db !important;
+}
+
+.prose li {
+  color: #242424 !important;
+}
+
+.prose ul li::marker,
+.prose ol li::marker {
+  color: #242424 !important;
+}
+
 /* Dark mode for prose content */
 .dark .prose {
-  color: #f3f4f6;
+  color: #f3f4f6 !important;
 }
 
 .dark .prose h1,
@@ -251,38 +438,42 @@ h1, h2, h3, h4, h5, h6 {
 .dark .prose h4,
 .dark .prose h5,
 .dark .prose h6 {
-  color: #f9fafb;
+  color: #f9fafb !important;
 }
 
 .dark .prose p {
-  color: #f3f4f6;
+  color: #f3f4f6 !important;
 }
 
 .dark .prose strong {
-  color: #f9fafb;
+  color: #f9fafb !important;
 }
 
 .dark .prose blockquote {
-  color: #d1d5db;
-  border-left-color: #374151;
+  color: #d1d5db !important;
+  border-left-color: #374151 !important;
 }
 
 .dark .prose code {
-  background-color: #374151;
-  color: #f3f4f6;
+  background-color: #374151 !important;
+  color: #f3f4f6 !important;
 }
 
 .dark .prose pre {
-  background-color: #1f2937;
-  color: #f3f4f6;
+  background-color: #1f2937 !important;
+  color: #f3f4f6 !important;
 }
 
 .dark .prose a {
-  color: #60a5fa;
+  color: #60a5fa !important;
 }
 
 .dark .prose a:hover {
-  color: #93c5fd;
+  color: #93c5fd !important;
+}
+
+.dark .prose li {
+  color: #f3f4f6 !important;
 }
 
 /* Sidebar open state - push content to the right */
@@ -317,28 +508,150 @@ body.sidebar-open {
   .article-content {
     font-size: 1rem;
     line-height: 1.6;
+    max-width: 100%;
+    overflow-x: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
   }
   
   .article-content h1 {
     font-size: 1.75rem;
     margin-top: 1.5rem;
     margin-bottom: 1rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
   
   .article-content h2 {
     font-size: 1.5rem;
     margin-top: 1.25rem;
     margin-bottom: 0.75rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
   
   .article-content h3 {
     font-size: 1.25rem;
     margin-top: 1rem;
     margin-bottom: 0.5rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
   
   .article-content p {
     margin-bottom: 1rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* Mobile code block and pre overflow handling */
+  .article-content pre {
+    overflow-x: auto;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    white-space: pre;
+    font-size: 0.875rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 0.375rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .article-content code {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    font-size: 0.875rem;
+    box-sizing: border-box;
+  }
+  
+  .article-content pre code {
+    white-space: pre;
+    word-wrap: normal;
+    overflow-wrap: normal;
+    display: block;
+    overflow-x: auto;
+  }
+  
+  /* Prose content mobile fixes */
+  .prose {
+    max-width: 100% !important;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+  
+  .prose pre {
+    overflow-x: auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    font-size: 0.875rem !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .prose code {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-size: 0.875rem;
+    box-sizing: border-box;
+  }
+  
+  .prose pre code {
+    white-space: pre;
+    display: block;
+    overflow-x: auto;
+  }
+  
+  /* Ensure specific elements within prose respect container width */
+  .prose img,
+  .prose video,
+  .prose iframe,
+  .prose embed,
+  .prose object {
+    max-width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    display: block;
+    margin: 1rem auto;
+  }
+  
+  /* Image visibility in light mode */
+  .prose img {
+    opacity: 1;
+    background-color: transparent;
+  }
+  
+  /* Prevent long URLs and strings from overflowing */
+  .prose a,
+  .prose p,
+  .prose li,
+  .prose td,
+  .prose th {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  /* Ensure images in markdown content are visible */
+  .article-content .prose img,
+  .article-content img,
+  .prose img,
+  img[src*="/DS-"],
+  img[alt="Article Header Image"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    max-width: 100% !important;
+    height: auto !important;
+    background-color: transparent !important;
+  }
+  
+  /* DS images background in light mode */
+  .article-content img[src*="/DS-"] {
+    background-color: #f9fafb !important;
+    padding: 0.75rem !important;
   }
   
   /* Mobile article preview adjustments */
@@ -420,18 +733,26 @@ body.sidebar-open {
 }
 
 @layer utilities {
-  @variants dark {
-    .bg-dark {
-      background: #818CF8 ; /* Adjusted background color with opacity */
-      backdrop-filter: blur(5px); /* Increased blur effect */
-      box-shadow: 0 2px 0px rgba(0, 0, 0, 0.1); /* Apply shadow */
-    }
-    .bg-indigo-600 {
-      --tw-bg-opacity: 1;
-      background-color: #818CF8;
-    }
-    
-    
+  .bg-dark {
+    background: #818CF8 ; /* Adjusted background color with opacity */
+    backdrop-filter: blur(5px); /* Increased blur effect */
+    box-shadow: 0 2px 0px rgba(0, 0, 0, 0.1); /* Apply shadow */
+  }
+  
+  .dark .bg-dark {
+    background: #818CF8 ; /* Adjusted background color with opacity */
+    backdrop-filter: blur(5px); /* Increased blur effect */
+    box-shadow: 0 2px 0px rgba(0, 0, 0, 0.1); /* Apply shadow */
+  }
+  
+  .bg-indigo-600 {
+    --tw-bg-opacity: 1;
+    background-color: #818CF8;
+  }
+  
+  .dark .bg-indigo-600 {
+    --tw-bg-opacity: 1;
+    background-color: #818CF8;
   }
 }
 

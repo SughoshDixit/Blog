@@ -23,17 +23,24 @@ export const getStaticProps = async (context) => {
   const allBlogs = getAllBlogPosts();
   const allTopics = getAllTopics();
 
-  const filteredBlogs = allBlogs.filter((blog) => {
-    if (blog.data.Topic === params.name) {
-      return blog;
-    }
+  // Remove content from blogs to reduce page data size
+  // Content is only needed on individual blog pages, not the topic listing
+  const blogsWithoutContent = allBlogs
+    .filter((blog) => blog && blog.data && blog.readTime)
+    .map((blog) => ({
+      data: blog.data,
+      readTime: blog.readTime,
+    }));
+
+  const filteredBlogs = blogsWithoutContent.filter((blog) => {
+    return blog.data && blog.data.Topic === params.name;
   });
 
   return {
     props: {
       blogs: filteredBlogs,
-      topics: allTopics,
-      topicName: params.name,
+      topics: allTopics || [],
+      topicName: params.name || '',
     },
   };
 };
