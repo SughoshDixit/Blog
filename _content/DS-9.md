@@ -2,7 +2,7 @@
 Id: 1009
 Title: "Day 9 — Z-Scores vs Robust Z-Scores"
 Author: Sughosh P Dixit
-Date: "2025-01-09"
+Date: "2025-11-09"
 Tags: Data Science Statistics Z-Score Robust Statistics MAD Outliers Influence Breakdown Point
 Topic: Data Science
 Abstract: "Compare classical z-scores built on mean and standard deviation with robust z-scores powered by the median and MAD to see why robustness matters when data gets messy."

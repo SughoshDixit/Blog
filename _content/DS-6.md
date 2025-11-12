@@ -2,7 +2,7 @@
 Id: 1006
 Title: "Day 6 — Distribution Shape: Skewness and Kurtosis (Simple Guide + Visuals)"
 Author: Sughosh P Dixit
-Date: "2025-01-06"
+Date: "2025-11-06"
 Tags: Data Science Statistics Skewness Kurtosis Distribution Shape Asymmetry Tails Outliers
 Topic: Data Science
 Abstract: "Skewness tells you if data lean left or right (asymmetry). Kurtosis tells you how heavy the tails are (how many extremes you see). Two datasets can share the same mean and variance but look completely different — shape features reveal the hidden story."

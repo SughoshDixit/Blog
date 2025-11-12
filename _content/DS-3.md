@@ -2,7 +2,7 @@
 Id: 1003
 Title: "Day 3 — Percentiles and Quantiles: Understanding Data Distributions"
 Author: Sughosh P Dixit
-Date: "2025-01-03"
+Date: "2025-11-03"
 Tags: Data Science Statistics Percentiles Quantiles ECDF Order Statistics Robustness
 Topic: Data Science
 Abstract: "Master percentiles and quantiles—simple yet powerful tools to describe data distributions. From the empirical CDF to interpolation methods, learn how these robust measures help in thresholding, outlier detection, and monitoring."
