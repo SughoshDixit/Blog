@@ -103,7 +103,7 @@ Later, **Jurgen Klopp's arrival** transformed everything. His passion, tactical 
 </div>
 
 <div style={{background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', padding: '2rem', borderRadius: '15px', color: 'white', margin: '2rem 0', textAlign: 'center', boxShadow: '0 10px 30px rgba(0,0,0,0.3)'}}>
-<p style={{fontSize: '1.5rem', margin: 0, fontWeight: 'bold'}}>Cricket is a colonial mindset hangover that continues to dominate Indian sports culture. It's time we break free from it.</strong> 💪</p>
+<p style={{fontSize: '1.5rem', margin: 0, fontWeight: 'bold'}}>Cricket is a colonial mindset hangover that continues to dominate Indian sports culture. It's time we break free from it. 💪</p>
 </div>
 
 ### **The Colonial Legacy** 🇬🇧📜
