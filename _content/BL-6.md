@@ -12,9 +12,14 @@ isPublished: true
 
 # Why Support Liverpool F.C? The Beautiful Game vs The Lazy Game 🔴⚽
 
+<div style={{display: 'flex', justifyContent: 'center', gap: '2rem', margin: '2rem 0', flexWrap: 'wrap', alignItems: 'center'}}>
 <Lottie animation="analyticsPulse" height={200} width={200} />
+<Lottie animation="boxplotIntro" height={180} width={180} />
+</div>
 
-<p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem', textAlign: 'center'}}>Once a Red, Always a Red. You'll Never Walk Alone. ⚽❤️</p>
+<div style={{background: 'linear-gradient(135deg, #A30000 0%, #DC143C 100%)', padding: '1.5rem', borderRadius: '15px', color: 'white', textAlign: 'center', margin: '2rem 0', boxShadow: '0 5px 20px rgba(163,0,0,0.3)'}}>
+<p style={{fontStyle: 'italic', fontSize: '1.3rem', margin: 0, fontWeight: 'bold'}}>🔴 Once a Red, Always a Red. You'll Never Walk Alone. ⚽❤️ 🔴</p>
+</div>
 
 > 💡 **Note:** This is a passionate piece about football, Liverpool FC, and why the beautiful game deserves your attention over cricket. Get ready for some hard truths, cheeky comparisons, and a whole lot of football love! 🚀
 
@@ -22,17 +27,39 @@ isPublished: true
 
 ## 🔴 Liverpool: Not Just a Club, It's a Way of Life ❤️
 
-<Lottie animation="analyticsPulse" height={180} width={180} />
+<div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
+<Lottie animation="analyticsPulse" height={200} width={200} />
+</div>
+
+<div style={{background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)', padding: '1rem', borderRadius: '10px', textAlign: 'center', margin: '1.5rem 0', border: '3px solid #FF8C00'}}>
+<p style={{fontSize: '1.5rem', margin: 0, fontWeight: 'bold'}}>⚽🏆⚽🏆⚽🏆⚽</p>
+</div>
 
 Being an ardent Liverpool fan, I can tell you: **supporting Liverpool is not like supporting any ordinary club—it's a way of life.** The Reds have had plenty of ups and downs in their long history, and we as their fans have lived every moment—be it the joy of conquering Europe 🏆 or suffering a cruel heartbreak at the end of the season, not once but twice. 💔
 
-No matter what happens in my life, the one constant that will remain is my love and passion for Liverpool. There are countless reasons why Liverpool will always be the love of my life. 🔴⚽
+<div style={{background: '#fff3cd', padding: '1.5rem', borderRadius: '10px', border: '2px dashed #ffc107', margin: '1.5rem 0', textAlign: 'center'}}>
+<p style={{fontSize: '2rem', margin: 0}}>🔴⚽🔴⚽🔴⚽</p>
+<p style={{margin: '0.5rem 0 0', fontSize: '1.1rem'}}>No matter what happens in my life, the one constant that will remain is my love and passion for Liverpool. There are countless reasons why Liverpool will always be the love of my life. 🔴⚽</p>
+</div>
 
 ---
 
 ## ⚽ Why Liverpool F.C. Deserves Your Support
 
-### 1. **The Liverpool Way: Attacking Football Philosophy** 🎯
+<div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
+<Lottie animation="boxplotIntro" height={180} width={180} />
+</div>
+
+<div style={{background: 'linear-gradient(135deg, #A30000 0%, #FF6347 100%)', padding: '1.5rem', borderRadius: '15px', color: 'white', margin: '2rem 0', textAlign: 'center', boxShadow: '0 5px 20px rgba(163,0,0,0.3)'}}>
+<h3 style={{color: 'white', marginTop: 0, fontSize: '1.8rem'}}>🔴 6 Reasons Why Liverpool is Special 🔴</h3>
+<p style={{fontSize: '1.2rem', margin: 0}}>From attacking philosophy to global family! ⚽❤️</p>
+</div>
+
+### 1. **The Liverpool Way: Attacking Football Philosophy** 🎯⚽
+
+<div style={{background: '#e8f5e9', padding: '1.5rem', borderRadius: '10px', border: '3px solid #4caf50', margin: '1.5rem 0'}}>
+<p style={{fontSize: '1.5rem', textAlign: 'center', margin: '0 0 1rem'}}>⚽🎯⚽🎯⚽</p>
+</div>
 
 Liverpool has its own way of playing football—a very **offensive, attacking footballing philosophy**. I'm pretty sure every football fan out there would love a direct and attacking footballing side over a boring defensive side.
 
@@ -42,51 +69,110 @@ Liverpool has its own way of playing football—a very **offensive, attacking fo
 
 **We as Liverpool fans have rarely had to suffer watching "boring" football.** I as a Liverpool fan have definitely enjoyed watching our star forwards terrorize defenses.
 
-### 2. **The Comeback Kings** 👑
+### 2. **The Comeback Kings** 👑⚽
+
+<div style={{background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)', padding: '1.5rem', borderRadius: '10px', border: '3px solid #FF8C00', margin: '1.5rem 0', textAlign: 'center'}}>
+<p style={{fontSize: '2rem', margin: 0}}>👑⚽👑⚽👑</p>
+<p style={{fontSize: '1.3rem', margin: '0.5rem 0 0', fontWeight: 'bold'}}>The Comeback Kings!</p>
+</div>
 
 Liverpool have become famous for their great and unbelievable comebacks. They can be regarded as the **"Comeback Kings."**
 
-**The Recent Miracle:** The comeback against the mighty Barcelona in 2019—down 3-0 from the first leg, Liverpool won 4-0 at Anfield to reach the Champions League final. **"It's not over, till we say it's over."**
+<div style={{background: '#e3f2fd', padding: '1.5rem', borderRadius: '10px', border: '2px solid #2196f3', margin: '1.5rem 0'}}>
+<p style={{fontSize: '1.2rem', fontWeight: 'bold', margin: '0 0 0.5rem'}}>🏆 The Recent Miracle (2019):</p>
+<p style={{margin: 0}}>The comeback against the mighty Barcelona—down 3-0 from the first leg, Liverpool won 4-0 at Anfield to reach the Champions League final. <strong>"It's not over, till we say it's over."</strong> ⚽🔥</p>
+</div>
 
-**The Istanbul Miracle of 2005:** Down 3-0 at halftime against AC Milan in the Champions League final, Liverpool came back to draw 3-3 and won on penalties. This is considered one of the greatest comebacks in football history.
+<div style={{background: '#fff3e0', padding: '1.5rem', borderRadius: '10px', border: '2px solid #ff9800', margin: '1.5rem 0'}}>
+<p style={{fontSize: '1.2rem', fontWeight: 'bold', margin: '0 0 0.5rem'}}>🏆 The Istanbul Miracle (2005):</p>
+<p style={{margin: 0}}>Down 3-0 at halftime against AC Milan in the Champions League final, Liverpool came back to draw 3-3 and won on penalties. This is considered one of the greatest comebacks in football history! ⚽👑</p>
+</div>
 
-**The Spirit:** Liverpool never gives up. They fight until the final whistle. This resilience, this never-say-die attitude, is what makes Liverpool special.
+<div style={{background: '#f3e5f5', padding: '1.5rem', borderRadius: '10px', border: '2px solid #9c27b0', margin: '1.5rem 0', textAlign: 'center'}}>
+<p style={{fontSize: '1.3rem', margin: 0, fontWeight: 'bold'}}>💪 The Spirit: Liverpool never gives up! They fight until the final whistle. This resilience, this never-say-die attitude, is what makes Liverpool special. ⚽🔥</p>
+</div>
 
-### 3. **"You'll Never Walk Alone"** 🎵
+### 3. **"You'll Never Walk Alone"** 🎵❤️
+
+<div style={{background: 'linear-gradient(135deg, #A30000 0%, #DC143C 100%)', padding: '2rem', borderRadius: '15px', color: 'white', margin: '2rem 0', textAlign: 'center', boxShadow: '0 10px 30px rgba(163,0,0,0.4)'}}>
+<p style={{fontSize: '2.5rem', margin: '0 0 1rem', fontWeight: 'bold'}}>🎵❤️🎵</p>
+<p style={{fontSize: '1.8rem', margin: 0, fontWeight: 'bold'}}>"You'll Never Walk Alone"</p>
+</div>
 
 The club's tradition of singing the song **"You'll Never Walk Alone"** is very unique. Passionate football fans like me get attracted to such a club with such a rich and passionate fan base.
 
-This isn't just a song—it's a philosophy. It represents unity, support, and the unbreakable bond between the club and its fans. When 54,000 fans sing it together at Anfield, it's not just noise—it's a force of nature.
+<div style={{background: '#e8f5e9', padding: '1.5rem', borderRadius: '10px', border: '2px solid #4caf50', margin: '1.5rem 0'}}>
+<p style={{fontSize: '1.2rem', margin: 0}}>🎵 This isn't just a song—it's a philosophy. It represents unity, support, and the unbreakable bond between the club and its fans. When 54,000 fans sing it together at Anfield, it's not just noise—it's a force of nature. ⚽❤️</p>
+</div>
 
-### 4. **One Big Global Family** 🌍
+### 4. **One Big Global Family** 🌍❤️
+
+<div style={{display: 'flex', justifyContent: 'center', gap: '1rem', margin: '1.5rem 0', flexWrap: 'wrap'}}>
+<div style={{fontSize: '3rem'}}>🌍</div>
+<div style={{fontSize: '3rem'}}>⚽</div>
+<div style={{fontSize: '3rem'}}>❤️</div>
+<div style={{fontSize: '3rem'}}>🔴</div>
+<div style={{fontSize: '3rem'}}>🌍</div>
+</div>
 
 Liverpool fans know that once we start supporting this great club, it's like we belong to **one big global family**. We as fans stick by our team through thick and thin. In my opinion, the only club which comes close to having as amazing fans as ours is Borussia Dortmund.
 
-**I am extremely proud to call myself a Liverpool fan through and through.**
+<div style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '1.5rem', borderRadius: '10px', color: 'white', margin: '1.5rem 0', textAlign: 'center', boxShadow: '0 5px 15px rgba(0,0,0,0.2)'}}>
+<p style={{fontSize: '1.3rem', margin: 0, fontWeight: 'bold'}}>🔴 I am extremely proud to call myself a Liverpool fan through and through. ⚽❤️</p>
+</div>
 
-### 5. **Anfield: The Fortress** 🏟️
+### 5. **Anfield: The Fortress** 🏟️⚽
+
+<div style={{background: 'linear-gradient(135deg, #A30000 0%, #8B0000 100%)', padding: '2rem', borderRadius: '15px', color: 'white', margin: '2rem 0', textAlign: 'center', boxShadow: '0 10px 30px rgba(163,0,0,0.4)'}}>
+<p style={{fontSize: '2.5rem', margin: '0 0 1rem'}}>🏟️⚽🏟️</p>
+<p style={{fontSize: '1.8rem', margin: 0, fontWeight: 'bold'}}>ANFIELD - THE FORTRESS</p>
+</div>
 
 **Anfield!!** Inter Milan, Saint Etienne, Roma, Chelsea, Real Madrid, Manchester United, Dortmund—all these teams have found out just how difficult it is to play against Liverpool at Anfield.
 
-The mythical stadium of Liverpool Football Club has experienced some truly magical nights. The edge-of-the-seat action, frenzied attacking by Liverpool, the Kop roaring on its heroes—all these factors make Liverpool's nights at Anfield truly spectacular.
+<div style={{background: '#fff3cd', padding: '1.5rem', borderRadius: '10px', border: '3px solid #ffc107', margin: '1.5rem 0'}}>
+<p style={{fontSize: '1.2rem', margin: 0}}>✨ The mythical stadium of Liverpool Football Club has experienced some truly magical nights. The edge-of-the-seat action, frenzied attacking by Liverpool, the Kop roaring on its heroes—all these factors make Liverpool's nights at Anfield truly spectacular. ⚽🔥</p>
+</div>
 
-**Anfield isn't just a stadium—it's a cauldron of passion, history, and magic.**
+<div style={{background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)', padding: '1.5rem', borderRadius: '10px', textAlign: 'center', margin: '1.5rem 0', border: '3px solid #FF8C00'}}>
+<p style={{fontSize: '1.5rem', margin: 0, fontWeight: 'bold'}}>🏟️ Anfield isn't just a stadium—it's a cauldron of passion, history, and magic. ⚽❤️</p>
+</div>
 
-### 6. **My Journey: Why I Started Supporting Liverpool** ❤️
+### 6. **My Journey: Why I Started Supporting Liverpool** ❤️⚽
 
-I started supporting Liverpool from 2010. Well, at that time, **Liverpool's footballing philosophy, Steven Gerrard, and the red jersey color** (as weird as it may sound, I love the Liverpool Red color) were the main things why I started supporting them.
+<div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
+<Lottie animation="analyticsPulse" height={180} width={180} />
+</div>
 
-**Steven Gerrard**—the captain, the leader, the legend. Watching him play was poetry in motion. His passion, his drive, his ability to single-handedly change games—that's what drew me to Liverpool.
+<div style={{background: '#e3f2fd', padding: '1.5rem', borderRadius: '10px', border: '2px solid #2196f3', margin: '1.5rem 0'}}>
+<p style={{fontSize: '1.3rem', textAlign: 'center', margin: '0 0 1rem', fontWeight: 'bold'}}>📅 My Liverpool Journey Started in 2010</p>
+<p style={{margin: 0}}>I started supporting Liverpool from 2010. Well, at that time, <strong>Liverpool's footballing philosophy, Steven Gerrard, and the red jersey color</strong> (as weird as it may sound, I love the Liverpool Red color) were the main things why I started supporting them. 🔴⚽</p>
+</div>
 
-Me and my fellow fans will be hoping that the chant **"A team that plays the Liverpool way, wins the Championship in May"** will come into fruition again under the guidance of Jurgen Klopp.
+<div style={{background: 'linear-gradient(135deg, #A30000 0%, #DC143C 100%)', padding: '2rem', borderRadius: '15px', color: 'white', margin: '2rem 0', textAlign: 'center', boxShadow: '0 10px 30px rgba(163,0,0,0.4)'}}>
+<p style={{fontSize: '2rem', margin: '0 0 1rem'}}>⭐👑⭐</p>
+<p style={{fontSize: '1.5rem', margin: 0, fontWeight: 'bold'}}>Steven Gerrard</p>
+<p style={{fontSize: '1.2rem', margin: '1rem 0 0'}}>The captain, the leader, the legend. Watching him play was poetry in motion. His passion, his drive, his ability to single-handedly change games—that's what drew me to Liverpool. ⚽❤️</p>
+</div>
+
+<div style={{background: '#f3e5f5', padding: '1.5rem', borderRadius: '10px', border: '2px solid #9c27b0', margin: '1.5rem 0', textAlign: 'center'}}>
+<p style={{fontSize: '1.2rem', margin: 0}}>🔴 Me and my fellow fans will be hoping that the chant <strong>"A team that plays the Liverpool way, wins the Championship in May"</strong> will come into fruition again under the guidance of Jurgen Klopp. ⚽🏆</p>
+</div>
 
 ---
 
 ## 🏏 Cricket: A Colonial Mindset Hangover for Indians 🇬🇧➡️🇮🇳
 
-<Lottie animation="analyticsPulse" height={180} width={180} />
+<div style={{display: 'flex', justifyContent: 'center', gap: '1rem', margin: '2rem 0', flexWrap: 'wrap'}}>
+<Lottie animation="analyticsPulse" height={200} width={200} />
+<Lottie animation="boxplotIntro" height={180} width={180} />
+</div>
 
-Before we dive into why football is superior, let's address the elephant in the room 🐘: **Cricket is a colonial mindset hangover that continues to dominate Indian sports culture, and it's time we break free from it.** 
+<div style={{background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', padding: '2rem', borderRadius: '15px', color: 'white', margin: '2rem 0', textAlign: 'center', boxShadow: '0 10px 30px rgba(0,0,0,0.3)'}}>
+<p style={{fontSize: '3rem', margin: '0 0 1rem'}}>🐘</p>
+<p style={{fontSize: '1.5rem', margin: 0, fontWeight: 'bold'}}>Before we dive into why football is superior, let's address the elephant in the room:</p>
+<p style={{fontSize: '1.3rem', margin: '1rem 0 0'}}><strong>Cricket is a colonial mindset hangover that continues to dominate Indian sports culture, and it's time we break free from it.</strong> 💪</p>
+</div> 
 
 <div style={{background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', padding: '1.5rem', borderRadius: '15px', color: 'white', margin: '2rem 0', textAlign: 'center', boxShadow: '0 5px 20px rgba(0,0,0,0.2)'}}>
 
@@ -255,38 +341,75 @@ Let me be direct: **Football is the most followed sport in the world for a reaso
 
 ### **The Global Reach: World's Game vs Regional Game** 🌍
 
-**Football:**
-- **4+ billion fans worldwide** (most followed sport on Earth)
-- Played in every country
-- World Cup watched by billions
-- Universal language of the game
-- Connects people across continents
+<div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
+<Lottie animation="analyticsPulse" height={180} width={180} />
+</div>
 
-**Cricket:**
-- Primarily followed in former British colonies
-- Limited global appeal
-- World Cup watched by a fraction of football's audience
-- Regional sport, not global
+<div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', margin: '2rem 0'}}>
 
-**Verdict:** Football is truly the world's game. Cricket is a regional pastime.
+<div style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '1.5rem', borderRadius: '10px', color: 'white', boxShadow: '0 5px 15px rgba(0,0,0,0.2)'}}>
+<h4 style={{color: 'white', marginTop: 0, fontSize: '1.3rem'}}>⚽ Football: Global Phenomenon</h4>
+<ul style={{color: 'white', paddingLeft: '1.5rem', fontSize: '1rem'}}>
+<li>✅ <strong>4+ billion fans worldwide</strong> (most followed sport on Earth)</li>
+<li>✅ Played in every country</li>
+<li>✅ World Cup watched by billions</li>
+<li>✅ Universal language of the game</li>
+<li>✅ Connects people across continents</li>
+</ul>
+</div>
+
+<div style={{background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', padding: '1.5rem', borderRadius: '10px', color: 'white', boxShadow: '0 5px 15px rgba(0,0,0,0.2)'}}>
+<h4 style={{color: 'white', marginTop: 0, fontSize: '1.3rem'}}>🏏 Cricket: Regional Pastime</h4>
+<ul style={{color: 'white', paddingLeft: '1.5rem', fontSize: '1rem'}}>
+<li>❌ Primarily followed in former British colonies</li>
+<li>❌ Limited global appeal</li>
+<li>❌ World Cup watched by a fraction of football's audience</li>
+<li>❌ Regional sport, not global</li>
+<li>❌ Limited to a handful of countries</li>
+</ul>
+</div>
+
+</div>
+
+<div style={{background: '#fff3cd', padding: '1.5rem', borderRadius: '10px', textAlign: 'center', margin: '1.5rem 0', border: '3px solid #ffc107'}}>
+<p style={{fontSize: '1.3rem', margin: 0, fontWeight: 'bold'}}>🏆 Verdict: Football is truly the world's game. Cricket is a regional pastime. 🌍⚽</p>
+</div>
 
 ### **The Physicality: Athletes vs Statues** 💪
 
-**Football:**
-- Players run 10-12 km per match
-- Constant sprinting, jumping, tackling
-- Peak physical fitness required
-- 90 minutes of intense physical activity
-- Players are true athletes
+<div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
+<Lottie animation="boxplotIntro" height={200} width={200} />
+</div>
 
-**Cricket:**
-- Batsmen stand still for hours
-- Fielders wait for the ball to come to them
-- Minimal physical exertion
-- More mental than physical
-- Players can be out of shape and still play
+<div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', margin: '2rem 0'}}>
 
-**Verdict:** Football players are world-class athletes. Cricket players are... well, let's just say fitness isn't their priority.
+<div style={{background: '#d4edda', padding: '1.5rem', borderRadius: '10px', border: '3px solid #28a745', boxShadow: '0 5px 15px rgba(0,0,0,0.1)'}}>
+<h4 style={{color: '#155724', marginTop: 0, fontSize: '1.3rem'}}>⚽ Football: True Athletes</h4>
+<ul style={{color: '#155724', paddingLeft: '1.5rem'}}>
+<li>🏃 Players run <strong>10-12 km per match</strong></li>
+<li>⚡ Constant sprinting, jumping, tackling</li>
+<li>💪 Peak physical fitness required</li>
+<li>⏱️ 90 minutes of intense physical activity</li>
+<li>🏆 Players are world-class athletes</li>
+</ul>
+</div>
+
+<div style={{background: '#f8d7da', padding: '1.5rem', borderRadius: '10px', border: '3px solid #dc3545', boxShadow: '0 5px 15px rgba(0,0,0,0.1)'}}>
+<h4 style={{color: '#721c24', marginTop: 0, fontSize: '1.3rem'}}>🏏 Cricket: Statues</h4>
+<ul style={{color: '#721c24', paddingLeft: '1.5rem'}}>
+<li>🧍 Batsmen stand still for hours</li>
+<li>⏳ Fielders wait for the ball to come to them</li>
+<li>😴 Minimal physical exertion</li>
+<li>🧠 More mental than physical</li>
+<li>🤷 Players can be out of shape and still play</li>
+</ul>
+</div>
+
+</div>
+
+<div style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '1.5rem', borderRadius: '10px', color: 'white', textAlign: 'center', margin: '1.5rem 0', boxShadow: '0 5px 15px rgba(0,0,0,0.2)'}}>
+<p style={{fontSize: '1.3rem', margin: 0, fontWeight: 'bold'}}>💪 Verdict: Football players are world-class athletes. Cricket players are... well, let's just say fitness isn't their priority. ⚽🏃</p>
+</div>
 
 ### **The Drama: Every Match Matters vs Meaningless Series** 🎭
 
@@ -344,21 +467,39 @@ Let me be direct: **Football is the most followed sport in the world for a reaso
 
 ### **The Accessibility: Anyone Can Play vs Expensive Equipment** 🏃
 
-**Football:**
-- All you need is a ball
-- Play anywhere—street, park, beach
-- Play with friends anytime
-- No expensive equipment
-- Truly accessible to everyone
+<div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
+<Lottie animation="analyticsPulse" height={200} width={200} />
+</div>
 
-**Cricket:**
-- Needs bat, ball, stumps, pads, helmet
-- Needs a proper pitch
-- Needs multiple players
-- Expensive equipment
-- Limited accessibility
+<div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', margin: '2rem 0'}}>
 
-**Verdict:** Football is for everyone. Cricket is for those who can afford it.
+<div style={{background: 'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)', padding: '1.5rem', borderRadius: '10px', boxShadow: '0 5px 15px rgba(0,0,0,0.1)'}}>
+<h4 style={{marginTop: 0, fontSize: '1.3rem', color: '#155724'}}>⚽ Football: For Everyone</h4>
+<ul style={{paddingLeft: '1.5rem', color: '#155724'}}>
+<li>⚽ All you need is a ball</li>
+<li>🌍 Play anywhere—street, park, beach</li>
+<li>👥 Play with friends anytime</li>
+<li>💰 No expensive equipment</li>
+<li>🌎 Truly accessible to everyone</li>
+</ul>
+</div>
+
+<div style={{background: 'linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)', padding: '1.5rem', borderRadius: '10px', boxShadow: '0 5px 15px rgba(0,0,0,0.1)'}}>
+<h4 style={{marginTop: 0, fontSize: '1.3rem', color: '#721c24'}}>🏏 Cricket: For the Rich</h4>
+<ul style={{paddingLeft: '1.5rem', color: '#721c24'}}>
+<li>💰 Needs bat, ball, stumps, pads, helmet</li>
+<li>🏟️ Needs a proper pitch</li>
+<li>👥 Needs multiple players</li>
+<li>💸 Expensive equipment</li>
+<li>🚫 Limited accessibility</li>
+</ul>
+</div>
+
+</div>
+
+<div style={{background: '#fff3cd', padding: '1.5rem', borderRadius: '10px', textAlign: 'center', margin: '1.5rem 0', border: '3px solid #ffc107'}}>
+<p style={{fontSize: '1.5rem', margin: 0, fontWeight: 'bold'}}>🏆 Verdict: Football is for everyone. Cricket is for those who can afford it. ⚽💰</p>
+</div>
 
 ---
 
@@ -436,36 +577,71 @@ Let's be honest: **Cricket is a lazy game.** 😴
 
 Beyond all the reasons I've mentioned about Liverpool, here's why they're special: 🔴⚽
 
-### **The History** 📜
+### **The History** 📜🏆
 
-- 19 League Titles
-- 6 European Cups/Champions Leagues
-- 8 FA Cups
-- 9 League Cups
-- Countless other trophies
+<div style={{background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)', padding: '2rem', borderRadius: '15px', margin: '2rem 0', boxShadow: '0 10px 30px rgba(255,215,0,0.3)'}}>
+<div style={{display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap'}}>
+<span style={{fontSize: '3rem'}}>🏆</span>
+<span style={{fontSize: '3rem'}}>⚽</span>
+<span style={{fontSize: '3rem'}}>🏆</span>
+</div>
+<ul style={{fontSize: '1.2rem', lineHeight: '2', textAlign: 'center', listStyle: 'none', padding: 0}}>
+<li>🏆 <strong>19 League Titles</strong></li>
+<li>🏆 <strong>6 European Cups/Champions Leagues</strong></li>
+<li>🏆 <strong>8 FA Cups</strong></li>
+<li>🏆 <strong>9 League Cups</strong></li>
+<li>🏆 <strong>Countless other trophies</strong></li>
+</ul>
+</div>
 
-### **The Legends** ⭐
+### **The Legends** ⭐👑
 
-- Steven Gerrard
-- Kenny Dalglish
-- Ian Rush
-- John Barnes
-- Robbie Fowler
-- And so many more...
+<div style={{background: 'linear-gradient(135deg, #A30000 0%, #DC143C 100%)', padding: '2rem', borderRadius: '15px', color: 'white', margin: '2rem 0', boxShadow: '0 10px 30px rgba(163,0,0,0.4)'}}>
+<div style={{display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap'}}>
+<span style={{fontSize: '3rem'}}>⭐</span>
+<span style={{fontSize: '3rem'}}>👑</span>
+<span style={{fontSize: '3rem'}}>⭐</span>
+</div>
+<ul style={{fontSize: '1.2rem', lineHeight: '2.5', textAlign: 'center', listStyle: 'none', padding: 0}}>
+<li>⭐ <strong>Steven Gerrard</strong></li>
+<li>⭐ <strong>Kenny Dalglish</strong></li>
+<li>⭐ <strong>Ian Rush</strong></li>
+<li>⭐ <strong>John Barnes</strong></li>
+<li>⭐ <strong>Robbie Fowler</strong></li>
+<li>⭐ <strong>And so many more...</strong></li>
+</ul>
+</div>
 
-### **The Present** ⚡
+### **The Present** ⚡⚽
 
-- Jurgen Klopp's gegenpressing
-- Modern attacking football
-- World-class players
-- Premier League and Champions League success
+<div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
+<Lottie animation="boxplotIntro" height={180} width={180} />
+</div>
 
-### **The Future** 🚀
+<div style={{background: '#e3f2fd', padding: '2rem', borderRadius: '15px', border: '3px solid #2196f3', margin: '2rem 0'}}>
+<ul style={{fontSize: '1.2rem', lineHeight: '2.5'}}>
+<li>⚡ <strong>Jurgen Klopp's gegenpressing</strong></li>
+<li>⚽ <strong>Modern attacking football</strong></li>
+<li>⭐ <strong>World-class players</strong></li>
+<li>🏆 <strong>Premier League and Champions League success</strong></li>
+</ul>
+</div>
 
-- Young talents coming through
-- Continued success
-- More magical nights at Anfield
-- More trophies to come
+### **The Future** 🚀🔴
+
+<div style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '2rem', borderRadius: '15px', color: 'white', margin: '2rem 0', boxShadow: '0 10px 30px rgba(0,0,0,0.3)'}}>
+<div style={{display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap'}}>
+<span style={{fontSize: '3rem'}}>🚀</span>
+<span style={{fontSize: '3rem'}}>⚽</span>
+<span style={{fontSize: '3rem'}}>🔴</span>
+</div>
+<ul style={{fontSize: '1.2rem', lineHeight: '2.5', textAlign: 'center', listStyle: 'none', padding: 0}}>
+<li>🚀 <strong>Young talents coming through</strong></li>
+<li>🏆 <strong>Continued success</strong></li>
+<li>🏟️ <strong>More magical nights at Anfield</strong></li>
+<li>🏆 <strong>More trophies to come</strong></li>
+</ul>
+</div>
 
 ---
 
