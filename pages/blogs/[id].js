@@ -18,6 +18,7 @@ import BookmarkBtn from "../../Components/BookmarkBtn";
 import ReadingHistory from "../../Components/ReadingHistory";
 import PrintButton from "../../Components/PrintButton";
 import PostSeries from "../../Components/PostSeries";
+import ChanakyaShubhashita from "../../Components/ChanakyaShubhashita";
 
 export const getStaticPaths = () => {
   const allBlogs = getAllBlogPosts();
@@ -140,6 +141,9 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
             
             {/* Reading History Tracker */}
             <ReadingHistory postId={id} postTitle={data.Title} postData={data} />
+
+            {/* Chanakya Shubhashita Widget */}
+            <ChanakyaShubhashita topic={data.Topic} blogId={id} blogTitle={data.Title} />
 
             {/* Medium-style engagement section */}
             <div className="mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-gray-200 dark:border-gray-700">
