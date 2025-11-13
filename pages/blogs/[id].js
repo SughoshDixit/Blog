@@ -10,11 +10,14 @@ import Head from "next/head";
 import Script from "next/script";
 import BlogInner from "../../Components/BlogInner";
 import BlogShare from "../../Components/BlogShare";
-import Comments from "../../Components/Comments";
-import { SWRConfig } from "swr";
 import { remarkHeadingId } from "remark-custom-heading-id";
 import { getHeadings } from "../../Lib/GetHeadings";
-import LikeBtn from "../../Components/LikeBtn";
+import ReadingProgress from "../../Components/ReadingProgress";
+import RelatedPosts from "../../Components/RelatedPosts";
+import BookmarkBtn from "../../Components/BookmarkBtn";
+import ReadingHistory from "../../Components/ReadingHistory";
+import PrintButton from "../../Components/PrintButton";
+import PostSeries from "../../Components/PostSeries";
 
 export const getStaticPaths = () => {
   const allBlogs = getAllBlogPosts();
@@ -56,6 +59,12 @@ export const getStaticProps = async (context) => {
 
   const headings = await getHeadings(content);
 
+  // Get all blogs for related posts (without content to reduce payload)
+  const allBlogsForRelated = allBlogs.map((blog) => ({
+    data: blog.data,
+    readTime: blog.readTime,
+  }));
+
   return {
     props: {
       data: data,
@@ -64,11 +73,13 @@ export const getStaticProps = async (context) => {
       headings: headings,
       topics: allTopics,
       readTime: readTime,
+      allBlogs: allBlogsForRelated,
+      currentPost: { data, content },
     },
   };
 };
 
-function BlogPost({ data, content, id, headings, topics, readTime }) {
+function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, currentPost }) {
   return (
     <>
       <Head>
@@ -115,6 +126,7 @@ function BlogPost({ data, content, id, headings, topics, readTime }) {
       </Script>
 
       <div className="min-h-screen relative bg-white dark:bg-gray-900">
+        <ReadingProgress />
         <Navbar topics={topics} />
         <div className="pt-20">
           {/* best-effort visit counter per post */}
@@ -124,27 +136,36 @@ function BlogPost({ data, content, id, headings, topics, readTime }) {
           
           {/* Medium-style article layout */}
           <div className="max-w-4xl mx-auto px-4 sm:px-6 overflow-x-hidden">
-            <BlogInner data={data} content={content} headings={headings} readTime={readTime} />
+            <BlogInner data={data} content={content} headings={headings} readTime={readTime} allBlogs={allBlogs} />
             
+            {/* Reading History Tracker */}
+            <ReadingHistory postId={id} postTitle={data.Title} postData={data} />
+
             {/* Medium-style engagement section */}
             <div className="mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-gray-200 dark:border-gray-700">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
                 <div className="flex items-center justify-center sm:justify-start space-x-6">
-                  <LikeBtn id={id} />
+                  <BookmarkBtn postId={id} postTitle={data.Title} postData={data} />
                   <BlogShare data={data} />
                 </div>
-                <div className="text-center sm:text-right text-sm text-gray-500 dark:text-gray-400">
-                  {readTime}
+                <div className="flex items-center justify-center sm:justify-end gap-4">
+                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                    {readTime}
+                  </div>
+                  <PrintButton />
                 </div>
               </div>
             </div>
 
-            {/* Medium-style comments section */}
-            <div className="mt-16">
-              <SWRConfig>
-                <Comments id={id} />
-              </SWRConfig>
-            </div>
+            {/* Post Series */}
+            <PostSeries 
+              currentPost={currentPost} 
+              allPosts={allBlogs} 
+              seriesName={data.Series || data.series}
+            />
+
+            {/* Related Posts */}
+            <RelatedPosts currentPost={currentPost} allBlogs={allBlogs} maxPosts={3} />
           </div>
 
           <Footer />

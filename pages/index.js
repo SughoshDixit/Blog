@@ -4,6 +4,8 @@ import Footer from "../Components/Footer";
 import { getAllBlogPosts, getAllTopics } from "../Lib/Data";
 import { generateSlug } from "../Lib/utils";
 import { useState, useEffect, useMemo } from "react";
+import RecentlyViewed from "../Components/RecentlyViewed";
+import ReadingStreak from "../Components/ReadingStreak";
 
 export const getStaticProps = () => {
   const allBlogs = getAllBlogPosts();
@@ -25,69 +27,6 @@ export const getStaticProps = () => {
     },
   };
 };
-
-// Component to fetch engagement data for a blog post
-function BlogEngagement({ blogId }) {
-  const [engagement, setEngagement] = useState({ likes: 0, comments: 0 });
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchEngagement = async () => {
-      try {
-        // Fetch likes
-        const likesResponse = await fetch(`/api/likes/${blogId}`);
-        const likesData = await likesResponse.json();
-        
-        // Fetch comments
-        const commentsResponse = await fetch(`/api/comments/${blogId}`);
-        const commentsData = await commentsResponse.json();
-        
-        setEngagement({
-          likes: likesData.totalLikes || 0,
-          comments: commentsData.comments?.length || 0
-        });
-      } catch (error) {
-        console.error('Error fetching engagement data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchEngagement();
-  }, [blogId]);
-
-  if (loading) {
-    return (
-      <div className="flex items-center space-x-3">
-        <div className="flex items-center space-x-1">
-          <div className="w-4 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-          <div className="w-6 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-        </div>
-        <div className="flex items-center space-x-1">
-          <div className="w-4 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-          <div className="w-6 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex items-center space-x-3">
-      <div className="flex items-center space-x-1 text-gray-500 dark:text-gray-400">
-        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" />
-        </svg>
-        <span className="text-xs text-gray-600 dark:text-gray-300">{engagement.likes}</span>
-      </div>
-      <div className="flex items-center space-x-1 text-gray-500 dark:text-gray-400">
-        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clipRule="evenodd" />
-        </svg>
-        <span className="text-xs text-gray-600 dark:text-gray-300">{engagement.comments}</span>
-      </div>
-    </div>
-  );
-}
 
 export default function Home({ blogs, topics }) {
   const publishedBlogs = useMemo(() => {
@@ -379,7 +318,6 @@ export default function Home({ blogs, topics }) {
                       </p>
                       <div className="flex justify-between items-center pt-2 text-sm text-[#736b58] dark:text-[#94a3c6]">
                         <span>{featureHighlight.readTime.text}</span>
-                        <BlogEngagement blogId={generateSlug(featureHighlight.data.Title)} />
                       </div>
                     </div>
                     <img
@@ -389,6 +327,16 @@ export default function Home({ blogs, topics }) {
                     />
                   </article>
                 )}
+              </div>
+            </div>
+          </section>
+
+          {/* Reading Streak & Recently Viewed */}
+          <section className="border-b border-[#e6dfd3] dark:border-[#141b2c]">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 py-12">
+              <div className="grid gap-6 md:grid-cols-2">
+                <ReadingStreak />
+                <RecentlyViewed maxPosts={3} />
               </div>
             </div>
           </section>
@@ -465,7 +413,6 @@ export default function Home({ blogs, topics }) {
                         </p>
                         <div className="flex items-center justify-between text-sm text-[#7c7461] dark:text-[#92a0c2]">
                           <span>{post.readTime.text}</span>
-                          <BlogEngagement blogId={generateSlug(post.data.Title)} />
                         </div>
                       </div>
                     </article>
@@ -527,7 +474,6 @@ export default function Home({ blogs, topics }) {
                             )}
                           </div>
                           <div className="flex items-center gap-3">
-                            <BlogEngagement blogId={generateSlug(blog.data.Title)} />
                             <a
                               href={`/blogs/${generateSlug(blog.data.Title)}`}
                               className="text-[#1a8917] hover:text-[#0f730c] font-semibold dark:text-[#26c281] dark:hover:text-[#1fb877]"
