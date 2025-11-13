@@ -18,6 +18,10 @@ export function generateSlug(title) {
     // Remove or replace parentheses
     .replace(/\(/g, '-')
     .replace(/\)/g, '-')
+    // Replace question marks with nothing
+    .replace(/\?/g, '')
+    // Replace exclamation marks with nothing
+    .replace(/!/g, '')
     // Replace commas with nothing
     .replace(/,/g, '')
     // Replace arrow characters

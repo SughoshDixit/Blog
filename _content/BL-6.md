@@ -10,7 +10,7 @@ HeaderImage: /BL-6/liverpool-header.jpg
 isPublished: true
 ---
 
-# **Why Support Liverpool F.C? The Beautiful Game vs The Lazy Game** 🔴⚽
+# Why Support Liverpool F.C? The Beautiful Game vs The Lazy Game 🔴⚽
 
 <p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem', textAlign: 'center'}}>Once a Red, Always a Red. You'll Never Walk Alone.</p>
 
