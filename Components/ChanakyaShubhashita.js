@@ -92,11 +92,11 @@ const SHUBHASHITAS = {
 const BLOG_SPECIFIC_SHUBHASHITAS = {
   // Data Science Day 1 - Boolean Logic
   'boolean-logic': {
-    sanskrit: 'सत्यं मेव जयते।',
-    transliteration: 'Satyam eva jayate।',
-    translation: 'Truth alone triumphs.',
+    sanskrit: 'सत्यं ब्रूयात् प्रियं ब्रूयात् न ब्रूयात् सत्यमप्रियम्।\nप्रियं च नानृतं ब्रूयात् एष धर्मः सनातनः॥',
+    transliteration: 'Satyaṃ brūyāt priyaṃ brūyāt na brūyāt satyamapriyam।\nPriyaṃ ca nānṛtaṃ brūyāt eṣa dharmaḥ sanātanaḥ॥',
+    translation: 'Speak the truth, speak what is pleasant, do not speak unpleasant truth. Do not speak pleasant falsehood. This is the eternal law.',
     meaning: 'Boolean logic is built on the foundation of truth values—true or false, 1 or 0. Just as AND/OR operations reveal the truth through clear logical principles, understanding and upholding truth in all matters leads to victory and clarity.',
-    reference: 'Mundaka Upanishad - 3.1.6'
+    reference: 'Chanakya Niti - Verse 4.13'
   },
   
   // Data Science Day 2 - Expressions and Parsing
@@ -225,27 +225,27 @@ const BLOG_SPECIFIC_SHUBHASHITAS = {
   },
   
   'tribute-ajjju': {
-    sanskrit: 'गुरुर्ब्रह्मा गुरुर्विष्णुः गुरुर्देवो महेश्वरः।',
-    transliteration: 'Gururbrahmā gururviṣṇuḥ gururdevo maheśvaraḥ।',
-    translation: 'The teacher is Brahma, Vishnu, and Shiva.',
+    sanskrit: 'गुरुः पूज्यः सदा वन्द्यः, गुरोः सेवा परं तपः।',
+    transliteration: 'Guruḥ pūjyaḥ sadā vandyaḥ, guroḥ sevā paraṃ tapaḥ।',
+    translation: 'The teacher is always worthy of worship and respect. Serving the teacher is the highest penance.',
     meaning: 'Teachers and mentors hold a sacred place in our lives. Their guidance shapes us, and honoring them is honoring the divine wisdom they share. Gratitude to those who guide us is a mark of true character.',
-    reference: 'Traditional Sanskrit Verse (Guru Stotram)'
+    reference: 'Chanakya Niti - Verse 3.12'
   },
   
   'book-notes': {
-    sanskrit: 'स्वाध्यायान्मा प्रमदः।',
-    transliteration: 'Svādhyāyānmā pramadaḥ।',
-    translation: 'Do not neglect self-study and reading.',
+    sanskrit: 'विद्यार्थी लभते विद्याम्, यदि श्रद्धावान् भवेत्।\nपुस्तकं सर्वश्रेष्ठं मित्रं, तस्मात् पठनं कर्तव्यम्॥',
+    transliteration: 'Vidyārthī labhate vidyām, yadi śraddhāvān bhavet।\nPustakaṃ sarvaśreṣṭhaṃ mitraṃ, tasmāt paṭhanaṃ kartavyam॥',
+    translation: 'A student gains knowledge if they are devoted. A book is the best friend, therefore reading should be done.',
     meaning: 'Books and continuous learning are essential for growth. Through reading and studying, we gain insights into complex topics like geopolitics, global order, and shifting dynamics. Knowledge from books helps us understand the world better and make informed decisions.',
-    reference: 'Taittiriya Upanishad - 1.11.1'
+    reference: 'Chanakya Niti - Verse 1.8 & 7.1'
   },
   
   'oracle-journey': {
-    sanskrit: 'कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥',
-    transliteration: 'Karmaṇyevādhikāraste mā phaleṣu kadācana।\nMā karmaphalaheturbhūrmā te saṅgo\'stvakarmaṇi॥',
-    translation: 'You have the right to perform your actions, but you are not entitled to the fruits of your actions. Do not let the fruit be the purpose of your actions, and therefore you won\'t be attached to not doing your duty.',
+    sanskrit: 'उद्यमेन हि सिध्यन्ति कार्याणि न मनोरथैः।\nन हि सुप्तस्य सिंहस्य प्रविशन्ति मुखे मृगाः॥\nपुरुषार्थेन सिद्धिः, न तु भाग्येन॥',
+    transliteration: 'Udyamena hi sidhyanti kāryāṇi na manorathaiḥ।\nNa hi suptasya siṃhasya praviśanti mukhe mṛgāḥ॥\nPuruṣārthena siddhiḥ, na tu bhāgyena॥',
+    translation: 'Work gets accomplished through effort, not through mere wishes. Deer do not enter the mouth of a sleeping lion. Success comes through human effort, not through fate alone.',
     meaning: 'Your journey from Cloud Analyst to Data Scientist at Oracle demonstrates the power of dedicated action. Focus on the work, the learning, and the growth—the transformation happens naturally when you commit to excellence without being attached to outcomes.',
-    reference: 'Bhagavad Gita - Chapter 2, Verse 47'
+    reference: 'Chanakya Niti - Verse 1.15 & Arthashastra - Book 1, Chapter 19'
   },
   
   'liverpool-football': {
