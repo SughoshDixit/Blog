@@ -1,7 +1,7 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const allowedEmail = (process.env.EDITOR_EMAIL || "sughoshpdixit@gmail.com").toLowerCase();
-const allowedPassword = process.env.EDITOR_PASSWORD || "dev-password";
+const allowedPassword = process.env.EDITOR_PASSWORD || "Chanakya";
 
 export const authOptions = {
   session: {
@@ -10,7 +10,7 @@ export const authOptions = {
   pages: {
     signIn: "/writer/login",
   },
-  secret: process.env.NEXTAUTH_SECRET || "dev-secret",
+  secret: process.env.NEXTAUTH_SECRET || "Hsohgus",
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -40,8 +40,14 @@ export const authOptions = {
   ],
   callbacks: {
     async session({ session, token }) {
-      if (session?.user && token?.email) {
-        session.user.email = token.email;
+      if (session?.user) {
+        if (token?.email) {
+          session.user.email = token.email;
+        }
+        // Ensure all user properties are defined (not undefined) for serialization
+        session.user.image = session.user.image || null;
+        session.user.name = session.user.name || null;
+        session.user.email = session.user.email || null;
       }
       return session;
     },

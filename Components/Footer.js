@@ -1,5 +1,6 @@
 import { SiTwitter, SiGithub, SiInstagram } from "react-icons/si";
 import { FiLinkedin } from "react-icons/fi";
+import NewsletterForm from "./NewsletterForm";
 
 function Footer() {
   const date = new Date();
@@ -66,11 +67,12 @@ function Footer() {
           
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Connect</h3>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2 text-sm mb-4">
               <li><a href="https://sughoshdixit.github.io/" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Portfolio</a></li>
               <li><a href="https://www.youtube.com/@sughoshdixit" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">YouTube</a></li>
               <li><a href="mailto:sughoshdixit@gmail.com" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</a></li>
             </ul>
+            <NewsletterForm compact={true} />
           </div>
         </div>
         
@@ -80,6 +82,7 @@ function Footer() {
               © {year} Sughosh Dixit. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
+              <a href="/api/feed" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">RSS Feed</a>
               <a href="#" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Privacy</a>
               <a href="#" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Terms</a>
               <a href="#" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Help</a>

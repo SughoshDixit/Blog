@@ -4,6 +4,7 @@ import Alert from "./Alert";
 import useSWR, { useSWRConfig } from "swr";
 import { useSelector } from "react-redux";
 import { AiFillDelete } from "react-icons/ai";
+import CommentReactions from "./CommentReactions";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -218,6 +219,7 @@ function Comments({ id }) {
                         {com}
                       </p>
                     ))}
+                    <CommentReactions commentId={comment.id} postId={id} />
                   </div>
                 </div>
               </div>

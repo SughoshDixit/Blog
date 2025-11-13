@@ -92,11 +92,11 @@ const SHUBHASHITAS = {
 const BLOG_SPECIFIC_SHUBHASHITAS = {
   // Data Science Day 1 - Boolean Logic
   'boolean-logic': {
-    sanskrit: 'युक्तियुक्तं वचो ग्राह्यं, बालादपि सुभाषितम्।',
-    transliteration: 'Yuktiyuktaṃ vaco grāhyaṃ, bālādapi subhāṣitam।',
-    translation: 'Accept logical words even from a child, but reject poison even if it comes from the gods.',
-    meaning: 'Boolean logic teaches us to evaluate truth based on structure and rules, not on the source. Just as AND/OR operations follow clear logical principles, wisdom comes from applying consistent reasoning to all decisions.',
-    reference: 'Chanakya Niti - Verse 4.19'
+    sanskrit: 'सत्यं मेव जयते।',
+    transliteration: 'Satyam eva jayate।',
+    translation: 'Truth alone triumphs.',
+    meaning: 'Boolean logic is built on the foundation of truth values—true or false, 1 or 0. Just as AND/OR operations reveal the truth through clear logical principles, understanding and upholding truth in all matters leads to victory and clarity.',
+    reference: 'Mundaka Upanishad - 3.1.6'
   },
   
   // Data Science Day 2 - Expressions and Parsing
@@ -233,19 +233,27 @@ const BLOG_SPECIFIC_SHUBHASHITAS = {
   },
   
   'book-notes': {
-    sanskrit: 'पुस्तकं सर्वश्रेष्ठं मित्रम्।',
-    transliteration: 'Pustakaṃ sarvaśreṣṭhaṃ mitram।',
-    translation: 'A book is the best friend.',
-    meaning: 'Books are our constant companions that teach, inspire, and guide us. They open doors to knowledge, wisdom, and new perspectives. Learning from books enriches our understanding of the world and ourselves.',
-    reference: 'Chanakya Niti - Verse 7.1'
+    sanskrit: 'स्वाध्यायान्मा प्रमदः।',
+    transliteration: 'Svādhyāyānmā pramadaḥ।',
+    translation: 'Do not neglect self-study and reading.',
+    meaning: 'Books and continuous learning are essential for growth. Through reading and studying, we gain insights into complex topics like geopolitics, global order, and shifting dynamics. Knowledge from books helps us understand the world better and make informed decisions.',
+    reference: 'Taittiriya Upanishad - 1.11.1'
   },
   
   'oracle-journey': {
-    sanskrit: 'उद्यमेन हि सिध्यन्ति कार्याणि न मनोरथैः।\nन हि सुप्तस्य सिंहस्य प्रविशन्ति मुखे मृगाः॥',
-    transliteration: 'Udyamena hi sidhyanti kāryāṇi na manorathaiḥ।\nNa hi suptasya siṃhasya praviśanti mukhe mṛgāḥ॥',
-    translation: 'Work gets accomplished through effort, not through mere wishes. Deer do not enter the mouth of a sleeping lion.',
-    meaning: 'Career growth and transformation come through persistent effort, continuous learning, and dedication. Your journey from Cloud Analyst to Data Scientist exemplifies how consistent action and passion can turn dreams into reality.',
-    reference: 'Chanakya Niti - Verse 1.15'
+    sanskrit: 'कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥',
+    transliteration: 'Karmaṇyevādhikāraste mā phaleṣu kadācana।\nMā karmaphalaheturbhūrmā te saṅgo\'stvakarmaṇi॥',
+    translation: 'You have the right to perform your actions, but you are not entitled to the fruits of your actions. Do not let the fruit be the purpose of your actions, and therefore you won\'t be attached to not doing your duty.',
+    meaning: 'Your journey from Cloud Analyst to Data Scientist at Oracle demonstrates the power of dedicated action. Focus on the work, the learning, and the growth—the transformation happens naturally when you commit to excellence without being attached to outcomes.',
+    reference: 'Bhagavad Gita - Chapter 2, Verse 47'
+  },
+  
+  'liverpool-football': {
+    sanskrit: 'एकता सर्वशक्तिमान्।',
+    transliteration: 'Ekatā sarvaśaktimān।',
+    translation: 'Unity is all-powerful.',
+    meaning: 'Liverpool embodies unity—the team, the fans, "You\'ll Never Walk Alone." Football is the beautiful game because it unites billions across the world. When players, fans, and communities come together with passion and dedication, that unity creates something powerful and transcendent.',
+    reference: 'Arthashastra - Book 1, Chapter 2'
   }
 };
 

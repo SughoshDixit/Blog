@@ -43,12 +43,12 @@ function Toc({ headings }) {
   }
 
   return (
-    <nav className="toc-container p-4 rounded-lg bg-white/80 dark:bg-gray-900/80 backdrop-blur border border-gray-200 dark:border-gray-700 shadow-sm">
+    <nav className="sticky top-24 toc-container p-4 rounded-lg bg-white/80 dark:bg-gray-900/80 backdrop-blur border border-gray-200 dark:border-gray-700 shadow-sm max-h-[calc(100vh-8rem)] overflow-y-auto">
       <div 
-        className="toc-header"
+        className="toc-header flex items-center justify-between cursor-pointer mb-3"
         onClick={() => setIsCollapsed(!isCollapsed)}
       >
-        <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Table of Contents</p>
+        <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">Table of Contents</p>
         {isCollapsed ? (
           <FiChevronDown className="w-4 h-4 text-gray-500 dark:text-gray-400" />
         ) : (
@@ -57,12 +57,20 @@ function Toc({ headings }) {
       </div>
       
       {!isCollapsed && (
-        <ul className="toc-list">
+        <ul className="toc-list space-y-1">
           {headings.map((heading, index) => (
             <li
               key={heading.uid || index}
               className={`toc-item level-${heading.level} ${
                 heading.id === active ? "active" : ""
+              } cursor-pointer text-sm py-1 px-2 rounded transition-colors ${
+                heading.level === 2 
+                  ? "font-medium text-gray-700 dark:text-gray-300" 
+                  : "text-gray-600 dark:text-gray-400 ml-4"
+              } ${
+                heading.id === active 
+                  ? "bg-[#1a8917]/10 dark:bg-[#26c281]/20 text-[#1a8917] dark:text-[#26c281] font-semibold" 
+                  : "hover:bg-gray-100 dark:hover:bg-gray-800"
               }`}
               onClick={() => scrollToHeading(heading.id)}
             >

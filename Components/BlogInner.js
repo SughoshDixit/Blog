@@ -2,6 +2,9 @@ import { MDXRemote } from "next-mdx-remote";
 import { BsThreeDots } from "react-icons/bs";
 import Toc from "./Toc";
 import { useEffect, useState, useRef } from "react";
+import CopyCodeButton from "./CopyCodeButton";
+import ShareSection from "./ShareSection";
+import AuthorBio from "./AuthorBio";
 
 const LOTTIE_ANIMATIONS = {
   boxplotIntro: "https://assets10.lottiefiles.com/packages/lf20_tutvdkg0.json",
@@ -14,7 +17,7 @@ const LOTTIE_ANIMATIONS = {
   robustWorkflow: "/lottie/robust_workflow.json"
 };
 
-function BlogInner({ data, content, headings, readTime }) {
+function BlogInner({ data, content, headings, readTime, allBlogs }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -148,6 +151,38 @@ function BlogInner({ data, content, headings, readTime }) {
 
   const mdxComponents = {
     Lottie: (props) => <LottiePlayer {...props} />,
+    h2: (props) => {
+      const { id, children, ...rest } = props;
+      const headingText = typeof children === 'string' ? children : children?.props?.children || '';
+      return (
+        <h2 id={id} className="group relative" {...rest}>
+          {children}
+          {id && <ShareSection headingId={id} headingText={headingText} />}
+        </h2>
+      );
+    },
+    h3: (props) => {
+      const { id, children, ...rest } = props;
+      const headingText = typeof children === 'string' ? children : children?.props?.children || '';
+      return (
+        <h3 id={id} className="group relative" {...rest}>
+          {children}
+          {id && <ShareSection headingId={id} headingText={headingText} />}
+        </h3>
+      );
+    },
+    code: (props) => {
+      // Handle inline code (not code blocks)
+      const { className, children, ...rest } = props;
+      const isInline = !className || !className.includes('language-');
+      
+      if (isInline) {
+        return <code className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 rounded text-sm" {...rest}>{children}</code>;
+      }
+      
+      // For code blocks, return as-is (handled by pre component)
+      return <code className={className} {...rest}>{children}</code>;
+    },
     img: (props) => {
       // Special handling for header images and DS images
       const isHeaderImage = props.src && props.src.includes('skewness_kurtosis_concept');
@@ -204,11 +239,43 @@ function BlogInner({ data, content, headings, readTime }) {
         </div>
       );
     },
-    pre: (props) => (
-      <div className="overflow-x-auto my-6" style={{ maxWidth: '100%' }}>
-        <pre className="overflow-x-auto p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-sm whitespace-pre" style={{ maxWidth: '100%' }} {...props} />
-      </div>
-    ),
+    pre: (props) => {
+      const { children, ...rest } = props;
+      
+      // Extract code string from children
+      let codeString = '';
+      if (children) {
+        if (typeof children === 'string') {
+          codeString = children;
+        } else if (children.props) {
+          // Handle code element inside pre
+          if (children.props.children) {
+            if (typeof children.props.children === 'string') {
+              codeString = children.props.children;
+            } else if (Array.isArray(children.props.children)) {
+              codeString = children.props.children
+                .map(c => typeof c === 'string' ? c : (c?.props?.children || ''))
+                .join('');
+            }
+          } else {
+            codeString = String(children.props.children || '');
+          }
+        } else if (Array.isArray(children)) {
+          codeString = children
+            .map(c => typeof c === 'string' ? c : (c?.props?.children || ''))
+            .join('');
+        }
+      }
+      
+      return (
+        <div className="relative overflow-x-auto my-6 group" style={{ maxWidth: '100%' }}>
+          {codeString && <CopyCodeButton code={codeString} />}
+          <pre className="overflow-x-auto p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-sm whitespace-pre" style={{ maxWidth: '100%' }} {...rest}>
+            {children}
+          </pre>
+        </div>
+      );
+    },
     table: (props) => (
       <div className="overflow-x-auto my-6" style={{ maxWidth: '100%' }}>
         <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700" {...props} />
@@ -355,29 +422,8 @@ function BlogInner({ data, content, headings, readTime }) {
         </div>
       </div>
 
-      {/* Medium-style article footer */}
-      <div className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex items-center space-x-4">
-            <img 
-              src="/about.jpeg" 
-              alt="Sughosh Dixit" 
-              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full"
-            />
-            <div>
-              <div className="text-sm font-medium text-gray-900 dark:text-white">{data.Author}</div>
-              <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Data Scientist & Tech Writer</div>
-            </div>
-          </div>
-          <button className="medium-button text-sm px-4 py-2 w-full sm:w-auto">
-            Follow
-          </button>
-        </div>
-        
-        <div className="mt-6 text-xs sm:text-sm text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 rounded-lg p-3 sm:p-4">
-          <strong>In one line:</strong> Footballer, Musician by Passion, Data Science by Profession, Civilizationalist by Ideology
-        </div>
-      </div>
+      {/* Enhanced Author Bio Section */}
+      <AuthorBio data={data} allBlogs={allBlogs} />
 
       {/* Image Modal for Mobile */}
       {selectedImage && (

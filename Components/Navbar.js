@@ -170,7 +170,7 @@ function Navbar({ topics }) {
           <div className="flex items-center space-x-4">
             <div className="hidden lg:flex items-center space-x-6 text-sm text-[#645b4a] dark:text-[#d5dcf3]">
               <Link href="/dashboard">
-                <a className="hover:text-[#1a8917] transition-colors">Write</a>
+                <a className="hover:text-[#1a8917] transition-colors">Dashboard</a>
               </Link>
               <a
                 href="https://sughoshdixit.github.io/"
@@ -321,6 +321,13 @@ function Navbar({ topics }) {
               <a className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
                 <FiBookmark className="w-5 h-5" />
                 <span>AI Gallery</span>
+              </a>
+            </Link>
+            
+            <Link href="/saved">
+              <a className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                <FiBookmark className="w-5 h-5" />
+                <span>Saved Posts</span>
               </a>
             </Link>
             
