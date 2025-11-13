@@ -259,29 +259,21 @@ const BLOG_SPECIFIC_SHUBHASHITAS = {
 
 function ChanakyaShubhashita({ topic, blogId, blogTitle }) {
   const [isVisible, setIsVisible] = useState(false);
-  const [hasDismissed, setHasDismissed] = useState(false);
 
   useEffect(() => {
-    // Check if user has dismissed this widget for this specific blog
-    const dismissedKey = `chanakya-dismissed-${blogId}`;
-    const wasDismissed = localStorage.getItem(dismissedKey);
+    // Show immediately when page loads, with a small delay for smooth appearance
+    // This will happen every time the blog is opened
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 500); // Small delay for better UX
     
-    if (!wasDismissed) {
-      // Show immediately when page loads, with a small delay for smooth appearance
-      const timer = setTimeout(() => {
-        setIsVisible(true);
-      }, 500); // Small delay for better UX
-      
-      return () => clearTimeout(timer);
-    }
-  }, [blogId]);
+    return () => clearTimeout(timer);
+  }, [blogId]); // Re-run when blogId changes (different blog)
 
   const handleClose = () => {
+    // Close the widget for the current session only
+    // It will show again when the page is reloaded or revisited
     setIsVisible(false);
-    setHasDismissed(true);
-    // Remember dismissal for this specific blog
-    const dismissedKey = `chanakya-dismissed-${blogId}`;
-    localStorage.setItem(dismissedKey, 'true');
   };
 
   // Get shubhashita - priority: blog-specific > topic-based > default
