@@ -13,8 +13,8 @@ isPublished: true
 # Why Support Liverpool F.C? The Beautiful Game vs The Lazy Game 🔴⚽
 
 <div style={{display: 'flex', justifyContent: 'center', gap: '2rem', margin: '2rem 0', flexWrap: 'wrap', alignItems: 'center'}}>
-<Lottie animation="analyticsPulse" height={200} width={200} />
-<Lottie animation="boxplotIntro" height={180} width={180} />
+<img src="/BL-6/original-1939c1577ea1a28d0ee53a8c8a5965b5.gif" alt="Liverpool FC" style={{maxWidth: '300px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)'}} />
+<img src="/BL-6/original-3dfb6ee948a9514e6c1440adc6b775ab.gif" alt="Liverpool FC" style={{maxWidth: '300px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)'}} />
 </div>
 
 <div style={{background: 'linear-gradient(135deg, #A30000 0%, #DC143C 100%)', padding: '1.5rem', borderRadius: '15px', color: 'white', textAlign: 'center', margin: '2rem 0', boxShadow: '0 5px 20px rgba(163,0,0,0.3)'}}>
@@ -28,7 +28,7 @@ isPublished: true
 ## 🔴 Liverpool: Not Just a Club, It's a Way of Life ❤️
 
 <div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
-<Lottie animation="analyticsPulse" height={200} width={200} />
+<img src="/BL-6/original-89da6a70aeb7308bba6fb50c36c455d6.gif" alt="Liverpool FC" style={{maxWidth: '400px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)'}} />
 </div>
 
 <div style={{background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)', padding: '1rem', borderRadius: '10px', textAlign: 'center', margin: '1.5rem 0', border: '3px solid #FF8C00'}}>
@@ -47,7 +47,7 @@ Being an ardent Liverpool fan, I can tell you: **supporting Liverpool is not lik
 ## ⚽ Why Liverpool F.C. Deserves Your Support
 
 <div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
-<Lottie animation="boxplotIntro" height={180} width={180} />
+<img src="/BL-6/original-a1cec4abbb3d9c58178b751fd18ae9bd.gif" alt="Liverpool FC" style={{maxWidth: '400px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)'}} />
 </div>
 
 <div style={{background: 'linear-gradient(135deg, #A30000 0%, #FF6347 100%)', padding: '1.5rem', borderRadius: '15px', color: 'white', margin: '2rem 0', textAlign: 'center', boxShadow: '0 5px 20px rgba(163,0,0,0.3)'}}>
@@ -56,6 +56,10 @@ Being an ardent Liverpool fan, I can tell you: **supporting Liverpool is not lik
 </div>
 
 ### 1. **The Liverpool Way: Attacking Football Philosophy** 🎯⚽
+
+<div style={{display: 'flex', justifyContent: 'center', margin: '1.5rem 0'}}>
+<img src="/BL-6/original-05912212907d86fd9a6ec9148f968134.webp" alt="Liverpool Attacking Philosophy" style={{maxWidth: '450px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)'}} />
+</div>
 
 <div style={{background: '#e8f5e9', padding: '1.5rem', borderRadius: '10px', border: '3px solid #4caf50', margin: '1.5rem 0'}}>
 <p style={{fontSize: '1.5rem', textAlign: 'center', margin: '0 0 1rem'}}>⚽🎯⚽🎯⚽</p>
@@ -70,6 +74,10 @@ Liverpool has its own way of playing football—a very **offensive, attacking fo
 **We as Liverpool fans have rarely had to suffer watching "boring" football.** I as a Liverpool fan have definitely enjoyed watching our star forwards terrorize defenses.
 
 ### 2. **The Comeback Kings** 👑⚽
+
+<div style={{display: 'flex', justifyContent: 'center', margin: '1.5rem 0'}}>
+<img src="/BL-6/original-89da6a70aeb7308bba6fb50c36c455d6.gif" alt="Liverpool Comeback" style={{maxWidth: '450px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)'}} />
+</div>
 
 <div style={{background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)', padding: '1.5rem', borderRadius: '10px', border: '3px solid #FF8C00', margin: '1.5rem 0', textAlign: 'center'}}>
 <p style={{fontSize: '2rem', margin: 0}}>👑⚽👑⚽👑</p>
@@ -93,6 +101,10 @@ Liverpool have become famous for their great and unbelievable comebacks. They ca
 </div>
 
 ### 3. **"You'll Never Walk Alone"** 🎵❤️
+
+<div style={{display: 'flex', justifyContent: 'center', margin: '1.5rem 0'}}>
+<img src="/BL-6/original-a1cec4abbb3d9c58178b751fd18ae9bd.gif" alt="You'll Never Walk Alone" style={{maxWidth: '450px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)'}} />
+</div>
 
 <div style={{background: 'linear-gradient(135deg, #A30000 0%, #DC143C 100%)', padding: '2rem', borderRadius: '15px', color: 'white', margin: '2rem 0', textAlign: 'center', boxShadow: '0 10px 30px rgba(163,0,0,0.4)'}}>
 <p style={{fontSize: '2.5rem', margin: '0 0 1rem', fontWeight: 'bold'}}>🎵❤️🎵</p>
@@ -123,6 +135,10 @@ Liverpool fans know that once we start supporting this great club, it's like we 
 
 ### 5. **Anfield: The Fortress** 🏟️⚽
 
+<div style={{display: 'flex', justifyContent: 'center', margin: '1.5rem 0'}}>
+<img src="/BL-6/original-b715ed4cfd644c9297fc6a884b61f673.gif" alt="Anfield Stadium" style={{maxWidth: '500px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)'}} />
+</div>
+
 <div style={{background: 'linear-gradient(135deg, #A30000 0%, #8B0000 100%)', padding: '2rem', borderRadius: '15px', color: 'white', margin: '2rem 0', textAlign: 'center', boxShadow: '0 10px 30px rgba(163,0,0,0.4)'}}>
 <p style={{fontSize: '2.5rem', margin: '0 0 1rem'}}>🏟️⚽🏟️</p>
 <p style={{fontSize: '1.8rem', margin: 0, fontWeight: 'bold'}}>ANFIELD - THE FORTRESS</p>
@@ -141,7 +157,7 @@ Liverpool fans know that once we start supporting this great club, it's like we 
 ### 6. **My Journey: Why I Started Supporting Liverpool** ❤️⚽
 
 <div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
-<Lottie animation="analyticsPulse" height={180} width={180} />
+<img src="/BL-6/original-05912212907d86fd9a6ec9148f968134.webp" alt="Liverpool FC" style={{maxWidth: '400px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)', display: 'block', margin: '2rem auto'}} />
 </div>
 
 <div style={{background: '#e3f2fd', padding: '1.5rem', borderRadius: '10px', border: '2px solid #2196f3', margin: '1.5rem 0'}}>
@@ -164,8 +180,8 @@ Liverpool fans know that once we start supporting this great club, it's like we 
 ## 🏏 Cricket: A Colonial Mindset Hangover for Indians 🇬🇧➡️🇮🇳
 
 <div style={{display: 'flex', justifyContent: 'center', gap: '1rem', margin: '2rem 0', flexWrap: 'wrap'}}>
-<Lottie animation="analyticsPulse" height={200} width={200} />
-<Lottie animation="boxplotIntro" height={180} width={180} />
+<img src="/BL-6/original-b715ed4cfd644c9297fc6a884b61f673.gif" alt="Liverpool FC" style={{maxWidth: '300px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)'}} />
+<img src="/BL-6/original-bb10977801487c7652bc213a62942e7b.gif" alt="Liverpool FC" style={{maxWidth: '300px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)'}} />
 </div>
 
 <div style={{background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', padding: '2rem', borderRadius: '15px', color: 'white', margin: '2rem 0', textAlign: 'center', boxShadow: '0 10px 30px rgba(0,0,0,0.3)'}}>
@@ -205,7 +221,7 @@ Cricket was introduced to India by the British during colonial rule. It wasn't j
 
 ### **Swami Vivekananda's Wisdom on Football** 🧘⚽📖
 
-<Lottie animation="analyticsPulse" height={200} width={200} />
+<img src="/BL-6/original-688e3d6b1dd1d5302604a49280e382c3.webp" alt="Liverpool FC" style={{maxWidth: '400px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)', display: 'block', margin: '2rem auto'}} />
 
 Swami Vivekananda, one of India's greatest spiritual leaders and reformers, understood the importance of physical strength and dynamic sports. However, his words have often been taken out of context. Let me share what he **actually** said in full:
 
@@ -290,7 +306,7 @@ It's time for Indians to break free from the colonial cricket mindset and embrac
 
 ## ⚽🏏 The Beautiful Game vs The Lazy Game: Why Football Beats Cricket
 
-<Lottie animation="analyticsPulse" height={220} width={220} />
+<img src="/BL-6/original-f9695d261a4d22f3c4d421c668254523.gif" alt="Liverpool FC" style={{maxWidth: '500px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)', display: 'block', margin: '2rem auto'}} />
 
 Let me be direct: **Football is the most followed sport in the world for a reason.** 🏆 Cricket, on the other hand, is a lazy game that tests patience more than skill. Here's why you should stop watching cricket and start watching football. ⚽🔥
 
@@ -342,7 +358,7 @@ Let me be direct: **Football is the most followed sport in the world for a reaso
 ### **The Global Reach: World's Game vs Regional Game** 🌍
 
 <div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
-<Lottie animation="analyticsPulse" height={180} width={180} />
+<img src="/BL-6/original-05912212907d86fd9a6ec9148f968134.webp" alt="Liverpool FC" style={{maxWidth: '400px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)', display: 'block', margin: '2rem auto'}} />
 </div>
 
 <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', margin: '2rem 0'}}>
@@ -378,7 +394,7 @@ Let me be direct: **Football is the most followed sport in the world for a reaso
 ### **The Physicality: Athletes vs Statues** 💪
 
 <div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
-<Lottie animation="boxplotIntro" height={200} width={200} />
+<img src="/BL-6/original-cd1e93300167ee2b6d7e7f9c6454337d.webp" alt="Liverpool FC" style={{maxWidth: '400px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)'}} />
 </div>
 
 <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', margin: '2rem 0'}}>
@@ -468,7 +484,7 @@ Let me be direct: **Football is the most followed sport in the world for a reaso
 ### **The Accessibility: Anyone Can Play vs Expensive Equipment** 🏃
 
 <div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
-<Lottie animation="analyticsPulse" height={200} width={200} />
+<img src="/BL-6/original-89da6a70aeb7308bba6fb50c36c455d6.gif" alt="Liverpool FC" style={{maxWidth: '400px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)'}} />
 </div>
 
 <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', margin: '2rem 0'}}>
@@ -505,7 +521,7 @@ Let me be direct: **Football is the most followed sport in the world for a reaso
 
 ## 🎯 The Harsh Truth About Cricket 💀
 
-<Lottie animation="analyticsPulse" height={200} width={200} />
+<img src="/BL-6/original-688e3d6b1dd1d5302604a49280e382c3.webp" alt="Liverpool FC" style={{maxWidth: '400px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)', display: 'block', margin: '2rem auto'}} />
 
 Let's be honest: **Cricket is a lazy game.** 😴
 
@@ -541,7 +557,7 @@ Let's be honest: **Cricket is a lazy game.** 😴
 
 ## ⚽ Why Football is The Beautiful Game 🎨
 
-<Lottie animation="analyticsPulse" height={240} width={240} />
+<img src="/BL-6/original-a62028723dddcbf02d212b21aa9d8dd7.webp" alt="Liverpool FC" style={{maxWidth: '500px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)', display: 'block', margin: '2rem auto'}} />
 
 **Football is called "The Beautiful Game" for a reason:** ⚽✨
 
@@ -573,7 +589,7 @@ Let's be honest: **Cricket is a lazy game.** 😴
 
 ## 🔴 Why Liverpool Specifically? ⭐
 
-<Lottie animation="analyticsPulse" height={200} width={200} />
+<img src="/BL-6/original-688e3d6b1dd1d5302604a49280e382c3.webp" alt="Liverpool FC" style={{maxWidth: '400px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)', display: 'block', margin: '2rem auto'}} />
 
 Beyond all the reasons I've mentioned about Liverpool, here's why they're special: 🔴⚽
 
@@ -615,7 +631,7 @@ Beyond all the reasons I've mentioned about Liverpool, here's why they're specia
 ### **The Present** ⚡⚽
 
 <div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
-<Lottie animation="boxplotIntro" height={180} width={180} />
+<img src="/BL-6/original-a1cec4abbb3d9c58178b751fd18ae9bd.gif" alt="Liverpool FC" style={{maxWidth: '400px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)'}} />
 </div>
 
 <div style={{background: '#e3f2fd', padding: '2rem', borderRadius: '15px', border: '3px solid #2196f3', margin: '2rem 0'}}>
@@ -647,7 +663,7 @@ Beyond all the reasons I've mentioned about Liverpool, here's why they're specia
 
 ## 💭 My Final Thoughts 💭
 
-<Lottie animation="analyticsPulse" height={220} width={220} />
+<img src="/BL-6/original-c43bf42a72cb38710a96e9e9298939d3.webp" alt="Liverpool FC" style={{maxWidth: '450px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)', display: 'block', margin: '2rem auto'}} />
 
 I can go on and on about the reasons why I love this amazing club and why football is superior to cricket. But let me wrap this up with some heartfelt words. ❤️
 
@@ -673,7 +689,7 @@ I can go on and on about the reasons why I love this amazing club and why footba
 
 ## 🎯 The Call to Action 🚀
 
-<Lottie animation="analyticsPulse" height={240} width={240} />
+<img src="/BL-6/original-e4ab720942a61b10fa07a804a7a44ceb.webp" alt="Liverpool FC" style={{maxWidth: '500px', height: 'auto', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.2)', display: 'block', margin: '2rem auto'}} />
 
 <div style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '2.5rem', borderRadius: '15px', color: 'white', margin: '2rem 0', textAlign: 'center', boxShadow: '0 10px 30px rgba(0,0,0,0.3)'}}>
 
