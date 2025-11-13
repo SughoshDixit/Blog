@@ -12,10 +12,8 @@ isPublished: true
 
 # Day 2 — Expressions as Algebra: Tokens, Precedence & Postfix (RPN) 🧮
 
-<div style={{textAlign: 'center', margin: '2rem 0'}}>
-  <div id="lottie-parsing" style={{width: '200px', height: '200px', margin: '0 auto'}}></div>
-  <p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Teaching computers to understand expressions! 🚀</p>
-</div>
+<Lottie animation="analyticsPulse" height={200} width={200} />
+<p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem', textAlign: 'center'}}>Teaching computers to understand expressions! 🚀</p>
 
 > 💡 **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
 
