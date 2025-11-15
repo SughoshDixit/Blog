@@ -5,6 +5,11 @@ import { useEffect, useState, useRef } from "react";
 import CopyCodeButton from "./CopyCodeButton";
 import ShareSection from "./ShareSection";
 import AuthorBio from "./AuthorBio";
+import ReadAloud from "./ReadAloud";
+import ReadingSettings from "./ReadingSettings";
+import ScrollToTop from "./ScrollToTop";
+import KeyboardShortcuts from "./KeyboardShortcuts";
+import ReadingTimeRemaining from "./ReadingTimeRemaining";
 
 const LOTTIE_ANIMATIONS = {
   boxplotIntro: "https://assets10.lottiefiles.com/packages/lf20_tutvdkg0.json",
@@ -20,6 +25,7 @@ const LOTTIE_ANIMATIONS = {
 function BlogInner({ data, content, headings, readTime, allBlogs }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const articleRef = useRef(null);
 
   useEffect(() => {
     // Check if mobile viewport
@@ -411,7 +417,10 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
       <div className="flex gap-8 w-full">
         {/* Main content */}
         <div className="flex-1 article-content min-w-0 w-full">
-          <article className="prose prose-sm sm:prose-lg max-w-none break-words overflow-x-hidden">
+          <article 
+            ref={articleRef}
+            className="prose prose-sm sm:prose-lg max-w-none break-words overflow-x-hidden"
+          >
             <MDXRemote {...content} components={mdxComponents} />
           </article>
         </div>
@@ -424,6 +433,21 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
 
       {/* Enhanced Author Bio Section */}
       <AuthorBio data={data} allBlogs={allBlogs} />
+
+      {/* Read Aloud Component */}
+      <ReadAloud articleRef={articleRef} />
+
+      {/* Reading Settings */}
+      <ReadingSettings articleRef={articleRef} />
+
+      {/* Scroll to Top */}
+      <ScrollToTop />
+
+      {/* Keyboard Shortcuts */}
+      <KeyboardShortcuts articleRef={articleRef} />
+
+      {/* Reading Time Remaining */}
+      <ReadingTimeRemaining readTime={readTime} articleRef={articleRef} />
 
       {/* Image Modal for Mobile */}
       {selectedImage && (

@@ -19,6 +19,7 @@ import ReadingHistory from "../../Components/ReadingHistory";
 import PrintButton from "../../Components/PrintButton";
 import PostSeries from "../../Components/PostSeries";
 import ChanakyaShubhashita from "../../Components/ChanakyaShubhashita";
+import PostNavigation from "../../Components/PostNavigation";
 
 export const getStaticPaths = () => {
   const allBlogs = getAllBlogPosts();
@@ -170,6 +171,9 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
 
             {/* Related Posts */}
             <RelatedPosts currentPost={currentPost} allBlogs={allBlogs} maxPosts={3} />
+
+            {/* Post Navigation */}
+            <PostNavigation currentPost={currentPost} allPosts={allBlogs} />
           </div>
 
           <Footer />

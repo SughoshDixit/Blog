@@ -920,6 +920,48 @@ button:focus {
   outline: 0 !important;
 }
 
+/* Focus Mode - Distraction-free reading */
+.focus-mode {
+  overflow: hidden;
+}
+
+.focus-mode .article-content {
+  max-width: 700px !important;
+  margin: 0 auto !important;
+}
+
+.focus-mode header,
+.focus-mode footer,
+.focus-mode aside,
+.focus-mode .toc,
+.focus-mode .sidebar,
+.focus-mode nav:not(.article-content nav) {
+  opacity: 0.1;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.focus-mode .article-content {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reading position indicator */
+.reading-position {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  z-index: 9999;
+  transition: width 0.1s ease;
+}
+
 @media (max-width: 1180px) {
   .toc {
     display: none;
