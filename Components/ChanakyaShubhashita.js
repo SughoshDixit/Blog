@@ -223,6 +223,22 @@ const BLOG_SPECIFIC_SHUBHASHITAS = {
     reference: 'Arthashastra - Book 2, Chapter 11'
   },
   
+  // Data Science Day 15 - Percentiles as Thresholds
+  'percentiles-thresholds': {
+    sanskrit: 'सीमा सर्वकार्येषु आवश्यकी, विवेकेन च निश्चिता।',
+    transliteration: 'Sīmā sarvakāryeṣu āvaśyakī, vivekena ca niścitā।',
+    translation: 'Boundaries are necessary in all actions, and are determined through discrimination.',
+    meaning: 'Percentiles as thresholds teach us to draw clear boundaries based on data distribution. Just as we set decision thresholds at specific percentiles, wisdom comes from establishing clear boundaries and making decisions through careful discrimination and understanding of relative positions.',
+    reference: 'Arthashastra - Book 7, Chapter 13'
+  },
+  'percentiles': {
+    sanskrit: 'सीमा सर्वकार्येषु आवश्यकी, विवेकेन च निश्चिता।',
+    transliteration: 'Sīmā sarvakāryeṣu āvaśyakī, vivekena ca niścitā।',
+    translation: 'Boundaries are necessary in all actions, and are determined through discrimination.',
+    meaning: 'Percentiles as thresholds teach us to draw clear boundaries based on data distribution. Just as we set decision thresholds at specific percentiles, wisdom comes from establishing clear boundaries and making decisions through careful discrimination and understanding of relative positions.',
+    reference: 'Arthashastra - Book 7, Chapter 13'
+  },
+  
   // Blog Posts
   'gratitude-civilization': {
     sanskrit: 'कृतज्ञता सर्वेषु गुणेषु श्रेष्ठा।',
