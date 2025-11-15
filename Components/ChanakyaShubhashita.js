@@ -207,6 +207,22 @@ const BLOG_SPECIFIC_SHUBHASHITAS = {
     reference: 'Arthashastra - Book 1, Chapter 4'
   },
   
+  // Data Science Day 14 - Hypergeometric Distribution & Sample Size
+  'hypergeometric-sample-size': {
+    sanskrit: 'सूक्ष्मदृष्ट्या सत्यं दृश्यते, युक्त्या च निश्चितम्।',
+    transliteration: 'Sūkṣmadṛṣṭyā satyaṃ dṛśyate, yuktyā ca niścitam।',
+    translation: 'Truth is seen through subtle vision, and certainty comes through logic.',
+    meaning: 'Hypergeometric distribution teaches us to find rare events through exact mathematical reasoning. Just as we carefully sample to detect defects, wisdom comes from using precise methods and logic to uncover hidden truths that approximations might miss.',
+    reference: 'Arthashastra - Book 2, Chapter 11'
+  },
+  'hypergeometric': {
+    sanskrit: 'सूक्ष्मदृष्ट्या सत्यं दृश्यते, युक्त्या च निश्चितम्।',
+    transliteration: 'Sūkṣmadṛṣṭyā satyaṃ dṛśyate, yuktyā ca niścitam।',
+    translation: 'Truth is seen through subtle vision, and certainty comes through logic.',
+    meaning: 'Hypergeometric distribution teaches us to find rare events through exact mathematical reasoning. Just as we carefully sample to detect defects, wisdom comes from using precise methods and logic to uncover hidden truths that approximations might miss.',
+    reference: 'Arthashastra - Book 2, Chapter 11'
+  },
+  
   // Blog Posts
   'gratitude-civilization': {
     sanskrit: 'कृतज्ञता सर्वेषु गुणेषु श्रेष्ठा।',
