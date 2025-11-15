@@ -20,31 +20,43 @@ function ReadAloud({ articleRef }) {
       setIsSupported(true);
       synthRef.current = window.speechSynthesis;
       
-      // Load voices
+      // Load voices - with retry for mobile browsers
       const loadVoices = () => {
         const availableVoices = window.speechSynthesis.getVoices();
-        setVoices(availableVoices);
         
-        // Try to find a good default voice (prefer English, natural-sounding)
-        if (!selectedVoice && availableVoices.length > 0) {
-          const preferredVoice = availableVoices.find(
-            voice => voice.lang.startsWith('en') && voice.name.includes('Natural')
-          ) || availableVoices.find(voice => voice.lang.startsWith('en')) || availableVoices[0];
-          setSelectedVoice(preferredVoice);
+        // Filter out empty or invalid voices
+        const validVoices = availableVoices.filter(voice => voice && voice.name);
+        
+        if (validVoices.length > 0) {
+          setVoices(validVoices);
+          
+          // Try to find a good default voice (prefer English, natural-sounding)
+          if (!selectedVoice) {
+            const preferredVoice = validVoices.find(
+              voice => voice.lang && voice.lang.startsWith('en') && voice.name.includes('Natural')
+            ) || validVoices.find(voice => voice.lang && voice.lang.startsWith('en')) || validVoices[0];
+            setSelectedVoice(preferredVoice);
+          }
         }
       };
       
+      // Initial load
       loadVoices();
       
-      // Some browsers load voices asynchronously
+      // Some browsers (especially mobile) load voices asynchronously
       if (window.speechSynthesis.onvoiceschanged !== undefined) {
         window.speechSynthesis.onvoiceschanged = loadVoices;
       }
+      
+      // Retry loading voices after a delay (for mobile browsers)
+      setTimeout(loadVoices, 100);
+      setTimeout(loadVoices, 500);
+      setTimeout(loadVoices, 1000);
     }
     
     return () => {
       // Cleanup: stop any ongoing speech
-      if (synthRef.current && synthRef.current.speaking) {
+      if (synthRef.current) {
         synthRef.current.cancel();
       }
     };
@@ -143,10 +155,19 @@ function ReadAloud({ articleRef }) {
       return;
     }
 
-    if (synthRef.current.speaking) {
-      synthRef.current.resume();
-      setIsPlaying(true);
-      setIsPaused(false);
+    // Cancel any existing speech first (important for mobile)
+    if (synthRef.current.speaking || synthRef.current.pending) {
+      synthRef.current.cancel();
+      // Small delay to ensure cancellation completes
+      setTimeout(() => {
+        if (synthRef.current.paused) {
+          synthRef.current.resume();
+          setIsPlaying(true);
+          setIsPaused(false);
+        } else {
+          startReading();
+        }
+      }, 100);
       return;
     }
 
@@ -159,14 +180,34 @@ function ReadAloud({ articleRef }) {
 
     setCurrentText(text);
     
+    // Ensure voices are loaded (critical for mobile)
+    let voicesToUse = voices;
+    if (voicesToUse.length === 0) {
+      voicesToUse = window.speechSynthesis.getVoices();
+      if (voicesToUse.length > 0) {
+        setVoices(voicesToUse);
+        const defaultVoice = voicesToUse.find(v => v.lang && v.lang.startsWith('en')) || voicesToUse[0];
+        if (defaultVoice) {
+          setSelectedVoice(defaultVoice);
+        }
+      }
+    }
+    
     // Create utterance
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = rate;
     utterance.pitch = pitch;
     utterance.volume = 1.0;
     
+    // Set voice if available (must be set before speak on mobile)
     if (selectedVoice) {
       utterance.voice = selectedVoice;
+    } else if (voicesToUse.length > 0) {
+      const defaultVoice = voicesToUse.find(v => v.lang && v.lang.startsWith('en')) || voicesToUse[0];
+      if (defaultVoice) {
+        utterance.voice = defaultVoice;
+        setSelectedVoice(defaultVoice);
+      }
     }
     
     // Event handlers
@@ -186,6 +227,15 @@ function ReadAloud({ articleRef }) {
       setIsPlaying(false);
       setIsPaused(false);
       utteranceRef.current = null;
+      
+      // Show user-friendly error message
+      if (event.error === 'not-allowed') {
+        alert('Speech synthesis is not allowed. Please check your browser permissions or try again.');
+      } else if (event.error === 'network') {
+        alert('Network error occurred. Please check your connection.');
+      } else {
+        console.error('Speech error details:', event);
+      }
     };
     
     utterance.onpause = () => {
@@ -197,26 +247,54 @@ function ReadAloud({ articleRef }) {
     };
     
     utteranceRef.current = utterance;
-    synthRef.current.speak(utterance);
+    
+    // For mobile browsers, especially iOS Safari, we need to call speak() immediately
+    // directly from the user interaction handler - no delays, no async operations
+    try {
+      // Cancel any pending speech first
+      synthRef.current.cancel();
+      
+      // iOS Safari requires speak() to be called synchronously from user interaction
+      // So we call it directly here, not in requestAnimationFrame or setTimeout
+      synthRef.current.speak(utterance);
+    } catch (error) {
+      console.error('Error starting speech:', error);
+      alert('Unable to start speech. Please try again or check your browser settings.');
+    }
   };
 
   const pauseReading = () => {
-    if (synthRef.current.speaking && !synthRef.current.paused) {
-      synthRef.current.pause();
-      setIsPaused(true);
+    try {
+      if (synthRef.current && synthRef.current.speaking && !synthRef.current.paused) {
+        synthRef.current.pause();
+        setIsPaused(true);
+      }
+    } catch (error) {
+      console.error('Error pausing speech:', error);
     }
   };
 
   const resumeReading = () => {
-    if (synthRef.current.paused) {
-      synthRef.current.resume();
-      setIsPaused(false);
+    try {
+      if (synthRef.current && synthRef.current.paused) {
+        synthRef.current.resume();
+        setIsPaused(false);
+      }
+    } catch (error) {
+      console.error('Error resuming speech:', error);
     }
   };
 
   const stopReading = () => {
-    if (synthRef.current) {
-      synthRef.current.cancel();
+    try {
+      if (synthRef.current) {
+        synthRef.current.cancel();
+        setIsPlaying(false);
+        setIsPaused(false);
+        utteranceRef.current = null;
+      }
+    } catch (error) {
+      console.error('Error stopping speech:', error);
       setIsPlaying(false);
       setIsPaused(false);
       utteranceRef.current = null;
@@ -294,18 +372,28 @@ function ReadAloud({ articleRef }) {
       <div className="flex items-center gap-2 mb-3">
         {!isPlaying || isPaused ? (
           <button
-            onClick={startReading}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              startReading();
+            }}
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium active:bg-blue-800"
             title="Play"
+            type="button"
           >
             <FaPlay className="text-xs" />
             <span>Play</span>
           </button>
         ) : (
           <button
-            onClick={pauseReading}
-            className="flex items-center gap-2 px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-lg transition-colors text-sm font-medium"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              pauseReading();
+            }}
+            className="flex items-center gap-2 px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-lg transition-colors text-sm font-medium active:bg-yellow-800"
             title="Pause"
+            type="button"
           >
             <FaPause className="text-xs" />
             <span>Pause</span>
@@ -313,9 +401,14 @@ function ReadAloud({ articleRef }) {
         )}
         
         <button
-          onClick={stopReading}
-          className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors text-sm font-medium"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            stopReading();
+          }}
+          className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors text-sm font-medium active:bg-red-800"
           title="Stop"
+          type="button"
         >
           <FaStop className="text-xs" />
           <span>Stop</span>
