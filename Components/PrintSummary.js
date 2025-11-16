@@ -11,6 +11,7 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
   const [shareUrl, setShareUrl] = useState("");
   const [emailTo, setEmailTo] = useState("");
   const [emailStatus, setEmailStatus] = useState("");
+  const [takeawaySelection, setTakeawaySelection] = useState({});
   const printContainerRef = useRef(null);
   const storageKey = `printSummary:${title || "post"}`;
 
@@ -36,6 +37,7 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
         if (typeof data?.landscape === "boolean") setLandscape(data.landscape);
         if (typeof data?.showCaptions === "boolean") setShowCaptions(data.showCaptions);
         if (typeof data?.note === "string") setNote(data.note);
+        if (data?.takeawaySelection) setTakeawaySelection(data.takeawaySelection);
       }
     } catch {}
   }, [storageKey]);
@@ -43,10 +45,10 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
   // Persist state
   useEffect(() => {
     try {
-      const data = { selected, landscape, showCaptions, note };
+      const data = { selected, landscape, showCaptions, note, takeawaySelection };
       localStorage.setItem(storageKey, JSON.stringify(data));
     } catch {}
-  }, [selected, landscape, showCaptions, note, storageKey]);
+  }, [selected, landscape, showCaptions, note, takeawaySelection, storageKey]);
 
   // Collect images (with captions) and smart auto-select based on alt and width
   useEffect(() => {
@@ -74,14 +76,27 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
     });
   }, [headerImage, articleRef]);
 
-  const takeaways = useMemo(() => {
-    const items = (headings || [])
-      .filter((h) => h.depth === 2 || h.depth === 3)
-      .slice(0, 3)
-      .map((h) => h.text);
-    if (items.length === 0 && title) return [title];
-    return items;
-  }, [headings, title]);
+  // Takeaways list from headings with selection
+  const allTakeaways = useMemo(() => (headings || []).filter((h) => h.depth === 2 || h.depth === 3).map((h) => h.text), [headings]);
+  useEffect(() => {
+    if (!allTakeaways || allTakeaways.length === 0) return;
+    setTakeawaySelection((prev) => {
+      if (Object.keys(prev).length > 0) return prev;
+      const init = {};
+      allTakeaways.forEach((t, i) => { init[t] = i < 3; });
+      return init;
+    });
+  }, [allTakeaways]);
+
+  const chosenTakeaways = useMemo(() => {
+    const chosen = (allTakeaways || []).filter((t) => takeawaySelection[t]);
+    if (chosen.length > 0) return chosen;
+    return (allTakeaways || []).slice(0, 3);
+  }, [allTakeaways, takeawaySelection]);
+
+  const handleToggleTakeaway = (t) => {
+    setTakeawaySelection((prev) => ({ ...prev, [t]: !prev[t] }));
+  };
 
   const handleToggle = (src) => {
     setSelected((prev) => ({ ...prev, [src]: !prev[src] }));
@@ -118,7 +133,7 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
   // Compose state for sharing
   const buildState = () => {
     const imgs = allImages.filter((it) => selected[it.src]).map((it) => it.src);
-    return { t: title, a: abstract, i: imgs, k: takeaways, n: note, l: landscape ? 1 : 0, c: showCaptions ? 1 : 0 };
+    return { t: title, a: abstract, i: imgs, k: chosenTakeaways, n: note, l: landscape ? 1 : 0, c: showCaptions ? 1 : 0 };
   };
 
   const handleShare = async () => {
@@ -137,15 +152,16 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
     }
   };
 
-  const handleEmail = async () => {
+  const handleEmail = async (toOverride) => {
     try {
       setEmailStatus("");
-      if (!emailTo) {
+      const to = toOverride || emailTo;
+      if (!to) {
         setEmailStatus("Enter recipient email");
         return;
       }
       const state = buildState();
-      const resp = await fetch('/api/email-summary', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ to: emailTo, title: state.t, abstract: state.a, images: state.i, takeaways: state.k, note: state.n }) });
+      const resp = await fetch('/api/email-summary', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ to, title: state.t, abstract: state.a, images: state.i, takeaways: state.k, note: state.n }) });
       const data = await resp.json();
       if (!resp.ok || !data.success) {
         setEmailStatus(data.error || 'Failed to send');
@@ -155,6 +171,18 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
     } catch (e) {
       setEmailStatus('Failed to send');
     }
+  };
+
+  const handleDownloadDoc = () => {
+    const state = buildState();
+    const imagesHtml = state.i.map((src, i) => `<div style="margin:12px 0;"><img src="${src}" alt="Chart ${i+1}" style="max-width:100%;" /></div>`).join("");
+    const takeawaysHtml = state.k.length ? `<ol>${state.k.map((t) => `<li>${escapeHtml(String(t))}</li>`).join("")}</ol>` : "";
+    const noteHtml = state.n ? `<p><em>${escapeHtml(String(state.n))}</em></p>` : "";
+    const html = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><body><h1>${escapeHtml(String(state.t||'Summary'))}</h1>${state.a?`<p>${escapeHtml(String(state.a))}</p>`:""}${imagesHtml}${takeawaysHtml}${noteHtml}</body></html>`;
+    const blob = new Blob(["\ufeff" + html], { type: "application/msword" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = `summary_${Date.now()}.doc`; a.click(); URL.revokeObjectURL(url);
   };
 
   // Compose a PNG; in landscape, arrange charts in two columns
@@ -168,7 +196,7 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
       const titleHeight = 40;
       const abstractLines = abstract ? Math.ceil(abstract.length / 80) : 0;
       const abstractHeight = abstract ? abstractLines * lineHeight + margin : 0;
-      const takeawaysHeight = takeaways.length ? (takeaways.length * lineHeight + margin) : 0;
+      const takeawaysHeight = chosenTakeaways.length ? (chosenTakeaways.length * lineHeight + margin) : 0;
       const noteLines = note ? Math.ceil(note.length / 90) : 0;
       const noteHeight = note ? noteLines * lineHeight + margin : 0;
 
@@ -281,13 +309,13 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
       }
 
       // Takeaways
-      if (takeaways.length) {
+      if (chosenTakeaways.length) {
         ctx.font = "bold 18px Inter, Arial, sans-serif";
         ctx.fillStyle = "#111827";
         ctx.fillText("Key Takeaways", margin, y + 20);
         y += 24;
         ctx.font = "16px Inter, Arial, sans-serif";
-        takeaways.forEach((t, i) => {
+        chosenTakeaways.forEach((t, i) => {
           const bullet = `${i + 1}. ${t}`;
           const lines = wrapText(ctx, bullet, width - margin * 2);
           for (const line of lines) {
@@ -342,20 +370,26 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
         </button>
         <button
           type="button"
+          onClick={handleDownloadDoc}
+          className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-teal-600 hover:bg-teal-700 text-white text-xs sm:text-sm"
+          aria-label="Download summary DOC"
+        >
+          Download Summary (DOC)
+        </button>
+        <button
+          type="button"
           onClick={handleShare}
           className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm"
           aria-label="Share summary"
         >
           {isSharing ? "Sharing..." : "Share Summary"}
         </button>
-        <button
-          type="button"
-          onClick={handleEmail}
-          className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-purple-600 hover:bg-purple-700 text-white text-xs sm:text-sm"
-          aria-label="Email summary"
-        >
-          Email Summary
-        </button>
+        <div className="flex items-center gap-2">
+          <input type="email" value={emailTo} onChange={(e)=>setEmailTo(e.target.value)} placeholder="recipient@example.com" className="text-xs px-2 py-1 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800" />
+          <button type="button" onClick={()=>handleEmail()} className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-purple-600 hover:bg-purple-700 text-white text-xs sm:text-sm" aria-label="Email summary">Email Summary</button>
+          <button type="button" onClick={()=>handleEmail(process.env.NEXT_PUBLIC_ADMIN_EMAIL || 'sughoshpdixit@gmail.com')} className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-purple-700 hover:bg-purple-800 text-white text-xs sm:text-sm" aria-label="Email to admin">Send to Admin</button>
+          {emailStatus && <span className="text-xs text-gray-600 dark:text-gray-300">{emailStatus}</span>}
+        </div>
         <label className="text-xs sm:text-sm flex items-center gap-2 text-gray-700 dark:text-gray-200 ml-2">
           <input type="checkbox" checked={landscape} onChange={(e) => setLandscape(e.target.checked)} />
           Landscape
@@ -365,6 +399,21 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
           Show captions
         </label>
       </div>
+
+      {/* Takeaways selection */}
+      {allTakeaways && allTakeaways.length > 0 && (
+        <div className="mt-3 p-3 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/60">
+          <div className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-2">Select takeaways to include</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {allTakeaways.map((t) => (
+              <label key={t} className="flex items-center gap-2 text-xs text-gray-700 dark:text-gray-200">
+                <input type="checkbox" checked={!!takeawaySelection[t]} onChange={()=>handleToggleTakeaway(t)} />
+                <span className="truncate" title={t}>{t}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Live preview */}
       <div className="mt-3 p-3 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/60">
@@ -384,9 +433,9 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
               ))}
             </div>
           )}
-          {takeaways.length > 0 && (
+          {chosenTakeaways.length > 0 && (
             <ul className="list-disc pl-5 text-xs text-gray-700 dark:text-gray-200 mb-2">
-              {takeaways.map((t) => (
+              {chosenTakeaways.map((t) => (
                 <li key={t}>{t}</li>
               ))}
             </ul>
@@ -454,11 +503,11 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
             </div>
           )}
 
-          {takeaways && takeaways.length > 0 && (
+          {chosenTakeaways && chosenTakeaways.length > 0 && (
             <div className="mb-4">
               <h2 className="text-lg font-semibold mb-1">Key Takeaways</h2>
               <ol className="list-decimal pl-5 text-sm">
-                {takeaways.map((t, i) => (
+                {chosenTakeaways.map((t, i) => (
                   <li key={i} className="mb-1">{t}</li>
                 ))}
               </ol>
@@ -511,6 +560,10 @@ function wrapText(ctx, text, maxWidth) {
 function truncate(s, n) {
   if (!s) return "";
   return s.length > n ? s.slice(0, n - 1) + "…" : s;
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 }
 
 export default PrintSummary;
