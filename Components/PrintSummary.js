@@ -447,25 +447,7 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
         </div>
       </div>
 
-      {/* Chart selection & DnD reorder (touch + mouse) */}
-      {allImages && allImages.length > 0 && (
-        <div className="mt-3 p-3 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/60">
-          <div className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-2">Select charts to include</div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {allImages.map((it, i) => (
-              <label
-                key={it.src}
-                className="flex items-center justify-between gap-2 text-xs text-gray-700 dark:text-gray-200 rounded border border-transparent p-1"
-              >
-                <span className="flex items-center gap-2">
-                  <input type="checkbox" checked={!!selected[it.src]} onChange={() => handleToggle(it.src)} />
-                  <span className="truncate max-w-[200px]" title={it.caption || it.src}>Chart {i + 1}</span>
-                </span>
-              </label>
-            ))}
-          </div>
-        </div>
-      )}
+      {/* Chart selection removed per request */}
 
       {/* Custom note */}
       <div className="mt-3 p-3 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/60">
