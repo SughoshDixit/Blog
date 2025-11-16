@@ -936,6 +936,18 @@ button:focus {
     width: 100% !important;
     background: white !important;
   }
+  /* Optional landscape mode when requested */
+  body.print-landscape {
+    /* Most browsers honor @page size in print */
+  }
+  @page {
+    /* default portrait */
+    size: auto;
+    margin: 12mm;
+  }
+  body.print-landscape @page {
+    size: landscape;
+  }
 }
 
 /* Focus Mode - Distraction-free reading */

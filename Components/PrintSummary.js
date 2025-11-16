@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 function PrintSummary({ title, abstract, headings = [], headerImage, articleRef }) {
   const [allImages, setAllImages] = useState([]);
   const [selected, setSelected] = useState({});
+  const [landscape, setLandscape] = useState(false);
   const printContainerRef = useRef(null);
 
   // Collect images from article (header first), up to 8
@@ -39,27 +40,42 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
     setSelected((prev) => ({ ...prev, [src]: !prev[src] }));
   };
 
-  // Print to PDF via browser
+  const moveImage = (index, dir) => {
+    setAllImages((prev) => {
+      const next = prev.slice();
+      const j = index + dir;
+      if (j < 0 || j >= next.length) return prev;
+      const tmp = next[index];
+      next[index] = next[j];
+      next[j] = tmp;
+      return next;
+    });
+  };
+
+  // Print to PDF via browser (landscape optional)
   const handlePrint = () => {
     try {
+      if (landscape) document.body.classList.add("print-landscape");
       document.body.classList.add("print-summary-only");
       setTimeout(() => {
         window.print();
         setTimeout(() => {
           document.body.classList.remove("print-summary-only");
+          document.body.classList.remove("print-landscape");
         }, 50);
       }, 50);
     } catch (e) {
       console.error("Print failed", e);
       document.body.classList.remove("print-summary-only");
+      document.body.classList.remove("print-landscape");
     }
   };
 
-  // Compose a simple PNG: title, abstract, selected images, takeaways
+  // Compose a simple PNG with optional landscape layout
   const handleDownloadPng = async () => {
     try {
       const chosen = allImages.filter((src) => selected[src]);
-      const width = 1024;
+      const width = landscape ? 1400 : 1024;
       const margin = 24;
       const lineHeight = 28;
       const titleHeight = 40;
@@ -106,7 +122,7 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
         y += margin / 2;
       }
 
-      // Images
+      // Images in order
       for (const { img, scale, h } of bitmaps) {
         const drawW = img.width * scale;
         const x = (width - drawW) / 2;
@@ -161,18 +177,28 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
         >
           Download Summary (PNG)
         </button>
+        <label className="text-xs sm:text-sm flex items-center gap-2 text-gray-700 dark:text-gray-200 ml-2">
+          <input type="checkbox" checked={landscape} onChange={(e) => setLandscape(e.target.checked)} />
+          Landscape
+        </label>
       </div>
 
-      {/* Chart selection */}
+      {/* Chart selection & reorder */}
       {allImages && allImages.length > 0 && (
         <div className="mt-3 p-3 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/60">
-          <div className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-2">Select charts to include</div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-2">Select charts to include (drag via arrows to reorder)</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {allImages.map((src, i) => (
-              <label key={src} className="flex items-center gap-2 text-xs text-gray-700 dark:text-gray-200">
-                <input type="checkbox" checked={!!selected[src]} onChange={() => handleToggle(src)} />
-                <span className="truncate" title={src}>Chart {i + 1}</span>
-              </label>
+              <div key={src} className="flex items-center justify-between gap-2 text-xs text-gray-700 dark:text-gray-200">
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" checked={!!selected[src]} onChange={() => handleToggle(src)} />
+                  <span className="truncate max-w-[200px]" title={src}>Chart {i + 1}</span>
+                </label>
+                <div className="flex items-center gap-1">
+                  <button type="button" onClick={() => moveImage(i, -1)} className="px-2 py-1 rounded border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700">↑</button>
+                  <button type="button" onClick={() => moveImage(i, +1)} className="px-2 py-1 rounded border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700">↓</button>
+                </div>
+              </div>
             ))}
           </div>
         </div>
