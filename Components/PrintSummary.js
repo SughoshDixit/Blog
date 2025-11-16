@@ -7,8 +7,24 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
   const [showCaptions, setShowCaptions] = useState(true);
   const [dragIndex, setDragIndex] = useState(null);
   const [note, setNote] = useState("");
+  const [isSharing, setIsSharing] = useState(false);
+  const [shareUrl, setShareUrl] = useState("");
+  const [emailTo, setEmailTo] = useState("");
+  const [emailStatus, setEmailStatus] = useState("");
   const printContainerRef = useRef(null);
   const storageKey = `printSummary:${title || "post"}`;
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable)) return;
+      if ((e.key === 'l' || e.key === 'L')) { setLandscape((v) => !v); }
+      if ((e.key === 'c' || e.key === 'C')) { setShowCaptions((v) => !v); }
+      if ((e.key === 'p' || e.key === 'P')) { e.preventDefault(); handlePrint(); }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   // Load persisted state
   useEffect(() => {
@@ -32,27 +48,28 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
     } catch {}
   }, [selected, landscape, showCaptions, note, storageKey]);
 
-  // Collect images from article (header first), up to 8, with captions
+  // Collect images (with captions) and smart auto-select based on alt and width
   useEffect(() => {
-    const imgs = [];
-    if (headerImage) imgs.push({ src: headerImage, caption: "" });
+    const items = [];
+    if (headerImage) items.push({ src: headerImage, caption: "", score: 1 });
     try {
       if (articleRef?.current) {
         const nodes = Array.from(articleRef.current.querySelectorAll("img"));
         for (const img of nodes) {
-          if (imgs.length >= 8) break;
-          if (img?.src) imgs.push({ src: img.src, caption: img.alt || "" });
+          if (!img?.src) continue;
+          const score = (img.naturalWidth || 0) + (img.alt ? 500 : 0);
+          items.push({ src: img.src, caption: img.alt || "", score });
         }
       }
     } catch (e) {}
-    setAllImages(imgs);
-    // initialize selection if empty
+    // sort by score desc and take top 8
+    items.sort((a, b) => (b.score || 0) - (a.score || 0));
+    const limited = items.slice(0, 8).map(({ src, caption }) => ({ src, caption }));
+    setAllImages(limited);
     setSelected((prev) => {
       if (Object.keys(prev).length > 0) return prev;
       const defSel = {};
-      imgs.forEach((it, i) => {
-        defSel[it.src] = i < 3; // default: first 3 selected
-      });
+      limited.forEach((it, i) => { defSel[it.src] = i < 3; });
       return defSel;
     });
   }, [headerImage, articleRef]);
@@ -84,49 +101,59 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
     setDragIndex(index);
     e.dataTransfer && (e.dataTransfer.effectAllowed = "move");
   };
-
-  const onDragOver = (index) => (e) => {
-    e.preventDefault();
-    e.dataTransfer && (e.dataTransfer.dropEffect = "move");
-  };
-
-  const onDrop = (index) => (e) => {
-    e.preventDefault();
-    if (dragIndex == null || dragIndex === index) return;
-    moveImage(dragIndex, index);
-    setDragIndex(null);
-  };
-
-  // Basic touch reordering: tap-hold then tap target to place
+  const onDragOver = (index) => (e) => { e.preventDefault(); e.dataTransfer && (e.dataTransfer.dropEffect = "move"); };
+  const onDrop = (index) => (e) => { e.preventDefault(); if (dragIndex==null||dragIndex===index) return; moveImage(dragIndex,index); setDragIndex(null); };
   const touchStartRef = useRef(null);
-  const onTouchStart = (index) => () => {
-    touchStartRef.current = index;
-    setDragIndex(index);
-  };
-  const onTouchEnd = (index) => () => {
-    if (touchStartRef.current != null && touchStartRef.current !== index) {
-      moveImage(touchStartRef.current, index);
-    }
-    touchStartRef.current = null;
-    setDragIndex(null);
-  };
+  const onTouchStart = (index) => () => { touchStartRef.current=index; setDragIndex(index); };
+  const onTouchEnd = (index) => () => { if (touchStartRef.current!=null && touchStartRef.current!==index){ moveImage(touchStartRef.current,index);} touchStartRef.current=null; setDragIndex(null); };
 
-  // Print to PDF via browser (landscape optional)
   const handlePrint = () => {
     try {
       if (landscape) document.body.classList.add("print-landscape");
       document.body.classList.add("print-summary-only");
-      setTimeout(() => {
-        window.print();
-        setTimeout(() => {
-          document.body.classList.remove("print-summary-only");
-          document.body.classList.remove("print-landscape");
-        }, 50);
-      }, 50);
+      setTimeout(() => { window.print(); setTimeout(() => { document.body.classList.remove("print-summary-only"); document.body.classList.remove("print-landscape"); }, 50); }, 50);
+    } catch (e) { document.body.classList.remove("print-summary-only"); document.body.classList.remove("print-landscape"); }
+  };
+
+  // Compose state for sharing
+  const buildState = () => {
+    const imgs = allImages.filter((it) => selected[it.src]).map((it) => it.src);
+    return { t: title, a: abstract, i: imgs, k: takeaways, n: note, l: landscape ? 1 : 0, c: showCaptions ? 1 : 0 };
+  };
+
+  const handleShare = async () => {
+    try {
+      const state = buildState();
+      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(state))));
+      const url = `${window.location.origin}${window.location.pathname}#summary=${encoded}`;
+      await navigator.clipboard.writeText(url);
+      setShareUrl(url);
+      setIsSharing(true);
+      setTimeout(() => setIsSharing(false), 3000);
     } catch (e) {
-      console.error("Print failed", e);
-      document.body.classList.remove("print-summary-only");
-      document.body.classList.remove("print-landscape");
+      setShareUrl("");
+      setIsSharing(true);
+      setTimeout(() => setIsSharing(false), 3000);
+    }
+  };
+
+  const handleEmail = async () => {
+    try {
+      setEmailStatus("");
+      if (!emailTo) {
+        setEmailStatus("Enter recipient email");
+        return;
+      }
+      const state = buildState();
+      const resp = await fetch('/api/email-summary', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ to: emailTo, title: state.t, abstract: state.a, images: state.i, takeaways: state.k, note: state.n }) });
+      const data = await resp.json();
+      if (!resp.ok || !data.success) {
+        setEmailStatus(data.error || 'Failed to send');
+      } else {
+        setEmailStatus('Email sent');
+      }
+    } catch (e) {
+      setEmailStatus('Failed to send');
     }
   };
 
@@ -312,6 +339,22 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
           aria-label="Download summary PNG"
         >
           Download Summary (PNG)
+        </button>
+        <button
+          type="button"
+          onClick={handleShare}
+          className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm"
+          aria-label="Share summary"
+        >
+          {isSharing ? "Sharing..." : "Share Summary"}
+        </button>
+        <button
+          type="button"
+          onClick={handleEmail}
+          className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-purple-600 hover:bg-purple-700 text-white text-xs sm:text-sm"
+          aria-label="Email summary"
+        >
+          Email Summary
         </button>
         <label className="text-xs sm:text-sm flex items-center gap-2 text-gray-700 dark:text-gray-200 ml-2">
           <input type="checkbox" checked={landscape} onChange={(e) => setLandscape(e.target.checked)} />
