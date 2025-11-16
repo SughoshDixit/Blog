@@ -21,6 +21,65 @@ function percentile(sortedVals, p) {
   return sortedVals[lo] + frac * (sortedVals[hi] - sortedVals[lo]);
 }
 
+function buildHistogram(values, numBins = 20) {
+  if (!values.length) return { bins: [], min: 0, max: 0, counts: [] };
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const width = max - min || 1;
+  const bins = Array.from({ length: numBins + 1 }, (_, i) => min + (i * width) / numBins);
+  const counts = new Array(numBins).fill(0);
+  for (const v of values) {
+    let idx = Math.floor(((v - min) / width) * numBins);
+    if (idx < 0) idx = 0;
+    if (idx >= numBins) idx = numBins - 1;
+    counts[idx] += 1;
+  }
+  return { bins, min, max, counts };
+}
+
+function Histogram({ values, threshold }) {
+  const { bins, counts } = useMemo(() => buildHistogram(values, 24), [values]);
+  const maxCount = counts.length ? Math.max(...counts) : 0;
+  const w = 360;
+  const h = 120;
+  const padL = 24;
+  const padR = 12;
+  const padB = 18;
+  const padT = 8;
+  const innerW = w - padL - padR;
+  const innerH = h - padT - padB;
+  const barW = counts.length ? innerW / counts.length : innerW;
+
+  // Map threshold to x
+  let thrX = null;
+  if (threshold != null && bins.length) {
+    const min = bins[0];
+    const max = bins[bins.length - 1];
+    const ratio = (threshold - min) / (max - min || 1);
+    thrX = padL + Math.max(0, Math.min(1, ratio)) * innerW;
+  }
+
+  return (
+    <svg width={w} height={h} className="block">
+      {/* Bars */}
+      {counts.map((c, i) => {
+        const barH = maxCount ? (c / maxCount) * innerH : 0;
+        const x = padL + i * barW;
+        const y = padT + (innerH - barH);
+        return (
+          <rect key={i} x={x} y={y} width={Math.max(1, barW - 1)} height={barH} fill="#93c5fd" />
+        );
+      })}
+      {/* Threshold line */}
+      {thrX != null && (
+        <line x1={thrX} x2={thrX} y1={padT} y2={padT + innerH} stroke="#ef4444" strokeWidth={2} strokeDasharray="4 3" />
+      )}
+      {/* X axis */}
+      <line x1={padL} x2={padL + innerW} y1={padT + innerH} y2={padT + innerH} stroke="#9ca3af" strokeWidth={1} />
+    </svg>
+  );
+}
+
 function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
   const [valuesText, setValuesText] = useState(
     (defaultValues && Array.isArray(defaultValues) && defaultValues.join(", ")) ||
@@ -28,6 +87,7 @@ function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
   );
   const [p, setP] = useState(defaultPercentile);
   const [direction, setDirection] = useState("above"); // accept above/below threshold
+  const [uploadStatus, setUploadStatus] = useState("");
 
   const { sorted, thr, acceptRate } = useMemo(() => {
     const vals = parseNumbers(valuesText);
@@ -46,6 +106,49 @@ function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
     return { sorted, thr, acceptRate };
   }, [valuesText, p, direction]);
 
+  const handleCsvUpload = async (file) => {
+    if (!file) return;
+    try {
+      const text = await file.text();
+      // Extract all numeric tokens and first numeric column values
+      // 1) Try CSV columns: pick the column with most numeric values
+      const lines = text.split(/\r?\n/).filter(Boolean);
+      let bestCol = -1;
+      let bestVals = [];
+      for (const delim of [",", ";", "\t", "|"]) {
+        const cols = [];
+        for (const line of lines) {
+          const parts = line.split(delim);
+          parts.forEach((cell, idx) => {
+            const num = Number(String(cell).trim());
+            if (!cols[idx]) cols[idx] = [];
+            if (Number.isFinite(num)) cols[idx].push(num);
+          });
+        }
+        cols.forEach((arr, idx) => {
+          if (arr && arr.length > (bestVals?.length || 0)) {
+            bestVals = arr;
+            bestCol = idx;
+          }
+        });
+      }
+      // Fallback: extract all numbers from text
+      if (!bestVals || bestVals.length < 3) {
+        const nums = (text.match(/[-+]?(?:\d*\.\d+|\d+)(?:[eE][-+]?\d+)?/g) || []).map(Number).filter(Number.isFinite);
+        if (nums.length >= 3) bestVals = nums;
+      }
+      if (!bestVals || bestVals.length < 3) {
+        setUploadStatus("No numeric column detected in file");
+        return;
+      }
+      setValuesText(bestVals.join(", "));
+      setUploadStatus(`Loaded ${bestVals.length} values${bestCol >= 0 ? ` from column ${bestCol + 1}` : ""}`);
+    } catch (e) {
+      console.error("CSV upload failed:", e);
+      setUploadStatus("Failed to read file");
+    }
+  };
+
   return (
     <section className="my-6 p-4 sm:p-5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/60">
       <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Percentile Threshold Tuner</h3>
@@ -59,6 +162,18 @@ function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
             value={valuesText}
             onChange={(e) => setValuesText(e.target.value)}
           />
+          <div className="mt-2 flex items-center gap-2">
+            <label className="text-[11px] text-gray-500 dark:text-gray-400">or upload CSV/TSV:</label>
+            <input
+              type="file"
+              accept=".csv,.tsv,.txt,text/csv,text/tab-separated-values"
+              onChange={(e) => handleCsvUpload(e.target.files?.[0])}
+              className="text-xs"
+            />
+          </div>
+          {uploadStatus && (
+            <div className="text-[11px] text-gray-500 dark:text-gray-400 mt-1">{uploadStatus}</div>
+          )}
           <div className="text-[11px] text-gray-500 dark:text-gray-400 mt-1">Provide any numeric scores: risk, anomaly, quality, etc.</div>
         </div>
         <div>
@@ -118,6 +233,14 @@ function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
         <div className="rounded-md bg-gray-50 dark:bg-gray-800 p-3 border border-gray-200 dark:border-gray-700">
           <div className="text-xs text-gray-500 dark:text-gray-400">Acceptance rate</div>
           <div className="text-xl font-bold text-gray-900 dark:text-gray-100">{acceptRate == null ? "—" : `${(acceptRate * 100).toFixed(1)}%`}</div>
+        </div>
+      </div>
+
+      {/* Histogram */}
+      <div className="mt-4">
+        <div className="text-xs text-gray-600 dark:text-gray-400 mb-1">Distribution preview</div>
+        <div className="rounded-md border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-2">
+          <Histogram values={sorted} threshold={thr} />
         </div>
       </div>
 
