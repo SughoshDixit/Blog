@@ -21,7 +21,7 @@ function percentile(sortedVals, p) {
   return sortedVals[lo] + frac * (sortedVals[hi] - sortedVals[lo]);
 }
 
-function buildHistogram(values, numBins = 20) {
+function buildHistogram(values, numBins = 24) {
   if (!values.length) return { bins: [], min: 0, max: 0, counts: [] };
   const min = Math.min(...values);
   const max = Math.max(...values);
@@ -41,10 +41,10 @@ function Histogram({ values, threshold }) {
   const { bins, counts } = useMemo(() => buildHistogram(values, 24), [values]);
   const maxCount = counts.length ? Math.max(...counts) : 0;
   const w = 360;
-  const h = 120;
-  const padL = 24;
+  const h = 140;
+  const padL = 32;
   const padR = 12;
-  const padB = 18;
+  const padB = 24;
   const padT = 8;
   const innerW = w - padL - padR;
   const innerH = h - padT - padB;
@@ -59,24 +59,71 @@ function Histogram({ values, threshold }) {
     thrX = padL + Math.max(0, Math.min(1, ratio)) * innerW;
   }
 
+  // Axes labels and ticks
+  const xMin = bins[0] ?? 0;
+  const xMax = bins[bins.length - 1] ?? 0;
+  const tickCount = 4;
+  const ticks = Array.from({ length: tickCount + 1 }, (_, i) => xMin + ((xMax - xMin) * i) / tickCount);
+
+  // Tooltip state
+  const [tooltip, setTooltip] = useState(null);
+
+  const handleMove = (e) => {
+    if (!bins.length) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const relX = Math.max(padL, Math.min(padL + innerW, x));
+    const ratio = (relX - padL) / innerW;
+    const idx = Math.max(0, Math.min(counts.length - 1, Math.floor(ratio * counts.length)));
+    const binStart = bins[idx];
+    const binEnd = bins[idx + 1];
+    setTooltip({ x: relX, y: padT + 8, idx, binStart, binEnd, count: counts[idx] || 0 });
+  };
+  const handleLeave = () => setTooltip(null);
+
   return (
-    <svg width={w} height={h} className="block">
-      {/* Bars */}
-      {counts.map((c, i) => {
-        const barH = maxCount ? (c / maxCount) * innerH : 0;
-        const x = padL + i * barW;
-        const y = padT + (innerH - barH);
-        return (
-          <rect key={i} x={x} y={y} width={Math.max(1, barW - 1)} height={barH} fill="#93c5fd" />
-        );
-      })}
-      {/* Threshold line */}
-      {thrX != null && (
-        <line x1={thrX} x2={thrX} y1={padT} y2={padT + innerH} stroke="#ef4444" strokeWidth={2} strokeDasharray="4 3" />
+    <div className="relative">
+      <svg width={w} height={h} className="block" onMouseMove={handleMove} onMouseLeave={handleLeave}>
+        {/* Bars */}
+        {counts.map((c, i) => {
+          const barH = maxCount ? (c / maxCount) * innerH : 0;
+          const x = padL + i * barW;
+          const y = padT + (innerH - barH);
+          return (
+            <rect key={i} x={x} y={y} width={Math.max(1, barW - 1)} height={barH} fill="#93c5fd" />
+          );
+        })}
+        {/* Threshold line */}
+        {thrX != null && (
+          <line x1={thrX} x2={thrX} y1={padT} y2={padT + innerH} stroke="#ef4444" strokeWidth={2} strokeDasharray="4 3" />
+        )}
+        {/* X axis */}
+        <line x1={padL} x2={padL + innerW} y1={padT + innerH} y2={padT + innerH} stroke="#9ca3af" strokeWidth={1} />
+        {/* X ticks */}
+        {ticks.map((t, i) => {
+          const tx = padL + (innerW * i) / tickCount;
+          return (
+            <g key={i}>
+              <line x1={tx} x2={tx} y1={padT + innerH} y2={padT + innerH + 4} stroke="#9ca3af" />
+              <text x={tx} y={padT + innerH + 16} fontSize={10} textAnchor="middle" fill="#6b7280">
+                {Number.isFinite(t) ? t.toFixed(1) : ""}
+              </text>
+            </g>
+          );
+        })}
+        {/* Axis label */}
+        <text x={padL + innerW / 2} y={h - 4} fontSize={10} textAnchor="middle" fill="#6b7280">Values</text>
+      </svg>
+      {tooltip && (
+        <div
+          className="absolute bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-xs text-gray-700 dark:text-gray-200 px-2 py-1 rounded shadow"
+          style={{ left: tooltip.x + 8, top: tooltip.y }}
+        >
+          <div>Bin: {Number.isFinite(tooltip.binStart) ? tooltip.binStart.toFixed(2) : ""} – {Number.isFinite(tooltip.binEnd) ? tooltip.binEnd.toFixed(2) : ""}</div>
+          <div>Count: {tooltip.count}</div>
+        </div>
       )}
-      {/* X axis */}
-      <line x1={padL} x2={padL + innerW} y1={padT + innerH} y2={padT + innerH} stroke="#9ca3af" strokeWidth={1} />
-    </svg>
+    </div>
   );
 }
 
@@ -88,6 +135,9 @@ function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
   const [p, setP] = useState(defaultPercentile);
   const [direction, setDirection] = useState("above"); // accept above/below threshold
   const [uploadStatus, setUploadStatus] = useState("");
+  const [csvColumns, setCsvColumns] = useState([]); // array of numeric arrays
+  const [selectedCol, setSelectedCol] = useState(-1);
+  const [appendMode, setAppendMode] = useState(false);
 
   const { sorted, thr, acceptRate } = useMemo(() => {
     const vals = parseNumbers(valuesText);
@@ -110,11 +160,10 @@ function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
     if (!file) return;
     try {
       const text = await file.text();
-      // Extract all numeric tokens and first numeric column values
-      // 1) Try CSV columns: pick the column with most numeric values
       const lines = text.split(/\r?\n/).filter(Boolean);
       let bestCol = -1;
       let bestVals = [];
+      let bestCols = [];
       for (const delim of [",", ";", "\t", "|"]) {
         const cols = [];
         for (const line of lines) {
@@ -125,28 +174,83 @@ function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
             if (Number.isFinite(num)) cols[idx].push(num);
           });
         }
-        cols.forEach((arr, idx) => {
-          if (arr && arr.length > (bestVals?.length || 0)) {
-            bestVals = arr;
-            bestCol = idx;
+        // keep only columns with at least 3 numbers
+        const numericCols = cols.map((arr) => (arr && arr.filter((x) => Number.isFinite(x))) || []);
+        const candidateCols = numericCols.filter((arr) => arr.length >= 3);
+        if (candidateCols.length) {
+          // choose best within this delimiter
+          let localBestIdx = -1;
+          let localBestLen = -1;
+          numericCols.forEach((arr, idx) => {
+            if ((arr?.length || 0) > localBestLen) {
+              localBestLen = arr.length;
+              localBestIdx = idx;
+            }
+          });
+          if (localBestLen > (bestVals?.length || 0)) {
+            bestVals = numericCols[localBestIdx];
+            bestCol = localBestIdx;
+            bestCols = numericCols;
           }
-        });
+        }
       }
       // Fallback: extract all numbers from text
       if (!bestVals || bestVals.length < 3) {
         const nums = (text.match(/[-+]?(?:\d*\.\d+|\d+)(?:[eE][-+]?\d+)?/g) || []).map(Number).filter(Number.isFinite);
-        if (nums.length >= 3) bestVals = nums;
+        if (nums.length >= 3) {
+          bestVals = nums;
+          bestCols = [nums];
+          bestCol = 0;
+        }
       }
       if (!bestVals || bestVals.length < 3) {
         setUploadStatus("No numeric column detected in file");
+        setCsvColumns([]);
+        setSelectedCol(-1);
         return;
       }
-      setValuesText(bestVals.join(", "));
+      setCsvColumns(bestCols);
+      setSelectedCol(bestCol);
+      if (appendMode) {
+        const current = parseNumbers(valuesText);
+        const merged = current.concat(bestVals);
+        setValuesText(merged.join(", "));
+      } else {
+        setValuesText(bestVals.join(", "));
+      }
       setUploadStatus(`Loaded ${bestVals.length} values${bestCol >= 0 ? ` from column ${bestCol + 1}` : ""}`);
     } catch (e) {
       console.error("CSV upload failed:", e);
       setUploadStatus("Failed to read file");
+      setCsvColumns([]);
+      setSelectedCol(-1);
     }
+  };
+
+  const applySelectedColumn = () => {
+    if (!csvColumns || selectedCol < 0 || !csvColumns[selectedCol]) return;
+    const vals = csvColumns[selectedCol];
+    if (appendMode) {
+      const current = parseNumbers(valuesText);
+      const merged = current.concat(vals);
+      setValuesText(merged.join(", "));
+    } else {
+      setValuesText(vals.join(", "));
+    }
+    setUploadStatus(`Loaded ${vals.length} values from column ${selectedCol + 1}`);
+  };
+
+  const downloadCsv = () => {
+    const headers = ["percentile", "threshold", "acceptance_rate", "samples", "direction"];
+    const row = [p, thr == null ? "" : thr.toFixed(6), acceptRate == null ? "" : (acceptRate * 100).toFixed(4) + "%", sorted.length, direction];
+    const csv = [headers.join(","), row.join(",")].join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `percentile_threshold_${Date.now()}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -162,7 +266,7 @@ function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
             value={valuesText}
             onChange={(e) => setValuesText(e.target.value)}
           />
-          <div className="mt-2 flex items-center gap-2">
+          <div className="mt-2 flex items-center gap-2 flex-wrap">
             <label className="text-[11px] text-gray-500 dark:text-gray-400">or upload CSV/TSV:</label>
             <input
               type="file"
@@ -170,7 +274,32 @@ function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
               onChange={(e) => handleCsvUpload(e.target.files?.[0])}
               className="text-xs"
             />
+            <label className="text-[11px] text-gray-600 dark:text-gray-400 flex items-center gap-1">
+              <input type="checkbox" checked={appendMode} onChange={(e) => setAppendMode(e.target.checked)} />
+              Append to current
+            </label>
           </div>
+          {csvColumns && csvColumns.length > 1 && (
+            <div className="mt-2 flex items-center gap-2">
+              <label className="text-[11px] text-gray-600 dark:text-gray-400">Choose column:</label>
+              <select
+                className="text-xs border border-gray-300 dark:border-gray-700 rounded px-2 py-1 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200"
+                value={selectedCol}
+                onChange={(e) => setSelectedCol(Number(e.target.value))}
+              >
+                {csvColumns.map((col, idx) => (
+                  <option key={idx} value={idx}>{`Column ${idx + 1} (${col.length} nums)`}</option>
+                ))}
+              </select>
+              <button
+                type="button"
+                onClick={applySelectedColumn}
+                className="text-xs px-2 py-1 rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200"
+              >
+                Load column
+              </button>
+            </div>
+          )}
           {uploadStatus && (
             <div className="text-[11px] text-gray-500 dark:text-gray-400 mt-1">{uploadStatus}</div>
           )}
@@ -216,6 +345,16 @@ function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
               }`}
             >
               Accept ≤ threshold
+            </button>
+          </div>
+
+          <div className="mt-3">
+            <button
+              type="button"
+              onClick={downloadCsv}
+              className="text-xs px-3 py-1.5 rounded bg-green-600 hover:bg-green-700 text-white"
+            >
+              Download results (CSV)
             </button>
           </div>
         </div>
