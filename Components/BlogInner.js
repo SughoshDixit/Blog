@@ -13,6 +13,7 @@ import ReadingTimeRemaining from "./ReadingTimeRemaining";
 import Tldr from "./Tldr";
 import HypergeomCalculator from "./HypergeomCalculator";
 import PercentileThresholdTuner from "./PercentileThresholdTuner";
+import PrintSummary from "./PrintSummary";
 
 const LOTTIE_ANIMATIONS = {
   boxplotIntro: "https://assets10.lottiefiles.com/packages/lf20_tutvdkg0.json",
@@ -420,6 +421,8 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
 
       {/* TL;DR */}
       <Tldr title={data.Title} abstract={data.Abstract} headings={headings} />
+      {/* PDF Summary Download */}
+      <PrintSummary title={data.Title} abstract={data.Abstract} headings={headings} headerImage={data.HeaderImage} articleRef={articleRef} />
 
       {/* Medium-style article content with TOC */}
       <div className="flex gap-8 w-full">

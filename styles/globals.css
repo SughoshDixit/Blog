@@ -920,6 +920,24 @@ button:focus {
   outline: 0 !important;
 }
 
+/* Print Summary - show only summary content on print */
+@media print {
+  body.print-summary-only * {
+    visibility: hidden !important;
+  }
+  body.print-summary-only #print-summary,
+  body.print-summary-only #print-summary * {
+    visibility: visible !important;
+  }
+  body.print-summary-only #print-summary {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    background: white !important;
+  }
+}
+
 /* Focus Mode - Distraction-free reading */
 .focus-mode {
   overflow: hidden;
