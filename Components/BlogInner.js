@@ -10,6 +10,8 @@ import ReadingSettings from "./ReadingSettings";
 import ScrollToTop from "./ScrollToTop";
 import KeyboardShortcuts from "./KeyboardShortcuts";
 import ReadingTimeRemaining from "./ReadingTimeRemaining";
+import Tldr from "./Tldr";
+import HypergeomCalculator from "./HypergeomCalculator";
 
 const LOTTIE_ANIMATIONS = {
   boxplotIntro: "https://assets10.lottiefiles.com/packages/lf20_tutvdkg0.json",
@@ -157,6 +159,7 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
 
   const mdxComponents = {
     Lottie: (props) => <LottiePlayer {...props} />,
+    HypergeomCalculator: (props) => <HypergeomCalculator {...props} />,
     h2: (props) => {
       const { id, children, ...rest } = props;
       const headingText = typeof children === 'string' ? children : children?.props?.children || '';
@@ -412,6 +415,9 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
           />
         </div>
       )}
+
+      {/* TL;DR */}
+      <Tldr title={data.Title} abstract={data.Abstract} headings={headings} />
 
       {/* Medium-style article content with TOC */}
       <div className="flex gap-8 w-full">
