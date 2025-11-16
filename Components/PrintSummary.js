@@ -4,6 +4,7 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
   const [allImages, setAllImages] = useState([]);
   const [selected, setSelected] = useState({});
   const [landscape, setLandscape] = useState(false);
+  const [dragIndex, setDragIndex] = useState(null);
   const printContainerRef = useRef(null);
 
   // Collect images from article (header first), up to 8
@@ -40,16 +41,31 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
     setSelected((prev) => ({ ...prev, [src]: !prev[src] }));
   };
 
-  const moveImage = (index, dir) => {
+  const moveImage = (from, to) => {
     setAllImages((prev) => {
+      if (to < 0 || to >= prev.length) return prev;
       const next = prev.slice();
-      const j = index + dir;
-      if (j < 0 || j >= next.length) return prev;
-      const tmp = next[index];
-      next[index] = next[j];
-      next[j] = tmp;
+      const [item] = next.splice(from, 1);
+      next.splice(to, 0, item);
       return next;
     });
+  };
+
+  const onDragStart = (index) => (e) => {
+    setDragIndex(index);
+    e.dataTransfer.effectAllowed = "move";
+  };
+
+  const onDragOver = (index) => (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+  };
+
+  const onDrop = (index) => (e) => {
+    e.preventDefault();
+    if (dragIndex == null || dragIndex === index) return;
+    moveImage(dragIndex, index);
+    setDragIndex(null);
   };
 
   // Print to PDF via browser (landscape optional)
@@ -183,37 +199,41 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
         </label>
       </div>
 
-      {/* Chart selection & reorder */}
+      {/* Chart selection & DnD reorder */}
       {allImages && allImages.length > 0 && (
         <div className="mt-3 p-3 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/60">
-          <div className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-2">Select charts to include (drag via arrows to reorder)</div>
+          <div className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-2">Select charts to include (drag to reorder)</div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {allImages.map((src, i) => (
-              <div key={src} className="flex items-center justify-between gap-2 text-xs text-gray-700 dark:text-gray-200">
-                <label className="flex items-center gap-2">
+              <div
+                key={src}
+                className={`flex items-center justify-between gap-2 text-xs text-gray-700 dark:text-gray-200 rounded border border-transparent ${dragIndex===i? 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700':''}`}
+                draggable
+                onDragStart={onDragStart(i)}
+                onDragOver={onDragOver(i)}
+                onDrop={onDrop(i)}
+              >
+                <label className="flex items-center gap-2 p-1">
                   <input type="checkbox" checked={!!selected[src]} onChange={() => handleToggle(src)} />
                   <span className="truncate max-w-[200px]" title={src}>Chart {i + 1}</span>
                 </label>
-                <div className="flex items-center gap-1">
-                  <button type="button" onClick={() => moveImage(i, -1)} className="px-2 py-1 rounded border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700">↑</button>
-                  <button type="button" onClick={() => moveImage(i, +1)} className="px-2 py-1 rounded border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700">↓</button>
-                </div>
+                <span className="px-2 py-1 text-gray-500">⠿</span>
               </div>
             ))}
           </div>
         </div>
       )}
 
-      {/* Print container */}
+      {/* Print container with 2-column grid in landscape */}
       <div id="print-summary" ref={printContainerRef} className="hidden">
         <div className="p-6">
           <h1 className="text-2xl font-bold mb-2">{title}</h1>
           {abstract && <p className="mb-4 text-sm">{abstract}</p>}
 
           {allImages && allImages.filter((src) => selected[src]).length > 0 && (
-            <div className="mb-4 grid grid-cols-1 gap-3">
+            <div className={`${landscape ? 'grid grid-cols-2 gap-3' : 'grid grid-cols-1 gap-3'} mb-4`}>
               {allImages.filter((src) => selected[src]).map((src, idx) => (
-                <img key={idx} src={src} alt={`Key chart ${idx + 1}`} style={{ maxWidth: "100%", height: "auto", borderRadius: 8 }} />
+                <img key={idx} src={src} alt={`Key chart ${idx + 1}`} style={{ width: "100%", height: "auto", borderRadius: 8 }} />
               ))}
             </div>
           )}
