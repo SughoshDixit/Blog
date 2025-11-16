@@ -12,6 +12,7 @@ import KeyboardShortcuts from "./KeyboardShortcuts";
 import ReadingTimeRemaining from "./ReadingTimeRemaining";
 import Tldr from "./Tldr";
 import HypergeomCalculator from "./HypergeomCalculator";
+import PercentileThresholdTuner from "./PercentileThresholdTuner";
 
 const LOTTIE_ANIMATIONS = {
   boxplotIntro: "https://assets10.lottiefiles.com/packages/lf20_tutvdkg0.json",
@@ -160,6 +161,7 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
   const mdxComponents = {
     Lottie: (props) => <LottiePlayer {...props} />,
     HypergeomCalculator: (props) => <HypergeomCalculator {...props} />,
+    PercentileThresholdTuner: (props) => <PercentileThresholdTuner {...props} />,
     h2: (props) => {
       const { id, children, ...rest } = props;
       const headingText = typeof children === 'string' ? children : children?.props?.children || '';
