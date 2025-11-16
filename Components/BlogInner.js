@@ -294,7 +294,7 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
       }
       // Long snippets: collapsed by default
       return (
-        <details className="my-6 group">
+        <details className="my-6 group" data-code="true">
           <summary className="cursor-pointer select-none text-sm sm:text-base font-medium text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-md px-3 py-2 flex items-center justify-between">
             <span>Show code ({numLines} lines)</span>
             <svg className="w-4 h-4 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -445,6 +445,34 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
       <Tldr title={data.Title} abstract={data.Abstract} headings={headings} />
       {/* PDF Summary Download */}
       <PrintSummary title={data.Title} abstract={data.Abstract} headings={headings} headerImage={data.HeaderImage} articleRef={articleRef} />
+
+      {/* Code controls */}
+      <div className="flex items-center gap-2 mb-6">
+        <button
+          type="button"
+          onClick={() => {
+            try {
+              const nodes = document.querySelectorAll('details[data-code="true"]');
+              nodes.forEach((n) => { n.open = true; });
+            } catch {}
+          }}
+          className="px-3 py-1.5 rounded-md text-xs bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700"
+        >
+          Expand all code
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            try {
+              const nodes = document.querySelectorAll('details[data-code="true"]');
+              nodes.forEach((n) => { n.open = false; });
+            } catch {}
+          }}
+          className="px-3 py-1.5 rounded-md text-xs bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700"
+        >
+          Collapse all code
+        </button>
+      </div>
 
       {/* Medium-style article content with TOC */}
       <div className="flex gap-8 w-full">
