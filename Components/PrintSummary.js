@@ -1,32 +1,60 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 function PrintSummary({ title, abstract, headings = [], headerImage, articleRef }) {
-  const [allImages, setAllImages] = useState([]);
+  const [allImages, setAllImages] = useState([]); // [{src, caption}]
   const [selected, setSelected] = useState({});
   const [landscape, setLandscape] = useState(false);
+  const [showCaptions, setShowCaptions] = useState(true);
   const [dragIndex, setDragIndex] = useState(null);
   const [note, setNote] = useState("");
   const printContainerRef = useRef(null);
+  const storageKey = `printSummary:${title || "post"}`;
 
-  // Collect images from article (header first), up to 8
+  // Load persisted state
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(storageKey);
+      if (raw) {
+        const data = JSON.parse(raw);
+        if (data?.selected) setSelected(data.selected);
+        if (typeof data?.landscape === "boolean") setLandscape(data.landscape);
+        if (typeof data?.showCaptions === "boolean") setShowCaptions(data.showCaptions);
+        if (typeof data?.note === "string") setNote(data.note);
+      }
+    } catch {}
+  }, [storageKey]);
+
+  // Persist state
+  useEffect(() => {
+    try {
+      const data = { selected, landscape, showCaptions, note };
+      localStorage.setItem(storageKey, JSON.stringify(data));
+    } catch {}
+  }, [selected, landscape, showCaptions, note, storageKey]);
+
+  // Collect images from article (header first), up to 8, with captions
   useEffect(() => {
     const imgs = [];
-    if (headerImage) imgs.push(headerImage);
+    if (headerImage) imgs.push({ src: headerImage, caption: "" });
     try {
       if (articleRef?.current) {
         const nodes = Array.from(articleRef.current.querySelectorAll("img"));
         for (const img of nodes) {
           if (imgs.length >= 8) break;
-          if (img?.src) imgs.push(img.src);
+          if (img?.src) imgs.push({ src: img.src, caption: img.alt || "" });
         }
       }
     } catch (e) {}
     setAllImages(imgs);
-    const defSel = {};
-    imgs.forEach((src, i) => {
-      defSel[src] = i < 3; // default: first 3 selected
+    // initialize selection if empty
+    setSelected((prev) => {
+      if (Object.keys(prev).length > 0) return prev;
+      const defSel = {};
+      imgs.forEach((it, i) => {
+        defSel[it.src] = i < 3; // default: first 3 selected
+      });
+      return defSel;
     });
-    setSelected(defSel);
   }, [headerImage, articleRef]);
 
   const takeaways = useMemo(() => {
@@ -105,7 +133,7 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
   // Compose a PNG; in landscape, arrange charts in two columns
   const handleDownloadPng = async () => {
     try {
-      const chosenSrc = allImages.filter((src) => selected[src]);
+      const chosen = allImages.filter((it) => selected[it.src]);
       const width = landscape ? 1400 : 1024;
       const margin = 24;
       const gutter = 16;
@@ -119,34 +147,37 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
 
       // Preload images
       const bitmaps = [];
-      for (const src of chosenSrc) {
-        const img = await loadImage(src);
-        bitmaps.push({ img, w: img.width, h: img.height });
+      for (const it of chosen) {
+        const img = await loadImage(it.src);
+        bitmaps.push({ img, caption: it.caption, w: img.width, h: img.height });
       }
 
       // Layout images
       let imagesHeight = 0;
       if (landscape && bitmaps.length) {
-        // two-column layout
         const colWidth = (width - margin * 2 - gutter) / 2;
-        const scaled = bitmaps.map(({ img }) => {
+        const scaled = bitmaps.map(({ img, caption }) => {
           const scale = Math.min(1, colWidth / img.width);
-          return { img, w: img.width * scale, h: img.height * scale };
+          const w = img.width * scale;
+          const h = img.height * scale;
+          const capH = showCaptions && caption ? lineHeight : 0;
+          return { img, caption, w, h, capH };
         });
-        // compute column stacks heights
         let colHeights = [0, 0];
         scaled.forEach((b) => {
           const col = colHeights[0] <= colHeights[1] ? 0 : 1;
-          colHeights[col] += b.h + gutter;
+          colHeights[col] += b.h + b.capH + gutter;
         });
         imagesHeight = Math.max(colHeights[0], colHeights[1]);
       } else {
-        // single column
-        const scaled = bitmaps.map(({ img }) => {
+        const scaled = bitmaps.map(({ img, caption }) => {
           const scale = Math.min(1, (width - margin * 2) / img.width);
-          return { img, w: img.width * scale, h: img.height * scale };
+          const w = img.width * scale;
+          const h = img.height * scale;
+          const capH = showCaptions && caption ? lineHeight : 0;
+          return { img, caption, w, h, capH };
         });
-        imagesHeight = scaled.reduce((acc, b) => acc + b.h + margin, 0);
+        imagesHeight = scaled.reduce((acc, b) => acc + b.h + b.capH + margin, 0);
       }
 
       const totalHeight = margin + titleHeight + abstractHeight + imagesHeight + takeawaysHeight + noteHeight + margin;
@@ -181,36 +212,51 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
       if (landscape && bitmaps.length) {
         const colWidth = (width - margin * 2 - gutter) / 2;
         const positions = [];
-        // compute scaled sizes and assign to columns
-        const scaled = bitmaps.map(({ img }) => {
+        const scaled = bitmaps.map(({ img, caption }) => {
           const scale = Math.min(1, colWidth / img.width);
-          return { img, w: img.width * scale, h: img.height * scale };
+          const w = img.width * scale;
+          const h = img.height * scale;
+          const capH = showCaptions && caption ? lineHeight : 0;
+          return { img, caption, w, h, capH };
         });
         let colY = [y, y];
         scaled.forEach((b) => {
           const col = colY[0] <= colY[1] ? 0 : 1;
           const x = margin + (col === 0 ? 0 : colWidth + gutter) + (colWidth - b.w) / 2;
           positions.push({ x, y: colY[col], b });
-          colY[col] += b.h + gutter;
+          colY[col] += b.h + b.capH + gutter;
         });
         positions.forEach(({ x, y: yy, b }) => {
           ctx.drawImage(b.img, x, yy, b.w, b.h);
+          if (showCaptions && b.caption) {
+            ctx.font = "italic 12px Inter, Arial, sans-serif";
+            ctx.fillStyle = "#374151";
+            ctx.fillText(truncate(b.caption, 80), x, yy + b.h + 14);
+          }
         });
         y = Math.max(colY[0], colY[1]);
       } else {
-        for (const { img } of bitmaps) {
+        for (const { img, caption } of bitmaps) {
           const scale = Math.min(1, (width - margin * 2) / img.width);
           const drawW = img.width * scale;
           const drawH = img.height * scale;
           const x = (width - drawW) / 2;
           ctx.drawImage(img, x, y, drawW, drawH);
-          y += drawH + margin;
+          y += drawH;
+          if (showCaptions && caption) {
+            ctx.font = "italic 12px Inter, Arial, sans-serif";
+            ctx.fillStyle = "#374151";
+            y += 14;
+            ctx.fillText(truncate(caption, 90), x, y);
+          }
+          y += margin;
         }
       }
 
       // Takeaways
       if (takeaways.length) {
         ctx.font = "bold 18px Inter, Arial, sans-serif";
+        ctx.fillStyle = "#111827";
         ctx.fillText("Key Takeaways", margin, y + 20);
         y += 24;
         ctx.font = "16px Inter, Arial, sans-serif";
@@ -229,6 +275,7 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
       if (note) {
         y += margin / 2;
         ctx.font = "italic 14px Inter, Arial, sans-serif";
+        ctx.fillStyle = "#111827";
         const lines = wrapText(ctx, note, width - margin * 2);
         for (const line of lines) {
           y += lineHeight;
@@ -270,6 +317,41 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
           <input type="checkbox" checked={landscape} onChange={(e) => setLandscape(e.target.checked)} />
           Landscape
         </label>
+        <label className="text-xs sm:text-sm flex items-center gap-2 text-gray-700 dark:text-gray-200">
+          <input type="checkbox" checked={showCaptions} onChange={(e) => setShowCaptions(e.target.checked)} />
+          Show captions
+        </label>
+      </div>
+
+      {/* Live preview */}
+      <div className="mt-3 p-3 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/60">
+        <div className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-2">Preview</div>
+        <div className="p-4 rounded-md bg-gray-50 dark:bg-gray-800">
+          <h3 className="text-base font-semibold mb-1">{title}</h3>
+          {abstract && <p className="text-xs text-gray-600 dark:text-gray-300 mb-3">{abstract}</p>}
+          {allImages && allImages.filter((it) => selected[it.src]).length > 0 && (
+            <div className={`${landscape ? 'grid grid-cols-2 gap-3' : 'grid grid-cols-1 gap-3'} mb-3`}>
+              {allImages.filter((it) => selected[it.src]).map((it, idx) => (
+                <div key={it.src}>
+                  <img src={it.src} alt={it.caption || `Chart ${idx + 1}`} className="w-full h-auto rounded" />
+                  {showCaptions && (it.caption || "") && (
+                    <div className="text-[11px] text-gray-600 dark:text-gray-400 mt-1">{it.caption}</div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+          {takeaways.length > 0 && (
+            <ul className="list-disc pl-5 text-xs text-gray-700 dark:text-gray-200 mb-2">
+              {takeaways.map((t) => (
+                <li key={t}>{t}</li>
+              ))}
+            </ul>
+          )}
+          {note && (
+            <div className="text-[11px] text-gray-700 dark:text-gray-300 italic">{note}</div>
+          )}
+        </div>
       </div>
 
       {/* Chart selection & DnD reorder (touch + mouse) */}
@@ -277,9 +359,9 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
         <div className="mt-3 p-3 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/60">
           <div className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-2">Select charts to include (drag to reorder)</div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {allImages.map((src, i) => (
+            {allImages.map((it, i) => (
               <div
-                key={src}
+                key={it.src}
                 className={`flex items-center justify-between gap-2 text-xs text-gray-700 dark:text-gray-200 rounded border border-transparent ${dragIndex===i? 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700':''}`}
                 draggable
                 onDragStart={onDragStart(i)}
@@ -289,8 +371,8 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
                 onTouchEnd={onTouchEnd(i)}
               >
                 <label className="flex items-center gap-2 p-1">
-                  <input type="checkbox" checked={!!selected[src]} onChange={() => handleToggle(src)} />
-                  <span className="truncate max-w-[200px]" title={src}>Chart {i + 1}</span>
+                  <input type="checkbox" checked={!!selected[it.src]} onChange={() => handleToggle(it.src)} />
+                  <span className="truncate max-w-[200px]" title={it.caption || it.src}>Chart {i + 1}</span>
                 </label>
                 <span className="px-2 py-1 text-gray-500">⠿</span>
               </div>
@@ -316,10 +398,15 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
           <h1 className="text-2xl font-bold mb-2">{title}</h1>
           {abstract && <p className="mb-4 text-sm">{abstract}</p>}
 
-          {allImages && allImages.filter((src) => selected[src]).length > 0 && (
+          {allImages && allImages.filter((it) => selected[it.src]).length > 0 && (
             <div className={`${landscape ? 'grid grid-cols-2 gap-3' : 'grid grid-cols-1 gap-3'} mb-4`}>
-              {allImages.filter((src) => selected[src]).map((src, idx) => (
-                <img key={idx} src={src} alt={`Key chart ${idx + 1}`} style={{ width: "100%", height: "auto", borderRadius: 8 }} />
+              {allImages.filter((it) => selected[it.src]).map((it, idx) => (
+                <div key={idx}>
+                  <img src={it.src} alt={`Key chart ${idx + 1}`} style={{ width: "100%", height: "auto", borderRadius: 8 }} />
+                  {showCaptions && (it.caption || "") && (
+                    <div style={{ fontSize: 12, color: '#374151', marginTop: 6, fontStyle: 'italic' }}>{it.caption}</div>
+                  )}
+                </div>
               ))}
             </div>
           )}
@@ -336,7 +423,7 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
           )}
 
           {note && (
-            <div className="mt-2 text-xs text-gray-700">
+            <div className="mt-2 text-xs text-gray-700" style={{ fontStyle: 'italic' }}>
               {note}
             </div>
           )}
@@ -376,6 +463,11 @@ function wrapText(ctx, text, maxWidth) {
   }
   if (line) lines.push(line);
   return lines;
+}
+
+function truncate(s, n) {
+  if (!s) return "";
+  return s.length > n ? s.slice(0, n - 1) + "…" : s;
 }
 
 export default PrintSummary;
