@@ -279,10 +279,24 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
         }
       }
       
+      const numLines = (codeString.match(/\n/g) || []).length + 1;
+      const isLong = numLines > 8 || (codeString && codeString.length > 400);
+      if (!isLong) {
+        // Small snippets: show expanded by default (non-collapsible)
+        return (
+          <div className="relative overflow-x-auto my-6 group" style={{ maxWidth: '100%' }}>
+            {codeString && <CopyCodeButton code={codeString} />}
+            <pre className="overflow-x-auto p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-sm whitespace-pre" style={{ maxWidth: '100%' }} {...rest}>
+              {children}
+            </pre>
+          </div>
+        );
+      }
+      // Long snippets: collapsed by default
       return (
         <details className="my-6 group">
           <summary className="cursor-pointer select-none text-sm sm:text-base font-medium text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-md px-3 py-2 flex items-center justify-between">
-            <span>Show code</span>
+            <span>Show code ({numLines} lines)</span>
             <svg className="w-4 h-4 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
             </svg>
