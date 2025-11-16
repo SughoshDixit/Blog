@@ -10,6 +10,23 @@ function parseNumbers(input) {
     .filter((x) => Number.isFinite(x));
 }
 
+function applyTransformations(values, { logScale, trimPct }) {
+  let arr = values.slice();
+  // Winsorize/clip extremes by trimPct on each tail
+  if (trimPct > 0 && arr.length > 0) {
+    const sorted = arr.slice().sort((a, b) => a - b);
+    const n = sorted.length;
+    const k = Math.floor((trimPct / 100) * n);
+    const low = sorted[Math.min(n - 1, Math.max(0, k))];
+    const high = sorted[Math.max(0, Math.min(n - 1, n - 1 - k))];
+    arr = arr.map((v) => Math.max(low, Math.min(high, v)));
+  }
+  if (logScale) {
+    arr = arr.map((v) => (v > 0 ? Math.log10(v) : v));
+  }
+  return arr;
+}
+
 function percentile(sortedVals, p) {
   if (!sortedVals.length) return null;
   const clamped = Math.min(100, Math.max(0, p));
@@ -133,15 +150,19 @@ function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
       "56, 61, 63, 65, 66, 68, 70, 72, 73, 75, 76, 78, 79, 80, 82, 84, 86, 88, 90, 92"
   );
   const [p, setP] = useState(defaultPercentile);
-  const [direction, setDirection] = useState("above"); // accept above/below threshold
+  const [direction, setDirection] = useState("above");
   const [uploadStatus, setUploadStatus] = useState("");
-  const [csvColumns, setCsvColumns] = useState([]); // array of numeric arrays
+  const [csvColumns, setCsvColumns] = useState([]);
   const [selectedCol, setSelectedCol] = useState(-1);
   const [appendMode, setAppendMode] = useState(false);
+  const [logScale, setLogScale] = useState(false);
+  const [trimPct, setTrimPct] = useState(0);
+  const [multiPercents, setMultiPercents] = useState("50, 75, 80, 90, 95");
 
-  const { sorted, thr, acceptRate } = useMemo(() => {
+  const { sorted, thr, acceptRate, transformed } = useMemo(() => {
     const vals = parseNumbers(valuesText);
-    const sorted = vals.slice().sort((a, b) => a - b);
+    const transformed = applyTransformations(vals, { logScale, trimPct });
+    const sorted = transformed.slice().sort((a, b) => a - b);
     const thr = percentile(sorted, p);
     let acceptRate = null;
     if (thr != null && sorted.length) {
@@ -153,8 +174,8 @@ function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
         acceptRate = accepted / sorted.length;
       }
     }
-    return { sorted, thr, acceptRate };
-  }, [valuesText, p, direction]);
+    return { sorted, thr, acceptRate, transformed };
+  }, [valuesText, p, direction, logScale, trimPct]);
 
   const handleCsvUpload = async (file) => {
     if (!file) return;
@@ -174,11 +195,9 @@ function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
             if (Number.isFinite(num)) cols[idx].push(num);
           });
         }
-        // keep only columns with at least 3 numbers
         const numericCols = cols.map((arr) => (arr && arr.filter((x) => Number.isFinite(x))) || []);
         const candidateCols = numericCols.filter((arr) => arr.length >= 3);
         if (candidateCols.length) {
-          // choose best within this delimiter
           let localBestIdx = -1;
           let localBestLen = -1;
           numericCols.forEach((arr, idx) => {
@@ -194,7 +213,6 @@ function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
           }
         }
       }
-      // Fallback: extract all numbers from text
       if (!bestVals || bestVals.length < 3) {
         const nums = (text.match(/[-+]?(?:\d*\.\d+|\d+)(?:[eE][-+]?\d+)?/g) || []).map(Number).filter(Number.isFinite);
         if (nums.length >= 3) {
@@ -241,14 +259,42 @@ function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
   };
 
   const downloadCsv = () => {
-    const headers = ["percentile", "threshold", "acceptance_rate", "samples", "direction"];
-    const row = [p, thr == null ? "" : thr.toFixed(6), acceptRate == null ? "" : (acceptRate * 100).toFixed(4) + "%", sorted.length, direction];
+    const headers = ["percentile", "threshold", "acceptance_rate", "samples", "direction", "log_scale", "trim_pct"];
+    const row = [p, thr == null ? "" : thr.toFixed(6), acceptRate == null ? "" : (acceptRate * 100).toFixed(4) + "%", sorted.length, direction, logScale ? "true" : "false", trimPct];
     const csv = [headers.join(","), row.join(",")].join("\n");
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
     a.download = `percentile_threshold_${Date.now()}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const downloadMultiCsv = () => {
+    const vals = transformed.slice().sort((a, b) => a - b);
+    const list = parseNumbers(multiPercents).filter((x) => x >= 0 && x <= 100);
+    const headers = ["percentile", "threshold", "acceptance_rate", "samples", "direction", "log_scale", "trim_pct"];
+    const rows = list.map((pp) => {
+      const t = percentile(vals, pp);
+      let ar = null;
+      if (t != null && vals.length) {
+        if (direction === "above") {
+          const accepted = vals.filter((v) => v >= t).length;
+          ar = accepted / vals.length;
+        } else {
+          const accepted = vals.filter((v) => v <= t).length;
+          ar = accepted / vals.length;
+        }
+      }
+      return [pp, t == null ? "" : t.toFixed(6), ar == null ? "" : (ar * 100).toFixed(4) + "%", vals.length, direction, logScale ? "true" : "false", trimPct].join(",");
+    });
+    const csv = [headers.join(","), ...rows].join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `percentile_thresholds_${Date.now()}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -322,33 +368,54 @@ function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
             <span>100%</span>
           </div>
 
-          <div className="mt-3 flex items-center gap-2 text-xs">
-            <span className="text-gray-500 dark:text-gray-400">Decision direction:</span>
-            <button
-              type="button"
-              onClick={() => setDirection("above")}
-              className={`px-2 py-1 rounded border text-xs ${
-                direction === "above"
-                  ? "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-900/40"
-                  : "bg-gray-50 text-gray-700 border-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700"
-              }`}
-            >
-              Accept ≥ threshold
-            </button>
-            <button
-              type="button"
-              onClick={() => setDirection("below")}
-              className={`px-2 py-1 rounded border text-xs ${
-                direction === "below"
-                  ? "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-900/40"
-                  : "bg-gray-50 text-gray-700 border-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700"
-              }`}
-            >
-              Accept ≤ threshold
-            </button>
+          <div className="mt-3 flex flex-wrap items-center gap-3 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="text-gray-500 dark:text-gray-400">Decision:</span>
+              <button
+                type="button"
+                onClick={() => setDirection("above")}
+                className={`px-2 py-1 rounded border text-xs ${
+                  direction === "above"
+                    ? "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-900/40"
+                    : "bg-gray-50 text-gray-700 border-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700"
+                }`}
+              >
+                Accept ≥ threshold
+              </button>
+              <button
+                type="button"
+                onClick={() => setDirection("below")}
+                className={`px-2 py-1 rounded border text-xs ${
+                  direction === "below"
+                    ? "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-900/40"
+                    : "bg-gray-50 text-gray-700 border-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700"
+                }`}
+              >
+                Accept ≤ threshold
+              </button>
+            </div>
+            <div className="flex items-center gap-2">
+              <label className="flex items-center gap-1 text-gray-600 dark:text-gray-300">
+                <input type="checkbox" checked={logScale} onChange={(e) => setLogScale(e.target.checked)} />
+                Log10 scale
+              </label>
+              <label className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                Trim each tail:
+                <input
+                  type="number"
+                  min={0}
+                  max={20}
+                  step={1}
+                  value={trimPct}
+                  onChange={(e) => setTrimPct(Math.max(0, Math.min(20, Number(e.target.value) || 0)))}
+                  className="w-14 px-2 py-1 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800"
+                />
+                %
+              </label>
+            </div>
           </div>
 
-          <div className="mt-3">
+          <div className="mt-3 flex items-center gap-2">
             <button
               type="button"
               onClick={downloadCsv}
@@ -356,6 +423,23 @@ function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
             >
               Download results (CSV)
             </button>
+            <div className="flex items-center gap-2">
+              <input
+                type="text"
+                value={multiPercents}
+                onChange={(e) => setMultiPercents(e.target.value)}
+                className="text-xs px-2 py-1 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 w-40"
+                placeholder="50, 75, 90, 95"
+                aria-label="Percentiles list"
+              />
+              <button
+                type="button"
+                onClick={downloadMultiCsv}
+                className="text-xs px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white"
+              >
+                Export list CSV
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -375,7 +459,6 @@ function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
         </div>
       </div>
 
-      {/* Histogram */}
       <div className="mt-4">
         <div className="text-xs text-gray-600 dark:text-gray-400 mb-1">Distribution preview</div>
         <div className="rounded-md border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-2">
