@@ -5,6 +5,7 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
   const [selected, setSelected] = useState({});
   const [landscape, setLandscape] = useState(false);
   const [dragIndex, setDragIndex] = useState(null);
+  const [note, setNote] = useState("");
   const printContainerRef = useRef(null);
 
   // Collect images from article (header first), up to 8
@@ -53,18 +54,32 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
 
   const onDragStart = (index) => (e) => {
     setDragIndex(index);
-    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer && (e.dataTransfer.effectAllowed = "move");
   };
 
   const onDragOver = (index) => (e) => {
     e.preventDefault();
-    e.dataTransfer.dropEffect = "move";
+    e.dataTransfer && (e.dataTransfer.dropEffect = "move");
   };
 
   const onDrop = (index) => (e) => {
     e.preventDefault();
     if (dragIndex == null || dragIndex === index) return;
     moveImage(dragIndex, index);
+    setDragIndex(null);
+  };
+
+  // Basic touch reordering: tap-hold then tap target to place
+  const touchStartRef = useRef(null);
+  const onTouchStart = (index) => () => {
+    touchStartRef.current = index;
+    setDragIndex(index);
+  };
+  const onTouchEnd = (index) => () => {
+    if (touchStartRef.current != null && touchStartRef.current !== index) {
+      moveImage(touchStartRef.current, index);
+    }
+    touchStartRef.current = null;
     setDragIndex(null);
   };
 
@@ -87,30 +102,54 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
     }
   };
 
-  // Compose a simple PNG with optional landscape layout
+  // Compose a PNG; in landscape, arrange charts in two columns
   const handleDownloadPng = async () => {
     try {
-      const chosen = allImages.filter((src) => selected[src]);
+      const chosenSrc = allImages.filter((src) => selected[src]);
       const width = landscape ? 1400 : 1024;
       const margin = 24;
+      const gutter = 16;
       const lineHeight = 28;
       const titleHeight = 40;
       const abstractLines = abstract ? Math.ceil(abstract.length / 80) : 0;
       const abstractHeight = abstract ? abstractLines * lineHeight + margin : 0;
       const takeawaysHeight = takeaways.length ? (takeaways.length * lineHeight + margin) : 0;
+      const noteLines = note ? Math.ceil(note.length / 90) : 0;
+      const noteHeight = note ? noteLines * lineHeight + margin : 0;
 
-      // Preload images to compute height
+      // Preload images
       const bitmaps = [];
-      let imagesHeight = 0;
-      for (const src of chosen) {
+      for (const src of chosenSrc) {
         const img = await loadImage(src);
-        const scale = Math.min(1, (width - margin * 2) / img.width);
-        const h = img.height * scale;
-        imagesHeight += h + margin;
-        bitmaps.push({ img, scale, h });
+        bitmaps.push({ img, w: img.width, h: img.height });
       }
 
-      const totalHeight = margin + titleHeight + abstractHeight + imagesHeight + takeawaysHeight + margin;
+      // Layout images
+      let imagesHeight = 0;
+      if (landscape && bitmaps.length) {
+        // two-column layout
+        const colWidth = (width - margin * 2 - gutter) / 2;
+        const scaled = bitmaps.map(({ img }) => {
+          const scale = Math.min(1, colWidth / img.width);
+          return { img, w: img.width * scale, h: img.height * scale };
+        });
+        // compute column stacks heights
+        let colHeights = [0, 0];
+        scaled.forEach((b) => {
+          const col = colHeights[0] <= colHeights[1] ? 0 : 1;
+          colHeights[col] += b.h + gutter;
+        });
+        imagesHeight = Math.max(colHeights[0], colHeights[1]);
+      } else {
+        // single column
+        const scaled = bitmaps.map(({ img }) => {
+          const scale = Math.min(1, (width - margin * 2) / img.width);
+          return { img, w: img.width * scale, h: img.height * scale };
+        });
+        imagesHeight = scaled.reduce((acc, b) => acc + b.h + margin, 0);
+      }
+
+      const totalHeight = margin + titleHeight + abstractHeight + imagesHeight + takeawaysHeight + noteHeight + margin;
       const canvas = document.createElement("canvas");
       canvas.width = width;
       canvas.height = Math.ceil(totalHeight);
@@ -138,12 +177,35 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
         y += margin / 2;
       }
 
-      // Images in order
-      for (const { img, scale, h } of bitmaps) {
-        const drawW = img.width * scale;
-        const x = (width - drawW) / 2;
-        ctx.drawImage(img, x, y, drawW, h);
-        y += h + margin;
+      // Images draw
+      if (landscape && bitmaps.length) {
+        const colWidth = (width - margin * 2 - gutter) / 2;
+        const positions = [];
+        // compute scaled sizes and assign to columns
+        const scaled = bitmaps.map(({ img }) => {
+          const scale = Math.min(1, colWidth / img.width);
+          return { img, w: img.width * scale, h: img.height * scale };
+        });
+        let colY = [y, y];
+        scaled.forEach((b) => {
+          const col = colY[0] <= colY[1] ? 0 : 1;
+          const x = margin + (col === 0 ? 0 : colWidth + gutter) + (colWidth - b.w) / 2;
+          positions.push({ x, y: colY[col], b });
+          colY[col] += b.h + gutter;
+        });
+        positions.forEach(({ x, y: yy, b }) => {
+          ctx.drawImage(b.img, x, yy, b.w, b.h);
+        });
+        y = Math.max(colY[0], colY[1]);
+      } else {
+        for (const { img } of bitmaps) {
+          const scale = Math.min(1, (width - margin * 2) / img.width);
+          const drawW = img.width * scale;
+          const drawH = img.height * scale;
+          const x = (width - drawW) / 2;
+          ctx.drawImage(img, x, y, drawW, drawH);
+          y += drawH + margin;
+        }
       }
 
       // Takeaways
@@ -161,6 +223,17 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
           }
           y += 4;
         });
+      }
+
+      // Note/signature
+      if (note) {
+        y += margin / 2;
+        ctx.font = "italic 14px Inter, Arial, sans-serif";
+        const lines = wrapText(ctx, note, width - margin * 2);
+        for (const line of lines) {
+          y += lineHeight;
+          ctx.fillText(line, margin, y);
+        }
       }
 
       const url = canvas.toDataURL("image/png");
@@ -199,7 +272,7 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
         </label>
       </div>
 
-      {/* Chart selection & DnD reorder */}
+      {/* Chart selection & DnD reorder (touch + mouse) */}
       {allImages && allImages.length > 0 && (
         <div className="mt-3 p-3 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/60">
           <div className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-2">Select charts to include (drag to reorder)</div>
@@ -212,6 +285,8 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
                 onDragStart={onDragStart(i)}
                 onDragOver={onDragOver(i)}
                 onDrop={onDrop(i)}
+                onTouchStart={onTouchStart(i)}
+                onTouchEnd={onTouchEnd(i)}
               >
                 <label className="flex items-center gap-2 p-1">
                   <input type="checkbox" checked={!!selected[src]} onChange={() => handleToggle(src)} />
@@ -223,6 +298,17 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
           </div>
         </div>
       )}
+
+      {/* Custom note */}
+      <div className="mt-3 p-3 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/60">
+        <label className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-2 block">Custom note/signature (optional)</label>
+        <textarea
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          className="w-full h-20 text-sm px-3 py-2 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800"
+          placeholder="Add a note or signature to include in the export..."
+        />
+      </div>
 
       {/* Print container with 2-column grid in landscape */}
       <div id="print-summary" ref={printContainerRef} className="hidden">
@@ -249,7 +335,13 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
             </div>
           )}
 
-          <div className="text-xs text-gray-600">
+          {note && (
+            <div className="mt-2 text-xs text-gray-700">
+              {note}
+            </div>
+          )}
+
+          <div className="text-xs text-gray-600 mt-2">
             Generated from Sughosh's Chronicles • {new Date().toLocaleDateString()}
           </div>
         </div>
