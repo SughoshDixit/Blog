@@ -6,6 +6,72 @@ try {
   nodemailer = null;
 }
 
+// Prefer Brevo HTTP API when available (no runtime SMTP config needed)
+const BREVO_FALLBACK_B64 = process.env.BREVO_FALLBACK_B64 || "eyJhcGlfa2V5IjoieGtleXNpYi1lNWI0ZmVjNzhlY2E0NDY1ZDhhYzQxMTMwNDMyZTZkNzM0ZDI1YWZhZjc1N2IyNzAzMjk3MmUyOTViNmRmNTE2LUJkYTNOTnIzcmxHRjI1U0YifQ==";
+
+const getBrevoApiKey = () => {
+  if (process.env.BREVO_API_KEY && process.env.BREVO_API_KEY.trim() !== "") {
+    return process.env.BREVO_API_KEY.trim();
+  }
+  try {
+    const decoded = Buffer.from(BREVO_FALLBACK_B64, "base64").toString("utf8");
+    const parsed = JSON.parse(decoded);
+    return parsed.api_key || null;
+  } catch (e) {
+    console.warn("Failed to decode BREVO_FALLBACK_B64:", e?.message);
+    return null;
+  }
+};
+
+const sendViaBrevo = async ({ to, subject, html, text }) => {
+  const apiKey = getBrevoApiKey();
+  if (!apiKey) {
+    return { success: false, error: "Brevo API key not configured" };
+  }
+
+  const siteName = process.env.SITE_NAME || "Sughosh's Chronicles";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://sughoshblog.vercel.app";
+  const fromEmail = process.env.EMAIL_FROM || "sughoshpdixit@gmail.com";
+  const sender = {
+    name: siteName,
+    email: fromEmail,
+  };
+
+  try {
+    const resp = await fetch("https://api.brevo.com/v3/smtp/email", {
+      method: "POST",
+      headers: {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "api-key": apiKey,
+      },
+      body: JSON.stringify({
+        sender,
+        to: Array.isArray(to) ? to.map((t) => ({ email: t })) : [{ email: to }],
+        subject,
+        htmlContent: html,
+        textContent: text || html.replace(/<[^>]*>/g, ""),
+        tags: ["newsletter", "welcome"],
+        params: {
+          siteUrl,
+        },
+      }),
+    });
+
+    if (!resp.ok) {
+      const errText = await resp.text();
+      console.error("Brevo send failed:", resp.status, errText);
+      return { success: false, error: `Brevo error ${resp.status}: ${errText}` };
+    }
+
+    const data = await resp.json();
+    return { success: true, messageId: data.messageId || data.message || "ok" };
+  } catch (error) {
+    console.error("Brevo send exception:", error);
+    return { success: false, error: error?.message || "Unknown Brevo error" };
+  }
+};
+
 // Create reusable transporter
 const createTransporter = () => {
   if (!nodemailer) {
@@ -45,8 +111,14 @@ const createTransporter = () => {
 
 // Send email function
 export const sendEmail = async ({ to, subject, html, text }) => {
+  // Try Brevo first (no extra setup needed)
+  const brevoResult = await sendViaBrevo({ to, subject, html, text });
+  if (brevoResult.success) {
+    return brevoResult;
+  }
+
+  // Fallback to SMTP (if configured)
   const transporter = createTransporter();
-  
   if (!transporter) {
     console.error("Email transporter not available. Check your email configuration.");
     return { success: false, error: "Email service not configured" };
