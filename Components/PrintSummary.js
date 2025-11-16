@@ -450,25 +450,18 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
       {/* Chart selection & DnD reorder (touch + mouse) */}
       {allImages && allImages.length > 0 && (
         <div className="mt-3 p-3 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/60">
-          <div className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-2">Select charts to include (drag to reorder)</div>
+          <div className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-2">Select charts to include</div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {allImages.map((it, i) => (
-              <div
+              <label
                 key={it.src}
-                className={`flex items-center justify-between gap-2 text-xs text-gray-700 dark:text-gray-200 rounded border border-transparent ${dragIndex===i? 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700':''}`}
-                draggable
-                onDragStart={onDragStart(i)}
-                onDragOver={onDragOver(i)}
-                onDrop={onDrop(i)}
-                onTouchStart={onTouchStart(i)}
-                onTouchEnd={onTouchEnd(i)}
+                className="flex items-center justify-between gap-2 text-xs text-gray-700 dark:text-gray-200 rounded border border-transparent p-1"
               >
-                <label className="flex items-center gap-2 p-1">
+                <span className="flex items-center gap-2">
                   <input type="checkbox" checked={!!selected[it.src]} onChange={() => handleToggle(it.src)} />
                   <span className="truncate max-w-[200px]" title={it.caption || it.src}>Chart {i + 1}</span>
-                </label>
-                <span className="px-2 py-1 text-gray-500">⠿</span>
-              </div>
+                </span>
+              </label>
             ))}
           </div>
         </div>
