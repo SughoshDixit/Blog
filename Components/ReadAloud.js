@@ -11,14 +11,21 @@ function ReadAloud({ articleRef }) {
   const [selectedVoice, setSelectedVoice] = useState(null);
   const [isSupported, setIsSupported] = useState(false);
   const [currentText, setCurrentText] = useState('');
+  const [chunks, setChunks] = useState([]);
+  const [currentChunkIndex, setCurrentChunkIndex] = useState(0);
+  const [isInitializing, setIsInitializing] = useState(false);
   const utteranceRef = useRef(null);
   const synthRef = useRef(null);
+  const cancelledRef = useRef(false);
+  const isIOSRef = useRef(false);
 
   useEffect(() => {
     // Check if browser supports speech synthesis
     if ('speechSynthesis' in window) {
       setIsSupported(true);
       synthRef.current = window.speechSynthesis;
+      // Detect iOS
+      isIOSRef.current = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document);
       
       // Load voices - with retry for mobile browsers
       const loadVoices = () => {
@@ -61,6 +68,85 @@ function ReadAloud({ articleRef }) {
       }
     };
   }, []);
+
+  // Split long text into smaller speech-safe chunks
+  const chunkText = (text) => {
+    const maxChunkLength = 1600; // conservative limit for mobile/iOS
+    const sentences = text.split(/(?<=[.!?])\s+/);
+    const result = [];
+    let buffer = "";
+    for (let i = 0; i < sentences.length; i++) {
+      const sentence = sentences[i];
+      if ((buffer + " " + sentence).trim().length <= maxChunkLength) {
+        buffer = (buffer ? buffer + " " : "") + sentence;
+      } else {
+        if (buffer) result.push(buffer);
+        if (sentence.length <= maxChunkLength) {
+          buffer = sentence;
+        } else {
+          // Hard split very long sentences
+          for (let j = 0; j < sentence.length; j += maxChunkLength) {
+            result.push(sentence.slice(j, j + maxChunkLength));
+          }
+          buffer = "";
+        }
+      }
+    }
+    if (buffer) result.push(buffer);
+    return result;
+  };
+
+  const speakChunkAtIndex = (indexToSpeak) => {
+    if (!synthRef.current || !chunks || indexToSpeak >= chunks.length) {
+      setIsPlaying(false);
+      setIsPaused(false);
+      utteranceRef.current = null;
+      return;
+    }
+
+    const piece = chunks[indexToSpeak];
+    const utterance = new SpeechSynthesisUtterance(piece);
+    utterance.rate = rate;
+    utterance.pitch = pitch;
+    utterance.volume = 1.0;
+
+    // Set voice if available
+    if (selectedVoice) {
+      utterance.voice = selectedVoice;
+    }
+
+    utterance.onstart = () => {
+      setIsPlaying(true);
+      setIsPaused(false);
+    };
+
+    utterance.onend = () => {
+      if (cancelledRef.current) {
+        cancelledRef.current = false;
+        return;
+      }
+      const nextIndex = indexToSpeak + 1;
+      setCurrentChunkIndex(nextIndex);
+      if (nextIndex < chunks.length) {
+        speakChunkAtIndex(nextIndex);
+      } else {
+        setIsPlaying(false);
+        setIsPaused(false);
+        utteranceRef.current = null;
+      }
+    };
+
+    utterance.onerror = (event) => {
+      console.error('Speech synthesis error:', event);
+      setIsPlaying(false);
+      setIsPaused(false);
+      utteranceRef.current = null;
+    };
+
+    utteranceRef.current = utterance;
+    // iOS requires synchronous call from user interaction
+    synthRef.current.speak(utterance);
+  };
 
   const extractTextFromArticle = () => {
     if (!articleRef?.current) return '';
@@ -179,88 +265,53 @@ function ReadAloud({ articleRef }) {
     }
 
     setCurrentText(text);
-    
-    // Ensure voices are loaded (critical for mobile)
-    let voicesToUse = voices;
-    if (voicesToUse.length === 0) {
-      voicesToUse = window.speechSynthesis.getVoices();
-      if (voicesToUse.length > 0) {
-        setVoices(voicesToUse);
-        const defaultVoice = voicesToUse.find(v => v.lang && v.lang.startsWith('en')) || voicesToUse[0];
-        if (defaultVoice) {
-          setSelectedVoice(defaultVoice);
+    // Prepare chunks
+    const preparedChunks = chunkText(text);
+    setChunks(preparedChunks);
+    setCurrentChunkIndex(0);
+    cancelledRef.current = false;
+
+    // Ensure voices are loaded (critical for mobile/iOS)
+    const ensureVoicesAndSpeak = () => {
+      let voicesToUse = voices;
+      if (voicesToUse.length === 0) {
+        voicesToUse = window.speechSynthesis.getVoices();
+        if (voicesToUse.length > 0) {
+          setVoices(voicesToUse);
+          const defaultVoice = voicesToUse.find(v => v.lang && v.lang.startsWith('en')) || voicesToUse[0];
+          if (defaultVoice) {
+            setSelectedVoice(defaultVoice);
+          }
         }
       }
-    }
-    
-    // Create utterance
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = rate;
-    utterance.pitch = pitch;
-    utterance.volume = 1.0;
-    
-    // Set voice if available (must be set before speak on mobile)
-    if (selectedVoice) {
-      utterance.voice = selectedVoice;
-    } else if (voicesToUse.length > 0) {
-      const defaultVoice = voicesToUse.find(v => v.lang && v.lang.startsWith('en')) || voicesToUse[0];
-      if (defaultVoice) {
-        utterance.voice = defaultVoice;
-        setSelectedVoice(defaultVoice);
+      // Begin speaking the first chunk
+      speakChunkAtIndex(0);
+    };
+
+    // iOS warm-up: voices can be empty until a first speak call happens
+    if (isIOSRef.current && voices.length === 0 && !isInitializing) {
+      try {
+        setIsInitializing(true);
+        const warmup = new SpeechSynthesisUtterance(" ");
+        warmup.volume = 0.0; // silent warm-up
+        warmup.rate = 1.0;
+        warmup.onend = () => {
+          setIsInitializing(false);
+          // Load voices again and start
+          setTimeout(() => {
+            ensureVoicesAndSpeak();
+          }, 50);
+        };
+        // Speak warm-up synchronously
+        synthRef.current.speak(warmup);
+        return;
+      } catch (e) {
+        setIsInitializing(false);
+        console.error("Warm-up speak failed:", e);
       }
     }
-    
-    // Event handlers
-    utterance.onstart = () => {
-      setIsPlaying(true);
-      setIsPaused(false);
-    };
-    
-    utterance.onend = () => {
-      setIsPlaying(false);
-      setIsPaused(false);
-      utteranceRef.current = null;
-    };
-    
-    utterance.onerror = (event) => {
-      console.error('Speech synthesis error:', event);
-      setIsPlaying(false);
-      setIsPaused(false);
-      utteranceRef.current = null;
-      
-      // Show user-friendly error message
-      if (event.error === 'not-allowed') {
-        alert('Speech synthesis is not allowed. Please check your browser permissions or try again.');
-      } else if (event.error === 'network') {
-        alert('Network error occurred. Please check your connection.');
-      } else {
-        console.error('Speech error details:', event);
-      }
-    };
-    
-    utterance.onpause = () => {
-      setIsPaused(true);
-    };
-    
-    utterance.onresume = () => {
-      setIsPaused(false);
-    };
-    
-    utteranceRef.current = utterance;
-    
-    // For mobile browsers, especially iOS Safari, we need to call speak() immediately
-    // directly from the user interaction handler - no delays, no async operations
-    try {
-      // Cancel any pending speech first
-      synthRef.current.cancel();
-      
-      // iOS Safari requires speak() to be called synchronously from user interaction
-      // So we call it directly here, not in requestAnimationFrame or setTimeout
-      synthRef.current.speak(utterance);
-    } catch (error) {
-      console.error('Error starting speech:', error);
-      alert('Unable to start speech. Please try again or check your browser settings.');
-    }
+
+    ensureVoicesAndSpeak();
   };
 
   const pauseReading = () => {
@@ -292,12 +343,18 @@ function ReadAloud({ articleRef }) {
         setIsPlaying(false);
         setIsPaused(false);
         utteranceRef.current = null;
+        cancelledRef.current = true;
+        setChunks([]);
+        setCurrentChunkIndex(0);
       }
     } catch (error) {
       console.error('Error stopping speech:', error);
       setIsPlaying(false);
       setIsPaused(false);
       utteranceRef.current = null;
+      cancelledRef.current = true;
+      setChunks([]);
+      setCurrentChunkIndex(0);
     }
   };
 
