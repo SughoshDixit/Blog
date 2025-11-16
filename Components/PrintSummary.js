@@ -12,6 +12,7 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
   const [emailTo, setEmailTo] = useState("");
   const [emailStatus, setEmailStatus] = useState("");
   const [takeawaySelection, setTakeawaySelection] = useState({});
+  const [attachStatus, setAttachStatus] = useState("");
   const printContainerRef = useRef(null);
   const storageKey = `printSummary:${title || "post"}`;
 
