@@ -24,7 +24,7 @@ except:
     title_font = ImageFont.load_default()
     subtitle_font = ImageFont.load_default()
 
-draw.text((50, 80), "Day 16: Knee/Elbow Detection", fill='#191919', font=title_font)
+# Removed "Day 16: Knee/Elbow Detection" title
 draw.text((50, 150), "Finding the Sweet Spot", fill='#1a8917', font=subtitle_font)
 
 # Draw elbow curve visualization
@@ -55,10 +55,10 @@ for i in range(len(points) - 1):
 elbow_x = curve_x_start + int(curve_width * 0.3)
 elbow_y = curve_y_start + int(curve_height * 0.7)
 draw.ellipse([elbow_x - 8, elbow_y - 8, elbow_x + 8, elbow_y + 8], fill='#ff6b6b', outline='#333', width=2)
-draw.text((elbow_x - 30, elbow_y - 35), "ELBOW", fill='#ff6b6b', font=subtitle_font)
+# Removed "ELBOW" label from plot
 
-# Labels
-draw.text((curve_x_start - 40, curve_y_start - 20), "Value", fill='#333', font=subtitle_font)
+# Labels - position Value label further left to avoid curve overlap
+draw.text((curve_x_start - 80, curve_y_start + curve_height//2 - 15), "Value", fill='#333', font=subtitle_font)
 draw.text((curve_x_start + curve_width - 100, curve_y_start + curve_height + 10), "Percentile", fill='#333', font=subtitle_font)
 
 # Save
