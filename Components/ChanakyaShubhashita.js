@@ -239,6 +239,22 @@ const BLOG_SPECIFIC_SHUBHASHITAS = {
     reference: 'Arthashastra - Book 7, Chapter 13'
   },
   
+  // Data Science Day 16 - Elbow Detection
+  'elbow-detection': {
+    sanskrit: 'अतिरिक्तं न कर्तव्यं, अल्पं च न पर्याप्तम्।\nमध्यमः पन्था श्रेष्ठः, सुखदः च सर्वदा॥',
+    transliteration: 'Atiriktaṃ na kartavyaṃ, alpaṃ ca na paryāptam।\nMadhyamaḥ panthā śreṣṭhaḥ, sukhadḥ ca sarvadā॥',
+    translation: 'Neither excess nor deficiency should be done. The middle path is best and always pleasant.',
+    meaning: 'Elbow detection teaches us to find the optimal stopping point—not too aggressive, not too conservative, but just right. Just as we identify where diminishing returns accelerate, wisdom comes from recognizing when "more" becomes "enough" and stopping at the sweet spot that balances effort with returns.',
+    reference: 'Arthashastra - Book 8, Chapter 5'
+  },
+  'knee-elbow': {
+    sanskrit: 'अतिरिक्तं न कर्तव्यं, अल्पं च न पर्याप्तम्।\nमध्यमः पन्था श्रेष्ठः, सुखदः च सर्वदा॥',
+    transliteration: 'Atiriktaṃ na kartavyaṃ, alpaṃ ca na paryāptam।\nMadhyamaḥ panthā śreṣṭhaḥ, sukhadḥ ca sarvadā॥',
+    translation: 'Neither excess nor deficiency should be done. The middle path is best and always pleasant.',
+    meaning: 'Elbow detection teaches us to find the optimal stopping point—not too aggressive, not too conservative, but just right. Just as we identify where diminishing returns accelerate, wisdom comes from recognizing when "more" becomes "enough" and stopping at the sweet spot that balances effort with returns.',
+    reference: 'Arthashastra - Book 8, Chapter 5'
+  },
+  
   // Blog Posts
   'gratitude-civilization': {
     sanskrit: 'कृतज्ञता सर्वेषु गुणेषु श्रेष्ठा।',
