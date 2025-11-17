@@ -43,6 +43,40 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Scroll-based fade-in animations
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in-up');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe article content sections
+    if (articleRef.current) {
+      const sections = articleRef.current.querySelectorAll('p, h2, h3, h4, img, pre, blockquote');
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+    }
+
+    return () => {
+      if (articleRef.current) {
+        const sections = articleRef.current.querySelectorAll('p, h2, h3, h4, img, pre, blockquote');
+        sections.forEach(section => {
+          observer.unobserve(section);
+        });
+      }
+    };
+  }, [content]);
+
   const LottiePlayer = ({ animation, height = 220, width = 220, loop = true, caption, className, style }) => {
     const containerRef = useRef(null);
 
@@ -213,7 +247,7 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
               height: 'auto',
               display: 'block',
               visibility: 'visible',
-              opacity: 1,
+              opacity: 0,
               objectFit: 'contain',
               width: isHeaderImage || isDSImage ? '100%' : 'auto',
               backgroundColor: 'transparent'
@@ -245,6 +279,10 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
               }
               e.target.style.border = 'none';
               e.target.style.padding = '0';
+              // Add loaded class for blur-up effect
+              e.target.classList.add('loaded');
+              e.target.style.opacity = '1';
+              e.target.style.filter = 'blur(0)';
             }}
             {...props}
           />
