@@ -240,6 +240,13 @@ const BLOG_SPECIFIC_SHUBHASHITAS = {
   },
   
   // Data Science Day 16 - Elbow Detection
+  'day-16-knee-elbow-detection-finding-the-sweet-spot': {
+    sanskrit: 'अतिरिक्तं न कर्तव्यं, अल्पं च न पर्याप्तम्।\nमध्यमः पन्था श्रेष्ठः, सुखदः च सर्वदा॥',
+    transliteration: 'Atiriktaṃ na kartavyaṃ, alpaṃ ca na paryāptam।\nMadhyamaḥ panthā śreṣṭhaḥ, sukhadḥ ca sarvadā॥',
+    translation: 'Neither excess nor deficiency should be done. The middle path is best and always pleasant.',
+    meaning: 'Elbow detection teaches us to find the optimal stopping point—not too aggressive, not too conservative, but just right. Just as we identify where diminishing returns accelerate, wisdom comes from recognizing when "more" becomes "enough" and stopping at the sweet spot that balances effort with returns.',
+    reference: 'Arthashastra - Book 8, Chapter 5'
+  },
   'elbow-detection': {
     sanskrit: 'अतिरिक्तं न कर्तव्यं, अल्पं च न पर्याप्तम्।\nमध्यमः पन्था श्रेष्ठः, सुखदः च सर्वदा॥',
     transliteration: 'Atiriktaṃ na kartavyaṃ, alpaṃ ca na paryāptam।\nMadhyamaḥ panthā śreṣṭhaḥ, sukhadḥ ca sarvadā॥',
@@ -255,6 +262,22 @@ const BLOG_SPECIFIC_SHUBHASHITAS = {
     reference: 'Arthashastra - Book 8, Chapter 5'
   },
   
+  // Data Science Day 17 - Robust Ratios
+  'day-17-robust-ratios-and-division-by-zero': {
+    sanskrit: 'अति सर्वत्र वर्जयेत्।',
+    transliteration: 'Ati sarvatra varjayet।',
+    translation: 'Excess should be avoided everywhere.',
+    meaning: 'This principle teaches the importance of balance and moderation. Just as robust ratios prevent computations from exploding to infinity by avoiding the extreme of division by zero, wisdom lies in avoiding extremes in all aspects of life to maintain stability and harmony.',
+    reference: 'Subhashita Manjari'
+  },
+  'robust-ratios': {
+    sanskrit: 'अति सर्वत्र वर्जयेत्।',
+    transliteration: 'Ati sarvatra varjayet।',
+    translation: 'Excess should be avoided everywhere.',
+    meaning: 'This principle teaches the importance of balance and moderation. Just as robust ratios prevent computations from exploding to infinity by avoiding the extreme of division by zero, wisdom lies in avoiding extremes in all aspects of life to maintain stability and harmony.',
+    reference: 'Subhashita Manjari'
+  },
+
   // Blog Posts
   'gratitude-civilization': {
     sanskrit: 'कृतज्ञता सर्वेषु गुणेषु श्रेष्ठा।',
@@ -325,30 +348,10 @@ function ChanakyaShubhashita({ topic, blogId, blogTitle }) {
   };
 
   // Get shubhashita - priority: blog-specific > topic-based > default
-  let shubhashita = SHUBHASHITAS['default'];
-  
-  // First, check for blog-specific shubhashita by ID (exact match)
-  if (blogId && BLOG_SPECIFIC_SHUBHASHITAS[blogId]) {
-    shubhashita = BLOG_SPECIFIC_SHUBHASHITAS[blogId];
-  }
-  // Check for blog-specific by title keywords (for partial matching)
-  else if (blogTitle) {
-    const titleLower = blogTitle.toLowerCase();
-    // Check if any blog-specific key matches the title
-    for (const [key, value] of Object.entries(BLOG_SPECIFIC_SHUBHASHITAS)) {
-      // Match if title contains the key or key is a significant part of the title
-      if (titleLower.includes(key.toLowerCase()) || 
-          (key.length > 5 && titleLower.includes(key.toLowerCase().substring(0, Math.min(key.length, 10))))) {
-        shubhashita = value;
-        break;
-      }
-    }
-  }
-  
-  // If no blog-specific found, use topic-based selection
-  if (shubhashita === SHUBHASHITAS['default'] && SHUBHASHITAS[topic]) {
-    shubhashita = SHUBHASHITAS[topic];
-  }
+  let shubhashita = BLOG_SPECIFIC_SHUBHASHITAS[blogId] || 
+                    Object.values(BLOG_SPECIFIC_SHUBHASHITAS).find(shub => blogTitle.toLowerCase().includes(Object.keys(BLOG_SPECIFIC_SHUBHASHITAS).find(key => BLOG_SPECIFIC_SHUBHASHITAS[key] === shub).toLowerCase())) ||
+                    SHUBHASHITAS[topic] || 
+                    SHUBHASHITAS['default'];
 
   if (!isVisible) return null;
 
