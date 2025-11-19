@@ -278,6 +278,22 @@ const BLOG_SPECIFIC_SHUBHASHITAS = {
     reference: 'Subhashita Manjari'
   },
 
+  // Data Science Day 18 - Time and Recurrence Math
+  'day-18-time-and-recurrence-math-when-calendars-attack-your-data': {
+    sanskrit: 'कालः करोति कार्याणि, कालः हरति जीवितम्।\nकालः सुप्तेषु जागर्ति, कालो हि दुरतिक्रमः॥',
+    transliteration: 'Kālaḥ karoti kāryāṇi, kālaḥ harati jīvitam।\nKālaḥ supteṣu jāgarti, kālo hi duratikramaḥ॥',
+    translation: 'Time accomplishes all tasks, time takes away life. Time is awake even when we sleep; time is indeed insurmountable.',
+    meaning: 'This verse teaches that time is an all-powerful, relentless force that governs everything. Just as we must account for the irregularities of calendars and recurrence patterns in data, we must respect the immutable nature of time in life, for it is the ultimate controller of all outcomes.',
+    reference: 'Mahabharata, Stri Parva 2.25'
+  },
+  'time-recurrence': {
+    sanskrit: 'कालः करोति कार्याणि, कालः हरति जीवितम्।\nकालः सुप्तेषु जागर्ति, कालो हि दुरतिक्रमः॥',
+    transliteration: 'Kālaḥ karoti kāryāṇi, kālaḥ harati jīvitam।\nKālaḥ supteṣu jāgarti, kālo hi duratikramaḥ॥',
+    translation: 'Time accomplishes all tasks, time takes away life. Time is awake even when we sleep; time is indeed insurmountable.',
+    meaning: 'This principle teaches that time is an all-powerful, relentless force. Just as we must account for the irregularities of calendars and recurrence in data, we must respect the immutable nature of time, for it is the ultimate controller of all outcomes.',
+    reference: 'Mahabharata, Stri Parva 2.25'
+  },
+
   // Blog Posts
   'gratitude-civilization': {
     sanskrit: 'कृतज्ञता सर्वेषु गुणेषु श्रेष्ठा।',
