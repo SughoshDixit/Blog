@@ -293,6 +293,54 @@ const BLOG_SPECIFIC_SHUBHASHITAS = {
     meaning: 'This principle teaches that time is an all-powerful, relentless force. Just as we must account for the irregularities of calendars and recurrence in data, we must respect the immutable nature of time, for it is the ultimate controller of all outcomes.',
     reference: 'Mahabharata, Stri Parva 2.25'
   },
+  
+  // Data Science Day 19 - Precision, Recall, and F1
+  'day-19-precision-recall-and-f1-as-objectives': {
+    sanskrit: 'मापनं सर्वकार्येषु आवश्यकम्, विवेकेन च निश्चितम्।\nसत्यं मापनं सफलतायै मूलम्॥',
+    transliteration: 'Māpanaṃ sarvakāryeṣu āvaśyakam, vivekena ca niścitam।\nSatyaṃ māpanaṃ saphalatāyai mūlam॥',
+    translation: 'Measurement is necessary in all actions, and is determined through discrimination. True measurement is the root of success.',
+    meaning: 'Just as Precision, Recall, and F1 provide true measurement of model performance beyond misleading accuracy, wisdom comes from measuring and evaluating with discrimination. Understanding what to measure and how to measure it correctly is the foundation of success in any endeavor.',
+    reference: 'Arthashastra - Book 2, Chapter 16'
+  },
+  'precision-recall-f1': {
+    sanskrit: 'मापनं सर्वकार्येषु आवश्यकम्, विवेकेन च निश्चितम्।\nसत्यं मापनं सफलतायै मूलम्॥',
+    transliteration: 'Māpanaṃ sarvakāryeṣu āvaśyakam, vivekena ca niścitam।\nSatyaṃ māpanaṃ saphalatāyai mūlam॥',
+    translation: 'Measurement is necessary in all actions, and is determined through discrimination. True measurement is the root of success.',
+    meaning: 'Precision, Recall, and F1 provide true measurement of model performance. Wisdom comes from measuring with discrimination and understanding what metrics truly matter for success.',
+    reference: 'Arthashastra - Book 2, Chapter 16'
+  },
+  
+  // Data Science Day 20 - Two-Feature Decision Surfaces
+  'day-20-two-feature-decision-surfaces-from-rule-expressions': {
+    sanskrit: 'विभागः सर्वकार्येषु आवश्यकः, सीमा च निश्चिता।\nस्पष्टः विभागः सफलतायै मूलम्॥',
+    transliteration: 'Vibhāgaḥ sarvakāryeṣu āvaśyakaḥ, sīmā ca niścitā।\nSpaṣṭaḥ vibhāgaḥ saphalatāyai mūlam॥',
+    translation: 'Division is necessary in all actions, and boundaries are determined. Clear division is the root of success.',
+    meaning: 'Just as decision surfaces create clear boundaries and divisions in feature space, wisdom comes from making clear distinctions and establishing well-defined boundaries. Understanding how to partition and organize complex spaces leads to successful outcomes.',
+    reference: 'Arthashastra - Book 7, Chapter 13'
+  },
+  'decision-surfaces': {
+    sanskrit: 'विभागः सर्वकार्येषु आवश्यकः, सीमा च निश्चिता।\nस्पष्टः विभागः सफलतायै मूलम्॥',
+    transliteration: 'Vibhāgaḥ sarvakāryeṣu āvaśyakaḥ, sīmā ca niścitā।\nSpaṣṭaḥ vibhāgaḥ saphalatāyai mūlam॥',
+    translation: 'Division is necessary in all actions, and boundaries are determined. Clear division is the root of success.',
+    meaning: 'Decision surfaces create clear boundaries in feature space. Wisdom comes from making clear distinctions and establishing well-defined partitions that organize complex spaces effectively.',
+    reference: 'Arthashastra - Book 7, Chapter 13'
+  },
+  
+  // Data Science Day 21 - Contingency Tables and Bin-Wise Uplift
+  'day-21-contingency-tables-and-bin-wise-uplift': {
+    sanskrit: 'विभागेन सत्यं दृश्यते, समग्रता च भ्रमाय।\nसूक्ष्मदृष्ट्या सत्यं ज्ञायते॥',
+    transliteration: 'Vibhāgena satyaṃ dṛśyate, samagratā ca bhramāya।\nSūkṣmadṛṣṭyā satyaṃ jñāyate॥',
+    translation: 'Truth is seen through division, and aggregation leads to confusion. Truth is known through subtle vision.',
+    meaning: 'Just as bin-wise analysis reveals true patterns that aggregated metrics hide, wisdom comes from examining details rather than relying solely on high-level summaries. Contingency tables and segmented analysis help us see the truth that Simpson\'s paradox would otherwise obscure.',
+    reference: 'Arthashastra - Book 2, Chapter 11'
+  },
+  'contingency-uplift': {
+    sanskrit: 'विभागेन सत्यं दृश्यते, समग्रता च भ्रमाय।\nसूक्ष्मदृष्ट्या सत्यं ज्ञायते॥',
+    transliteration: 'Vibhāgena satyaṃ dṛśyate, samagratā ca bhramāya।\nSūkṣmadṛṣṭyā satyaṃ jñāyate॥',
+    translation: 'Truth is seen through division, and aggregation leads to confusion. Truth is known through subtle vision.',
+    meaning: 'Bin-wise analysis reveals patterns that aggregated metrics hide. Wisdom comes from examining details and avoiding the confusion that aggregation can create.',
+    reference: 'Arthashastra - Book 2, Chapter 11'
+  },
 
   // Blog Posts
   'gratitude-civilization': {
