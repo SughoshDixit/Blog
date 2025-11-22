@@ -232,7 +232,7 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
     img: (props) => {
       // Special handling for header images and DS images
       const isHeaderImage = props.src && props.src.includes('skewness_kurtosis_concept');
-      const isDSImage = props.src && (props.src.includes('/DS-6/') || props.src.includes('/DS-7/') || props.src.includes('/DS-11/') || props.src.includes('/DS-12/'));
+      const isDSImage = props.src && (props.src.includes('/DS-6/') || props.src.includes('/DS-7/') || props.src.includes('/DS-11/') || props.src.includes('/DS-12/') || props.src.includes('/DS-16/'));
       
       return (
         <div className={`my-6 flex justify-center ${isHeaderImage || isDSImage ? 'bg-gray-50 dark:bg-gray-900 p-4 rounded-lg' : ''}`}>
@@ -250,7 +250,8 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
               opacity: 0,
               objectFit: 'contain',
               width: isHeaderImage || isDSImage ? '100%' : 'auto',
-              backgroundColor: 'transparent'
+              backgroundColor: 'transparent',
+              imageRendering: 'auto'
             }}
             onClick={() => openModal(props.src, props.alt)}
             onError={(e) => {

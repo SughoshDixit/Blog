@@ -334,6 +334,13 @@ const BLOG_SPECIFIC_SHUBHASHITAS = {
     meaning: 'Just as bin-wise analysis reveals true patterns that aggregated metrics hide, wisdom comes from examining details rather than relying solely on high-level summaries. Contingency tables and segmented analysis help us see the truth that Simpson\'s paradox would otherwise obscure.',
     reference: 'Arthashastra - Book 2, Chapter 11'
   },
+  'day-22-set-theory-and-venn-diagrams-for-comparisons': {
+    sanskrit: 'समानता दृश्यते तुलनेन, विभिन्नता च ज्ञायते।\nसर्वं सम्बन्धेन निर्णीतं भवति॥',
+    transliteration: 'Samānatā dṛśyate tulanena, vibhinnatā ca jñāyate।\nSarvaṃ sambandhena nirṇītaṃ bhavati॥',
+    translation: 'Similarity is seen through comparison, and difference is known. Everything is determined by relationships.',
+    meaning: 'Set theory and Venn diagrams teach us that understanding comes from comparing and contrasting. Just as we measure overlap and relationships between sets, wisdom comes from recognizing both similarities and differences. True insight emerges when we understand how elements relate to each other, whether they intersect, overlap, or remain distinct.',
+    reference: 'Arthashastra - Book 1, Chapter 8'
+  },
   'contingency-uplift': {
     sanskrit: 'विभागेन सत्यं दृश्यते, समग्रता च भ्रमाय।\nसूक्ष्मदृष्ट्या सत्यं ज्ञायते॥',
     transliteration: 'Vibhāgena satyaṃ dṛśyate, samagratā ca bhramāya।\nSūkṣmadṛṣṭyā satyaṃ jñāyate॥',
