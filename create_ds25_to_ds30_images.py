@@ -62,14 +62,14 @@ def create_ds25_images():
     print("Creating DS-25 images...")
     
     # Header
-    img, draw = create_header(25, "Threshold Pairing Logic", "Equivalence Classes and Consistency", PURPLE)
+    img, draw = create_header(25, "Configuration Pairing Logic", "Equivalence Classes and Consistency", PURPLE)
     
     # Bipartite graph visual
     left_x = 300
     right_x = 900
     y_positions = [300, 400, 500]
     
-    pairs = [("Seasoned", "Non-Seasoned"), ("Repeating", "Non-Repeating"), ("High-Value", "Low-Value")]
+    pairs = [("Premium", "Standard"), ("Verified", "Unverified"), ("Enterprise", "Consumer")]
     colors = [BLUE, GREEN, ORANGE]
     
     for i, ((left, right), color) in enumerate(zip(pairs, colors)):
@@ -90,9 +90,9 @@ def create_ds25_images():
     draw.text((450, 30), "Equivalence Classes", fill='black', font=font_large, anchor='mm')
     
     classes = [
-        ("[Seasoned]", ["Seasoned", "Non-Seasoned"], BLUE),
-        ("[Repeating]", ["Repeating", "Non-Repeating"], GREEN),
-        ("[High-Value]", ["High-Value", "Low-Value"], ORANGE),
+        ("[Premium]", ["Premium", "Standard"], BLUE),
+        ("[Verified]", ["Verified", "Unverified"], GREEN),
+        ("[Enterprise]", ["Enterprise", "Consumer"], ORANGE),
     ]
     
     for i, (name, members, color) in enumerate(classes):
@@ -131,16 +131,16 @@ def create_ds25_images():
     draw.text((450, 30), "Mapping Functions: translate_bindings", fill='black', font=font_large, anchor='mm')
     
     draw.rectangle([(100, 100), (350, 200)], fill=LIGHT_BLUE, outline=BLUE, width=2)
-    draw.text((225, 130), "Seasoned Config", fill=BLUE, font=font_medium, anchor='mm')
-    draw.text((225, 160), "threshold: 0.30", fill='black', font=font_small, anchor='mm')
+    draw.text((225, 130), "Premium Config", fill=BLUE, font=font_medium, anchor='mm')
+    draw.text((225, 160), "score: 0.30", fill='black', font=font_small, anchor='mm')
     
     draw.text((450, 150), "→ transform →", fill=GRAY, font=font_medium, anchor='mm')
     
     draw.rectangle([(550, 100), (800, 200)], fill=LIGHT_GREEN, outline=GREEN, width=2)
-    draw.text((675, 130), "Non-Seasoned Config", fill=GREEN, font=font_medium, anchor='mm')
-    draw.text((675, 160), "threshold: 0.24", fill='black', font=font_small, anchor='mm')
+    draw.text((675, 130), "Standard Config", fill=GREEN, font=font_medium, anchor='mm')
+    draw.text((675, 160), "score: 0.24", fill='black', font=font_small, anchor='mm')
     
-    draw.text((450, 280), "Mapping: threshold × 0.8 = 0.24", fill=PURPLE, font=font_medium, anchor='mm')
+    draw.text((450, 280), "Mapping: score × 0.8 = 0.24", fill=PURPLE, font=font_medium, anchor='mm')
     img.save('public/DS-25/mapping_functions.png')
     
     # Bipartite matching
@@ -148,16 +148,16 @@ def create_ds25_images():
     draw = ImageDraw.Draw(img)
     draw.text((450, 30), "Bipartite Graph: Perfect Matching", fill='black', font=font_large, anchor='mm')
     
-    left_nodes = [("Seasoned", 150), ("Repeating", 250), ("High-Value", 350)]
-    right_nodes = [("Non-Seasoned", 150), ("Non-Repeating", 250), ("Low-Value", 350)]
+    left_nodes = [("Premium", 150), ("Verified", 250), ("Enterprise", 350)]
+    right_nodes = [("Standard", 150), ("Unverified", 250), ("Consumer", 350)]
     
     for name, y in left_nodes:
         draw.ellipse([180, y, 280, y + 40], fill=BLUE, outline='black', width=2)
-        draw.text((230, y + 20), name[:7], fill='white', font=font_small, anchor='mm')
+        draw.text((230, y + 20), name[:8], fill='white', font=font_small, anchor='mm')
     
     for name, y in right_nodes:
         draw.ellipse([620, y, 720, y + 40], fill=GREEN, outline='black', width=2)
-        draw.text((670, y + 20), name[:7], fill='white', font=font_small, anchor='mm')
+        draw.text((670, y + 20), name[:8], fill='white', font=font_small, anchor='mm')
     
     for (_, y1), (_, y2) in zip(left_nodes, right_nodes):
         draw.line([(280, y1 + 20), (620, y2 + 20)], fill=PURPLE, width=3)
@@ -168,16 +168,16 @@ def create_ds25_images():
     # Validate pairs
     img = Image.new('RGB', (900, 500), color='white')
     draw = ImageDraw.Draw(img)
-    draw.text((450, 30), "validate_and_pair_threshold_sets", fill='black', font=font_large, anchor='mm')
+    draw.text((450, 30), "validate_and_pair_segments", fill='black', font=font_large, anchor='mm')
     
     draw.rectangle([(100, 100), (400, 250)], fill=LIGHT_GREEN, outline=GREEN, width=2)
     draw.text((250, 120), "Valid Pairs ✓", fill=GREEN, font=font_medium, anchor='mm')
-    draw.text((250, 160), "(Seasoned, Non-Seasoned)", fill='black', font=font_small, anchor='mm')
-    draw.text((250, 190), "(Repeating, Non-Repeating)", fill='black', font=font_small, anchor='mm')
+    draw.text((250, 160), "(Premium, Standard)", fill='black', font=font_small, anchor='mm')
+    draw.text((250, 190), "(Verified, Unverified)", fill='black', font=font_small, anchor='mm')
     
     draw.rectangle([(500, 100), (800, 250)], fill=LIGHT_RED, outline=RED, width=2)
     draw.text((650, 120), "Errors ✗", fill=RED, font=font_medium, anchor='mm')
-    draw.text((650, 160), "Missing: Non-Repeating", fill='black', font=font_small, anchor='mm')
+    draw.text((650, 160), "Missing: Unverified", fill='black', font=font_small, anchor='mm')
     draw.text((650, 190), "Param mismatch: ...", fill='black', font=font_small, anchor='mm')
     
     img.save('public/DS-25/validate_pairs.png')
@@ -188,12 +188,12 @@ def create_ds25_images():
     draw.text((450, 30), "Floor Fill-In for Missing Values", fill='black', font=font_large, anchor='mm')
     
     draw.rectangle([(100, 100), (400, 200)], fill=LIGHT_BLUE, outline=BLUE, width=2)
-    draw.text((250, 130), "Primary (Seasoned)", fill=BLUE, font=font_medium, anchor='mm')
-    draw.text((250, 170), "threshold_low: 0.30", fill='black', font=font_small, anchor='mm')
+    draw.text((250, 130), "Primary (Premium)", fill=BLUE, font=font_medium, anchor='mm')
+    draw.text((250, 170), "score_low: 0.30", fill='black', font=font_small, anchor='mm')
     
     draw.rectangle([(500, 100), (800, 200)], fill=LIGHT_GREEN, outline=GREEN, width=2)
-    draw.text((650, 130), "Complement (Non-Seasoned)", fill=GREEN, font=font_medium, anchor='mm')
-    draw.text((650, 170), "threshold_low: undefined → 0.30", fill='black', font=font_small, anchor='mm')
+    draw.text((650, 130), "Complement (Standard)", fill=GREEN, font=font_medium, anchor='mm')
+    draw.text((650, 170), "score_low: undefined → 0.30", fill='black', font=font_small, anchor='mm')
     
     draw.text((450, 280), "Floor from paired segment fills missing values", fill=PURPLE, font=font_medium, anchor='mm')
     img.save('public/DS-25/floor_fillin.png')
