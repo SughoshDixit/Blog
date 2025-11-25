@@ -39,9 +39,9 @@ def create_header_image():
     # Title
     draw.text((width//2, 80), "Day 23", fill=YELLOW, font=font_title, anchor='mm')
     draw.text((width//2, 140), "Label Post-Processing", fill='white', font=font_subtitle, anchor='mm')
-    draw.text((width//2, 175), "Partitioning ATL vs BTL Mathematically", fill='#aaaaaa', font=font_medium, anchor='mm')
+    draw.text((width//2, 175), "Partitioning Flagged vs Passed Mathematically", fill='#aaaaaa', font=font_medium, anchor='mm')
     
-    # Visual: Score line with ATL/BTL partition
+    # Visual: Score line with Flagged/Passed partition
     line_y = 320
     line_x = 150
     line_width = width - 300
@@ -50,12 +50,12 @@ def create_header_image():
     draw.rectangle([(line_x, line_y - 30), (line_x + line_width, line_y + 30)], 
                    fill='#2a2a4a', outline='#4a4a6a', width=2)
     
-    # BTL region
+    # Passed region
     threshold_x = line_x + int(line_width * 0.5)
     draw.rectangle([(line_x + 2, line_y - 28), (threshold_x, line_y + 28)], 
                    fill='#3d5a80', outline=None)
     
-    # ATL region
+    # Flagged region
     draw.rectangle([(threshold_x, line_y - 28), (line_x + line_width - 2, line_y + 28)], 
                    fill='#2d6a4f', outline=None)
     
@@ -64,18 +64,18 @@ def create_header_image():
     draw.text((threshold_x, line_y - 70), "Threshold", fill=YELLOW, font=font_small, anchor='mm')
     
     # Labels
-    draw.text((line_x + (threshold_x - line_x)//2, line_y), "BTL", fill='#98c1d9', font=font_medium, anchor='mm')
-    draw.text((threshold_x + (line_x + line_width - threshold_x)//2, line_y), "ATL", fill='#52b788', font=font_medium, anchor='mm')
+    draw.text((line_x + (threshold_x - line_x)//2, line_y), "Passed", fill='#98c1d9', font=font_medium, anchor='mm')
+    draw.text((threshold_x + (line_x + line_width - threshold_x)//2, line_y), "Flagged", fill='#52b788', font=font_medium, anchor='mm')
     
     # Indicator function notation
     draw.text((width//2, line_y + 90), "𝟙{score ≥ threshold}", fill='#888888', font=font_medium, anchor='mm')
     
-    # Risk levels indicators
+    # Priority levels indicators
     levels_y = 450
     levels = [
-        ("Low Risk", 30, GREEN),
-        ("Medium Risk", 50, YELLOW),
-        ("High Risk", 70, RED),
+        ("Low Priority", 30, GREEN),
+        ("Medium Priority", 50, YELLOW),
+        ("High Priority", 70, RED),
     ]
     
     level_width = 200
@@ -110,4 +110,3 @@ def create_header_image():
 print("Generating DS-23 header image...")
 create_header_image()
 print("Header image created successfully!")
-
