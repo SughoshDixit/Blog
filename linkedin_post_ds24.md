@@ -1,15 +1,15 @@
-# LinkedIn Post for Day 24: Risk Segmentation - HR/MR/RR/NR as Priors and Costs
+# LinkedIn Post for Day 24: Risk Segmentation - Priority Tiers as Priors and Costs
 
 📅 Day 24 of my 30 Day Data Science Challenge — Cost-Sensitive Thresholding
 
-Chanakya says, "विवेकः सर्वकार्येषु श्रेष्ठः" (Discrimination is best in all actions). Not all errors are equal—different risks need different thresholds!
+Chanakya says, "विवेकः सर्वकार्येषु श्रेष्ठः" (Discrimination is best in all actions). Not all errors are equal—different tiers need different thresholds!
 
 **The Problem:**
-Should you use the same decision threshold for High Risk (HR), Medium Risk (MR), Regular Risk (RR), and No Risk (NR) segments?
+Should you use the same decision threshold for Critical, High, Standard, and Baseline tiers?
 
-**Answer: No!** Each segment has different:
-- **Priors:** Base fraud rates (30% vs 0.1%)
-- **Costs:** Missing fraud vs false alarms ($10,000 vs $50)
+**Answer: No!** Each tier has different:
+- **Priors:** Base anomaly rates (30% vs 0.1%)
+- **Costs:** Missing anomalies vs false alarms ($10,000 vs $50)
 
 **The Bayes Optimal Threshold ⚖️**
 
@@ -17,24 +17,24 @@ Should you use the same decision threshold for High Risk (HR), Medium Risk (MR),
 τ* = C₀₁ / (C₀₁ + C₁₀)
 ```
 
-**Applied to segments:**
+**Applied to tiers:**
 
-| Segment | Cost Ratio | τ* |
+| Tier | Cost Ratio | τ* |
 |---------|------------|-------|
-| HR | 200:1 | **0.005** (flag at 0.5%!) |
-| MR | 50:1 | **0.020** |
-| RR | 5:1 | **0.167** |
-| NR | 1:1 | **0.500** (standard) |
+| Critical | 200:1 | **0.005** (flag at 0.5%!) |
+| High | 50:1 | **0.020** |
+| Standard | 5:1 | **0.167** |
+| Baseline | 1:1 | **0.500** (standard) |
 
 **What This Means:**
-- HR: Flag anything >0.5% fraud probability (aggressive)
-- NR: Standard 50% threshold (balanced)
+- Critical: Flag anything >0.5% anomaly probability (aggressive)
+- Baseline: Standard 50% threshold (balanced)
 
 **Iso-Cost Lines 📊**
-Visualize cost trade-offs in ROC space—different slopes for different segments!
+Visualize cost trade-offs in ROC space—different slopes for different tiers!
 
 **Key Insight:**
-Risk levels aren't just labels—they encode **prior beliefs** and **cost preferences**! 💡
+Priority tiers aren't just labels—they encode **prior beliefs** and **cost preferences**! 💡
 
 **Bottom line:** Match your thresholds to your costs. One-size-fits-all is leaving value on the table! ⚖️
 

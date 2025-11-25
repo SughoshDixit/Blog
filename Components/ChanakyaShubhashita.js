@@ -372,8 +372,8 @@ const BLOG_SPECIFIC_SHUBHASHITAS = {
     reference: 'Chanakya Niti - Verse 4.13'
   },
 
-  // Data Science Day 24 - Risk Segmentation
-  'day-24-risk-segmentation-hr-mr-rr-nr-as-priors-and-costs': {
+  // Data Science Day 24 - Risk Segmentation (Priority Tiers)
+  'day-24-risk-segmentation-priority-tiers-as-priors-and-costs': {
     sanskrit: 'विवेकः सर्वकार्येषु श्रेष्ठः।\nमूल्यं च कार्यस्य निर्णायकम्॥',
     transliteration: 'Vivekaḥ sarvakāryeṣu śreṣṭhaḥ।\nMūlyaṃ ca kāryasya nirṇāyakam॥',
     translation: 'Discrimination is best in all actions. Cost determines the outcome of action.',
@@ -384,7 +384,14 @@ const BLOG_SPECIFIC_SHUBHASHITAS = {
     sanskrit: 'विवेकः सर्वकार्येषु श्रेष्ठः।\nमूल्यं च कार्यस्य निर्णायकम्॥',
     transliteration: 'Vivekaḥ sarvakāryeṣu śreṣṭhaḥ।\nMūlyaṃ ca kāryasya nirṇāyakam॥',
     translation: 'Discrimination is best in all actions. Cost determines the outcome of action.',
-    meaning: 'Cost-sensitive decisions account for the true stakes involved. Different risk segments deserve different thresholds based on their costs and priors.',
+    meaning: 'Cost-sensitive decisions account for the true stakes involved. Different priority tiers deserve different thresholds based on their costs and priors.',
+    reference: 'Arthashastra - Book 7, Chapter 1'
+  },
+  'priority-tiers': {
+    sanskrit: 'विवेकः सर्वकार्येषु श्रेष्ठः।\nमूल्यं च कार्यस्य निर्णायकम्॥',
+    transliteration: 'Vivekaḥ sarvakāryeṣu śreṣṭhaḥ।\nMūlyaṃ ca kāryasya nirṇāyakam॥',
+    translation: 'Discrimination is best in all actions. Cost determines the outcome of action.',
+    meaning: 'Different priority tiers require different decision thresholds. Cost-sensitive approaches ensure we make optimal choices based on the true consequences of each tier.',
     reference: 'Arthashastra - Book 7, Chapter 1'
   },
 
