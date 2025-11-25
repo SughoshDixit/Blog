@@ -60,9 +60,9 @@ def create_indicator_function():
     draw.text((threshold_x, origin_y + 25), "50", fill='black', font=font_small, anchor='mm')
     
     # Draw step function
-    # BTL region (0)
+    # Passed region (0)
     draw.line([(origin_x, origin_y), (threshold_x, origin_y)], fill=RED, width=4)
-    # ATL region (1)
+    # Flagged region (1)
     y_one = origin_y - graph_height + 50
     draw.line([(threshold_x, y_one), (origin_x + graph_width, y_one)], fill=GREEN, width=4)
     # Vertical step
@@ -70,11 +70,11 @@ def create_indicator_function():
     
     # Y-axis labels
     draw.text((origin_x - 15, origin_y), "0", fill='black', font=font_small, anchor='rm')
-    draw.text((origin_x - 15, y_one), "1", fill='black', font=font_small, anchor='rm')
+    draw.text((origin_x - 15, y_one), "1", fill='black', font=font_small, anchor='mm')
     
     # Annotations
-    draw.text((origin_x + graph_width // 4, origin_y - 40), "BTL (x < 50)", fill=RED, font=font_medium, anchor='mm')
-    draw.text((origin_x + 3 * graph_width // 4, y_one - 40), "ATL (x ≥ 50)", fill=GREEN, font=font_medium, anchor='mm')
+    draw.text((origin_x + graph_width // 4, origin_y - 40), "Passed (x < 50)", fill=RED, font=font_medium, anchor='mm')
+    draw.text((origin_x + 3 * graph_width // 4, y_one - 40), "Flagged (x ≥ 50)", fill=GREEN, font=font_medium, anchor='mm')
     
     # Examples
     example_y = 520
@@ -85,24 +85,24 @@ def create_indicator_function():
     img.save('public/DS-23/indicator_function.png')
     print("Created: indicator_function.png")
 
-# --- Image 2: ATL vs BTL Indicator ---
-def create_atl_btl_indicator():
+# --- Image 2: Flagged vs Passed Indicator ---
+def create_flagged_passed_indicator():
     width, height = 900, 650
     img = Image.new('RGB', (width, height), color='white')
     draw = ImageDraw.Draw(img)
     
-    draw.text((width//2, 30), "ATL vs BTL: Complementary Indicators", fill='black', font=font_large, anchor='mm')
+    draw.text((width//2, 30), "Flagged vs Passed: Complementary Indicators", fill='black', font=font_large, anchor='mm')
     
     # Draw two graphs side by side
     margin = 60
     graph_width = 350
     graph_height = 200
     
-    # Left graph: ATL
+    # Left graph: Flagged
     left_x = margin
     left_y = 280
     
-    draw.text((left_x + graph_width//2, 100), "ATL(x) = 𝟙{x ≥ t}", fill=GREEN, font=font_medium, anchor='mm')
+    draw.text((left_x + graph_width//2, 100), "Flagged(x) = 𝟙{x ≥ t}", fill=GREEN, font=font_medium, anchor='mm')
     
     # Axes
     draw.line([(left_x, left_y), (left_x + graph_width, left_y)], fill='black', width=2)
@@ -115,11 +115,11 @@ def create_atl_btl_indicator():
     draw.line([(threshold_x, left_y), (threshold_x, left_y - graph_height + 30)], fill=GREEN, width=2)
     draw.text((threshold_x, left_y + 20), "t", fill='black', font=font_small, anchor='mm')
     
-    # Right graph: BTL
+    # Right graph: Passed
     right_x = width // 2 + 30
     right_y = 280
     
-    draw.text((right_x + graph_width//2, 100), "BTL(x) = 1 - ATL(x)", fill=RED, font=font_medium, anchor='mm')
+    draw.text((right_x + graph_width//2, 100), "Passed(x) = 1 - Flagged(x)", fill=RED, font=font_medium, anchor='mm')
     
     # Axes
     draw.line([(right_x, right_y), (right_x + graph_width, right_y)], fill='black', width=2)
@@ -134,14 +134,14 @@ def create_atl_btl_indicator():
     
     # Key property
     property_y = 380
-    draw.rectangle([(width//2 - 200, property_y), (width//2 + 200, property_y + 60)], 
+    draw.rectangle([(width//2 - 220, property_y), (width//2 + 220, property_y + 60)], 
                    fill=LIGHT_YELLOW, outline=YELLOW, width=2)
-    draw.text((width//2, property_y + 30), "ATL(x) + BTL(x) = 1  (for all x)", 
+    draw.text((width//2, property_y + 30), "Flagged(x) + Passed(x) = 1  (for all x)", 
               fill='black', font=font_medium, anchor='mm')
     
     # Explanation
     explain_y = 480
-    draw.text((width//2, explain_y), "Every event is either ATL or BTL — never both, never neither!", 
+    draw.text((width//2, explain_y), "Every event is either Flagged or Passed — never both, never neither!", 
               fill=GRAY, font=font_medium, anchor='mm')
     
     # Visual partition
@@ -154,11 +154,11 @@ def create_atl_btl_indicator():
                    fill=LIGHT_RED, outline=RED, width=2)
     draw.rectangle([(bar_x + bar_width//2, bar_y), (bar_x + bar_width, bar_y + bar_height)], 
                    fill=LIGHT_GREEN, outline=GREEN, width=2)
-    draw.text((bar_x + bar_width//4, bar_y + bar_height//2), "BTL", fill=RED, font=font_medium, anchor='mm')
-    draw.text((bar_x + 3*bar_width//4, bar_y + bar_height//2), "ATL", fill=GREEN, font=font_medium, anchor='mm')
+    draw.text((bar_x + bar_width//4, bar_y + bar_height//2), "Passed", fill=RED, font=font_medium, anchor='mm')
+    draw.text((bar_x + 3*bar_width//4, bar_y + bar_height//2), "Flagged", fill=GREEN, font=font_medium, anchor='mm')
     
     img.save('public/DS-23/atl_btl_indicator.png')
-    print("Created: atl_btl_indicator.png")
+    print("Created: atl_btl_indicator.png (Flagged vs Passed)")
 
 # --- Image 3: Piecewise Partition ---
 def create_piecewise_partition():
@@ -166,7 +166,7 @@ def create_piecewise_partition():
     img = Image.new('RGB', (width, height), color='white')
     draw = ImageDraw.Draw(img)
     
-    draw.text((width//2, 30), "Piecewise Partition: Risk Levels", fill='black', font=font_large, anchor='mm')
+    draw.text((width//2, 30), "Piecewise Partition: Priority Levels", fill='black', font=font_large, anchor='mm')
     
     # Draw number line with partitions
     margin = 80
@@ -226,27 +226,27 @@ def create_piecewise_partition():
     img.save('public/DS-23/piecewise_partition.png')
     print("Created: piecewise_partition.png")
 
-# --- Image 4: Risk-Level Conditioning ---
-def create_risk_level_conditioning():
+# --- Image 4: Priority-Level Conditioning ---
+def create_priority_level_conditioning():
     width, height = 900, 700
     img = Image.new('RGB', (width, height), color='white')
     draw = ImageDraw.Draw(img)
     
-    draw.text((width//2, 30), "Risk-Level Conditioning: Different Thresholds", fill='black', font=font_large, anchor='mm')
+    draw.text((width//2, 30), "Priority-Level Conditioning: Different Thresholds", fill='black', font=font_large, anchor='mm')
     
-    # Three rows for three risk levels
+    # Three rows for three priority levels
     margin = 100
     row_height = 150
     bar_width = 600
     bar_x = (width - bar_width) // 2
     
-    risk_levels = [
-        ("Low Risk", 30, GREEN, LIGHT_GREEN),
-        ("Medium Risk", 50, ORANGE, LIGHT_YELLOW),
-        ("High Risk", 70, RED, LIGHT_RED)
+    priority_levels = [
+        ("Low Priority", 30, GREEN, LIGHT_GREEN),
+        ("Medium Priority", 50, ORANGE, LIGHT_YELLOW),
+        ("High Priority", 70, RED, LIGHT_RED)
     ]
     
-    for i, (label, threshold, color, light_color) in enumerate(risk_levels):
+    for i, (label, threshold, color, light_color) in enumerate(priority_levels):
         y = 120 + i * row_height
         
         # Label
@@ -258,10 +258,10 @@ def create_risk_level_conditioning():
         # Threshold position
         t_x = bar_x + int(bar_width * threshold / 100)
         
-        # BTL region
+        # Passed region
         draw.rectangle([(bar_x, y), (t_x, y + 50)], fill=LIGHT_BLUE, outline=BLUE, width=1)
         
-        # ATL region
+        # Flagged region
         draw.rectangle([(t_x, y), (bar_x + bar_width, y + 50)], fill=light_color, outline=color, width=2)
         
         # Threshold marker
@@ -269,8 +269,8 @@ def create_risk_level_conditioning():
         draw.text((t_x, y + 75), f"t = {threshold}", fill='black', font=font_small, anchor='mm')
         
         # Labels
-        draw.text(((bar_x + t_x)//2, y + 25), "BTL", fill=BLUE, font=font_small, anchor='mm')
-        draw.text(((t_x + bar_x + bar_width)//2, y + 25), "ATL", fill=color, font=font_medium, anchor='mm')
+        draw.text(((bar_x + t_x)//2, y + 25), "Passed", fill=BLUE, font=font_small, anchor='mm')
+        draw.text(((t_x + bar_x + bar_width)//2, y + 25), "Flagged", fill=color, font=font_medium, anchor='mm')
     
     # Scale
     scale_y = 120 + 3 * row_height
@@ -284,11 +284,11 @@ def create_risk_level_conditioning():
                    fill=LIGHT_YELLOW, outline=YELLOW, width=2)
     draw.text((width//2, explain_y + 5), "Lower thresholds → More events flagged for review", 
               fill='black', font=font_small, anchor='mm')
-    draw.text((width//2, explain_y + 28), "Higher thresholds → Focus on highest-risk events", 
+    draw.text((width//2, explain_y + 28), "Higher thresholds → Focus on highest-priority events", 
               fill='black', font=font_small, anchor='mm')
     
     img.save('public/DS-23/risk_level_conditioning.png')
-    print("Created: risk_level_conditioning.png")
+    print("Created: risk_level_conditioning.png (Priority-Level)")
 
 # --- Image 5: Partition Function ---
 def create_partition_function():
@@ -302,15 +302,15 @@ def create_partition_function():
     table_x = 80
     table_y = 80
     row_height = 35
-    col_widths = [80, 80, 100, 100, 80]
+    col_widths = [80, 80, 100, 100, 90]
     
-    headers = ["Event", "Score", "Risk Level", "Threshold", "Tag"]
+    headers = ["Event", "Score", "Priority", "Threshold", "Tag"]
     events = [
-        ("E1", "45", "Low", "30", "ATL"),
-        ("E2", "55", "Medium", "50", "ATL"),
-        ("E3", "65", "High", "70", "BTL"),
-        ("E4", "35", "Low", "30", "ATL"),
-        ("E5", "75", "High", "70", "ATL"),
+        ("E1", "45", "Low", "30", "Flagged"),
+        ("E2", "55", "Medium", "50", "Flagged"),
+        ("E3", "65", "High", "70", "Passed"),
+        ("E4", "35", "Low", "30", "Flagged"),
+        ("E5", "75", "High", "70", "Flagged"),
     ]
     
     # Draw header
@@ -328,7 +328,7 @@ def create_partition_function():
         x = table_x
         for col_idx, value in enumerate(event):
             if col_idx == 4:  # Tag column
-                if value == "ATL":
+                if value == "Flagged":
                     fill_color = LIGHT_GREEN
                     text_color = GREEN
                 else:
@@ -351,15 +351,15 @@ def create_partition_function():
     draw.text((logic_x + 150, logic_y), "Logic Applied:", fill='black', font=font_medium, anchor='mm')
     
     logic_items = [
-        "E1: 45 ≥ 30 (Low) → ATL ✓",
-        "E2: 55 ≥ 50 (Medium) → ATL ✓",
-        "E3: 65 < 70 (High) → BTL ✗",
-        "E4: 35 ≥ 30 (Low) → ATL ✓",
-        "E5: 75 ≥ 70 (High) → ATL ✓",
+        "E1: 45 ≥ 30 (Low) → Flagged ✓",
+        "E2: 55 ≥ 50 (Medium) → Flagged ✓",
+        "E3: 65 < 70 (High) → Passed ✗",
+        "E4: 35 ≥ 30 (Low) → Flagged ✓",
+        "E5: 75 ≥ 70 (High) → Flagged ✓",
     ]
     
     for i, item in enumerate(logic_items):
-        color = GREEN if "ATL" in item else RED
+        color = GREEN if "Flagged" in item else RED
         draw.text((logic_x, logic_y + 35 + i * 28), item, fill=color, font=font_small, anchor='lm')
     
     # Results summary
@@ -367,8 +367,8 @@ def create_partition_function():
     draw.rectangle([(width//2 - 200, summary_y), (width//2 + 200, summary_y + 100)], 
                    fill='white', outline='black', width=2)
     draw.text((width//2, summary_y + 20), "Results Summary", fill='black', font=font_medium, anchor='mm')
-    draw.text((width//2, summary_y + 50), "ATL: 4 events (80%)", fill=GREEN, font=font_medium, anchor='mm')
-    draw.text((width//2, summary_y + 75), "BTL: 1 event (20%)", fill=RED, font=font_medium, anchor='mm')
+    draw.text((width//2, summary_y + 50), "Flagged: 4 events (80%)", fill=GREEN, font=font_medium, anchor='mm')
+    draw.text((width//2, summary_y + 75), "Passed: 1 event (20%)", fill=RED, font=font_medium, anchor='mm')
     
     # Visual bar
     bar_y = 520
@@ -376,13 +376,13 @@ def create_partition_function():
     bar_height = 40
     bar_x = (width - bar_width) // 2
     
-    atl_width = int(bar_width * 0.8)
-    draw.rectangle([(bar_x, bar_y), (bar_x + atl_width, bar_y + bar_height)], 
+    flagged_width = int(bar_width * 0.8)
+    draw.rectangle([(bar_x, bar_y), (bar_x + flagged_width, bar_y + bar_height)], 
                    fill=LIGHT_GREEN, outline=GREEN, width=2)
-    draw.rectangle([(bar_x + atl_width, bar_y), (bar_x + bar_width, bar_y + bar_height)], 
+    draw.rectangle([(bar_x + flagged_width, bar_y), (bar_x + bar_width, bar_y + bar_height)], 
                    fill=LIGHT_RED, outline=RED, width=2)
-    draw.text((bar_x + atl_width//2, bar_y + bar_height//2), "ATL 80%", fill=GREEN, font=font_medium, anchor='mm')
-    draw.text((bar_x + atl_width + (bar_width - atl_width)//2, bar_y + bar_height//2), "20%", 
+    draw.text((bar_x + flagged_width//2, bar_y + bar_height//2), "Flagged 80%", fill=GREEN, font=font_medium, anchor='mm')
+    draw.text((bar_x + flagged_width + (bar_width - flagged_width)//2, bar_y + bar_height//2), "20%", 
               fill=RED, font=font_small, anchor='mm')
     
     img.save('public/DS-23/partition_function.png')
@@ -394,7 +394,7 @@ def create_before_after_proportions():
     img = Image.new('RGB', (width, height), color='white')
     draw = ImageDraw.Draw(img)
     
-    draw.text((width//2, 30), "Before/After Class Proportions by Risk Level", fill='black', font=font_large, anchor='mm')
+    draw.text((width//2, 30), "Before/After Class Proportions by Priority Level", fill='black', font=font_large, anchor='mm')
     
     # Two side-by-side bar charts
     chart_width = 380
@@ -409,7 +409,7 @@ def create_before_after_proportions():
     
     # Bars for before
     bar_data_before = [
-        ("Low", 40, 60),      # ATL%, BTL%
+        ("Low", 40, 60),      # Flagged%, Passed%
         ("Medium", 45, 55),
         ("High", 53, 47),
     ]
@@ -418,54 +418,54 @@ def create_before_after_proportions():
     bar_max_height = 180
     bar_start_y = before_y + 230
     
-    for i, (label, atl, btl) in enumerate(bar_data_before):
+    for i, (label, flagged, passed) in enumerate(bar_data_before):
         x = before_x + 50 + i * 110
         
-        # ATL portion
-        atl_height = int(bar_max_height * atl / 100)
-        btl_height = int(bar_max_height * btl / 100)
+        # Flagged portion
+        flagged_height = int(bar_max_height * flagged / 100)
+        passed_height = int(bar_max_height * passed / 100)
         
-        # BTL (bottom)
-        draw.rectangle([(x, bar_start_y - btl_height), (x + bar_width, bar_start_y)], 
+        # Passed (bottom)
+        draw.rectangle([(x, bar_start_y - passed_height), (x + bar_width, bar_start_y)], 
                        fill=LIGHT_RED, outline=RED, width=1)
-        # ATL (top)
-        draw.rectangle([(x, bar_start_y - btl_height - atl_height), (x + bar_width, bar_start_y - btl_height)], 
+        # Flagged (top)
+        draw.rectangle([(x, bar_start_y - passed_height - flagged_height), (x + bar_width, bar_start_y - passed_height)], 
                        fill=LIGHT_GREEN, outline=GREEN, width=1)
         
         # Labels
         draw.text((x + bar_width//2, bar_start_y + 20), label, fill='black', font=font_small, anchor='mm')
-        draw.text((x + bar_width//2, bar_start_y - btl_height - atl_height//2), f"{atl}%", 
+        draw.text((x + bar_width//2, bar_start_y - passed_height - flagged_height//2), f"{flagged}%", 
                   fill=GREEN, font=font_tiny, anchor='mm')
-        draw.text((x + bar_width//2, bar_start_y - btl_height//2), f"{btl}%", 
+        draw.text((x + bar_width//2, bar_start_y - passed_height//2), f"{passed}%", 
                   fill=RED, font=font_tiny, anchor='mm')
     
     # After chart
     after_x = width // 2 + 30
     after_y = 100
     
-    draw.text((after_x + chart_width//2, after_y), "AFTER (Risk-Conditioned)", fill=PURPLE, font=font_medium, anchor='mm')
+    draw.text((after_x + chart_width//2, after_y), "AFTER (Priority-Conditioned)", fill=PURPLE, font=font_medium, anchor='mm')
     
     bar_data_after = [
-        ("Low", 70, 30),      # t=30: More ATL
+        ("Low", 70, 30),      # t=30: More Flagged
         ("Medium", 45, 55),   # t=50: Same
-        ("High", 33, 67),     # t=70: Less ATL
+        ("High", 33, 67),     # t=70: Less Flagged
     ]
     
-    for i, (label, atl, btl) in enumerate(bar_data_after):
+    for i, (label, flagged, passed) in enumerate(bar_data_after):
         x = after_x + 50 + i * 110
         
-        atl_height = int(bar_max_height * atl / 100)
-        btl_height = int(bar_max_height * btl / 100)
+        flagged_height = int(bar_max_height * flagged / 100)
+        passed_height = int(bar_max_height * passed / 100)
         
-        draw.rectangle([(x, bar_start_y - btl_height), (x + bar_width, bar_start_y)], 
+        draw.rectangle([(x, bar_start_y - passed_height), (x + bar_width, bar_start_y)], 
                        fill=LIGHT_RED, outline=RED, width=1)
-        draw.rectangle([(x, bar_start_y - btl_height - atl_height), (x + bar_width, bar_start_y - btl_height)], 
+        draw.rectangle([(x, bar_start_y - passed_height - flagged_height), (x + bar_width, bar_start_y - passed_height)], 
                        fill=LIGHT_GREEN, outline=GREEN, width=1)
         
         draw.text((x + bar_width//2, bar_start_y + 20), label, fill='black', font=font_small, anchor='mm')
-        draw.text((x + bar_width//2, bar_start_y - btl_height - atl_height//2), f"{atl}%", 
+        draw.text((x + bar_width//2, bar_start_y - passed_height - flagged_height//2), f"{flagged}%", 
                   fill=GREEN, font=font_tiny, anchor='mm')
-        draw.text((x + bar_width//2, bar_start_y - btl_height//2), f"{btl}%", 
+        draw.text((x + bar_width//2, bar_start_y - passed_height//2), f"{passed}%", 
                   fill=RED, font=font_tiny, anchor='mm')
     
     # Arrow between charts
@@ -475,17 +475,17 @@ def create_before_after_proportions():
     
     # Legend
     legend_y = 450
-    draw.rectangle([(width//2 - 60, legend_y), (width//2 - 40, legend_y + 20)], fill=LIGHT_GREEN, outline=GREEN)
-    draw.text((width//2 - 35, legend_y + 10), "ATL", fill=GREEN, font=font_small, anchor='lm')
-    draw.rectangle([(width//2 + 20, legend_y), (width//2 + 40, legend_y + 20)], fill=LIGHT_RED, outline=RED)
-    draw.text((width//2 + 45, legend_y + 10), "BTL", fill=RED, font=font_small, anchor='lm')
+    draw.rectangle([(width//2 - 80, legend_y), (width//2 - 60, legend_y + 20)], fill=LIGHT_GREEN, outline=GREEN)
+    draw.text((width//2 - 55, legend_y + 10), "Flagged", fill=GREEN, font=font_small, anchor='lm')
+    draw.rectangle([(width//2 + 30, legend_y), (width//2 + 50, legend_y + 20)], fill=LIGHT_RED, outline=RED)
+    draw.text((width//2 + 55, legend_y + 10), "Passed", fill=RED, font=font_small, anchor='lm')
     
     # Key insight
     insight_y = 520
     draw.rectangle([(width//2 - 350, insight_y), (width//2 + 350, insight_y + 80)], 
                    fill=LIGHT_YELLOW, outline=YELLOW, width=2)
     draw.text((width//2, insight_y + 20), "Key Insight:", fill='black', font=font_medium, anchor='mm')
-    draw.text((width//2, insight_y + 45), "Risk-level conditioning redistributes review load", fill='black', font=font_small, anchor='mm')
+    draw.text((width//2, insight_y + 45), "Priority-level conditioning redistributes review load", fill='black', font=font_small, anchor='mm')
     draw.text((width//2, insight_y + 65), "without changing total volume!", fill=GRAY, font=font_small, anchor='mm')
     
     img.save('public/DS-23/before_after_proportions.png')
@@ -497,35 +497,35 @@ def create_monotonicity_proof():
     img = Image.new('RGB', (width, height), color='white')
     draw = ImageDraw.Draw(img)
     
-    draw.text((width//2, 30), "Monotonicity: Conjunctive Clauses Shrink ATL", fill='black', font=font_large, anchor='mm')
+    draw.text((width//2, 30), "Monotonicity: Conjunctive Clauses Shrink Flagged Set", fill='black', font=font_large, anchor='mm')
     
     # Theorem statement
     theorem_y = 80
     draw.rectangle([(width//2 - 380, theorem_y), (width//2 + 380, theorem_y + 60)], 
                    fill=LIGHT_PURPLE, outline=PURPLE, width=2)
-    draw.text((width//2, theorem_y + 15), "Theorem: If ATL₂ = ATL₁ ∧ (extra condition),", 
+    draw.text((width//2, theorem_y + 15), "Theorem: If Flag₂ = Flag₁ ∧ (extra condition),", 
               fill=PURPLE, font=font_medium, anchor='mm')
-    draw.text((width//2, theorem_y + 40), "then ATL₂(x) ≤ ATL₁(x) for all x", 
+    draw.text((width//2, theorem_y + 40), "then Flag₂(x) ≤ Flag₁(x) for all x", 
               fill=PURPLE, font=font_medium, anchor='mm')
     
     # Visual: Two overlapping sets
     set_y = 280
     set_radius = 100
     
-    # ATL₁ (larger)
-    atl1_x = width // 2
-    draw.ellipse([atl1_x - set_radius - 40, set_y - set_radius, 
-                  atl1_x + set_radius + 40, set_y + set_radius], 
+    # Flag₁ (larger)
+    flag1_x = width // 2
+    draw.ellipse([flag1_x - set_radius - 40, set_y - set_radius, 
+                  flag1_x + set_radius + 40, set_y + set_radius], 
                  fill=LIGHT_GREEN, outline=GREEN, width=3)
-    draw.text((atl1_x, set_y - set_radius - 25), "ATL₁ = 𝟙{x ≥ t₁}", fill=GREEN, font=font_medium, anchor='mm')
+    draw.text((flag1_x, set_y - set_radius - 25), "Flag₁ = 𝟙{x ≥ t₁}", fill=GREEN, font=font_medium, anchor='mm')
     
-    # ATL₂ (smaller, inside ATL₁)
-    atl2_x = width // 2 + 30
-    draw.ellipse([atl2_x - set_radius + 30, set_y - set_radius + 30, 
-                  atl2_x + set_radius - 30, set_y + set_radius - 30], 
+    # Flag₂ (smaller, inside Flag₁)
+    flag2_x = width // 2 + 30
+    draw.ellipse([flag2_x - set_radius + 30, set_y - set_radius + 30, 
+                  flag2_x + set_radius - 30, set_y + set_radius - 30], 
                  fill=LIGHT_YELLOW, outline=ORANGE, width=3)
-    draw.text((atl2_x, set_y), "ATL₂", fill=ORANGE, font=font_medium, anchor='mm')
-    draw.text((atl2_x, set_y + 20), "⊆ ATL₁", fill=ORANGE, font=font_small, anchor='mm')
+    draw.text((flag2_x, set_y), "Flag₂", fill=ORANGE, font=font_medium, anchor='mm')
+    draw.text((flag2_x, set_y + 20), "⊆ Flag₁", fill=ORANGE, font=font_small, anchor='mm')
     
     # Number line showing thresholds
     line_y = 450
@@ -554,9 +554,9 @@ def create_monotonicity_proof():
     draw.text((width//2, table_y), "Case Analysis:", fill='black', font=font_medium, anchor='mm')
     
     cases = [
-        ("x < t₁", "ATL₁=0", "ATL₂=0", "0 ≤ 0 ✓"),
-        ("t₁ ≤ x < t₂", "ATL₁=1", "ATL₂=0", "0 ≤ 1 ✓"),
-        ("x ≥ t₂", "ATL₁=1", "ATL₂=1", "1 ≤ 1 ✓"),
+        ("x < t₁", "Flag₁=0", "Flag₂=0", "0 ≤ 0 ✓"),
+        ("t₁ ≤ x < t₂", "Flag₁=1", "Flag₂=0", "0 ≤ 1 ✓"),
+        ("x ≥ t₂", "Flag₁=1", "Flag₂=1", "1 ≤ 1 ✓"),
     ]
     
     col_x = [width//2 - 250, width//2 - 100, width//2 + 50, width//2 + 200]
@@ -568,9 +568,9 @@ def create_monotonicity_proof():
     
     # Conclusion
     conclusion_y = 640
-    draw.rectangle([(width//2 - 280, conclusion_y), (width//2 + 280, conclusion_y + 40)], 
+    draw.rectangle([(width//2 - 300, conclusion_y), (width//2 + 300, conclusion_y + 40)], 
                    fill=LIGHT_GREEN, outline=GREEN, width=2)
-    draw.text((width//2, conclusion_y + 20), "∴ ATL₂(x) ≤ ATL₁(x) for all x  — Monotonicity proved!", 
+    draw.text((width//2, conclusion_y + 20), "∴ Flag₂(x) ≤ Flag₁(x) for all x  — Monotonicity proved!", 
               fill=GREEN, font=font_medium, anchor='mm')
     
     img.save('public/DS-23/monotonicity_proof.png')
@@ -579,11 +579,10 @@ def create_monotonicity_proof():
 # --- Generate all images ---
 print("Generating DS-23 images...")
 create_indicator_function()
-create_atl_btl_indicator()
+create_flagged_passed_indicator()
 create_piecewise_partition()
-create_risk_level_conditioning()
+create_priority_level_conditioning()
 create_partition_function()
 create_before_after_proportions()
 create_monotonicity_proof()
 print("\nAll images for DS-23 created successfully!")
-

@@ -1,11 +1,11 @@
-# LinkedIn Post for Day 23: Label Post-Processing: Partitioning ATL vs BTL Mathematically
+# LinkedIn Post for Day 23: Label Post-Processing: Partitioning Flagged vs Passed Mathematically
 
 📅 Day 23 of my 30 Day Data Science Challenge — Mathematical Event Tagging
 
-Chanakya says, "सत्यं ब्रूयात् प्रियं ब्रूयात्" (Speak the truth clearly). Just as truth requires clear distinction, so does classifying events into Above The Line (ATL) and Below The Line (BTL).
+Chanakya says, "सत्यं ब्रूयात् प्रियं ब्रूयात्" (Speak the truth clearly). Just as truth requires clear distinction, so does classifying events into Flagged and Passed categories.
 
 **The Problem:**
-You have risk scores (0-100). How do you mathematically decide what gets human review (ATL) vs auto-processing (BTL)?
+You have scores (0-100). How do you mathematically decide what gets flagged for review vs auto-passed?
 
 **The Tool: Indicator Functions 🧱**
 
@@ -17,20 +17,20 @@ This simple binary function is the foundation of rule-based classification!
 
 **Key Properties:**
 
-✅ **Complement:** `BTL = 1 - ATL` (they're inverses)
-✅ **Partition:** `ATL + BTL = 1` (every event belongs to exactly one)
-✅ **Risk Conditioning:** Different thresholds for different risk levels
+✅ **Complement:** `Passed = 1 - Flagged` (they're inverses)
+✅ **Partition:** `Flagged + Passed = 1` (every event belongs to exactly one)
+✅ **Priority Conditioning:** Different thresholds for different priority levels
 
 **The Power: Piecewise Partitions**
 
 ```
-Low Risk:    ATL if score ≥ 30 (conservative)
-Medium Risk: ATL if score ≥ 50 (standard)
-High Risk:   ATL if score ≥ 70 (focused)
+Low Priority:    Flagged if score ≥ 30 (conservative)
+Medium Priority: Flagged if score ≥ 50 (standard)
+High Priority:   Flagged if score ≥ 70 (focused)
 ```
 
 **Monotonicity Property:**
-Adding conjunctive clauses can only **shrink** ATL, never expand it!
+Adding conjunctive clauses can only **shrink** the Flagged set, never expand it!
 
 ```
 A ∧ B ⊆ A (always!)
@@ -43,7 +43,6 @@ A ∧ B ⊆ A (always!)
 
 **Bottom line:** Think mathematically about your classification rules. Indicator functions + piecewise partitions = rigorous, explainable decisions! 🧮
 
-🔵 Full guide with indicator functions, risk conditioning, and monotonicity proofs 👇 🔗 [Link to blog]
+🔵 Full guide with indicator functions, priority conditioning, and monotonicity proofs 👇 🔗 [Link to blog]
 
 #DataScience #Classification #RuleBased #IndicatorFunctions #MathematicalModeling #Thresholds #LearningBySharing #30DayChallenge #SughoshWrites
-

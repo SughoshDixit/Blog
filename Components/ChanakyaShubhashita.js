@@ -350,21 +350,21 @@ const BLOG_SPECIFIC_SHUBHASHITAS = {
   },
 
   // Data Science Day 23 - Label Post-Processing
-  'day-23-label-post-processing-partitioning-atl-vs-btl-mathematically': {
+  'day-23-label-post-processing-partitioning-flagged-vs-passed-mathematically': {
     sanskrit: 'सत्यं ब्रूयात् प्रियं ब्रूयात् न ब्रूयात् सत्यमप्रियम्।\nविभागः सत्यस्य मूलम्॥',
     transliteration: 'Satyaṃ brūyāt priyaṃ brūyāt na brūyāt satyamapriyam।\nVibhāgaḥ satyasya mūlam॥',
     translation: 'Speak the truth clearly. Division is the root of truth.',
-    meaning: 'Just as indicator functions create clear binary distinctions (1 or 0, ATL or BTL), wisdom comes from making precise classifications. Piecewise partitions ensure every entity belongs to exactly one category—no ambiguity, no overlap.',
+    meaning: 'Just as indicator functions create clear binary distinctions (1 or 0, Flagged or Passed), wisdom comes from making precise classifications. Piecewise partitions ensure every entity belongs to exactly one category—no ambiguity, no overlap.',
     reference: 'Chanakya Niti - Verse 4.13'
   },
   'label-post-processing': {
     sanskrit: 'सत्यं ब्रूयात् प्रियं ब्रूयात् न ब्रूयात् सत्यमप्रियम्।\nविभागः सत्यस्य मूलम्॥',
     transliteration: 'Satyaṃ brūyāt priyaṃ brūyāt na brūyāt satyamapriyam।\nVibhāgaḥ satyasya mūlam॥',
     translation: 'Speak the truth clearly. Division is the root of truth.',
-    meaning: 'Just as indicator functions create clear binary distinctions (1 or 0, ATL or BTL), wisdom comes from making precise classifications. Piecewise partitions ensure every entity belongs to exactly one category—no ambiguity, no overlap.',
+    meaning: 'Just as indicator functions create clear binary distinctions (1 or 0, Flagged or Passed), wisdom comes from making precise classifications. Piecewise partitions ensure every entity belongs to exactly one category—no ambiguity, no overlap.',
     reference: 'Chanakya Niti - Verse 4.13'
   },
-  'atl-btl': {
+  'flagged-passed': {
     sanskrit: 'सत्यं ब्रूयात् प्रियं ब्रूयात् न ब्रूयात् सत्यमप्रियम्।\nविभागः सत्यस्य मूलम्॥',
     transliteration: 'Satyaṃ brūyāt priyaṃ brūyāt na brūyāt satyamapriyam।\nVibhāgaḥ satyasya mūlam॥',
     translation: 'Speak the truth clearly. Division is the root of truth.',

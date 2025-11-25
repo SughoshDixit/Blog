@@ -31,20 +31,20 @@ LIGHT_GREEN = '#d4edda'
 LIGHT_YELLOW = '#fff3cd'
 LIGHT_PURPLE = '#e2d5f1'
 
-# --- Image 1: Prior by Segment ---
+# --- Image 1: Prior by Tier ---
 def create_prior_by_segment():
     width, height = 900, 600
     img = Image.new('RGB', (width, height), color='white')
     draw = ImageDraw.Draw(img)
     
-    draw.text((width//2, 30), "Prior Probabilities by Risk Segment", fill='black', font=font_large, anchor='mm')
+    draw.text((width//2, 30), "Prior Probabilities by Priority Tier", fill='black', font=font_large, anchor='mm')
     
     # Bar chart
     segments = [
-        ("HR", 0.30, RED),
-        ("MR", 0.10, ORANGE),
-        ("RR", 0.02, YELLOW),
-        ("NR", 0.001, GREEN),
+        ("Critical", 0.30, RED),
+        ("High", 0.10, ORANGE),
+        ("Standard", 0.02, YELLOW),
+        ("Baseline", 0.001, GREEN),
     ]
     
     bar_width = 120
@@ -78,30 +78,30 @@ def create_prior_by_segment():
                   fill=GRAY, font=font_tiny, anchor='mm')
     
     # Y-axis label
-    draw.text((60, base_y - max_height//2), "Fraud Rate", fill='black', font=font_medium, anchor='mm')
+    draw.text((60, base_y - max_height//2), "Anomaly Rate", fill='black', font=font_medium, anchor='mm')
     
     # Legend
     legend_y = 550
-    draw.text((width//2, legend_y), "Higher prior → Higher base expectation of fraud", 
+    draw.text((width//2, legend_y), "Higher prior → Higher base expectation of anomalies", 
               fill=GRAY, font=font_medium, anchor='mm')
     
     img.save('public/DS-24/prior_by_segment.png')
     print("Created: prior_by_segment.png")
 
-# --- Image 2: Cost by Segment ---
+# --- Image 2: Cost by Tier ---
 def create_cost_by_segment():
     width, height = 950, 650
     img = Image.new('RGB', (width, height), color='white')
     draw = ImageDraw.Draw(img)
     
-    draw.text((width//2, 30), "Misclassification Costs by Risk Segment", fill='black', font=font_large, anchor='mm')
+    draw.text((width//2, 30), "Misclassification Costs by Priority Tier", fill='black', font=font_large, anchor='mm')
     
     # Table-style visualization
     segments = [
-        ("HR", 10000, 50, 200, RED),
-        ("MR", 5000, 100, 50, ORANGE),
-        ("RR", 1000, 200, 5, YELLOW),
-        ("NR", 500, 500, 1, GREEN),
+        ("Critical", 10000, 50, 200, RED),
+        ("High", 5000, 100, 50, ORANGE),
+        ("Standard", 1000, 200, 5, YELLOW),
+        ("Baseline", 500, 500, 1, GREEN),
     ]
     
     table_x = 120
@@ -110,7 +110,7 @@ def create_cost_by_segment():
     col_widths = [100, 180, 180, 180, 200]
     
     # Headers
-    headers = ["Segment", "C₁₀ (Miss)", "C₀₁ (False+)", "Ratio", "Implication"]
+    headers = ["Tier", "C₁₀ (Miss)", "C₀₁ (False+)", "Ratio", "Implication"]
     x = table_x
     for i, header in enumerate(headers):
         draw.rectangle([(x, table_y), (x + col_widths[i], table_y + 40)],
@@ -195,13 +195,13 @@ def create_bayes_threshold():
     draw.line([(line_x, line_y), (line_x + line_width, line_y)], fill='black', width=3)
     draw.text((line_x, line_y + 25), "0", fill='black', font=font_medium, anchor='mm')
     draw.text((line_x + line_width, line_y + 25), "1", fill='black', font=font_medium, anchor='mm')
-    draw.text((line_x + line_width//2, line_y + 50), "P(Fraud | x)", fill='black', font=font_medium, anchor='mm')
+    draw.text((line_x + line_width//2, line_y + 50), "P(Anomaly | x)", fill='black', font=font_medium, anchor='mm')
     
     # Show different thresholds
     thresholds = [
         (0.5, "Standard\nτ = 0.50", GRAY, -60),
-        (0.02, "HR\nτ = 0.02", RED, -80),
-        (0.167, "RR\nτ = 0.17", YELLOW, -60),
+        (0.02, "Critical\nτ = 0.02", RED, -80),
+        (0.167, "Standard\nτ = 0.17", YELLOW, -60),
     ]
     
     for tau, label, color, offset in thresholds:
@@ -210,10 +210,10 @@ def create_bayes_threshold():
         draw.text((x, line_y + offset), label, fill=color, font=font_tiny, anchor='mm')
     
     # Regions
-    hr_x = line_x + int(line_width * 0.02)
-    draw.rectangle([(hr_x, line_y - 25), (line_x + line_width, line_y - 5)],
+    critical_x = line_x + int(line_width * 0.02)
+    draw.rectangle([(critical_x, line_y - 25), (line_x + line_width, line_y - 5)],
                    fill=LIGHT_RED, outline=RED, width=1)
-    draw.text(((hr_x + line_x + line_width)//2, line_y - 15), "HR flags all of this", 
+    draw.text(((critical_x + line_x + line_width)//2, line_y - 15), "Critical flags all of this", 
               fill=RED, font=font_tiny, anchor='mm')
     
     # Examples
@@ -221,9 +221,9 @@ def create_bayes_threshold():
     draw.text((width//2, example_y), "Example Calculations:", fill='black', font=font_medium, anchor='mm')
     
     examples = [
-        ("HR: C₀₁=$50, C₁₀=$10,000", "τ* = 50/(50+10000) = 0.005", RED),
-        ("MR: C₀₁=$100, C₁₀=$5,000", "τ* = 100/(100+5000) = 0.020", ORANGE),
-        ("NR: C₀₁=$500, C₁₀=$500", "τ* = 500/(500+500) = 0.500", GREEN),
+        ("Critical: C₀₁=$50, C₁₀=$10,000", "τ* = 50/(50+10000) = 0.005", RED),
+        ("High: C₀₁=$100, C₁₀=$5,000", "τ* = 100/(100+5000) = 0.020", ORANGE),
+        ("Baseline: C₀₁=$500, C₁₀=$500", "τ* = 500/(500+500) = 0.500", GREEN),
     ]
     
     for i, (desc, calc, color) in enumerate(examples):
@@ -235,20 +235,20 @@ def create_bayes_threshold():
     img.save('public/DS-24/bayes_threshold.png')
     print("Created: bayes_threshold.png")
 
-# --- Image 4: Per-Risk Thresholds ---
+# --- Image 4: Per-Tier Thresholds ---
 def create_per_risk_thresholds():
     width, height = 900, 650
     img = Image.new('RGB', (width, height), color='white')
     draw = ImageDraw.Draw(img)
     
-    draw.text((width//2, 30), "Per-Risk Thresholds: Labeling Impact", fill='black', font=font_large, anchor='mm')
+    draw.text((width//2, 30), "Per-Tier Thresholds: Labeling Impact", fill='black', font=font_large, anchor='mm')
     
     # Four horizontal bars showing different thresholds
     segments = [
-        ("HR", 0.005, RED, "Flag if P > 0.5%"),
-        ("MR", 0.020, ORANGE, "Flag if P > 2%"),
-        ("RR", 0.167, YELLOW, "Flag if P > 16.7%"),
-        ("NR", 0.500, GREEN, "Flag if P > 50%"),
+        ("Critical", 0.005, RED, "Flag if P > 0.5%"),
+        ("High", 0.020, ORANGE, "Flag if P > 2%"),
+        ("Standard", 0.167, YELLOW, "Flag if P > 16.7%"),
+        ("Baseline", 0.500, GREEN, "Flag if P > 50%"),
     ]
     
     bar_width = 600
@@ -269,11 +269,11 @@ def create_per_risk_thresholds():
         # Threshold position
         t_x = start_x + int(bar_width * threshold)
         
-        # BTL region (before threshold)
+        # Passed region (before threshold)
         draw.rectangle([(start_x, y), (t_x, y + bar_height)],
                        fill=LIGHT_BLUE, outline=None)
         
-        # ATL region (after threshold)
+        # Flagged region (after threshold)
         draw.rectangle([(t_x, y), (start_x + bar_width, y + bar_height)],
                        fill=color, outline=None)
         
@@ -291,7 +291,7 @@ def create_per_risk_thresholds():
     scale_y = start_y + 4 * 120
     draw.text((start_x, scale_y), "0", fill='black', font=font_small, anchor='mm')
     draw.text((start_x + bar_width, scale_y), "1", fill='black', font=font_small, anchor='mm')
-    draw.text((start_x + bar_width//2, scale_y + 20), "P(Fraud | x)", fill='black', font=font_medium, anchor='mm')
+    draw.text((start_x + bar_width//2, scale_y + 20), "P(Anomaly | x)", fill='black', font=font_medium, anchor='mm')
     
     # Key insight
     insight_y = 590
@@ -431,9 +431,9 @@ def create_iso_cost_lines():
     
     # Iso-cost lines with different slopes
     iso_lines = [
-        (0.1, RED, "HR: steep slope"),      # Low slope (C₁₀ >> C₀₁)
-        (1.0, ORANGE, "RR: 45° slope"),     # Equal costs
-        (5.0, GREEN, "NR: shallow slope"),  # High slope (C₀₁ >> C₁₀)
+        (0.1, RED, "Critical: steep"),      # Low slope (C₁₀ >> C₀₁)
+        (1.0, ORANGE, "Standard: 45°"),     # Equal costs
+        (5.0, GREEN, "Baseline: shallow"),  # High slope (C₀₁ >> C₁₀)
     ]
     
     for slope, color, label in iso_lines:
@@ -481,18 +481,18 @@ def create_iso_cost_lines():
     img.save('public/DS-24/iso_cost_lines.png')
     print("Created: iso_cost_lines.png")
 
-# --- Image 7: NR Handling ---
+# --- Image 7: Baseline Handling ---
 def create_nr_handling():
     width, height = 900, 650
     img = Image.new('RGB', (width, height), color='white')
     draw = ImageDraw.Draw(img)
     
-    draw.text((width//2, 30), "NR Handling: Special Case Strategies", fill='black', font=font_large, anchor='mm')
+    draw.text((width//2, 30), "Baseline Tier Handling: Special Case Strategies", fill='black', font=font_large, anchor='mm')
     
     # Three strategies
     strategies = [
         ("Strategy 1", "High Threshold", "τ = 0.90", "Only flag very high scores", ORANGE),
-        ("Strategy 2", "Bypass", "Skip scoring", "Auto-approve all NR", GREEN),
+        ("Strategy 2", "Bypass", "Skip scoring", "Auto-approve all Baseline", GREEN),
         ("Strategy 3", "Monitor Only", "Score but don't flag", "Track for analysis", BLUE),
     ]
     
@@ -533,14 +533,14 @@ def create_nr_handling():
         else:  # Monitor
             draw.text((x + box_width//2, icon_y + 7), "👁️ 📊", fill=BLUE, font=font_medium, anchor='mm')
     
-    # Why NR is special
+    # Why Baseline is special
     special_y = 350
     draw.rectangle([(100, special_y), (width - 100, special_y + 120)],
                    fill=LIGHT_GREEN, outline=GREEN, width=2)
-    draw.text((width//2, special_y + 20), "Why NR is Special:", fill=GREEN, font=font_medium, anchor='mm')
+    draw.text((width//2, special_y + 20), "Why Baseline Tier is Special:", fill=GREEN, font=font_medium, anchor='mm')
     
     reasons = [
-        "• Very low prior: π₁ ≈ 0.001 (1 in 1000 is fraud)",
+        "• Very low prior: π₁ ≈ 0.001 (1 in 1000 is anomaly)",
         "• Equal or inverted costs: C₀₁ ≥ C₁₀ (false positives hurt more)",
         "• Business rules: Pre-verified, trusted entities",
     ]
@@ -553,7 +553,7 @@ def create_nr_handling():
     draw.rectangle([(width//2 - 300, impact_y), (width//2 + 300, impact_y + 70)],
                    fill=LIGHT_YELLOW, outline=YELLOW, width=2)
     draw.text((width//2, impact_y + 20), "Impact on Labeling Geometry:", fill=ORANGE, font=font_medium, anchor='mm')
-    draw.text((width//2, impact_y + 45), "Different NR rules create discontinuities in decision boundaries", 
+    draw.text((width//2, impact_y + 45), "Different Baseline rules create discontinuities in decision boundaries", 
               fill=GRAY, font=font_small, anchor='mm')
     
     img.save('public/DS-24/nr_handling.png')
@@ -605,12 +605,12 @@ def create_gaussian_threshold():
     
     # Labels for curves
     draw.text((start_x + int(curve_width * mu0), center_y - curve_height - 20), 
-              "Class 0 (Not Fraud)", fill=BLUE, font=font_small, anchor='mm')
+              "Class 0 (Normal)", fill=BLUE, font=font_small, anchor='mm')
     draw.text((start_x + int(curve_width * mu0), center_y - curve_height - 5), 
               f"N(μ₀={mu0}, σ²)", fill=BLUE, font=font_tiny, anchor='mm')
     
     draw.text((start_x + int(curve_width * mu1), center_y - curve_height - 20), 
-              "Class 1 (Fraud)", fill=RED, font=font_small, anchor='mm')
+              "Class 1 (Anomaly)", fill=RED, font=font_small, anchor='mm')
     draw.text((start_x + int(curve_width * mu1), center_y - curve_height - 5), 
               f"N(μ₁={mu1}, σ²)", fill=RED, font=font_tiny, anchor='mm')
     
@@ -640,7 +640,7 @@ def create_gaussian_threshold():
     
     # Interpretation
     interp_y = 600
-    draw.text((width//2, interp_y), "When C₁₀ > C₀₁ (missing fraud is worse): threshold shifts LEFT → more flagging", 
+    draw.text((width//2, interp_y), "When C₁₀ > C₀₁ (missing anomaly is worse): threshold shifts LEFT → more flagging", 
               fill=RED, font=font_small, anchor='mm')
     draw.text((width//2, interp_y + 25), "When C₀₁ > C₁₀ (false alarms are worse): threshold shifts RIGHT → less flagging", 
               fill=BLUE, font=font_small, anchor='mm')
@@ -659,4 +659,3 @@ create_iso_cost_lines()
 create_nr_handling()
 create_gaussian_threshold()
 print("\nAll images for DS-24 created successfully!")
-
