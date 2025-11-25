@@ -349,6 +349,68 @@ const BLOG_SPECIFIC_SHUBHASHITAS = {
     reference: 'Arthashastra - Book 2, Chapter 11'
   },
 
+  // Data Science Day 23 - Label Post-Processing
+  'day-23-label-post-processing-partitioning-atl-vs-btl-mathematically': {
+    sanskrit: 'सत्यं ब्रूयात् प्रियं ब्रूयात् न ब्रूयात् सत्यमप्रियम्।\nविभागः सत्यस्य मूलम्॥',
+    transliteration: 'Satyaṃ brūyāt priyaṃ brūyāt na brūyāt satyamapriyam।\nVibhāgaḥ satyasya mūlam॥',
+    translation: 'Speak the truth clearly. Division is the root of truth.',
+    meaning: 'Just as indicator functions create clear binary distinctions (1 or 0, ATL or BTL), wisdom comes from making precise classifications. Piecewise partitions ensure every entity belongs to exactly one category—no ambiguity, no overlap.',
+    reference: 'Chanakya Niti - Verse 4.13'
+  },
+  'label-post-processing': {
+    sanskrit: 'सत्यं ब्रूयात् प्रियं ब्रूयात् न ब्रूयात् सत्यमप्रियम्।\nविभागः सत्यस्य मूलम्॥',
+    transliteration: 'Satyaṃ brūyāt priyaṃ brūyāt na brūyāt satyamapriyam।\nVibhāgaḥ satyasya mūlam॥',
+    translation: 'Speak the truth clearly. Division is the root of truth.',
+    meaning: 'Just as indicator functions create clear binary distinctions (1 or 0, ATL or BTL), wisdom comes from making precise classifications. Piecewise partitions ensure every entity belongs to exactly one category—no ambiguity, no overlap.',
+    reference: 'Chanakya Niti - Verse 4.13'
+  },
+  'atl-btl': {
+    sanskrit: 'सत्यं ब्रूयात् प्रियं ब्रूयात् न ब्रूयात् सत्यमप्रियम्।\nविभागः सत्यस्य मूलम्॥',
+    transliteration: 'Satyaṃ brūyāt priyaṃ brūyāt na brūyāt satyamapriyam।\nVibhāgaḥ satyasya mūlam॥',
+    translation: 'Speak the truth clearly. Division is the root of truth.',
+    meaning: 'Indicator functions and piecewise partitions provide mathematical precision in event classification. Clear distinctions eliminate ambiguity.',
+    reference: 'Chanakya Niti - Verse 4.13'
+  },
+
+  // Data Science Day 24 - Risk Segmentation
+  'day-24-risk-segmentation-hr-mr-rr-nr-as-priors-and-costs': {
+    sanskrit: 'विवेकः सर्वकार्येषु श्रेष्ठः।\nमूल्यं च कार्यस्य निर्णायकम्॥',
+    transliteration: 'Vivekaḥ sarvakāryeṣu śreṣṭhaḥ।\nMūlyaṃ ca kāryasya nirṇāyakam॥',
+    translation: 'Discrimination is best in all actions. Cost determines the outcome of action.',
+    meaning: 'Not all errors are equal—cost-sensitive thresholding teaches us to weigh decisions by their consequences. Just as the Bayes optimal threshold adapts to costs and priors, wisdom lies in making decisions that account for the true stakes involved.',
+    reference: 'Arthashastra - Book 7, Chapter 1'
+  },
+  'risk-segmentation': {
+    sanskrit: 'विवेकः सर्वकार्येषु श्रेष्ठः।\nमूल्यं च कार्यस्य निर्णायकम्॥',
+    transliteration: 'Vivekaḥ sarvakāryeṣu śreṣṭhaḥ।\nMūlyaṃ ca kāryasya nirṇāyakam॥',
+    translation: 'Discrimination is best in all actions. Cost determines the outcome of action.',
+    meaning: 'Cost-sensitive decisions account for the true stakes involved. Different risk segments deserve different thresholds based on their costs and priors.',
+    reference: 'Arthashastra - Book 7, Chapter 1'
+  },
+
+  // Data Science Day 25 - Configuration Pairing Logic
+  'day-25-configuration-pairing-logic-and-equivalence-classes': {
+    sanskrit: 'समानता दृश्यते तुलनेन, विभिन्नता च ज्ञायते।\nयुग्मं सामञ्जस्यस्य मूलम्॥',
+    transliteration: 'Samānatā dṛśyate tulanena, vibhinnatā ca jñāyate।\nYugmaṃ sāmañjasyasya mūlam॥',
+    translation: 'Similarity is seen through comparison, difference is known. Pairing is the root of harmony.',
+    meaning: 'Equivalence relations group complementary segments together, ensuring consistency across paired configurations. Just as bipartite matching creates perfect pairings, wisdom comes from recognizing natural complementary relationships and maintaining alignment between them.',
+    reference: 'Arthashastra - Book 1, Chapter 8'
+  },
+  'configuration-pairing': {
+    sanskrit: 'समानता दृश्यते तुलनेन, विभिन्नता च ज्ञायते।\nयुग्मं सामञ्जस्यस्य मूलम्॥',
+    transliteration: 'Samānatā dṛśyate tulanena, vibhinnatā ca jñāyate।\nYugmaṃ sāmañjasyasya mūlam॥',
+    translation: 'Similarity is seen through comparison, difference is known. Pairing is the root of harmony.',
+    meaning: 'Equivalence relations and bipartite matching ensure complementary segments work together harmoniously. Consistency across pairs is maintained through mapping functions.',
+    reference: 'Arthashastra - Book 1, Chapter 8'
+  },
+  'equivalence-classes': {
+    sanskrit: 'समानता दृश्यते तुलनेन, विभिन्नता च ज्ञायते।\nयुग्मं सामञ्जस्यस्य मूलम्॥',
+    transliteration: 'Samānatā dṛśyate tulanena, vibhinnatā ca jñāyate।\nYugmaṃ sāmañjasyasya mūlam॥',
+    translation: 'Similarity is seen through comparison, difference is known. Pairing is the root of harmony.',
+    meaning: 'Equivalence classes partition sets into natural groupings. Understanding these relationships ensures consistent treatment of related entities.',
+    reference: 'Arthashastra - Book 1, Chapter 8'
+  },
+
   // Blog Posts
   'gratitude-civilization': {
     sanskrit: 'कृतज्ञता सर्वेषु गुणेषु श्रेष्ठा।',
