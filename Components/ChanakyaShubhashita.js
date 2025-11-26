@@ -418,6 +418,59 @@ const BLOG_SPECIFIC_SHUBHASHITAS = {
     reference: 'Arthashastra - Book 1, Chapter 8'
   },
 
+  // Data Science Day 26 - Fuzzy Logic and T-Norms
+  'day-26-from-rules-to-fuzzy-logic-why-min-max-matters': {
+    sanskrit: 'अल्पानामपि वस्तूनां संहतिः कार्यसाधिका।\nतृणैर्गुणत्वमापन्नैर्बध्यन्ते मत्तदन्तिनः॥',
+    transliteration: 'Alpānāmapi vastūnāṃ saṃhatiḥ kāryasādhikā।\nTṛṇairguṇatvamāpannairbaddhyante mattadantinaḥ॥',
+    translation: 'Even small things, when combined, accomplish great tasks. With ropes made of grass, mighty elephants are bound.',
+    meaning: 'Just as min/max operators aggregate multiple weak conditions into a strong decision, the power of combination exceeds the sum of parts. The weakest link (min) determines the chain\'s strength, while the strongest element (max) lifts the whole. Unity in aggregation creates power.',
+    reference: 'Hitopadesha - Mitralābha, Verse 35'
+  },
+  'fuzzy-logic': {
+    sanskrit: 'अल्पानामपि वस्तूनां संहतिः कार्यसाधिका।\nतृणैर्गुणत्वमापन्नैर्बध्यन्ते मत्तदन्तिनः॥',
+    transliteration: 'Alpānāmapi vastūnāṃ saṃhatiḥ kāryasādhikā।\nTṛṇairguṇatvamāpannairbaddhyante mattadantinaḥ॥',
+    translation: 'Even small things, when combined, accomplish great tasks. With ropes made of grass, mighty elephants are bound.',
+    meaning: 'Fuzzy logic teaches us that partial truths, when properly aggregated using min/max or other t-norms, lead to robust decisions. The strength of combination lies in understanding how to merge conditions wisely.',
+    reference: 'Hitopadesha - Mitralābha, Verse 35'
+  },
+  't-norms': {
+    sanskrit: 'अल्पानामपि वस्तूनां संहतिः कार्यसाधिका।\nतृणैर्गुणत्वमापन्नैर्बध्यन्ते मत्तदन्तिनः॥',
+    transliteration: 'Alpānāmapi vastūnāṃ saṃhatiḥ kāryasādhikā।\nTṛṇairguṇatvamāpannairbaddhyante mattadantinaḥ॥',
+    translation: 'Even small things, when combined, accomplish great tasks. With ropes made of grass, mighty elephants are bound.',
+    meaning: 'T-norms generalize AND operations—minimum takes the conservative path of the weakest link, product multiplies uncertainties, and Łukasiewicz demands both conditions be strong. Choose your aggregation wisely.',
+    reference: 'Hitopadesha - Mitralābha, Verse 35'
+  },
+  'min-max': {
+    sanskrit: 'अल्पानामपि वस्तूनां संहतिः कार्यसाधिका।\nतृणैर्गुणत्वमापन्नैर्बध्यन्ते मत्तदन्तिनः॥',
+    transliteration: 'Alpānāmapi vastūnāṃ saṃhatiḥ kāryasādhikā।\nTṛṇairguṇatvamāpannairbaddhyante mattadantinaḥ॥',
+    translation: 'Even small things, when combined, accomplish great tasks. With ropes made of grass, mighty elephants are bound.',
+    meaning: 'Min/max operators provide idempotent, conservative aggregation. The minimum ensures the weakest condition bounds the result, while maximum ensures the strongest element prevails. Stability through simplicity.',
+    reference: 'Hitopadesha - Mitralābha, Verse 35'
+  },
+
+  // Data Science Day 27 - Quantile Stability and Small Samples
+  'day-27-quantile-stability-ties-and-small-samples': {
+    sanskrit: 'अल्पेनापि प्रमादेन सागरोऽपि विशुष्यति।\nसूक्ष्मेषु विचारः कार्यः, स्थिरता तत्र लभ्यते॥',
+    transliteration: 'Alpenāpi pramādena sāgaro\'pi viśuṣyati।\nSūkṣmeṣu vicāraḥ kāryaḥ, sthiratā tatra labhyate॥',
+    translation: 'Even the ocean dries up through small negligence. Care must be taken in subtle matters; stability is found there.',
+    meaning: 'Small samples and ties can destabilize quantile estimates just as small drops can drain an ocean. Careful handling of edge cases—interpolation methods, tie-breaking, sample size—ensures stable, repeatable thresholds.',
+    reference: 'Chanakya Niti - Verse 8.14'
+  },
+  'quantile-stability': {
+    sanskrit: 'अल्पेनापि प्रमादेन सागरोऽपि विशुष्यति।\nसूक्ष्मेषु विचारः कार्यः, स्थिरता तत्र लभ्यते॥',
+    transliteration: 'Alpenāpi pramādena sāgaro\'pi viśuṣyati।\nSūkṣmeṣu vicāraḥ kāryaḥ, sthiratā tatra labhyate॥',
+    translation: 'Even the ocean dries up through small negligence. Care must be taken in subtle matters; stability is found there.',
+    meaning: 'Quantile estimation requires attention to detail. Ties and small samples introduce subtle instabilities that can affect threshold repeatability if not handled carefully.',
+    reference: 'Chanakya Niti - Verse 8.14'
+  },
+  'small-samples': {
+    sanskrit: 'अल्पेनापि प्रमादेन सागरोऽपि विशुष्यति।\nसूक्ष्मेषु विचारः कार्यः, स्थिरता तत्र लभ्यते॥',
+    transliteration: 'Alpenāpi pramādena sāgaro\'pi viśuṣyati।\nSūkṣmeṣu vicāraḥ kāryaḥ, sthiratā tatra labhyate॥',
+    translation: 'Even the ocean dries up through small negligence. Care must be taken in subtle matters; stability is found there.',
+    meaning: 'Small samples require extra care in statistical estimation. What seems negligible at scale can cause significant variance in limited data.',
+    reference: 'Chanakya Niti - Verse 8.14'
+  },
+
   // Blog Posts
   'gratitude-civilization': {
     sanskrit: 'कृतज्ञता सर्वेषु गुणेषु श्रेष्ठा।',

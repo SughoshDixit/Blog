@@ -5,8 +5,6 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
   const [selected, setSelected] = useState({});
   const [dragIndex, setDragIndex] = useState(null);
   const [note, setNote] = useState("");
-  const [isSharing, setIsSharing] = useState(false);
-  const [shareUrl, setShareUrl] = useState("");
   const [takeawaySelection, setTakeawaySelection] = useState({});
   const printContainerRef = useRef(null);
   const storageKey = `printSummary:${title || "post"}`;
@@ -126,23 +124,6 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
     const imgs = allImages.filter((it) => selected[it.src]).map((it) => it.src);
     return { t: title, a: abstract, i: imgs, k: chosenTakeaways, n: note };
   };
-
-  const handleShare = async () => {
-    try {
-      const state = buildState();
-      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(state))));
-      const url = `${window.location.origin}${window.location.pathname}#summary=${encoded}`;
-      await navigator.clipboard.writeText(url);
-      setShareUrl(url);
-      setIsSharing(true);
-      setTimeout(() => setIsSharing(false), 3000);
-    } catch (e) {
-      setShareUrl("");
-      setIsSharing(true);
-      setTimeout(() => setIsSharing(false), 3000);
-    }
-  };
-
 
   const handleDownloadDoc = () => {
     const state = buildState();
@@ -291,14 +272,6 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
           aria-label="Download summary DOC"
         >
           Download Summary (DOC)
-        </button>
-        <button
-          type="button"
-          onClick={handleShare}
-          className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm"
-          aria-label="Share summary"
-        >
-          {isSharing ? "Sharing..." : "Share Summary"}
         </button>
       </div>
 
