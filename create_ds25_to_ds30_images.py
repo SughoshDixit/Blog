@@ -364,11 +364,9 @@ def create_ds27_images():
     # Header
     img, draw = create_header(27, "Quantile Stability", "Ties and Small Samples", BLUE)
     
-    # ECDF staircase
-    draw.text((600, 350), "ECDF: Step Function with Tie Plateaus", fill='white', font=font_medium, anchor='mm')
-    
+    # ECDF staircase - moved text below chart to avoid overlap
     # Simple staircase
-    steps = [(250, 500), (350, 450), (450, 450), (550, 400), (650, 350), (750, 300), (850, 250)]
+    steps = [(250, 500), (350, 450), (450, 400), (550, 350), (650, 300), (750, 260), (850, 230)]
     for i in range(len(steps) - 1):
         draw.line([steps[i], (steps[i+1][0], steps[i][1])], fill=YELLOW, width=3)
         draw.line([(steps[i+1][0], steps[i][1]), steps[i+1]], fill=YELLOW, width=3)
