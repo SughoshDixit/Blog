@@ -14,7 +14,6 @@ import Tldr from "./Tldr";
 import HypergeomCalculator from "./HypergeomCalculator";
 import PercentileThresholdTuner from "./PercentileThresholdTuner";
 import PrintSummary from "./PrintSummary";
-import KannadaTranslation from "./KannadaTranslation";
 
 const LOTTIE_ANIMATIONS = {
   boxplotIntro: "https://assets10.lottiefiles.com/packages/lf20_tutvdkg0.json",
@@ -480,9 +479,6 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
           />
         </div>
       )}
-
-      {/* Kannada Translation - Only for non-Data Science blogs */}
-      {data.Topic !== 'Data Science' && <KannadaTranslation />}
 
       {/* TL;DR */}
       <Tldr title={data.Title} abstract={data.Abstract} headings={headings} />
