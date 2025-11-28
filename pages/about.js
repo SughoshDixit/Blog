@@ -58,12 +58,12 @@ function about({ topics }) {
           
           {/* Tagline */}
           <p className="text-xl sm:text-2xl text-[#a8b2d1] mb-4 font-light">
-            <span className="text-[#64ffda]">Data Scientist</span> • <span className="text-[#ff6b6b]">Code Craftsman</span> • <span className="text-[#50fa7b]">Football Enthusiast</span>
+            <span className="text-[#64ffda]">Data Scientist</span> • <span className="text-[#ff6b6b]">Code Craftsman</span> • <span className="text-[#50fa7b]">Unapologetic Liverpool Fan</span>
           </p>
           
           <p className="text-lg text-[#8892b0] max-w-2xl mx-auto mb-8 leading-relaxed">
-            Building intelligent systems at Oracle by day, scoring goals on the pitch by evening. 
-            I believe the best insights come from combining <span className="text-[#bd93f9]">rigorous mathematics</span> with <span className="text-[#f1fa8c]">creative intuition</span>.
+            Building intelligent systems at Oracle by day, dissecting the "Beautiful Game" by night. 
+            I believe the best insights come from combining <span className="text-[#bd93f9]">rigorous mathematics</span> with the <span className="text-[#f1fa8c]">raw passion of football</span>.
           </p>
           
           {/* Quick Stats */}
@@ -141,7 +141,7 @@ function about({ topics }) {
                 </div>
                 
                 <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-                  From Boolean logic to fuzzy membership functions, I explore the mathematical foundations that power modern AI. 
+                  From <strong>Boolean logic</strong> to <strong>fuzzy membership functions</strong>, I explore the mathematical foundations that power modern AI. 
                   My 30-Day Challenge covers nonparametric statistics, robust methods, and real-world audit applications.
                 </p>
                 
@@ -183,8 +183,7 @@ function about({ topics }) {
                 </div>
                 
                 <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-                  Liverpool FC runs through my veins. Football teaches me what algorithms can't—the value of teamwork, 
-                  the art of reading the game, and the importance of never giving up. YNWA isn't just a song, it's a philosophy.
+                   Inspired by <strong>Jurgen Klopp's</strong> "Heavy Metal Football" and <strong>Steven Gerrard's</strong> leadership. I argue why Football is superior to the "Lazy Game" (Cricket) and how it teaches us about life, resilience, and unity.
                 </p>
                 
                 <div className="grid grid-cols-2 gap-4 mb-6">
@@ -199,12 +198,10 @@ function about({ topics }) {
                 </div>
                 
                 <a
-                  href="https://youtu.be/vX5sqN4Wl78"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/blogs/why-support-liverpool-fc-the-beautiful-game-vs-the-lazy-game"
                   className="inline-flex items-center gap-2 text-[#2d6a4f] font-semibold hover:gap-3 transition-all"
                 >
-                  Watch My Skills
+                  Read My Manifesto
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>

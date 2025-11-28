@@ -271,10 +271,10 @@ export default function Home({ blogs, topics }) {
                     className="text-4xl md:text-5xl lg:text-[56px] font-semibold leading-tight text-[#191919] dark:text-[#f8f6ff] mb-6 drop-shadow-[0_12px_32px_rgba(255,255,255,0.15)]"
                     style={{ fontFamily: "Charter, Georgia, serif" }}
                   >
-                    Stories on technology, data, and imagination.
+                    Where Logic Meets Passion: Data Science & The Beautiful Game
                   </h1>
                   <p className="text-lg md:text-xl text-[#615947] dark:text-[#c5cbe3] max-w-2xl leading-relaxed mb-10">
-                    Dive into thoughtful essays, data science breakdowns, and playful experiments. Fresh reads land here every week, crafted for curious builders and creative thinkers.
+                    Join me on a journey through the mathematical foundations of AI and the emotional rollercoaster of supporting Liverpool FC. A blog for those who calculate probabilities and those who believe in miracles.
                   </p>
                   <div className="flex flex-wrap gap-4">
                     <a
@@ -329,6 +329,55 @@ export default function Home({ blogs, topics }) {
                 )}
               </div>
             </div>
+          </section>
+
+          {/* What to Expect / Trailer Section */}
+          <section className="py-16 border-b border-[#e6dfd3] dark:border-[#141b2c] bg-white dark:bg-[#0b1221]">
+             <div className="max-w-7xl mx-auto px-4 md:px-8">
+                <div className="text-center mb-12">
+                   <h2 className="text-3xl md:text-4xl font-bold text-[#191919] dark:text-[#f5f7ff] mb-4" style={{ fontFamily: "Charter, Georgia, serif" }}>
+                      What's Inside The Chronicles?
+                   </h2>
+                   <p className="text-lg text-[#615947] dark:text-[#c5cbe3] max-w-2xl mx-auto">
+                      A unique blend of rigorous academics and raw emotion. Here is the trailer of what you can expect.
+                   </p>
+                </div>
+                
+                <div className="grid md:grid-cols-3 gap-8">
+                   {/* Data Science Card */}
+                   <div className="p-8 rounded-3xl bg-[#fdfaf5] dark:bg-[#10192e] border border-[#e6dfd3] dark:border-[#1b263d] hover:shadow-lg transition-all duration-300">
+                      <div className="w-14 h-14 rounded-2xl bg-[#e94560]/10 flex items-center justify-center text-3xl mb-6">
+                         📊
+                      </div>
+                      <h3 className="text-xl font-bold text-[#191919] dark:text-[#f5f7ff] mb-3">Deep Tech & Math</h3>
+                      <p className="text-[#615947] dark:text-[#c5cbe3] leading-relaxed">
+                         From <strong>Boolean Logic</strong> to <strong>Fuzzy Systems</strong>. I break down complex mathematical concepts that power modern AI. No hand-waving, just pure understanding.
+                      </p>
+                   </div>
+
+                   {/* Football Card */}
+                   <div className="p-8 rounded-3xl bg-[#fdfaf5] dark:bg-[#10192e] border border-[#e6dfd3] dark:border-[#1b263d] hover:shadow-lg transition-all duration-300">
+                      <div className="w-14 h-14 rounded-2xl bg-[#c9184a]/10 flex items-center justify-center text-3xl mb-6">
+                         ⚽
+                      </div>
+                      <h3 className="text-xl font-bold text-[#191919] dark:text-[#f5f7ff] mb-3">The Beautiful Game</h3>
+                      <p className="text-[#615947] dark:text-[#c5cbe3] leading-relaxed">
+                         Unapologetic love for <strong>Liverpool FC</strong>. Why football is the greatest sport, the philosophy of Klopp, and why I chose the "Beautiful Game" over the "Lazy Game" (Cricket).
+                      </p>
+                   </div>
+
+                   {/* Philosophy Card */}
+                   <div className="p-8 rounded-3xl bg-[#fdfaf5] dark:bg-[#10192e] border border-[#e6dfd3] dark:border-[#1b263d] hover:shadow-lg transition-all duration-300">
+                      <div className="w-14 h-14 rounded-2xl bg-[#bd93f9]/10 flex items-center justify-center text-3xl mb-6">
+                         🧘
+                      </div>
+                      <h3 className="text-xl font-bold text-[#191919] dark:text-[#f5f7ff] mb-3">Philosophy & Roots</h3>
+                      <p className="text-[#615947] dark:text-[#c5cbe3] leading-relaxed">
+                         Reflections on my Bharatiya heritage, Swami Vivekananda's wisdom, and how ancient values shape modern technological thinking.
+                      </p>
+                   </div>
+                </div>
+             </div>
           </section>
 
           {/* 30-Day Data Science Challenge Showcase */}
@@ -433,24 +482,24 @@ export default function Home({ blogs, topics }) {
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div>
                   <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-[#b7e4c7] text-sm font-semibold mb-6 backdrop-blur-sm">
-                    ⚽ BEYOND THE CODE
+                    ⚽ THE BEAUTIFUL GAME
                   </div>
                   <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6" style={{ fontFamily: "Charter, Georgia, serif" }}>
-                    The Beautiful Game
+                    More Than Just A Sport
                   </h2>
                   <p className="text-lg text-[#b7e4c7]/90 leading-relaxed mb-6">
-                    When I'm not crunching numbers or training models, you'll find me on the pitch. Football isn't just a sport—it's <span className="text-[#f1fa8c]">teamwork</span>, <span className="text-[#ff6b6b]">strategy</span>, and <span className="text-[#64ffda]">passion</span> rolled into 90 minutes.
+                    "Supporting Liverpool is not like supporting any ordinary club—it's a way of life."
                   </p>
                   <p className="text-base text-[#95d5b2]/80 leading-relaxed mb-8">
-                    Just like data science, football teaches you to read patterns, make quick decisions, and always keep improving. Whether it's a through ball or a throughput calculation—precision matters.
+                     Inspired by the passion of <strong>Jurgen Klopp</strong> and the leadership of <strong>Steven Gerrard</strong>, I explore why Football beats the "Lazy Game" (Cricket) every single time. It's about strategy, physical excellence, and the global unity of YNWA.
                   </p>
                   <div className="flex flex-wrap gap-4">
                     <a
-                      href="/blogs/liverpool-fc-the-beautiful-game"
+                      href="/blogs/why-support-liverpool-fc-the-beautiful-game-vs-the-lazy-game"
                       className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#c9184a] text-white font-semibold hover:bg-[#ff4d6d] transition-all duration-300 shadow-lg shadow-[#c9184a]/30"
                     >
                       <span>⚽</span>
-                      <span>Read About Liverpool</span>
+                      <span>Why Liverpool?</span>
                     </a>
                     <a
                       href="https://youtu.be/vX5sqN4Wl78"
