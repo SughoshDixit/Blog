@@ -2,7 +2,7 @@
 
 📅 Day 28 of my 30 Day Data Science Challenge — Data Preprocessing Impact
 
-Before rules can be evaluated, data must be clean. How you handle missing values changes everything!
+Chanakya says, "अद्भिर्गात्राणि शुध्यन्ति मनः सत्येन शुध्यति" (The body is cleansed by water, the mind is purified by truth). Just as purification is essential, data imputation cleanses raw inputs to reveal the true distribution!
 
 **The Problem:**
 Your pipeline receives:
