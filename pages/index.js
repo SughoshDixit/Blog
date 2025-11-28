@@ -331,6 +331,170 @@ export default function Home({ blogs, topics }) {
             </div>
           </section>
 
+          {/* 30-Day Data Science Challenge Showcase */}
+          <section className="relative overflow-hidden border-b border-[#e6dfd3] dark:border-[#141b2c]">
+            {/* Animated gradient background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] dark:from-[#0a0a14] dark:via-[#0d1525] dark:to-[#0a1628]"></div>
+            <div className="absolute inset-0 opacity-30">
+              <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#e94560]/20 rounded-full blur-[100px] animate-pulse"></div>
+              <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-[#0f3460]/40 rounded-full blur-[80px]"></div>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#533483]/15 rounded-full blur-[120px]"></div>
+            </div>
+            
+            {/* Grid pattern overlay */}
+            <div className="absolute inset-0 opacity-[0.03]" style={{backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '50px 50px'}}></div>
+            
+            <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-20">
+              <div className="text-center mb-12">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#e94560]/20 border border-[#e94560]/30 text-[#ff6b6b] text-sm font-semibold mb-6 backdrop-blur-sm">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#e94560] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ff6b6b]"></span>
+                  </span>
+                  FLAGSHIP SERIES
+                </div>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6" style={{ fontFamily: "Charter, Georgia, serif" }}>
+                  30-Day Data Science Challenge
+                </h2>
+                <p className="text-lg md:text-xl text-[#a8b2d1] max-w-3xl mx-auto leading-relaxed">
+                  A comprehensive journey through <span className="text-[#64ffda]">nonparametric statistics</span>, <span className="text-[#ff6b6b]">robust methods</span>, <span className="text-[#bd93f9]">fuzzy logic</span>, and <span className="text-[#f1fa8c]">sampling theory</span>. 
+                  From Boolean algebra to complete audit blueprints.
+                </p>
+              </div>
+
+              {/* Stats Grid */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                <div className="text-center p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 group">
+                  <div className="text-4xl md:text-5xl font-bold text-[#64ffda] mb-2 group-hover:scale-110 transition-transform">30</div>
+                  <div className="text-sm text-[#8892b0] uppercase tracking-wider">Days</div>
+                </div>
+                <div className="text-center p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 group">
+                  <div className="text-4xl md:text-5xl font-bold text-[#ff6b6b] mb-2 group-hover:scale-110 transition-transform">6</div>
+                  <div className="text-sm text-[#8892b0] uppercase tracking-wider">Pillars</div>
+                </div>
+                <div className="text-center p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 group">
+                  <div className="text-4xl md:text-5xl font-bold text-[#bd93f9] mb-2 group-hover:scale-110 transition-transform">100+</div>
+                  <div className="text-sm text-[#8892b0] uppercase tracking-wider">Formulas</div>
+                </div>
+                <div className="text-center p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 group">
+                  <div className="text-4xl md:text-5xl font-bold text-[#f1fa8c] mb-2 group-hover:scale-110 transition-transform">∞</div>
+                  <div className="text-sm text-[#8892b0] uppercase tracking-wider">Applications</div>
+                </div>
+              </div>
+
+              {/* Pillars Preview */}
+              <div className="grid md:grid-cols-3 gap-4 mb-12">
+                <div className="p-5 rounded-xl bg-gradient-to-br from-[#64ffda]/10 to-transparent border border-[#64ffda]/20 hover:border-[#64ffda]/40 transition-all duration-300">
+                  <div className="text-2xl mb-3">📊</div>
+                  <h3 className="text-lg font-semibold text-white mb-2">Nonparametric Statistics</h3>
+                  <p className="text-sm text-[#8892b0]">Percentiles, quantiles, KDE, and distribution-free methods</p>
+                </div>
+                <div className="p-5 rounded-xl bg-gradient-to-br from-[#ff6b6b]/10 to-transparent border border-[#ff6b6b]/20 hover:border-[#ff6b6b]/40 transition-all duration-300">
+                  <div className="text-2xl mb-3">🛡️</div>
+                  <h3 className="text-lg font-semibold text-white mb-2">Robust Methods</h3>
+                  <p className="text-sm text-[#8892b0]">MAD, adjusted boxplots, outlier detection, and safe ratios</p>
+                </div>
+                <div className="p-5 rounded-xl bg-gradient-to-br from-[#bd93f9]/10 to-transparent border border-[#bd93f9]/20 hover:border-[#bd93f9]/40 transition-all duration-300">
+                  <div className="text-2xl mb-3">🔮</div>
+                  <h3 className="text-lg font-semibold text-white mb-2">Fuzzy Logic</h3>
+                  <p className="text-sm text-[#8892b0]">T-norms, membership functions, and soft decision boundaries</p>
+                </div>
+              </div>
+
+              {/* CTA */}
+              <div className="text-center">
+                <a
+                  href="/blogs/day-1-boolean-logic-truth-tables-and-logical-operators"
+                  className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-[#e94560] to-[#ff6b6b] text-white font-semibold text-lg shadow-lg shadow-[#e94560]/30 hover:shadow-[#e94560]/50 hover:scale-105 transition-all duration-300"
+                >
+                  <span>Start the Challenge</span>
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </a>
+                <p className="mt-4 text-sm text-[#8892b0]">No prerequisites required • Start from Day 1</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Football & Life Section */}
+          <section className="relative overflow-hidden border-b border-[#e6dfd3] dark:border-[#141b2c]">
+            {/* Grass-like gradient with stadium feel */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#1b4332] via-[#2d6a4f] to-[#40916c] dark:from-[#081c15] dark:via-[#1b4332] dark:to-[#2d6a4f]"></div>
+            <div className="absolute inset-0 opacity-20">
+              <div className="absolute top-0 right-0 w-96 h-96 bg-[#b7e4c7]/30 rounded-full blur-[100px]"></div>
+              <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#95d5b2]/20 rounded-full blur-[80px]"></div>
+            </div>
+            
+            {/* Field lines pattern */}
+            <div className="absolute inset-0 opacity-[0.05]" style={{backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 100px, rgba(255,255,255,0.3) 100px, rgba(255,255,255,0.3) 102px)'}}></div>
+            
+            <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-16">
+              <div className="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-[#b7e4c7] text-sm font-semibold mb-6 backdrop-blur-sm">
+                    ⚽ BEYOND THE CODE
+                  </div>
+                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6" style={{ fontFamily: "Charter, Georgia, serif" }}>
+                    The Beautiful Game
+                  </h2>
+                  <p className="text-lg text-[#b7e4c7]/90 leading-relaxed mb-6">
+                    When I'm not crunching numbers or training models, you'll find me on the pitch. Football isn't just a sport—it's <span className="text-[#f1fa8c]">teamwork</span>, <span className="text-[#ff6b6b]">strategy</span>, and <span className="text-[#64ffda]">passion</span> rolled into 90 minutes.
+                  </p>
+                  <p className="text-base text-[#95d5b2]/80 leading-relaxed mb-8">
+                    Just like data science, football teaches you to read patterns, make quick decisions, and always keep improving. Whether it's a through ball or a throughput calculation—precision matters.
+                  </p>
+                  <div className="flex flex-wrap gap-4">
+                    <a
+                      href="/blogs/liverpool-fc-the-beautiful-game"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#c9184a] text-white font-semibold hover:bg-[#ff4d6d] transition-all duration-300 shadow-lg shadow-[#c9184a]/30"
+                    >
+                      <span>⚽</span>
+                      <span>Read About Liverpool</span>
+                    </a>
+                    <a
+                      href="https://youtu.be/vX5sqN4Wl78"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 border border-white/30 text-white font-semibold hover:bg-white/20 transition-all duration-300"
+                    >
+                      <span>▶️</span>
+                      <span>Watch My Skills</span>
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="relative">
+                  {/* Stylized football card */}
+                  <div className="relative rounded-3xl overflow-hidden border-2 border-white/20 shadow-2xl transform hover:scale-[1.02] transition-transform duration-500">
+                    <div className="aspect-video bg-gradient-to-br from-[#081c15] to-[#1b4332] flex items-center justify-center">
+                      <div className="text-center p-8">
+                        <div className="text-8xl mb-4 animate-bounce">⚽</div>
+                        <div className="text-2xl font-bold text-white mb-2">You'll Never Walk Alone</div>
+                        <div className="text-[#b7e4c7] text-sm">Liverpool FC • YNWA</div>
+                      </div>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 rounded-full bg-[#c9184a] flex items-center justify-center text-white font-bold text-xl">S</div>
+                        <div>
+                          <div className="text-white font-semibold">Sughosh Dixit</div>
+                          <div className="text-[#b7e4c7] text-sm">Midfielder • Data Scientist</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Floating stats */}
+                  <div className="absolute -top-4 -right-4 px-4 py-2 rounded-xl bg-[#c9184a] text-white font-bold shadow-lg transform rotate-3">
+                    🏆 Passionate
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* Reading Streak & Recently Viewed */}
           <section className="border-b border-[#e6dfd3] dark:border-[#141b2c]">
             <div className="max-w-7xl mx-auto px-4 md:px-8 py-12">
