@@ -198,7 +198,7 @@ function about({ topics }) {
                 </div>
                 
                 <a
-                  href="/blogs/why-support-liverpool-fc-the-beautiful-game-vs-the-lazy-game"
+                  href="https://sughoshblog.vercel.app/blogs/why-support-liverpool-f.c-the-beautiful-game-vs-the-lazy-game"
                   className="inline-flex items-center gap-2 text-[#2d6a4f] font-semibold hover:gap-3 transition-all"
                 >
                   Read My Manifesto

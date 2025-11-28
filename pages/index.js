@@ -495,7 +495,7 @@ export default function Home({ blogs, topics }) {
                   </p>
                   <div className="flex flex-wrap gap-4">
                     <a
-                      href="/blogs/why-support-liverpool-fc-the-beautiful-game-vs-the-lazy-game"
+                      href="https://sughoshblog.vercel.app/blogs/why-support-liverpool-f.c-the-beautiful-game-vs-the-lazy-game"
                       className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#c9184a] text-white font-semibold hover:bg-[#ff4d6d] transition-all duration-300 shadow-lg shadow-[#c9184a]/30"
                     >
                       <span>⚽</span>
