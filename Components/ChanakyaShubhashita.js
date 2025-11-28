@@ -471,6 +471,54 @@ const BLOG_SPECIFIC_SHUBHASHITAS = {
     reference: 'Chanakya Niti - Verse 8.14'
   },
 
+  // Data Science Day 28 - Robust Imputation and Numeric Coercion
+  'day-28-robust-imputation-and-numeric-coercion': {
+    sanskrit: 'अद्भिर्गात्राणि शुध्यन्ति मनः सत्येन शुध्यति।\nविद्यातपोभ्यां भूतात्मा बुद्धिर्ज्ञानेन शुध्यति॥',
+    transliteration: 'Adbhirgātrāṇi śudhyanti manaḥ satyena śudhyati।\nVidyātapobhyāṃ bhūtātmā buddhirjñānena śudhyati॥',
+    translation: 'The body is cleansed by water, the mind is purified by truth, the soul by learning and penance, and the intellect by knowledge.',
+    meaning: 'Just as purification is essential for the body and mind, robust imputation cleanses raw data. Replacing missing values and coercing types is the act of purifying data to reveal its true statistical nature before analysis begins.',
+    reference: 'Manusmriti 5.109 & Chanakya Niti 3.1'
+  },
+  'imputation': {
+    sanskrit: 'अद्भिर्गात्राणि शुध्यन्ति मनः सत्येन शुध्यति।',
+    transliteration: 'Adbhirgātrāṇi śudhyanti manaḥ satyena śudhyati।',
+    translation: 'The body is cleansed by water, the mind is purified by truth.',
+    meaning: 'Data imputation is the purification process for datasets. Handling missing values correctly ensures the integrity (truth) of downstream analysis.',
+    reference: 'Chanakya Niti 3.1'
+  },
+
+  // Data Science Day 29 - Stratified Audit Plan
+  'day-29-putting-it-all-together-stratified-audit-plan': {
+    sanskrit: 'मन्त्रमूलं हि राज्यम्।\nसुविचिन्त्य च यत्कृतं सुदीर्घकालेऽपि न नश्यति॥',
+    transliteration: 'Mantramūlaṃ hi rājyam।\nSuvicintya ca yatkṛtaṃ sudīrghakāle\'pi na naśyati॥',
+    translation: 'Strategy is the root of the kingdom. What is done after careful consideration does not perish even after a long time.',
+    meaning: 'A successful audit plan is rooted in strategy (mantra). Stratification, sample sizing, and threshold setting require careful design. A well-planned audit structure endures and yields reliable insights, unlike hasty, unstructured checks.',
+    reference: 'Arthashastra - Book 1, Chapter 15'
+  },
+  'audit-plan': {
+    sanskrit: 'सुविचिन्त्य च यत्कृतं सुदीर्घकालेऽपि न नश्यति।',
+    transliteration: 'Suvicintya ca yatkṛtaṃ sudīrghakāle\'pi na naśyati।',
+    translation: 'What is done after careful consideration does not perish even after a long time.',
+    meaning: 'Planning an audit requires foresight. Stratification and sampling design ensure that the results stand the test of scrutiny.',
+    reference: 'Chanakya Niti'
+  },
+
+  // Data Science Day 30 - Mathematical Blueprint
+  'day-30-mathematical-blueprint-scenario-calibration-summary': {
+    sanskrit: 'सर्वस्य सारं गृह्णीयात् पुष्पेभ्यः इव षट्पदः।\nतस्मात् सर्वप्रयत्नेन सारं विद्यां समाचरेत्॥',
+    transliteration: 'Sarvasya sāraṃ gṛhṇīyāt puṣpebhyaḥ iva ṣaṭpadaḥ।\nTasmāt sarvaprayatnena sāraṃ vidyāṃ samācaret॥',
+    translation: 'One should extract the essence from everything, just as a bee takes nectar from flowers. Therefore, with all effort, one should practice essential knowledge.',
+    meaning: 'Day 30 synthesizes the entire journey. Just as a bee collects the essence, this blueprint brings together nonparametrics, robust stats, sampling, and fuzzy logic into a cohesive whole. Grasping this essence is the ultimate goal of the challenge.',
+    reference: 'Chanakya Niti - Verse 1.14'
+  },
+  'blueprint': {
+    sanskrit: 'सर्वस्य सारं गृह्णीयात् पुष्पेभ्यः इव षट्पदः।',
+    transliteration: 'Sarvasya sāraṃ gṛhṇīyāt puṣpebhyaḥ iva ṣaṭpadaḥ।',
+    translation: 'One should extract the essence from everything, just as a bee takes nectar from flowers.',
+    meaning: 'A blueprint represents the essence of the system. It distills complex components into a clear, actionable structure.',
+    reference: 'Chanakya Niti - Verse 1.14'
+  },
+
   // Blog Posts
   'gratitude-civilization': {
     sanskrit: 'कृतज्ञता सर्वेषु गुणेषु श्रेष्ठा।',
