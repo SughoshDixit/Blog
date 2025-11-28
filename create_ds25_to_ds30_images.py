@@ -523,8 +523,8 @@ def create_ds28_images():
     # Header
     img, draw = create_header(28, "Robust Imputation", "Numeric Coercion and NA Handling", GREEN)
     
-    # Histogram silhouettes
-    draw.text((600, 350), "Before vs After Imputation", fill='white', font=font_medium, anchor='mm')
+    # Histogram silhouettes - text moved above to avoid overlap
+    draw.text((600, 280), "Before vs After Imputation", fill='white', font=font_medium, anchor='mm')
     
     # Simple histogram shapes
     bars1 = [(300, 480), (350, 450), (400, 400), (450, 420), (500, 460)]
