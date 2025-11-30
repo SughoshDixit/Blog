@@ -7,12 +7,12 @@ import { generateSlug } from "../Lib/utils";
 import { useState, useEffect } from "react";
 import { 
   FiTrendingUp, 
-  FiHeart, 
-  FiMessageCircle, 
+  FiClock, 
+  FiCheckCircle, 
   FiBookOpen, 
   FiBarChart2,
   FiUsers,
-  FiCalendar
+  FiEye
 } from "react-icons/fi";
 import dynamic from 'next/dynamic';
 import {
@@ -69,15 +69,18 @@ export default function Dashboard({ blogs, topics }) {
   const router = useRouter();
   const [isAdmin, setIsAdmin] = useState(false);
   const [analytics, setAnalytics] = useState({
-    totalLikes: 0,
-    totalComments: 0,
-    totalUsers: 0,
     totalVisits: 0,
+    avgReadTime: 0,
+    totalWords: 0,
+    totalUsers: 0,
     perPostVisits: {},
     topicStats: {},
     blogStats: [],
-    monthlyStats: [],
     users: []
+  });
+  const [personalStats, setPersonalStats] = useState({
+    readCount: 0,
+    streak: 0
   });
   const [loading, setLoading] = useState(true);
   const [usersSort, setUsersSort] = useState({ key: "lastSeen", dir: "desc" });
@@ -89,6 +92,13 @@ export default function Dashboard({ blogs, topics }) {
       const raw = localStorage.getItem("user");
       const user = raw ? JSON.parse(raw) : null;
       setIsAdmin(!!(user && user.email === "sughoshpdixit@gmail.com"));
+      
+      // Load personal stats
+      const history = JSON.parse(localStorage.getItem("readingHistory") || "[]");
+      setPersonalStats({
+        readCount: history.length,
+        streak: 0 // simplified for now, logic is in ReadingStreak component
+      });
     } catch (e) {
       setIsAdmin(false);
     }
@@ -99,108 +109,73 @@ export default function Dashboard({ blogs, topics }) {
       try {
         const publishedBlogs = blogs.filter(blog => blog.data.isPublished);
         const blogStats = [];
-        let totalLikes = 0;
-        let totalComments = 0;
         const topicStats = {};
-        const monthlyStats = {};
+        let totalVisits = 0;
+        let totalMinutes = 0;
+        let totalWords = 0;
+        let perPostVisits = {};
 
         // Fetch aggregate users and visits
         try {
           const visitsSnap = await fetch('/api/visits/summary').then(r=>r.json()).catch(()=>({ total: 0, perPost: {} }));
-          analytics.totalVisits = visitsSnap.total || 0;
-          analytics.perPostVisits = visitsSnap.perPost || {};
+          totalVisits = visitsSnap.total || 0;
+          perPostVisits = visitsSnap.perPost || {};
+          
           if (isAdmin) {
             const usersSnap = await fetch('/api/users/list').then(r=>r.json()).catch(()=>({ total: 0, users: [] }));
             analytics.totalUsers = usersSnap.total || 0;
             analytics.users = usersSnap.users || [];
-          } else {
-            analytics.totalUsers = 0;
-            analytics.users = [];
           }
-        } catch {}
+        } catch (err) {
+          console.error("Error fetching summary", err);
+        }
 
         // Process each blog
         for (const blog of publishedBlogs) {
           const blogId = generateSlug(blog.data.Title);
+          const visits = perPostVisits[blogId] || 0;
+          const minutes = blog.readTime?.minutes || 0;
+          const words = blog.readTime?.words || 0;
           
-          try {
-            // Fetch likes
-            const likesResponse = await fetch(`/api/likes/${blogId}`);
-            const likesData = await likesResponse.json();
-            const blogLikes = likesData.totalLikes || 0;
-            totalLikes += blogLikes;
+          totalMinutes += minutes;
+          totalWords += words;
 
-            // Fetch comments
-            const commentsResponse = await fetch(`/api/comments/${blogId}`);
-            const commentsData = await commentsResponse.json();
-            const blogComments = commentsData.comments?.length || 0;
-            totalComments += blogComments;
-
-            // Track topic stats
-            const topic = blog.data.Topic || 'Uncategorized';
-            if (!topicStats[topic]) {
-              topicStats[topic] = { blogs: 0, likes: 0, comments: 0 };
-            }
-            topicStats[topic].blogs += 1;
-            topicStats[topic].likes += blogLikes;
-            topicStats[topic].comments += blogComments;
-
-            // Track monthly stats (using blog creation date or current date)
-            const date = new Date();
-            const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-            if (!monthlyStats[monthKey]) {
-              monthlyStats[monthKey] = { blogs: 0, likes: 0, comments: 0 };
-            }
-            monthlyStats[monthKey].blogs += 1;
-            monthlyStats[monthKey].likes += blogLikes;
-            monthlyStats[monthKey].comments += blogComments;
-
-            blogStats.push({
-              id: blogId,
-              title: blog.data.Title,
-              topic: topic,
-              likes: blogLikes,
-              comments: blogComments,
-              readTime: blog.readTime?.text || 'Unknown',
-              author: blog.data.Author,
-              tags: blog.data.Tags?.split(' ').filter(Boolean) || []
-            });
-          } catch (error) {
-            console.error(`Error fetching data for blog ${blogId}:`, error);
-            // Add blog with zero stats if API fails
-            const topic = blog.data.Topic || 'Uncategorized';
-            if (!topicStats[topic]) {
-              topicStats[topic] = { blogs: 0, likes: 0, comments: 0 };
-            }
-            topicStats[topic].blogs += 1;
-
-            blogStats.push({
-              id: blogId,
-              title: blog.data.Title,
-              topic: topic,
-              likes: 0,
-              comments: 0,
-              readTime: blog.readTime?.text || 'Unknown',
-              author: blog.data.Author,
-              tags: blog.data.Tags?.split(' ').filter(Boolean) || []
-            });
+          // Track topic stats
+          const topic = blog.data.Topic || 'Uncategorized';
+          if (!topicStats[topic]) {
+            topicStats[topic] = { blogs: 0, visits: 0 };
           }
+          topicStats[topic].blogs += 1;
+          topicStats[topic].visits += visits;
+
+          blogStats.push({
+            id: blogId,
+            title: blog.data.Title,
+            topic: topic,
+            visits: visits,
+            readTime: blog.readTime?.text || 'Unknown',
+            minutes: minutes,
+            author: blog.data.Author,
+            tags: blog.data.Tags?.split(' ').filter(Boolean) || []
+          });
         }
 
-        // Sort blog stats by likes
-        blogStats.sort((a, b) => b.likes - a.likes);
+        // Sort blog stats by visits
+        blogStats.sort((a, b) => b.visits - a.visits);
 
-        setAnalytics({
-          totalLikes,
-          totalComments,
-          totalUsers: analytics.totalUsers || 0,
-          totalVisits: analytics.totalVisits || 0,
-          perPostVisits: analytics.perPostVisits || {},
+        const avgReadTime = publishedBlogs.length > 0 ? Math.round(totalMinutes / publishedBlogs.length) : 0;
+
+        setAnalytics(prev => ({
+          ...prev,
+          totalVisits,
+          perPostVisits,
           topicStats,
           blogStats,
-          monthlyStats,
-          users: analytics.users || []
-        });
+          avgReadTime,
+          totalWords,
+          totalUsers: isAdmin ? prev.totalUsers : 0,
+          users: isAdmin ? prev.users : []
+        }));
       } catch (error) {
         console.error('Error fetching analytics:', error);
       } finally {
@@ -212,14 +187,15 @@ export default function Dashboard({ blogs, topics }) {
   }, [blogs, isAdmin]);
 
   const topTopics = Object.entries(analytics.topicStats)
-    .sort(([,a], [,b]) => (b.likes + b.comments) - (a.likes + a.comments))
+    .sort(([,a], [,b]) => b.visits - a.visits)
     .slice(0, 5);
 
   const topBlogs = analytics.blogStats.slice(0, 5);
 
   // Chart data
-  const perPostLabels = analytics.blogStats.map(b => b.title);
-  const perPostData = analytics.blogStats.map(b => analytics.perPostVisits[b.id] || 0);
+  const perPostLabels = analytics.blogStats.slice(0, 10).map(b => b.title.length > 20 ? b.title.substring(0, 20) + '...' : b.title);
+  const perPostData = analytics.blogStats.slice(0, 10).map(b => b.visits);
+  
   const perPostChartData = {
     labels: perPostLabels,
     datasets: [
@@ -237,22 +213,15 @@ export default function Dashboard({ blogs, topics }) {
     labels: topTopics.map(([topic]) => topic),
     datasets: [
       {
-        label: 'Blogs',
-        data: topTopics.map(([, stats]) => stats.blogs),
+        label: 'Visits',
+        data: topTopics.map(([, stats]) => stats.visits),
         backgroundColor: 'rgba(99, 102, 241, 0.8)',
         borderColor: 'rgba(99, 102, 241, 1)',
         borderWidth: 1,
       },
       {
-        label: 'Likes',
-        data: topTopics.map(([, stats]) => stats.likes),
-        backgroundColor: 'rgba(239, 68, 68, 0.8)',
-        borderColor: 'rgba(239, 68, 68, 1)',
-        borderWidth: 1,
-      },
-      {
-        label: 'Comments',
-        data: topTopics.map(([, stats]) => stats.comments),
+        label: 'Blogs',
+        data: topTopics.map(([, stats]) => stats.blogs),
         backgroundColor: 'rgba(34, 197, 94, 0.8)',
         borderColor: 'rgba(34, 197, 94, 1)',
         borderWidth: 1,
@@ -323,7 +292,7 @@ export default function Dashboard({ blogs, topics }) {
     <>
       <Head>
         <title>Blog Analytics Dashboard</title>
-        <meta name="description" content="Analytics dashboard for blog performance, topics, likes, and comments" />
+        <meta name="description" content="Analytics dashboard for blog performance, topics, and readership" />
       </Head>
 
       <div className="min-h-screen relative bg-white dark:bg-gray-900 transition-all duration-300">
@@ -337,7 +306,7 @@ export default function Dashboard({ blogs, topics }) {
                 Analytics Dashboard
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                Track your blog performance, engagement metrics, and user insights in real-time.
+                Track performance, readership trends, and topic distribution in real-time.
               </p>
             </div>
           </div>
@@ -346,10 +315,10 @@ export default function Dashboard({ blogs, topics }) {
         <div className="py-8 px-4 md:px-8 mx-auto max-w-7xl">
           <div className="mb-8">
             <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-              Blog Analytics Dashboard
+              Overview
             </h1>
             <p className="text-gray-600 dark:text-gray-400">
-              Insights into your blog performance, topics, and engagement
+              Key metrics across all published content
             </p>
           </div>
 
@@ -371,13 +340,13 @@ export default function Dashboard({ blogs, topics }) {
 
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
               <div className="flex items-center">
-                <div className="p-3 rounded-full bg-red-100 dark:bg-red-900">
-                  <FiHeart className="h-6 w-6 text-red-600 dark:text-red-400" />
+                <div className="p-3 rounded-full bg-blue-100 dark:bg-blue-900">
+                  <FiEye className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                 </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Likes</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Reads</p>
                   <p className="text-2xl font-semibold text-gray-900 dark:text-white">
-                    {analytics.totalLikes}
+                    {analytics.totalVisits}
                   </p>
                 </div>
               </div>
@@ -386,12 +355,12 @@ export default function Dashboard({ blogs, topics }) {
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
               <div className="flex items-center">
                 <div className="p-3 rounded-full bg-green-100 dark:bg-green-900">
-                  <FiMessageCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+                  <FiCheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
                 </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Comments</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Your Reads</p>
                   <p className="text-2xl font-semibold text-gray-900 dark:text-white">
-                    {analytics.totalComments}
+                    {personalStats.readCount}
                   </p>
                 </div>
               </div>
@@ -400,42 +369,12 @@ export default function Dashboard({ blogs, topics }) {
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
               <div className="flex items-center">
                 <div className="p-3 rounded-full bg-purple-100 dark:bg-purple-900">
-                  <FiBarChart2 className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                  <FiClock className="h-6 w-6 text-purple-600 dark:text-purple-400" />
                 </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Topics Covered</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Avg. Read Time</p>
                   <p className="text-2xl font-semibold text-gray-900 dark:text-white">
-                    {Object.keys(analytics.topicStats).length}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {isAdmin && (
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
-                <div className="flex items-center">
-                  <div className="p-3 rounded-full bg-yellow-100 dark:bg-yellow-900">
-                    <FiUsers className="h-6 w-6 text-yellow-600 dark:text-yellow-400" />
-                  </div>
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Users</p>
-                    <p className="text-2xl font-semibold text-gray-900 dark:text-white">
-                      {analytics.totalUsers}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
-              <div className="flex items-center">
-                <div className="p-3 rounded-full bg-blue-100 dark:bg-blue-900">
-                  <FiTrendingUp className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Visits</p>
-                  <p className="text-2xl font-semibold text-gray-900 dark:text-white">
-                    {analytics.totalVisits}
+                    {analytics.avgReadTime} min
                   </p>
                 </div>
               </div>
@@ -446,14 +385,14 @@ export default function Dashboard({ blogs, topics }) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                Topic Performance
+                Topic Performance (Visits vs Count)
               </h3>
               <Bar data={topicChartData} options={chartOptions} />
             </div>
 
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                Topic Distribution
+                Content Distribution
               </h3>
               <Doughnut data={topicDoughnutData} options={doughnutOptions} />
             </div>
@@ -462,7 +401,7 @@ export default function Dashboard({ blogs, topics }) {
           {/* Per-Post Visits */}
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700 mb-8">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-              Visits by Blog Post
+              Top 10 Most Read Articles
             </h3>
             <Bar data={perPostChartData} options={chartOptions} />
           </div>
@@ -470,7 +409,7 @@ export default function Dashboard({ blogs, topics }) {
           {/* Top Blogs */}
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700 mb-8">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-              Top Performing Blogs
+              Most Popular Content
             </h3>
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -483,13 +422,10 @@ export default function Dashboard({ blogs, topics }) {
                       Topic
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                      Likes
+                      Reads
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                      Comments
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                      Read Time
+                      Length
                     </th>
                   </tr>
                 </thead>
@@ -522,14 +458,8 @@ export default function Dashboard({ blogs, topics }) {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
                         <div className="flex items-center">
-                          <FiHeart className="h-4 w-4 text-red-500 mr-1" />
-                          {blog.likes}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                        <div className="flex items-center">
-                          <FiMessageCircle className="h-4 w-4 text-green-500 mr-1" />
-                          {blog.comments}
+                          <FiEye className="h-4 w-4 text-blue-500 mr-1" />
+                          {blog.visits}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
@@ -545,7 +475,7 @@ export default function Dashboard({ blogs, topics }) {
           {/* Topic Stats */}
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-              Topic Statistics
+              Topic Breakdown
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {Object.entries(analytics.topicStats).map(([topic, stats]) => (
@@ -557,12 +487,8 @@ export default function Dashboard({ blogs, topics }) {
                       <span className="font-medium text-gray-900 dark:text-white">{stats.blogs}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Likes:</span>
-                      <span className="font-medium text-gray-900 dark:text-white">{stats.likes}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Comments:</span>
-                      <span className="font-medium text-gray-900 dark:text-white">{stats.comments}</span>
+                      <span className="text-gray-600 dark:text-gray-400">Total Reads:</span>
+                      <span className="font-medium text-gray-900 dark:text-white">{stats.visits}</span>
                     </div>
                   </div>
                 </div>
