@@ -452,16 +452,28 @@ export default function Home({ blogs, topics }) {
 
               {/* CTA */}
               <div className="text-center">
-                <a
-                  href="/blogs/day-1-boolean-logic-truth-tables-and-logical-operators"
-                  className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-[#e94560] to-[#ff6b6b] text-white font-semibold text-lg shadow-lg shadow-[#e94560]/30 hover:shadow-[#e94560]/50 hover:scale-105 transition-all duration-300"
-                >
-                  <span>Start the Challenge</span>
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </a>
-                <p className="mt-4 text-sm text-[#8892b0]">No prerequisites required • Start from Day 1</p>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <a
+                    href="/learning-path"
+                    className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-[#e94560] to-[#ff6b6b] text-white font-semibold text-lg shadow-lg shadow-[#e94560]/30 hover:shadow-[#e94560]/50 hover:scale-105 transition-all duration-300"
+                  >
+                    <span>View Learning Path</span>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                  <a
+                    href="/blogs/day-1-boolean-logic-to-numbers-and-as-min-or-as-max"
+                    className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white/10 border border-white/20 text-white font-semibold text-lg hover:bg-white/20 transition-all duration-300"
+                  >
+                    <span>Start Day 1</span>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </a>
+                </div>
+                <p className="mt-4 text-sm text-[#8892b0]">Track your progress • 6 Modules • No prerequisites required</p>
               </div>
             </div>
           </section>

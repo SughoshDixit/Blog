@@ -5,7 +5,7 @@ import { BiTerminal } from "react-icons/bi";
 import { HiSun, HiMoon } from "react-icons/hi";
 import { CgUserlane } from "react-icons/cg";
 import { AiOutlineGoogle } from "react-icons/ai";
-import { FiBarChart2, FiSearch, FiHome, FiBookmark, FiUser, FiList, FiTrendingUp, FiX } from "react-icons/fi";
+import { FiBarChart2, FiSearch, FiHome, FiBookmark, FiUser, FiList, FiTrendingUp, FiX, FiBookOpen } from "react-icons/fi";
 import { auth, provider } from "../Firebase/Firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { IoLogOutOutline } from "react-icons/io5";
@@ -169,6 +169,12 @@ function Navbar({ topics }) {
           {/* Right side - Actions */}
           <div className="flex items-center space-x-4">
             <div className="hidden lg:flex items-center space-x-6 text-sm text-[#645b4a] dark:text-[#d5dcf3]">
+              <Link href="/learning-path">
+                <a className="hover:text-[#1a8917] transition-colors flex items-center gap-1">
+                  <span>30-Day Challenge</span>
+                  <span className="px-1.5 py-0.5 text-[10px] font-bold bg-violet-100 dark:bg-violet-900 text-violet-700 dark:text-violet-300 rounded">NEW</span>
+                </a>
+              </Link>
               <Link href="/dashboard">
                 <a className="hover:text-[#1a8917] transition-colors">Dashboard</a>
               </Link>
@@ -342,6 +348,14 @@ function Navbar({ topics }) {
               <a className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
                 <FiList className="w-5 h-5" />
                 <span>Key Terms</span>
+              </a>
+            </Link>
+            
+            <Link href="/learning-path">
+              <a className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                <FiBookOpen className="w-5 h-5" />
+                <span>30-Day Challenge</span>
+                <span className="ml-auto inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-violet-100 dark:bg-violet-900 text-violet-800 dark:text-violet-200">New</span>
               </a>
             </Link>
             
