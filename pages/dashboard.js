@@ -87,7 +87,13 @@ export default function Dashboard({ blogs, topics }) {
 
   // Process blog dates for consistency histogram
   const consistencyData = useMemo(() => {
-    const publishedBlogs = blogs.filter(blog => blog.data.isPublished && blog.data.Date);
+    // Filter for posts from November 2025 onwards (30-Day Challenge start)
+    const challengeStartDate = new Date('2025-11-01');
+    const publishedBlogs = blogs.filter(blog => {
+      if (!blog.data.isPublished || !blog.data.Date) return false;
+      const postDate = new Date(blog.data.Date);
+      return postDate >= challengeStartDate;
+    });
     
     // Get date counts
     const dateCounts = {};
@@ -419,8 +425,8 @@ export default function Dashboard({ blogs, topics }) {
       title: {
         display: true,
         text: viewMode === 'daily' 
-          ? `Daily Posting Consistency (${consistencyData.postingDays} of ${consistencyData.totalDays} days)`
-          : 'Monthly Posting Overview',
+          ? `30-Day Challenge: ${consistencyData.postingDays} of ${consistencyData.totalDays} days posted`
+          : '30-Day Challenge Monthly Overview',
         font: {
           size: 16,
           weight: 'bold',
@@ -627,11 +633,12 @@ export default function Dashboard({ blogs, topics }) {
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                   <FiCalendar className="h-5 w-5 text-emerald-500" />
                   30-Day Challenge Consistency
+                  <span className="text-xs font-normal text-gray-500 dark:text-gray-400">(Nov 2025+)</span>
                 </h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                   {viewMode === 'daily' 
-                    ? 'Day-by-day posting streak visualization' 
-                    : 'Month-by-month posting overview'}
+                    ? 'Day-by-day posting streak for the Data Science Challenge' 
+                    : 'Monthly overview of challenge progress'}
                 </p>
               </div>
               <div className="flex items-center gap-3">
