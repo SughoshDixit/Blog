@@ -4,7 +4,7 @@ import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { getAllBlogPosts, getAllTopics } from "../Lib/Data";
 import { generateSlug } from "../Lib/utils";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { 
   FiTrendingUp, 
   FiClock, 
@@ -12,7 +12,9 @@ import {
   FiBookOpen, 
   FiBarChart2,
   FiUsers,
-  FiEye
+  FiEye,
+  FiDownload,
+  FiCalendar
 } from "react-icons/fi";
 import dynamic from 'next/dynamic';
 
@@ -80,6 +82,67 @@ export default function Dashboard({ blogs, topics }) {
   const [usersSort, setUsersSort] = useState({ key: "lastSeen", dir: "desc" });
   const [usersPage, setUsersPage] = useState(0);
   const pageSize = 10;
+  const consistencyChartRef = useRef(null);
+
+  // Process blog dates for consistency histogram
+  const consistencyData = useMemo(() => {
+    const publishedBlogs = blogs.filter(blog => blog.data.isPublished && blog.data.Date);
+    
+    // Get date counts
+    const dateCounts = {};
+    const monthCounts = {};
+    const dayOfWeekCounts = { 'Sun': 0, 'Mon': 0, 'Tue': 0, 'Wed': 0, 'Thu': 0, 'Fri': 0, 'Sat': 0 };
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    
+    publishedBlogs.forEach(blog => {
+      const date = new Date(blog.data.Date);
+      if (!isNaN(date.getTime())) {
+        // For daily view
+        const dateStr = date.toISOString().split('T')[0];
+        dateCounts[dateStr] = (dateCounts[dateStr] || 0) + 1;
+        
+        // For monthly view
+        const monthStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+        monthCounts[monthStr] = (monthCounts[monthStr] || 0) + 1;
+        
+        // For day of week
+        const dayOfWeek = dayNames[date.getDay()];
+        dayOfWeekCounts[dayOfWeek] += 1;
+      }
+    });
+    
+    // Sort months chronologically
+    const sortedMonths = Object.keys(monthCounts).sort();
+    const monthLabels = sortedMonths.map(m => {
+      const [year, month] = m.split('-');
+      const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      return `${monthNames[parseInt(month) - 1]} ${year}`;
+    });
+    const monthData = sortedMonths.map(m => monthCounts[m]);
+    
+    return {
+      dateCounts,
+      monthLabels,
+      monthData,
+      dayOfWeekCounts,
+      totalPosts: publishedBlogs.length,
+      dateRange: sortedMonths.length > 0 ? {
+        start: sortedMonths[0],
+        end: sortedMonths[sortedMonths.length - 1]
+      } : null
+    };
+  }, [blogs]);
+
+  // Download chart as image
+  const downloadChart = () => {
+    if (consistencyChartRef.current) {
+      const canvas = consistencyChartRef.current.canvas;
+      const link = document.createElement('a');
+      link.download = `posting-consistency-${new Date().toISOString().split('T')[0]}.png`;
+      link.href = canvas.toDataURL('image/png', 1.0);
+      link.click();
+    }
+  };
 
   useEffect(() => {
     try {
@@ -270,6 +333,111 @@ export default function Dashboard({ blogs, topics }) {
     },
   };
 
+  // Consistency chart data
+  const consistencyChartData = {
+    labels: consistencyData.monthLabels,
+    datasets: [
+      {
+        label: 'Posts Published',
+        data: consistencyData.monthData,
+        backgroundColor: 'rgba(16, 185, 129, 0.8)',
+        borderColor: 'rgba(16, 185, 129, 1)',
+        borderWidth: 2,
+        borderRadius: 6,
+        barThickness: 'flex',
+        maxBarThickness: 50,
+      },
+    ],
+  };
+
+  const consistencyChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: true,
+        text: 'Monthly Posting Consistency',
+        font: {
+          size: 16,
+          weight: 'bold',
+        },
+        color: '#374151',
+      },
+      tooltip: {
+        backgroundColor: 'rgba(17, 24, 39, 0.9)',
+        titleColor: '#fff',
+        bodyColor: '#fff',
+        padding: 12,
+        cornerRadius: 8,
+        callbacks: {
+          label: function(context) {
+            return `${context.parsed.y} post${context.parsed.y !== 1 ? 's' : ''} published`;
+          }
+        }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          stepSize: 1,
+          color: '#6B7280',
+        },
+        grid: {
+          color: 'rgba(107, 114, 128, 0.1)',
+        },
+        title: {
+          display: true,
+          text: 'Number of Posts',
+          color: '#6B7280',
+        }
+      },
+      x: {
+        ticks: {
+          color: '#6B7280',
+          maxRotation: 45,
+          minRotation: 45,
+        },
+        grid: {
+          display: false,
+        },
+      },
+    },
+  };
+
+  // Day of week chart data
+  const dayOfWeekChartData = {
+    labels: Object.keys(consistencyData.dayOfWeekCounts),
+    datasets: [
+      {
+        label: 'Posts by Day',
+        data: Object.values(consistencyData.dayOfWeekCounts),
+        backgroundColor: [
+          'rgba(239, 68, 68, 0.7)',
+          'rgba(245, 158, 11, 0.7)',
+          'rgba(16, 185, 129, 0.7)',
+          'rgba(59, 130, 246, 0.7)',
+          'rgba(139, 92, 246, 0.7)',
+          'rgba(236, 72, 153, 0.7)',
+          'rgba(107, 114, 128, 0.7)',
+        ],
+        borderColor: [
+          'rgba(239, 68, 68, 1)',
+          'rgba(245, 158, 11, 1)',
+          'rgba(16, 185, 129, 1)',
+          'rgba(59, 130, 246, 1)',
+          'rgba(139, 92, 246, 1)',
+          'rgba(236, 72, 153, 1)',
+          'rgba(107, 114, 128, 1)',
+        ],
+        borderWidth: 2,
+      },
+    ],
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen relative bg-white dark:bg-gray-900">
@@ -398,6 +566,98 @@ export default function Dashboard({ blogs, topics }) {
               Top 10 Most Read Articles
             </h3>
             <Bar data={perPostChartData} options={chartOptions} />
+          </div>
+
+          {/* Posting Consistency Histogram */}
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700 mb-8">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                  <FiCalendar className="h-5 w-5 text-emerald-500" />
+                  Posting Consistency
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                  Track your publishing rhythm over time
+                </p>
+              </div>
+              <button
+                onClick={downloadChart}
+                className="flex items-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg transition-colors shadow-sm"
+              >
+                <FiDownload className="h-4 w-4" />
+                <span>Download</span>
+              </button>
+            </div>
+
+            {/* Stats Summary */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              <div className="bg-emerald-50 dark:bg-emerald-900/20 rounded-lg p-4 text-center">
+                <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+                  {consistencyData.totalPosts}
+                </div>
+                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Total Posts</div>
+              </div>
+              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 text-center">
+                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                  {consistencyData.monthLabels.length}
+                </div>
+                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Active Months</div>
+              </div>
+              <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4 text-center">
+                <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+                  {consistencyData.monthData.length > 0 ? Math.max(...consistencyData.monthData) : 0}
+                </div>
+                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Best Month</div>
+              </div>
+              <div className="bg-amber-50 dark:bg-amber-900/20 rounded-lg p-4 text-center">
+                <div className="text-2xl font-bold text-amber-600 dark:text-amber-400">
+                  {consistencyData.monthData.length > 0 ? (consistencyData.totalPosts / consistencyData.monthLabels.length).toFixed(1) : 0}
+                </div>
+                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Avg/Month</div>
+              </div>
+            </div>
+
+            {/* Main Histogram Chart */}
+            <div className="h-80 mb-8">
+              <Bar 
+                ref={consistencyChartRef}
+                data={consistencyChartData} 
+                options={consistencyChartOptions} 
+              />
+            </div>
+
+            {/* Day of Week Distribution */}
+            <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+              <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">
+                Posting by Day of Week
+              </h4>
+              <div className="grid grid-cols-7 gap-2">
+                {Object.entries(consistencyData.dayOfWeekCounts).map(([day, count], index) => {
+                  const maxCount = Math.max(...Object.values(consistencyData.dayOfWeekCounts), 1);
+                  const intensity = count / maxCount;
+                  const bgColors = [
+                    'bg-red-500',
+                    'bg-amber-500',
+                    'bg-emerald-500',
+                    'bg-blue-500',
+                    'bg-purple-500',
+                    'bg-pink-500',
+                    'bg-gray-500',
+                  ];
+                  return (
+                    <div key={day} className="text-center">
+                      <div 
+                        className={`h-16 rounded-lg flex items-end justify-center pb-1 transition-all ${bgColors[index]}`}
+                        style={{ opacity: 0.3 + (intensity * 0.7) }}
+                      >
+                        <span className="text-white text-xs font-bold">{count}</span>
+                      </div>
+                      <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 font-medium">{day}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
 
           {/* Top Blogs */}
