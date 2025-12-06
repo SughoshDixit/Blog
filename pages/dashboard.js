@@ -89,14 +89,18 @@ export default function Dashboard({ blogs, topics }) {
   const consistencyData = useMemo(() => {
     // Filter for posts from November 2025 onwards (30-Day Challenge start)
     const challengeStartDate = new Date('2025-11-01');
+    const today = new Date();
+    today.setHours(23, 59, 59, 999); // End of today
+    
     const publishedBlogs = blogs.filter(blog => {
       if (!blog.data.isPublished || !blog.data.Date) return false;
       const postDate = new Date(blog.data.Date);
       return postDate >= challengeStartDate;
     });
     
-    // Get date counts
+    // Get date counts and blog titles per date
     const dateCounts = {};
+    const dateTitles = {};
     const monthCounts = {};
     
     publishedBlogs.forEach(blog => {
@@ -105,6 +109,8 @@ export default function Dashboard({ blogs, topics }) {
         // For daily view
         const dateStr = date.toISOString().split('T')[0];
         dateCounts[dateStr] = (dateCounts[dateStr] || 0) + 1;
+        if (!dateTitles[dateStr]) dateTitles[dateStr] = [];
+        dateTitles[dateStr].push(blog.data.Title);
         
         // For monthly view
         const monthStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
@@ -112,96 +118,119 @@ export default function Dashboard({ blogs, topics }) {
       }
     });
     
-    // Sort dates chronologically for daily view
-    const sortedDates = Object.keys(dateCounts).sort();
-    
-    // Generate all dates in range for the histogram (show gaps)
+    // Generate all dates from November 1, 2025 to TODAY (not just last post)
     let allDates = [];
     let dailyData = [];
-    let streakCount = 0;
+    let dailyTitles = [];
     let maxStreak = 0;
     let currentStreak = 0;
+    let tempStreak = 0;
     
-    if (sortedDates.length > 0) {
-      const startDate = new Date(sortedDates[0]);
-      const endDate = new Date(sortedDates[sortedDates.length - 1]);
+    const startDate = new Date(challengeStartDate);
+    const endDate = today;
+    
+    // Generate all dates from start to today
+    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+      const dateStr = d.toISOString().split('T')[0];
+      allDates.push(dateStr);
+      const count = dateCounts[dateStr] || 0;
+      dailyData.push(count);
+      dailyTitles.push(dateTitles[dateStr] || []);
       
-      // Generate all dates from start to end
-      for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-        const dateStr = d.toISOString().split('T')[0];
-        allDates.push(dateStr);
-        const count = dateCounts[dateStr] || 0;
-        dailyData.push(count);
-        
-        // Calculate streak
-        if (count > 0) {
-          currentStreak++;
-          maxStreak = Math.max(maxStreak, currentStreak);
-        } else {
-          currentStreak = 0;
-        }
+      // Calculate max streak
+      if (count > 0) {
+        tempStreak++;
+        maxStreak = Math.max(maxStreak, tempStreak);
+      } else {
+        tempStreak = 0;
       }
-      
-      // Calculate current streak from the end
-      currentStreak = 0;
-      for (let i = dailyData.length - 1; i >= 0; i--) {
-        if (dailyData[i] > 0) {
-          currentStreak++;
-        } else {
-          break;
-        }
-      }
-      streakCount = currentStreak;
     }
     
-    // Format daily labels (show day number or short date)
-    const dailyLabels = allDates.map((d, i) => {
+    // Calculate current streak from today backwards
+    currentStreak = 0;
+    for (let i = dailyData.length - 1; i >= 0; i--) {
+      if (dailyData[i] > 0) {
+        currentStreak++;
+      } else {
+        break;
+      }
+    }
+    
+    // Format daily labels with weekday
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const dailyLabels = allDates.map((d) => {
       const date = new Date(d);
       return `${date.getDate()}/${date.getMonth() + 1}`;
     });
     
-    // Sort months chronologically for monthly view
-    const sortedMonths = Object.keys(monthCounts).sort();
-    const monthLabels = sortedMonths.map(m => {
+    // Generate all months from Nov 2025 to current month
+    const allMonths = [];
+    const allMonthData = [];
+    let monthDate = new Date(challengeStartDate);
+    while (monthDate <= today) {
+      const monthStr = `${monthDate.getFullYear()}-${String(monthDate.getMonth() + 1).padStart(2, '0')}`;
+      allMonths.push(monthStr);
+      allMonthData.push(monthCounts[monthStr] || 0);
+      monthDate.setMonth(monthDate.getMonth() + 1);
+    }
+    
+    const monthLabels = allMonths.map(m => {
       const [year, month] = m.split('-');
       const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       return `${monthNames[parseInt(month) - 1]} ${year}`;
     });
-    const monthData = sortedMonths.map(m => monthCounts[m]);
     
-    // Calculate posting days vs total days
+    // Calculate stats
     const postingDays = Object.keys(dateCounts).length;
     const totalDays = allDates.length;
     const consistencyRate = totalDays > 0 ? Math.round((postingDays / totalDays) * 100) : 0;
+    const missedDays = totalDays - postingDays;
+    const avgPostsPerWeek = totalDays >= 7 ? ((publishedBlogs.length / totalDays) * 7).toFixed(1) : publishedBlogs.length;
     
     return {
       dateCounts,
+      dateTitles,
       allDates,
       dailyLabels,
       dailyData,
+      dailyTitles,
       monthLabels,
-      monthData,
+      monthData: allMonthData,
       totalPosts: publishedBlogs.length,
       postingDays,
       totalDays,
+      missedDays,
       consistencyRate,
       maxStreak,
-      currentStreak: streakCount,
-      dateRange: sortedDates.length > 0 ? {
-        start: sortedDates[0],
-        end: sortedDates[sortedDates.length - 1]
-      } : null
+      currentStreak,
+      avgPostsPerWeek,
+      dateRange: {
+        start: challengeStartDate.toISOString().split('T')[0],
+        end: today.toISOString().split('T')[0]
+      }
     };
   }, [blogs]);
 
-  // Download chart as image
-  const downloadChart = () => {
-    if (consistencyChartRef.current) {
-      const canvas = consistencyChartRef.current.canvas;
-      const link = document.createElement('a');
-      link.download = `posting-consistency-${viewMode}-${new Date().toISOString().split('T')[0]}.png`;
-      link.href = canvas.toDataURL('image/png', 1.0);
-      link.click();
+  // Download chart as image - using html2canvas approach
+  const downloadChart = async () => {
+    const chartContainer = document.getElementById('consistency-chart-container');
+    if (chartContainer) {
+      try {
+        // Use html2canvas if available, otherwise use chart's built-in method
+        if (consistencyChartRef.current) {
+          const chart = consistencyChartRef.current;
+          const base64Image = chart.toBase64Image('image/png', 1.0);
+          const link = document.createElement('a');
+          link.download = `30-day-challenge-${viewMode}-${new Date().toISOString().split('T')[0]}.png`;
+          link.href = base64Image;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+      } catch (error) {
+        console.error('Download failed:', error);
+        alert('Download failed. Please try taking a screenshot instead.');
+      }
     }
   };
 
@@ -434,28 +463,41 @@ export default function Dashboard({ blogs, topics }) {
         color: '#374151',
       },
       tooltip: {
-        backgroundColor: 'rgba(17, 24, 39, 0.9)',
+        backgroundColor: 'rgba(17, 24, 39, 0.95)',
         titleColor: '#fff',
         bodyColor: '#fff',
-        padding: 12,
+        padding: 14,
         cornerRadius: 8,
+        displayColors: false,
         callbacks: {
           title: function(context) {
             if (viewMode === 'daily') {
               const idx = context[0].dataIndex;
               const dateStr = consistencyData.allDates[idx];
-              return new Date(dateStr).toLocaleDateString('en-US', { 
-                weekday: 'short', 
+              const dayNum = idx + 1;
+              return `Day ${dayNum} — ${new Date(dateStr).toLocaleDateString('en-US', { 
+                weekday: 'long', 
                 month: 'short', 
                 day: 'numeric',
                 year: 'numeric'
-              });
+              })}`;
             }
             return context[0].label;
           },
           label: function(context) {
             const val = context.parsed.y;
-            if (val === 0) return '❌ No post';
+            if (viewMode === 'daily') {
+              const idx = context.dataIndex;
+              const titles = consistencyData.dailyTitles[idx] || [];
+              if (val === 0) return '❌ No post published';
+              const lines = [`✅ ${val} post${val !== 1 ? 's' : ''} published:`];
+              titles.forEach(t => {
+                const shortTitle = t.length > 40 ? t.substring(0, 40) + '...' : t;
+                lines.push(`  • ${shortTitle}`);
+              });
+              return lines;
+            }
+            if (val === 0) return '❌ No posts this month';
             return `✅ ${val} post${val !== 1 ? 's' : ''} published`;
           }
         }
@@ -676,36 +718,42 @@ export default function Dashboard({ blogs, topics }) {
             </div>
 
             {/* Stats Summary */}
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
-              <div className="bg-emerald-50 dark:bg-emerald-900/20 rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+              <div className="bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-4 text-center border border-emerald-100 dark:border-emerald-800/30">
+                <div className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">
                   {consistencyData.totalPosts}
                 </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Total Posts</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 font-medium">Total Posts</div>
               </div>
-              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                  {consistencyData.postingDays}
+              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 text-center border border-blue-100 dark:border-blue-800/30">
+                <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                  {consistencyData.postingDays}<span className="text-lg text-blue-400 dark:text-blue-500">/{consistencyData.totalDays}</span>
                 </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Posting Days</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 font-medium">Days Posted</div>
               </div>
-              <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+              <div className="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-4 text-center border border-purple-100 dark:border-purple-800/30">
+                <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">
                   {consistencyData.consistencyRate}%
                 </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Consistency</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 font-medium">Consistency Rate</div>
               </div>
-              <div className="bg-amber-50 dark:bg-amber-900/20 rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-amber-600 dark:text-amber-400">
-                  {consistencyData.maxStreak}
+              <div className="bg-amber-50 dark:bg-amber-900/20 rounded-xl p-4 text-center border border-amber-100 dark:border-amber-800/30">
+                <div className="text-3xl font-bold text-amber-600 dark:text-amber-400">
+                  {consistencyData.maxStreak} 🔥
                 </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Best Streak 🔥</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 font-medium">Best Streak</div>
               </div>
-              <div className="bg-rose-50 dark:bg-rose-900/20 rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-rose-600 dark:text-rose-400">
+              <div className="bg-rose-50 dark:bg-rose-900/20 rounded-xl p-4 text-center border border-rose-100 dark:border-rose-800/30">
+                <div className="text-3xl font-bold text-rose-600 dark:text-rose-400">
                   {consistencyData.currentStreak}
                 </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Current Streak</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 font-medium">Current Streak</div>
+              </div>
+              <div className="bg-gray-50 dark:bg-gray-700/30 rounded-xl p-4 text-center border border-gray-200 dark:border-gray-600/30">
+                <div className="text-3xl font-bold text-gray-600 dark:text-gray-400">
+                  {consistencyData.missedDays}
+                </div>
+                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 font-medium">Missed Days</div>
               </div>
             </div>
 
@@ -724,7 +772,7 @@ export default function Dashboard({ blogs, topics }) {
             )}
 
             {/* Main Histogram Chart */}
-            <div className={viewMode === 'daily' ? 'h-96' : 'h-80'}>
+            <div id="consistency-chart-container" className={viewMode === 'daily' ? 'h-96' : 'h-80'}>
               <Bar 
                 ref={consistencyChartRef}
                 data={consistencyChartData} 
@@ -734,16 +782,27 @@ export default function Dashboard({ blogs, topics }) {
 
             {/* Date Range Info */}
             {consistencyData.dateRange && (
-              <div className="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
-                Tracking from{' '}
-                <span className="font-medium text-gray-700 dark:text-gray-300">
-                  {new Date(consistencyData.dateRange.start).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                </span>
-                {' '}to{' '}
-                <span className="font-medium text-gray-700 dark:text-gray-300">
-                  {new Date(consistencyData.dateRange.end).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                </span>
-                {' '}({consistencyData.totalDays} days)
+              <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-sm">
+                  <div className="text-gray-600 dark:text-gray-400">
+                    <span className="font-semibold text-gray-800 dark:text-gray-200">Challenge Period:</span>{' '}
+                    <span className="font-medium text-emerald-600 dark:text-emerald-400">
+                      {new Date(consistencyData.dateRange.start).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </span>
+                    {' → '}
+                    <span className="font-medium text-blue-600 dark:text-blue-400">
+                      {new Date(consistencyData.dateRange.end).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-4 text-xs">
+                    <span className="px-2 py-1 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 rounded-full font-medium">
+                      {consistencyData.totalDays} total days
+                    </span>
+                    <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-full font-medium">
+                      ~{consistencyData.avgPostsPerWeek} posts/week
+                    </span>
+                  </div>
+                </div>
               </div>
             )}
           </div>
