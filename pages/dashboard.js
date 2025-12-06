@@ -211,26 +211,32 @@ export default function Dashboard({ blogs, topics }) {
     };
   }, [blogs]);
 
-  // Download chart as image - using html2canvas approach
-  const downloadChart = async () => {
-    const chartContainer = document.getElementById('consistency-chart-container');
-    if (chartContainer) {
-      try {
-        // Use html2canvas if available, otherwise use chart's built-in method
-        if (consistencyChartRef.current) {
-          const chart = consistencyChartRef.current;
-          const base64Image = chart.toBase64Image('image/png', 1.0);
-          const link = document.createElement('a');
-          link.download = `30-day-challenge-${viewMode}-${new Date().toISOString().split('T')[0]}.png`;
-          link.href = base64Image;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        }
-      } catch (error) {
-        console.error('Download failed:', error);
-        alert('Download failed. Please try taking a screenshot instead.');
+  // Download chart as image
+  const downloadChart = () => {
+    try {
+      // Find the canvas element inside the chart container
+      const chartContainer = document.getElementById('consistency-chart-container');
+      if (!chartContainer) {
+        alert('Chart not found. Please try again.');
+        return;
       }
+      
+      const canvas = chartContainer.querySelector('canvas');
+      if (!canvas) {
+        alert('Canvas not found. Please try again.');
+        return;
+      }
+      
+      // Create download link
+      const link = document.createElement('a');
+      link.download = `30-day-challenge-${viewMode}-${new Date().toISOString().split('T')[0]}.png`;
+      link.href = canvas.toDataURL('image/png', 1.0);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Download failed:', error);
+      alert('Download failed: ' + error.message);
     }
   };
 
