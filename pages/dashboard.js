@@ -460,8 +460,8 @@ export default function Dashboard({ blogs, topics }) {
       title: {
         display: true,
         text: viewMode === 'daily' 
-          ? `30-Day Challenge: ${consistencyData.postingDays} of ${consistencyData.totalDays} days posted`
-          : '30-Day Challenge Monthly Overview',
+          ? `🔥 ${consistencyData.maxStreak}-Day Streak Achieved!`
+          : `${consistencyData.totalPosts} Posts Published`,
         font: {
           size: 16,
           weight: 'bold',
