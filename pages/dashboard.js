@@ -83,6 +83,7 @@ export default function Dashboard({ blogs, topics }) {
   const [usersPage, setUsersPage] = useState(0);
   const pageSize = 10;
   const consistencyChartRef = useRef(null);
+  const [viewMode, setViewMode] = useState('daily'); // 'daily' or 'monthly'
 
   // Process blog dates for consistency histogram
   const consistencyData = useMemo(() => {
@@ -91,8 +92,6 @@ export default function Dashboard({ blogs, topics }) {
     // Get date counts
     const dateCounts = {};
     const monthCounts = {};
-    const dayOfWeekCounts = { 'Sun': 0, 'Mon': 0, 'Tue': 0, 'Wed': 0, 'Thu': 0, 'Fri': 0, 'Sat': 0 };
-    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     
     publishedBlogs.forEach(blog => {
       const date = new Date(blog.data.Date);
@@ -104,14 +103,58 @@ export default function Dashboard({ blogs, topics }) {
         // For monthly view
         const monthStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
         monthCounts[monthStr] = (monthCounts[monthStr] || 0) + 1;
-        
-        // For day of week
-        const dayOfWeek = dayNames[date.getDay()];
-        dayOfWeekCounts[dayOfWeek] += 1;
       }
     });
     
-    // Sort months chronologically
+    // Sort dates chronologically for daily view
+    const sortedDates = Object.keys(dateCounts).sort();
+    
+    // Generate all dates in range for the histogram (show gaps)
+    let allDates = [];
+    let dailyData = [];
+    let streakCount = 0;
+    let maxStreak = 0;
+    let currentStreak = 0;
+    
+    if (sortedDates.length > 0) {
+      const startDate = new Date(sortedDates[0]);
+      const endDate = new Date(sortedDates[sortedDates.length - 1]);
+      
+      // Generate all dates from start to end
+      for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+        const dateStr = d.toISOString().split('T')[0];
+        allDates.push(dateStr);
+        const count = dateCounts[dateStr] || 0;
+        dailyData.push(count);
+        
+        // Calculate streak
+        if (count > 0) {
+          currentStreak++;
+          maxStreak = Math.max(maxStreak, currentStreak);
+        } else {
+          currentStreak = 0;
+        }
+      }
+      
+      // Calculate current streak from the end
+      currentStreak = 0;
+      for (let i = dailyData.length - 1; i >= 0; i--) {
+        if (dailyData[i] > 0) {
+          currentStreak++;
+        } else {
+          break;
+        }
+      }
+      streakCount = currentStreak;
+    }
+    
+    // Format daily labels (show day number or short date)
+    const dailyLabels = allDates.map((d, i) => {
+      const date = new Date(d);
+      return `${date.getDate()}/${date.getMonth() + 1}`;
+    });
+    
+    // Sort months chronologically for monthly view
     const sortedMonths = Object.keys(monthCounts).sort();
     const monthLabels = sortedMonths.map(m => {
       const [year, month] = m.split('-');
@@ -120,15 +163,27 @@ export default function Dashboard({ blogs, topics }) {
     });
     const monthData = sortedMonths.map(m => monthCounts[m]);
     
+    // Calculate posting days vs total days
+    const postingDays = Object.keys(dateCounts).length;
+    const totalDays = allDates.length;
+    const consistencyRate = totalDays > 0 ? Math.round((postingDays / totalDays) * 100) : 0;
+    
     return {
       dateCounts,
+      allDates,
+      dailyLabels,
+      dailyData,
       monthLabels,
       monthData,
-      dayOfWeekCounts,
       totalPosts: publishedBlogs.length,
-      dateRange: sortedMonths.length > 0 ? {
-        start: sortedMonths[0],
-        end: sortedMonths[sortedMonths.length - 1]
+      postingDays,
+      totalDays,
+      consistencyRate,
+      maxStreak,
+      currentStreak: streakCount,
+      dateRange: sortedDates.length > 0 ? {
+        start: sortedDates[0],
+        end: sortedDates[sortedDates.length - 1]
       } : null
     };
   }, [blogs]);
@@ -138,7 +193,7 @@ export default function Dashboard({ blogs, topics }) {
     if (consistencyChartRef.current) {
       const canvas = consistencyChartRef.current.canvas;
       const link = document.createElement('a');
-      link.download = `posting-consistency-${new Date().toISOString().split('T')[0]}.png`;
+      link.download = `posting-consistency-${viewMode}-${new Date().toISOString().split('T')[0]}.png`;
       link.href = canvas.toDataURL('image/png', 1.0);
       link.click();
     }
@@ -333,19 +388,23 @@ export default function Dashboard({ blogs, topics }) {
     },
   };
 
-  // Consistency chart data
+  // Consistency chart data - switches between daily and monthly
   const consistencyChartData = {
-    labels: consistencyData.monthLabels,
+    labels: viewMode === 'daily' ? consistencyData.dailyLabels : consistencyData.monthLabels,
     datasets: [
       {
         label: 'Posts Published',
-        data: consistencyData.monthData,
-        backgroundColor: 'rgba(16, 185, 129, 0.8)',
-        borderColor: 'rgba(16, 185, 129, 1)',
-        borderWidth: 2,
-        borderRadius: 6,
-        barThickness: 'flex',
-        maxBarThickness: 50,
+        data: viewMode === 'daily' ? consistencyData.dailyData : consistencyData.monthData,
+        backgroundColor: viewMode === 'daily' 
+          ? consistencyData.dailyData.map(v => v > 0 ? 'rgba(16, 185, 129, 0.9)' : 'rgba(239, 68, 68, 0.3)')
+          : 'rgba(16, 185, 129, 0.8)',
+        borderColor: viewMode === 'daily'
+          ? consistencyData.dailyData.map(v => v > 0 ? 'rgba(16, 185, 129, 1)' : 'rgba(239, 68, 68, 0.5)')
+          : 'rgba(16, 185, 129, 1)',
+        borderWidth: viewMode === 'daily' ? 1 : 2,
+        borderRadius: viewMode === 'daily' ? 2 : 6,
+        barThickness: viewMode === 'daily' ? 'flex' : 'flex',
+        maxBarThickness: viewMode === 'daily' ? 20 : 50,
       },
     ],
   };
@@ -359,7 +418,9 @@ export default function Dashboard({ blogs, topics }) {
       },
       title: {
         display: true,
-        text: 'Monthly Posting Consistency',
+        text: viewMode === 'daily' 
+          ? `Daily Posting Consistency (${consistencyData.postingDays} of ${consistencyData.totalDays} days)`
+          : 'Monthly Posting Overview',
         font: {
           size: 16,
           weight: 'bold',
@@ -373,8 +434,23 @@ export default function Dashboard({ blogs, topics }) {
         padding: 12,
         cornerRadius: 8,
         callbacks: {
+          title: function(context) {
+            if (viewMode === 'daily') {
+              const idx = context[0].dataIndex;
+              const dateStr = consistencyData.allDates[idx];
+              return new Date(dateStr).toLocaleDateString('en-US', { 
+                weekday: 'short', 
+                month: 'short', 
+                day: 'numeric',
+                year: 'numeric'
+              });
+            }
+            return context[0].label;
+          },
           label: function(context) {
-            return `${context.parsed.y} post${context.parsed.y !== 1 ? 's' : ''} published`;
+            const val = context.parsed.y;
+            if (val === 0) return '❌ No post';
+            return `✅ ${val} post${val !== 1 ? 's' : ''} published`;
           }
         }
       }
@@ -391,51 +467,27 @@ export default function Dashboard({ blogs, topics }) {
         },
         title: {
           display: true,
-          text: 'Number of Posts',
+          text: 'Posts',
           color: '#6B7280',
-        }
+        },
+        max: viewMode === 'daily' ? Math.max(2, Math.max(...(consistencyData.dailyData || [1])) + 1) : undefined,
       },
       x: {
         ticks: {
           color: '#6B7280',
-          maxRotation: 45,
-          minRotation: 45,
+          maxRotation: viewMode === 'daily' ? 90 : 45,
+          minRotation: viewMode === 'daily' ? 90 : 45,
+          font: {
+            size: viewMode === 'daily' ? 9 : 11,
+          },
+          autoSkip: viewMode === 'daily',
+          maxTicksLimit: viewMode === 'daily' ? 31 : undefined,
         },
         grid: {
           display: false,
         },
       },
     },
-  };
-
-  // Day of week chart data
-  const dayOfWeekChartData = {
-    labels: Object.keys(consistencyData.dayOfWeekCounts),
-    datasets: [
-      {
-        label: 'Posts by Day',
-        data: Object.values(consistencyData.dayOfWeekCounts),
-        backgroundColor: [
-          'rgba(239, 68, 68, 0.7)',
-          'rgba(245, 158, 11, 0.7)',
-          'rgba(16, 185, 129, 0.7)',
-          'rgba(59, 130, 246, 0.7)',
-          'rgba(139, 92, 246, 0.7)',
-          'rgba(236, 72, 153, 0.7)',
-          'rgba(107, 114, 128, 0.7)',
-        ],
-        borderColor: [
-          'rgba(239, 68, 68, 1)',
-          'rgba(245, 158, 11, 1)',
-          'rgba(16, 185, 129, 1)',
-          'rgba(59, 130, 246, 1)',
-          'rgba(139, 92, 246, 1)',
-          'rgba(236, 72, 153, 1)',
-          'rgba(107, 114, 128, 1)',
-        ],
-        borderWidth: 2,
-      },
-    ],
   };
 
   if (loading) {
@@ -570,27 +622,54 @@ export default function Dashboard({ blogs, topics }) {
 
           {/* Posting Consistency Histogram */}
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700 mb-8">
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                   <FiCalendar className="h-5 w-5 text-emerald-500" />
-                  Posting Consistency
+                  30-Day Challenge Consistency
                 </h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                  Track your publishing rhythm over time
+                  {viewMode === 'daily' 
+                    ? 'Day-by-day posting streak visualization' 
+                    : 'Month-by-month posting overview'}
                 </p>
               </div>
-              <button
-                onClick={downloadChart}
-                className="flex items-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg transition-colors shadow-sm"
-              >
-                <FiDownload className="h-4 w-4" />
-                <span>Download</span>
-              </button>
+              <div className="flex items-center gap-3">
+                {/* View Toggle */}
+                <div className="flex bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+                  <button
+                    onClick={() => setViewMode('daily')}
+                    className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all ${
+                      viewMode === 'daily'
+                        ? 'bg-white dark:bg-gray-600 text-emerald-600 dark:text-emerald-400 shadow-sm'
+                        : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                    }`}
+                  >
+                    Daily
+                  </button>
+                  <button
+                    onClick={() => setViewMode('monthly')}
+                    className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all ${
+                      viewMode === 'monthly'
+                        ? 'bg-white dark:bg-gray-600 text-emerald-600 dark:text-emerald-400 shadow-sm'
+                        : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                    }`}
+                  >
+                    Monthly
+                  </button>
+                </div>
+                <button
+                  onClick={downloadChart}
+                  className="flex items-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg transition-colors shadow-sm"
+                >
+                  <FiDownload className="h-4 w-4" />
+                  <span className="hidden sm:inline">Download</span>
+                </button>
+              </div>
             </div>
 
             {/* Stats Summary */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
               <div className="bg-emerald-50 dark:bg-emerald-900/20 rounded-lg p-4 text-center">
                 <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
                   {consistencyData.totalPosts}
@@ -599,26 +678,46 @@ export default function Dashboard({ blogs, topics }) {
               </div>
               <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 text-center">
                 <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                  {consistencyData.monthLabels.length}
+                  {consistencyData.postingDays}
                 </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Active Months</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Posting Days</div>
               </div>
               <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4 text-center">
                 <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-                  {consistencyData.monthData.length > 0 ? Math.max(...consistencyData.monthData) : 0}
+                  {consistencyData.consistencyRate}%
                 </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Best Month</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Consistency</div>
               </div>
               <div className="bg-amber-50 dark:bg-amber-900/20 rounded-lg p-4 text-center">
                 <div className="text-2xl font-bold text-amber-600 dark:text-amber-400">
-                  {consistencyData.monthData.length > 0 ? (consistencyData.totalPosts / consistencyData.monthLabels.length).toFixed(1) : 0}
+                  {consistencyData.maxStreak}
                 </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Avg/Month</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Best Streak 🔥</div>
+              </div>
+              <div className="bg-rose-50 dark:bg-rose-900/20 rounded-lg p-4 text-center">
+                <div className="text-2xl font-bold text-rose-600 dark:text-rose-400">
+                  {consistencyData.currentStreak}
+                </div>
+                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Current Streak</div>
               </div>
             </div>
 
+            {/* Legend for Daily View */}
+            {viewMode === 'daily' && (
+              <div className="flex items-center justify-center gap-6 mb-4 text-sm">
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded bg-emerald-500"></div>
+                  <span className="text-gray-600 dark:text-gray-400">Posted</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded bg-red-300"></div>
+                  <span className="text-gray-600 dark:text-gray-400">Missed</span>
+                </div>
+              </div>
+            )}
+
             {/* Main Histogram Chart */}
-            <div className="h-80 mb-8">
+            <div className={viewMode === 'daily' ? 'h-96' : 'h-80'}>
               <Bar 
                 ref={consistencyChartRef}
                 data={consistencyChartData} 
@@ -626,38 +725,20 @@ export default function Dashboard({ blogs, topics }) {
               />
             </div>
 
-            {/* Day of Week Distribution */}
-            <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
-              <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">
-                Posting by Day of Week
-              </h4>
-              <div className="grid grid-cols-7 gap-2">
-                {Object.entries(consistencyData.dayOfWeekCounts).map(([day, count], index) => {
-                  const maxCount = Math.max(...Object.values(consistencyData.dayOfWeekCounts), 1);
-                  const intensity = count / maxCount;
-                  const bgColors = [
-                    'bg-red-500',
-                    'bg-amber-500',
-                    'bg-emerald-500',
-                    'bg-blue-500',
-                    'bg-purple-500',
-                    'bg-pink-500',
-                    'bg-gray-500',
-                  ];
-                  return (
-                    <div key={day} className="text-center">
-                      <div 
-                        className={`h-16 rounded-lg flex items-end justify-center pb-1 transition-all ${bgColors[index]}`}
-                        style={{ opacity: 0.3 + (intensity * 0.7) }}
-                      >
-                        <span className="text-white text-xs font-bold">{count}</span>
-                      </div>
-                      <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 font-medium">{day}</div>
-                    </div>
-                  );
-                })}
+            {/* Date Range Info */}
+            {consistencyData.dateRange && (
+              <div className="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                Tracking from{' '}
+                <span className="font-medium text-gray-700 dark:text-gray-300">
+                  {new Date(consistencyData.dateRange.start).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                </span>
+                {' '}to{' '}
+                <span className="font-medium text-gray-700 dark:text-gray-300">
+                  {new Date(consistencyData.dateRange.end).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                </span>
+                {' '}({consistencyData.totalDays} days)
               </div>
-            </div>
+            )}
           </div>
 
           {/* Top Blogs */}
