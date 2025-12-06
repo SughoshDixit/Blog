@@ -15,34 +15,38 @@ import {
   FiEye
 } from "react-icons/fi";
 import dynamic from 'next/dynamic';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement,
-  PointElement,
-  LineElement,
-} from 'chart.js';
 
 // Dynamically import charts to avoid SSR issues with Next 12
 const Bar = dynamic(() => import('react-chartjs-2').then(m => m.Bar), { ssr: false });
 const Doughnut = dynamic(() => import('react-chartjs-2').then(m => m.Doughnut), { ssr: false });
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement,
-  PointElement,
-  LineElement,
-);
+// Register Chart.js components only on client side
+if (typeof window !== 'undefined') {
+  const {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+    ArcElement,
+    PointElement,
+    LineElement,
+  } = require('chart.js');
+  
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+    ArcElement,
+    PointElement,
+    LineElement,
+  );
+}
 
 export const getStaticProps = () => {
   const allBlogs = getAllBlogPosts();
