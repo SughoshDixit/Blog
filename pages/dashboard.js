@@ -22,29 +22,19 @@ const Doughnut = dynamic(() => import('react-chartjs-2').then(m => m.Doughnut), 
 
 // Register Chart.js components only on client side
 if (typeof window !== 'undefined') {
-  const {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend,
-    ArcElement,
-    PointElement,
-    LineElement,
-  } = require('chart.js');
+  const chartjs = require('chart.js');
+  const ChartJS = chartjs.Chart;
   
   ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend,
-    ArcElement,
-    PointElement,
-    LineElement,
+    chartjs.CategoryScale,
+    chartjs.LinearScale,
+    chartjs.BarElement,
+    chartjs.Title,
+    chartjs.Tooltip,
+    chartjs.Legend,
+    chartjs.ArcElement,
+    chartjs.PointElement,
+    chartjs.LineElement,
   );
 }
 
