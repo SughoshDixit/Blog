@@ -10,37 +10,34 @@ HeaderImage: /DS-6/skewness_kurtosis_concept.png
 isPublished: true
 ---
 
-# **Day 6 — Distribution Shape: Skewness and Kurtosis (Simple Guide + Visuals)** 📊✨
+# **Day 6 — Distribution Shape: Skewness and Kurtosis (Simple Guide + Visuals)**
 
 <div style={{textAlign: 'center', margin: '2rem 0'}}>
-  <div id="lottie-shape" style={{width: '200px', height: '200px', margin: '0 auto'}}></div>
-  <p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Understanding distribution shape! 📈</p>
-</div>
 
-> 💡 **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
+<p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Understanding distribution shape! </p>
+
+>  **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
 
 ---
 
-## 🎯 Introduction
-
+## Introduction
 While mean and variance tell us about the center and spread of data, [skewness](/key) and [kurtosis](/key) reveal the shape of the distribution. Understanding these shape features helps us choose appropriate methods for outlier detection, binning, and modeling.
 
 **TL;DR:**
 
-📈 [Skewness](/key) tells you if data lean left or right (asymmetry). ↩️↪️
+[Skewness](/key) tells you if data lean left or right (asymmetry). ↩↪
 
-🦘 [Kurtosis](/key) tells you how heavy the tails are (how many extremes you see).
+[Kurtosis](/key) tells you how heavy the tails are (how many extremes you see).
 
-🎭 Two datasets can share the same mean and variance but look completely different — shape features reveal the hidden story.
+Two datasets can share the same mean and variance but look completely different — shape features reveal the hidden story.
 
-✅ Knowing shape helps you choose better [outlier](/key) rules, bins, and models.
+Knowing shape helps you choose better [outlier](/key) rules, bins, and models.
 
 ![Skewness & Kurtosis Concept](/DS-6/skewness_kurtosis_concept.png)
 
 ---
 
-## 1️⃣ What "shape features" mean 🧠
-
+## 1. What "shape features" mean
 The mean says where your data live.
 
 The variance says how spread out they are.
@@ -49,9 +46,9 @@ But the shape — captured by skewness and kurtosis — says what personality yo
 
 Think of:
 
-🎢 **Skewness** = tilt or lean
+**Skewness** = tilt or lean
 
-🪶 **Kurtosis** = tail weight (heaviness of extremes)
+**Kurtosis** = tail weight (heaviness of extremes)
 
 Same center + same spread ≠ same shape.
 
@@ -61,31 +58,26 @@ One can be tall and thin, another flat and wide, another lopsided — and each t
 
 ---
 
-## 2️⃣ [Skewness](/key) = Asymmetry ↩️↪️
-
+## 2. [Skewness](/key) = Asymmetry ↩↪
 <div style={{textAlign: 'center', margin: '1.5rem 0'}}>
-  <div id="lottie-visualization-skew" style={{width: '180px', height: '180px', margin: '0 auto'}}></div>
-</div>
 
-➡️ **Positive skew (right-skewed):** long tail to the right — a few large values pull the distribution.
+**Positive skew (right-skewed):** long tail to the right — a few large values pull the distribution.
 
-⬅️ **Negative skew (left-skewed):** long tail to the left — a few small values drag it down.
+**Negative skew (left-skewed):** long tail to the left — a few small values drag it down.
 
-🔁 **Near zero skew:** roughly symmetric.
+**Near zero skew:** roughly symmetric.
 
 **Quick mental check:**
+* Mean > Median → Right skew
+* Mean < Median → Left skew
 
-* Mean > Median → Right skew 🙂
-* Mean < Median → Left skew 🙃
-
-🧮 **How it's computed (idea):**
+**How it's computed (idea):**
 
 Skewness measures the average signed distance of points from the mean, scaled by their spread.
 
 You don't need to calculate it manually — just know it quantifies tilt.
 
-💡 **Where it matters:**
-
+**Where it matters:**
 * Amounts, durations, and counts are often right-skewed.
 * Strong skew breaks "normality" assumptions and messes with classical z-scores.
 
@@ -93,26 +85,22 @@ You don't need to calculate it manually — just know it quantifies tilt.
 
 ---
 
-## 3️⃣ [Kurtosis](/key) = Tail Weight 🦘
-
+## 3. [Kurtosis](/key) = Tail Weight
 <div style={{textAlign: 'center', margin: '1.5rem 0'}}>
-  <div id="lottie-visualization-kurt" style={{width: '180px', height: '180px', margin: '0 auto'}}></div>
-</div>
 
-🔺 **High kurtosis (leptokurtic):** heavy tails → many extremes.
+**High kurtosis (leptokurtic):** heavy tails → many extremes.
 
-🔻 **Low kurtosis (platykurtic):** light tails → few extremes.
+**Low kurtosis (platykurtic):** light tails → few extremes.
 
-⚖️ **Normal distribution has kurtosis = 3.**
+**Normal distribution has kurtosis = 3.**
 
 "Excess kurtosis" = kurtosis − 3 → Normal ⇒ 0 excess.
 
-🚫 **Myth alert:** Kurtosis is about tails, not peakedness.
+**Myth alert:** Kurtosis is about tails, not peakedness.
 
 You can have a tall center and still light tails —or a flat center with heavy tails.
 
-🎯 **Practical impact:**
-
+**Practical impact:**
 * Heavy tails → Mean/SD get distorted; use Median/MAD and robust z-scores.
 * Light tails → Classic mean/SD methods behave predictably.
 
@@ -120,19 +108,15 @@ You can have a tall center and still light tails —or a flat center with heavy 
 
 ---
 
-## 4️⃣ Why You Should Care 🧰
-
+## 4. Why You Should Care
 **Outlier Detection:**
-
 * Right-skew + heavy tails → use robust stats (Median/MAD).
 * Symmetric + light tails → classical z-score is fine.
 
 **Binning and Percentiles:**
-
 * Skewed data → prefer quantile bins over equal-width.
 
 **Modeling Implications:**
-
 * Skewness → consider log/sqrt transforms for variance stability.
 * High kurtosis → expect many extremes → try quantile loss or robust regressions.
 
@@ -142,8 +126,7 @@ Use shape diagnostics like `get_skewness_kurtosis()` to guide cleaning, binning,
 
 ---
 
-## 5️⃣ Three Shapes, Same Mean & Variance 🎭
-
+## 5. Three Shapes, Same Mean & Variance
 Imagine three histograms with the same mean and variance:
 
 <table>
@@ -157,19 +140,19 @@ Imagine three histograms with the same mean and variance:
 </thead>
 <tbody>
 <tr>
-<td>⚪ Symmetric light-tailed</td>
+<td> Symmetric light-tailed</td>
 <td>≈ 0</td>
 <td>&lt; 3</td>
 <td>Bell-shaped, few extremes</td>
 </tr>
 <tr>
-<td>🟣 Symmetric heavy-tailed</td>
+<td> Symmetric heavy-tailed</td>
 <td>≈ 0</td>
 <td>&gt; 3</td>
 <td>Frequent highs and lows</td>
 </tr>
 <tr>
-<td>🟠 Right-skewed</td>
+<td> Right-skewed</td>
 <td>&gt; 0</td>
 <td>&gt; 3</td>
 <td>Many small values, few big ones</td>
@@ -183,12 +166,11 @@ All have identical center and spread — but completely different risk and outli
 
 ---
 
-## 6️⃣ Histogram Cheat Sheet 🗺️
-
-* Tail longer on right → **Positive skew** ➡️
-* Tail longer on left → **Negative skew** ⬅️
-* Fat tails → **High kurtosis** 🦘
-* Slim tails → **Low kurtosis** 🍞
+## 6. Histogram Cheat Sheet
+* Tail longer on right → **Positive skew**
+* Tail longer on left → **Negative skew**
+* Fat tails → **High kurtosis**
+* Slim tails → **Low kurtosis**
 
 Visual cue = instant intuition.
 
@@ -196,28 +178,24 @@ Visual cue = instant intuition.
 
 ---
 
-## 7️⃣ Typical Ranges (Quick Rules) 📏
-
+## 7. Typical Ranges (Quick Rules)
 **Skewness:**
-
 * |skew| < 0.5 → roughly symmetric
 * 0.5–1 → mild skew
 * |skew| > 1 → strong skew
 
 **Excess Kurtosis (kurtosis − 3):**
-
 * < 0 → lighter tails than Normal
 * ≈ 0 → about Normal
 * > 0 → heavier tails than Normal
 
-Use these as guides, not laws. Context is king. 👑
+Use these as guides, not laws. Context is king.
 
 ![Typical Ranges](/DS-6/typical_ranges.png)
 
 ---
 
-## 8️⃣ Tiny Examples 🧪
-
+## 8. Tiny Examples
 **Right-skewed:** `[1, 1, 2, 2, 3, 4, 10]` → mean > median → skew > 0.
 
 **Heavy tails:** `[−10, −2, −1, 0, 1, 2, 10]` → more extremes → high kurtosis.
@@ -228,8 +206,7 @@ Same spread, different story.
 
 ---
 
-## 9️⃣ After Measuring Shape ✅
-
+## 9. After Measuring Shape
 * If skewed → use log/sqrt transforms (for positive data).
 * For heavy tails → relax outlier cutoffs or use percentiles (5th/95th).
 * Use robust methods (Median/MAD, quantile loss) for stability.
@@ -239,15 +216,14 @@ Same spread, different story.
 
 ---
 
-## 🔟 Visual Ideas 📈
-
+## Visual Ideas
 Show three histograms (side by side):
 
-1️⃣ Symmetric light-tailed
+1. Symmetric light-tailed
 
-2️⃣ Symmetric heavy-tailed
+2. Symmetric heavy-tailed
 
-3️⃣ Right-skewed
+3. Right-skewed
 
 Annotate each with "Skewness sign" and "Kurtosis ↑ / ↓".
 
@@ -255,8 +231,7 @@ Annotate each with "Skewness sign" and "Kurtosis ↑ / ↓".
 
 ---
 
-## ⏱️ One-Minute Summary
-
+## ⏱ One-Minute Summary
 * **Skewness** = direction and strength of tilt.
 * **Kurtosis** = tail heaviness (extremes).
 * Mean & variance alone can mislead — shape completes the picture.
@@ -264,24 +239,22 @@ Annotate each with "Skewness sign" and "Kurtosis ↑ / ↓".
 
 ---
 
-## 🧾 Shape Checklist
+## Shape Checklist
+Compute skewness & kurtosis for key features
 
-☑️ Compute skewness & kurtosis for key features
+Visualize histograms or ECDFs
 
-☑️ Visualize histograms or ECDFs
+If |skew| > 0.5 → transform or use robust methods
 
-☑️ If |skew| > 0.5 → transform or use robust methods
+If excess kurtosis > 0 → expect extremes and adjust thresholds
 
-☑️ If excess kurtosis > 0 → expect extremes and adjust thresholds
-
-☑️ Re-evaluate after cleaning
+Re-evaluate after cleaning
 
 ![Shape Checklist](/DS-6/shape_checklist.png)
 
 ---
 
-## 🌟 Takeaway
-
+## Takeaway
 Every dataset has a shape signature.
 
 [Skewness](/key) and [kurtosis](/key) let you read it like a fingerprint — revealing tilt, tail, and trustworthiness.
@@ -290,12 +263,11 @@ They don't just decorate your summary table — they guide how you treat [outlie
 
 **Shape matters.**
 
-And once you see it, you can't unsee it. 🎨📊
+And once you see it, you can't unsee it.
 
 ---
 
-## 📚 References
-
+## References
 1. Joanes, D. N., & Gill, C. A. (1998). Comparing measures of sample skewness and kurtosis. *Journal of the Royal Statistical Society: Series D (The Statistician)*, 47(1), 183-189.
 
 2. DeCarlo, L. T. (1997). On the meaning and use of kurtosis. *Psychological Methods*, 2(3), 292-307.
@@ -317,13 +289,4 @@ And once you see it, you can't unsee it. 🎨📊
 10. Hyndman, R. J., & Fan, Y. (1996). Sample quantiles in statistical packages. *The American Statistician*, 50(4), 361-365.
 
 ---
-
-<div style={{textAlign: 'center', margin: '3rem 0', padding: '2rem', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', borderRadius: '15px', color: 'white'}}>
-  <div id="lottie-celebration" style={{width: '200px', height: '200px', margin: '0 auto'}}></div>
-  <h3 style={{margin: '1rem 0', color: 'white'}}>Day 6 Complete! 🎉</h3>
-  <p style={{margin: 0, fontSize: '1.1rem', opacity: 0.9}}>*This is Day 6 of my 30-day challenge documenting my Data Science journey at Oracle! Stay tuned for more insights and mathematical foundations of data science. 🚀*</p>
-  <div style={{marginTop: '1.5rem'}}>
-    <span style={{background: 'rgba(255,255,255,0.2)', padding: '0.5rem 1rem', borderRadius: '25px', fontSize: '0.9rem'}}>Next: Day 7 - Coming Tomorrow!</span>
-  </div>
-</div>
 

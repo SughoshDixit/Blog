@@ -10,53 +10,48 @@ HeaderImage: /DS-5/median_mad_concept.png
 isPublished: true
 ---
 
-# **Day 5 — Robust Location and Scale: Median & MAD (Simple Guide + Worked Example)** ✨
+# **Day 5 — Robust Location and Scale: Median & MAD (Simple Guide + Worked Example)**
 
 <div style={{textAlign: 'center', margin: '2rem 0'}}>
-  <div id="lottie-robust" style={{width: '200px', height: '200px', margin: '0 auto'}}></div>
-  <p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Robust statistics that resist outliers! 💪</p>
-</div>
 
-> 💡 **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
+<p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Robust statistics that resist outliers! </p>
+
+>  **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
 
 ---
 
-## 🎯 Introduction
-
+## Introduction
 When data contains outliers, traditional measures like mean and [SD](/key) can be misleading. [Robust statistics](/key) like the [median](/key) and [MAD](/key) provide stable estimates that resist distortion from extreme values.
 
 **TL;DR:**
 
-The mean and standard deviation ([SD](/key)) can be swayed by outliers like reeds in the wind 🌾 — a single extreme value can pull them off course.
+The mean and standard deviation ([SD](/key)) can be swayed by outliers like reeds in the wind  — a single extreme value can pull them off course.
 
-The [median](/key) and [MAD](/key) (Median Absolute Deviation), on the other hand, are sturdy rocks in the statistical stream. 💪
+The [median](/key) and [MAD](/key) (Median Absolute Deviation), on the other hand, are sturdy rocks in the statistical stream.
 
 They resist distortion and give reliable "center" and "spread" estimates, even when your data are skewed or heavy-tailed.
 
-Use them to compute robust [z-scores](/key), which catch anomalies without being fooled by [outliers](/key). 🚨
+Use them to compute robust [z-scores](/key), which catch anomalies without being fooled by [outliers](/key).
 
 ![Median & MAD Concept](/DS-5/median_mad_concept.png)
 
 ---
 
-## 💡 Why Robust Statistics?
+## Why Robust Statistics?
+**Mean/SD are fragile:** a single large value can shift both.
 
-⚠️ **Mean/SD are fragile:** a single large value can shift both.
+**Median/MAD are robust:** they focus on the central tendency and typical deviation.
 
-🧱 **Median/MAD are robust:** they focus on the central tendency and typical deviation.
-
-🎯 **Robust z-scores** highlight genuine outliers even when your data contain a few extremes.
+**Robust z-scores** highlight genuine outliers even when your data contain a few extremes.
 
 ![Why Robust Statistics](/DS-5/why_robust.png)
 
 ---
 
-## 📘 Key Definitions
-
+## Key Definitions
 **[Median](/key):** the "middle" value after sorting your data (half below, half above).
 
 **[MAD](/key) (Median Absolute Deviation):**
-
 * Compute the [median](/key) *m*.
 * Take absolute deviations |*x*ᵢ − *m*|.
 * Take the [median](/key) of those deviations → that's [MAD](/key).
@@ -73,18 +68,15 @@ That scaling ensures robust [z-scores](/key) align roughly with classical [z-sco
 
 ---
 
-## 🧮 Worked Example — Step by Step
-
+## Worked Example — Step by Step
 **Data with one big outlier:**
 
 `[10, 12, 13, 13, 14, 15, 100]`
 
-### Step 1️⃣ — Median
-
+### Step 1. — Median
 *n* = 7 → 4th value = **13**
 
-### Step 2️⃣ — Absolute deviations from the median
-
+### Step 2. — Absolute deviations from the median
 <table>
 <thead>
 <tr>
@@ -128,8 +120,7 @@ Sorted deviations: `[0, 0, 1, 1, 2, 3, 87]`
 
 → **MAD = 1** (the 4th value)
 
-### Step 3️⃣ — Robust z-scores
-
+### Step 3. — Robust z-scores
 *z*ᵣ = 0.6745 × (*x* − 13) / 1
 
 <table>
@@ -162,13 +153,12 @@ Sorted deviations: `[0, 0, 1, 1, 2, 3, 87]`
 </tr>
 <tr>
 <td >100</td>
-<td >+58.68 🚨</td>
+<td >+58.68 </td>
 </tr>
 </tbody>
 </table>
 
-✅ **Interpretation:**
-
+**Interpretation:**
 * Most points sit around ±2 — normal variation.
 * The outlier (100) explodes to +58.7 — unmistakably extreme.
 
@@ -176,10 +166,8 @@ Sorted deviations: `[0, 0, 1, 1, 2, 3, 87]`
 
 ---
 
-## 🔍 Compare with Mean & SD
-
+## Compare with Mean & SD
 Let's see how classical stats behave on the same data:
-
 * **Mean** ≈ 25.29
 * **SD** ≈ 30.54
 
@@ -187,8 +175,7 @@ Let's see how classical stats behave on the same data:
 
 (100 − 25.29) / 30.54 ≈ **+2.45**
 
-🧩 **Observation:**
-
+**Observation:**
 * The classical z-score barely flags 100 as unusual (+2.45).
 * The robust z-score screams "outlier!" (+58.68).
 
@@ -198,54 +185,48 @@ That's the power of robust measures: they don't let one big number distort the s
 
 ---
 
-## 🧭 When to Use Median/MAD
-
-✅ **Use when:**
-
+## When to Use Median/MAD
+**Use when:**
 * Your data have outliers or long tails.
 * You need stable estimates of center/spread.
 * You're building anomaly detectors or control charts that must resist distortion.
 
-🚫 **Avoid when:**
-
+**Avoid when:**
 * Data are clean, symmetric, and close to Normal — mean/SD are slightly more efficient there.
 
 ![When to Use Robust Statistics](/DS-5/when_to_use.png)
 
 ---
 
-## 🍳 Quick Recipe (Ready to Copy)
+## Quick Recipe (Ready to Copy)
+1. Sort your data → compute median.
 
-1️⃣ Sort your data → compute median.
+2. Compute absolute deviations → find MAD.
 
-2️⃣ Compute absolute deviations → find MAD.
-
-3️⃣ Compute for each *x*:
+3. Compute for each *x*:
 
 ```
 z_robust = 0.6745 × (x − median) / MAD
 ```
 
-4️⃣ Flag outliers if |*z*ᵣₒbᵤₛₜ| > threshold (common thresholds: 3.5 or 4.5).
+4. Flag outliers if |*z*ᵣₒbᵤₛₜ| > threshold (common thresholds: 3.5 or 4.5).
 
 **Simple. Explainable. Powerful.**
 
 ---
 
-## 📈 Visual Idea (Optional Plot)
-
+## Visual Idea (Optional Plot)
 Create a scatterplot of classical z vs robust z.
 
 On skewed data, classical z flattens the extremes, while robust z exposes them.
 
-A picture that says a thousand outliers. 😉
+A picture that says a thousand outliers.
 
 ![Classical vs Robust Z-Scores](/DS-5/zscore_comparison.png)
 
 ---
 
-## 📋 Tiny Recap Table
-
+## Tiny Recap Table
 <table>
 <thead>
 <tr>
@@ -283,30 +264,28 @@ A picture that says a thousand outliers. 😉
 <tr>
 <td >100</td>
 <td >+2.45</td>
-<td >+58.68 🚨</td>
+<td >+58.68 </td>
 </tr>
 </tbody>
 </table>
 
-**Robust z tells the truth — and the truth is loud.** 📣
+**Robust z tells the truth — and the truth is loud.**
 
 ![Recap Table Visualization](/DS-5/recap_comparison.png)
 
 ---
 
-## 🌟 Takeaway
-
+##  Takeaway
 * [Median](/key) + [MAD](/key) = the sturdier cousins of mean/[SD](/key).
 * They stay centered when [outliers](/key) appear.
 * Robust [z-scores](/key) reveal what classical [z-scores](/key) often hide.
 * Use them when your data aren't "nice and Normal."
 
-They'll never overreact — or underreact — to the wild ones. 🔍💪
+They'll never overreact — or underreact — to the wild ones.
 
 ---
 
-## 📚 References
-
+## References
 1. Hampel, F. R., Ronchetti, E. M., Rousseeuw, P. J., & Stahel, W. A. (2011). *Robust Statistics: The Approach Based on Influence Functions*. John Wiley & Sons.
 
 2. Huber, P. J., & Ronchetti, E. M. (2009). *Robust Statistics* (2nd ed.). John Wiley & Sons.
@@ -328,13 +307,4 @@ They'll never overreact — or underreact — to the wild ones. 🔍💪
 10. Rousseeuw, P. J., & Leroy, A. M. (2005). *Robust Regression and Outlier Detection*. John Wiley & Sons.
 
 ---
-
-<div style={{textAlign: 'center', margin: '3rem 0', padding: '2rem', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', borderRadius: '15px', color: 'white'}}>
-  <div id="lottie-celebration" style={{width: '200px', height: '200px', margin: '0 auto'}}></div>
-  <h3 style={{margin: '1rem 0', color: 'white'}}>Day 5 Complete! 🎉</h3>
-  <p style={{margin: 0, fontSize: '1.1rem', opacity: 0.9}}>*This is Day 5 of my 30-day challenge documenting my Data Science journey at Oracle! Stay tuned for more insights and mathematical foundations of data science. 🚀*</p>
-  <div style={{marginTop: '1.5rem'}}>
-    <span style={{background: 'rgba(255,255,255,0.2)', padding: '0.5rem 1rem', borderRadius: '25px', fontSize: '0.9rem'}}>Next: Day 6 - Coming Tomorrow!</span>
-  </div>
-</div>
 

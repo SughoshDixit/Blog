@@ -10,19 +10,17 @@ HeaderImage: /DS-4/percentile_rank_concept.png
 isPublished: true
 ---
 
-# **Day 4 — Percentile Rank and Stratification (with Solved Examples)** 📈🎯
+# **Day 4 — Percentile Rank and Stratification (with Solved Examples)**
 
 <div style={{textAlign: 'center', margin: '2rem 0'}}>
-  <div id="lottie-rank" style={{width: '200px', height: '200px', margin: '0 auto'}}></div>
-  <p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Ranking and stratifying data for insights! 📊</p>
-</div>
 
-> 💡 **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
+<p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Ranking and stratifying data for insights! </p>
+
+>  **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
 
 ---
 
-## 🎯 Introduction
-
+## Introduction
 [Percentile ranks](/key) provide a powerful way to normalize features onto a common scale, making it easy to combine multiple features and create meaningful [stratifications](/key) for analysis and sampling.
 
 **TL;DR:**
@@ -31,75 +29,60 @@ isPublished: true
 
 Because percentile ranks are order-based, they are **stable under rescaling** and other [monotone transforms](/key).
 
-If you combine several features' ranks using **min (for AND-like behavior)** or **max (for OR-like behavior)**, you get a single score that you can cut into **[strata](/key)** (e.g., quartiles/deciles) for sampling, prioritization, or analysis. 💡
+If you combine several features' ranks using **min (for AND-like behavior)** or **max (for OR-like behavior)**, you get a single score that you can cut into **[strata](/key)** (e.g., quartiles/deciles) for sampling, prioritization, or analysis.
 
 ![Percentile Rank Concept](/DS-4/percentile_rank_concept.png)
 
 ---
 
-## 🧮 Percentile Rank: A Simple [0,1] Scale
-
+##  Percentile Rank: A Simple [0,1] Scale
 * Given a feature **X** and a dataset of size **n**, the [percentile rank](/key) of a value *xᵢ* is:
 
-  📊 `rankᵢ = Fₙ(xᵢ) = (1/n) × (# of values ≤ xᵢ)`
-
+`rankᵢ = Fₙ(xᵢ) = (1/n) × (# of values ≤ xᵢ)`
 * This maps each observation to a number between **0 and 1** (inclusive).
+* Properties you get *for free*:
+* **Monotonicity (isotonicity):** If xᵢ ≤ x, then rankᵢ ≤ rank.
+* **Invariance to monotone transforms:** If f is strictly increasing (e.g., a·x+b with a>0), ranks don't change.
 
-* ✨ Properties you get *for free*:
-
-  * 🔼 **Monotonicity (isotonicity):** If xᵢ ≤ xⱼ, then rankᵢ ≤ rankⱼ.
-
-  * 🔁 **Invariance to monotone transforms:** If f is strictly increasing (e.g., a·x+b with a>0), ranks don't change.
-
-💡 *Why this matters:* Different features may have different scales or units. Percentile ranks put everything onto the same comparable [0,1] scale, making multi-feature logic easy to reason about.
+*Why this matters:* Different features may have different scales or units. Percentile ranks put everything onto the same comparable [0,1] scale, making multi-feature logic easy to reason about.
 
 ![Percentile Rank Properties](/DS-4/rank_properties.png)
 
 ---
 
-## ⚙️ Combining percentile ranks across features
-
+## Combining percentile ranks across features
 If you have features **A** and **B** with ranks *rA* and *rB*:
+* **Conservative (AND-like) combination:**
 
-* 🔒 **Conservative (AND-like) combination:**
+`rAND = min(rA, rB)`
 
-  `rAND = min(rA, rB)`
+→ Combined score limited by the weaker (smaller) rank. Safe way to demand "both high."
+* **Liberal (OR-like) combination:**
 
-  → Combined score limited by the weaker (smaller) rank. Safe way to demand "both high."
+`rOR = max(rA, rB)`
 
-* 🌈 **Liberal (OR-like) combination:**
-
-  `rOR = max(rA, rB)`
-
-  → Combined score benefits from the stronger (larger) rank. Allows "either high."
+→ Combined score benefits from the stronger (larger) rank. Allows "either high."
 
 These match **Day 1's logic mapping:**
 
-🧩 AND ≈ min  OR ≈ max
+AND ≈ min  OR ≈ max
 
-They're simple, monotone, and explainable ✅
+They're simple, monotone, and explainable
 
 ![Combining Ranks](/DS-4/combining_ranks.png)
 
 ---
 
-## 🧭 Stratification from Combined Ranks
-
+## Stratification from Combined Ranks
 Once you have a single combined rank per observation (e.g., rAND), split the population into **strata**:
-
-* 🔢 **Deciles:** [0.0, 0.1, 0.2, …, 0.9, 1.0]
-
-* 🧮 **Quartiles:** [0.0, 0.25, 0.5, 0.75, 1.0]
-
-* ⚖️ **Custom cuts:** e.g., [0.0, 0.2, 0.5, 0.8, 1.0]
+* **Deciles:** [0.0, 0.1, 0.2, …, 0.9, 1.0]
+* **Quartiles:** [0.0, 0.25, 0.5, 0.75, 1.0]
+* **Custom cuts:** e.g., [0.0, 0.2, 0.5, 0.8, 1.0]
 
 Use strata to:
-
-* 🎯 Draw balanced samples
-
-* 🚦 Prioritize reviews/interventions
-
-* 📊 Report performance metrics by difficulty bands
+* Draw balanced samples
+* Prioritize reviews/interventions
+* Report performance metrics by difficulty bands
 
 Because ranks are monotone-invariant, your strata stay meaningful even if raw features change scale.
 
@@ -107,8 +90,7 @@ Because ranks are monotone-invariant, your strata stay meaningful even if raw fe
 
 ---
 
-## 🧩 Solved example — From raw features to strata
-
+## Solved example — From raw features to strata
 <table>
 <thead>
 <tr>
@@ -161,8 +143,7 @@ Because ranks are monotone-invariant, your strata stay meaningful even if raw fe
 </tbody>
 </table>
 
-### Step 1️⃣: Compute percentile ranks per feature
-
+### Step 1.: Compute percentile ranks per feature
 Use the empirical CDF (rank = i/n). Example (rounded):
 
 <table>
@@ -226,8 +207,7 @@ Use the empirical CDF (rank = i/n). Example (rounded):
 </tbody>
 </table>
 
-### Step 2️⃣: Combine with min (AND-like) and max (OR-like)
-
+### Step 2.: Combine with min (AND-like) and max (OR-like)
 <table>
 <thead>
 <tr>
@@ -316,19 +296,14 @@ Use the empirical CDF (rank = i/n). Example (rounded):
 </tbody>
 </table>
 
-### Step 3️⃣: Create strata from rAND
-
+### Step 3.: Create strata from rAND
 Cuts at 0.2, 0.5, 0.8 →
+* Stratum 1: rAND < 0.2 → ids 2, 7
+* Stratum 2: 0.2 ≤ rAND < 0.5 → ids 5, 4
+* Stratum 3: 0.5 ≤ rAND < 0.8 → ids 1, 3, 6
+* Stratum 4: rAND ≥ 0.8 → id 8
 
-* 🩵 Stratum 1: rAND < 0.2 → ids 2, 7
-
-* 💙 Stratum 2: 0.2 ≤ rAND < 0.5 → ids 5, 4
-
-* 💜 Stratum 3: 0.5 ≤ rAND < 0.8 → ids 1, 3, 6
-
-* 💛 Stratum 4: rAND ≥ 0.8 → id 8
-
-📈 Using min is conservative: an observation only scores high if **both A and B** are high.
+Using min is conservative: an observation only scores high if **both A and B** are high.
 
 Using max is liberal — more points rise into higher strata.
 
@@ -336,60 +311,47 @@ Using max is liberal — more points rise into higher strata.
 
 ---
 
-## 💭 Why "min of ranks" is conservative
-
+##  Why "min of ranks" is conservative
 * rAND = min(rA, rB) can never exceed either input.
-
 * Raising any rank can only lift (not drop) rAND.
-
-* Thus, demanding high rAND ≈ saying "both inputs are high." ✅
+* Thus, demanding high rAND ≈ saying "both inputs are high."
 
 ![Min vs Max Comparison](/DS-4/min_max_comparison.png)
 
 ---
 
-## 🖼️ Visual ideas
+##  Visual ideas
+* Two 2-D heatmaps:
 
-* 🧊 Two 2-D heatmaps:
+1. rA (x-axis = id, y-axis = rank) and rB similarly.
 
-  1️⃣ rA (x-axis = id, y-axis = rank) and rB similarly.
-
-  2️⃣ The combined min(rA,rB) mesh — shows the "AND valley."
-
-* 📊 Simple bar chart: rAND per id colored by stratum.
+2. The combined min(rA,rB) mesh — shows the "AND valley."
+* Simple bar chart: rAND per id colored by stratum.
 
 ![Visual Heatmaps](/DS-4/visual_heatmaps.png)
 
 ---
 
-## 🧠 Practical tips
-
-* 📦 Compute ranks *per group* for fair comparison (region/time).
-
-* 🧾 Handle ties consistently (average ranks).
-
-* 🪜 Pre-decide strata cuts (deciles, quartiles, custom).
-
-* 🔄 Extend beyond two features:
-
-  * rAND = min(r₁,…,rₖ)
-
-  * rOR  = max(r₁,…,rₖ)
+##  Practical tips
+* Compute ranks *per group* for fair comparison (region/time).
+* Handle ties consistently (average ranks).
+* Pre-decide strata cuts (deciles, quartiles, custom).
+* Extend beyond two features:
+* rAND = min(r₁,…,rₖ)
+* rOR  = max(r₁,…,rₖ)
 
 ---
 
-## 🌟 Takeaway
-
+## Takeaway
 [Percentile ranks](/key) normalize features onto a **common [0,1] scale**.
 
 Combining them with **min (AND)** or **max (OR)** gives an interpretable, monotone score ideal for **sampling, prioritization, and reporting.**
 
-Simple ✅ Robust 🧩 Explainable 💡
+Simple  Robust  Explainable
 
 ---
 
-## 📚 References
-
+## References
 1. Hyndman, R. J., & Fan, Y. (1996). Sample quantiles in statistical packages. *The American Statistician*, 50(4), 361-365.
 
 2. Serfling, R. J. (2009). *Approximation Theorems of Mathematical Statistics*. John Wiley & Sons.
@@ -411,13 +373,4 @@ Simple ✅ Robust 🧩 Explainable 💡
 10. Cramér, H. (1946). *Mathematical Methods of Statistics*. Princeton University Press.
 
 ---
-
-<div style={{textAlign: 'center', margin: '3rem 0', padding: '2rem', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', borderRadius: '15px', color: 'white'}}>
-  <div id="lottie-celebration" style={{width: '200px', height: '200px', margin: '0 auto'}}></div>
-  <h3 style={{margin: '1rem 0', color: 'white'}}>Day 4 Complete! 🎉</h3>
-  <p style={{margin: 0, fontSize: '1.1rem', opacity: 0.9}}>*This is Day 4 of my 30-day challenge documenting my Data Science journey at Oracle! Stay tuned for more insights and mathematical foundations of data science. 🚀*</p>
-  <div style={{marginTop: '1.5rem'}}>
-    <span style={{background: 'rgba(255,255,255,0.2)', padding: '0.5rem 1rem', borderRadius: '25px', fontSize: '0.9rem'}}>Next: Day 5 - Coming Tomorrow!</span>
-  </div>
-</div>
 
