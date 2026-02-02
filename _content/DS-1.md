@@ -155,8 +155,8 @@ These are classic lattice identities for totally ordered sets.
 These visuals reinforce how AND is bottlenecked by the weakest input, and OR is lifted by the strongest.
 
 <div style={{textAlign: 'center', margin: '2rem 0'}}>
-
 <p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Visualizing complex concepts makes them click! </p>
+</div>
 
 ## Worked examples
 **1. Two‑feature rule: "(A AND B) OR C"**

@@ -13,8 +13,8 @@ isPublished: true
 # **Day 6 — Distribution Shape: Skewness and Kurtosis (Simple Guide + Visuals)**
 
 <div style={{textAlign: 'center', margin: '2rem 0'}}>
-
 <p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Understanding distribution shape! </p>
+</div>
 
 >  **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
 
@@ -82,6 +82,7 @@ You don't need to calculate it manually — just know it quantifies tilt.
 * Strong skew breaks "normality" assumptions and messes with classical z-scores.
 
 ![Skewness Visualization](/DS-6/skewness_visualization.png)
+</div>
 
 ---
 
@@ -105,6 +106,7 @@ You can have a tall center and still light tails —or a flat center with heavy 
 * Light tails → Classic mean/SD methods behave predictably.
 
 ![Kurtosis Visualization](/DS-6/kurtosis_visualization.png)
+</div>
 
 ---
 

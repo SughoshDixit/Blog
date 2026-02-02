@@ -13,8 +13,8 @@ isPublished: true
 # **Day 5 — Robust Location and Scale: Median & MAD (Simple Guide + Worked Example)**
 
 <div style={{textAlign: 'center', margin: '2rem 0'}}>
-
 <p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Robust statistics that resist outliers! </p>
+</div>
 
 >  **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
 

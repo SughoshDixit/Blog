@@ -13,8 +13,8 @@ isPublished: true
 # Day 3 — Percentiles and Quantiles: Understanding Data Distributions
 
 <div style={{textAlign:  'center', margin: '2rem 0'}}>
-
 <p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Understanding where your data sits! </p>
+</div>
 
 >  **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
 

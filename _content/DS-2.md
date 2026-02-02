@@ -111,8 +111,8 @@ Same logic, zero ambiguity. Pure clarity.
 ![Infix to Postfix Conversion](/DS-2/infix_postfix.png)
 
 <div style={{textAlign: 'center', margin: '2rem 0'}}>
-
 <p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Algorithms make it all work! </p>
+</div>
 
 ## How to Evaluate Postfix
 Use a simple stack:
