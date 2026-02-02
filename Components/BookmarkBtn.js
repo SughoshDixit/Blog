@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FiBookmark, FiBookmarkCheck } from "react-icons/fi";
+import { FiBookmark, FiCheck } from "react-icons/fi";
 
 function BookmarkBtn({ postId, postTitle, postData }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -55,7 +55,7 @@ function BookmarkBtn({ postId, postTitle, postData }) {
       title={isBookmarked ? "Remove bookmark" : "Save for later"}
     >
       {isBookmarked ? (
-        <FiBookmarkCheck className="text-[#1a8917] dark:text-[#26c281]" style={{ fontSize: "1.5rem" }} />
+        <FiCheck className="text-[#1a8917] dark:text-[#26c281]" style={{ fontSize: "1.5rem" }} />
       ) : (
         <FiBookmark style={{ fontSize: "1.5rem" }} />
       )}
