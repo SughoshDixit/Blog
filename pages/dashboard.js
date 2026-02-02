@@ -26,8 +26,8 @@ const Doughnut = dynamic(() => import('react-chartjs-2').then(m => m.Doughnut), 
 if (typeof window !== 'undefined') {
   const chartjs = require('chart.js');
   const ChartJS = chartjs.Chart;
-  
-  ChartJS.register(
+
+ChartJS.register(
     chartjs.CategoryScale,
     chartjs.LinearScale,
     chartjs.BarElement,
@@ -37,7 +37,7 @@ if (typeof window !== 'undefined') {
     chartjs.ArcElement,
     chartjs.PointElement,
     chartjs.LineElement,
-  );
+);
 }
 
 export const getStaticProps = () => {
@@ -293,25 +293,25 @@ export default function Dashboard({ blogs, topics }) {
           totalMinutes += minutes;
           totalWords += words;
 
-          // Track topic stats
-          const topic = blog.data.Topic || 'Uncategorized';
-          if (!topicStats[topic]) {
+            // Track topic stats
+            const topic = blog.data.Topic || 'Uncategorized';
+            if (!topicStats[topic]) {
             topicStats[topic] = { blogs: 0, visits: 0 };
-          }
-          topicStats[topic].blogs += 1;
+            }
+            topicStats[topic].blogs += 1;
           topicStats[topic].visits += visits;
 
-          blogStats.push({
-            id: blogId,
-            title: blog.data.Title,
-            topic: topic,
+            blogStats.push({
+              id: blogId,
+              title: blog.data.Title,
+              topic: topic,
             visits: visits,
-            readTime: blog.readTime?.text || 'Unknown',
+              readTime: blog.readTime?.text || 'Unknown',
             minutes: minutes,
-            author: blog.data.Author,
-            tags: blog.data.Tags?.split(' ').filter(Boolean) || []
-          });
-        }
+              author: blog.data.Author,
+              tags: blog.data.Tags?.split(' ').filter(Boolean) || []
+            });
+          }
 
         // Sort blog stats by visits
         blogStats.sort((a, b) => b.visits - a.visits);

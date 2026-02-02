@@ -296,15 +296,6 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
         <div className="p-4 rounded-md bg-gray-50 dark:bg-gray-800">
           <h3 className="text-base font-semibold mb-1">{title}</h3>
           {abstract && <p className="text-xs text-gray-600 dark:text-gray-300 mb-3">{abstract}</p>}
-          {allImages && allImages.filter((it) => selected[it.src]).length > 0 && (
-            <div className="grid grid-cols-1 gap-3 mb-3">
-              {allImages.filter((it) => selected[it.src]).map((it, idx) => (
-                <div key={it.src}>
-                  <img src={it.src} alt={it.caption || `Chart ${idx + 1}`} className="w-full h-auto rounded" />
-                </div>
-              ))}
-            </div>
-          )}
           {chosenTakeaways.length > 0 && (
             <ul className="list-disc pl-5 text-xs text-gray-700 dark:text-gray-200 mb-2">
               {chosenTakeaways.map((t) => (

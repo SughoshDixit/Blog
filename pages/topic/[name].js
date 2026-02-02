@@ -108,16 +108,6 @@ function name({ blogs, topics, topicName }) {
                           </div>
                         </div>
                       </div>
-                      
-                      {blog.data.HeaderImage && (
-                        <div className="flex-shrink-0 ml-4">
-                          <img 
-                            src={blog.data.HeaderImage} 
-                            alt={blog.data.Title}
-                            className="w-32 h-32 object-cover rounded-lg"
-                          />
-                        </div>
-                      )}
                     </div>
                   </div>
                 )

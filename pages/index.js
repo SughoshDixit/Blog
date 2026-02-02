@@ -320,11 +320,6 @@ export default function Home({ blogs, topics }) {
                         <span>{featureHighlight.readTime.text}</span>
                       </div>
                     </div>
-                    <img
-                      src={getImageForBlog(featureHighlight)}
-                      alt={featureHighlight.data.Title}
-                      className="w-full h-56 object-cover rounded-b-3xl"
-                    />
                   </article>
                 )}
               </div>
@@ -707,13 +702,6 @@ export default function Home({ blogs, topics }) {
                             </a>
                           </div>
                         </div>
-                      </div>
-                      <div className="lg:w-64 w-full">
-                        <img
-                          src={getImageForBlog(blog)}
-                          alt={blog.data.Title}
-                          className="w-full h-52 object-cover rounded-2xl shadow-md"
-                        />
                       </div>
                     </div>
                   </article>
