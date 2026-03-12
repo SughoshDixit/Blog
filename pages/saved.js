@@ -107,7 +107,7 @@ export default function SavedPosts({ topics }) {
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
                           {bookmark.data?.Topic && (
-                            <span className="text-xs font-medium text-[#1a8917] dark:text-[#26c281]">
+                            <span className="text-xs font-medium text-[#C74634] dark:text-[#26c281]">
                               {bookmark.data.Topic}
                             </span>
                           )}
@@ -117,7 +117,7 @@ export default function SavedPosts({ topics }) {
                         </div>
                         <Link href={`/blogs/${bookmark.id}`}>
                           <a>
-                            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 hover:text-[#1a8917] dark:hover:text-[#26c281] transition-colors" style={{ fontFamily: "Charter, Georgia, serif" }}>
+                            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 hover:text-[#C74634] dark:hover:text-[#26c281] transition-colors" style={{ fontFamily: "Charter, Georgia, serif" }}>
                               {bookmark.title}
                             </h2>
                           </a>
@@ -128,7 +128,7 @@ export default function SavedPosts({ topics }) {
                           </p>
                         )}
                         <Link href={`/blogs/${bookmark.id}`}>
-                          <a className="inline-block mt-4 text-sm text-[#1a8917] dark:text-[#26c281] font-medium hover:underline">
+                          <a className="inline-block mt-4 text-sm text-[#C74634] dark:text-[#26c281] font-medium hover:underline">
                             Read article →
                           </a>
                         </Link>

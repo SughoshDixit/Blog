@@ -53,8 +53,8 @@ const MODULES = [
     icon: "🧮",
     color: "from-violet-500 to-purple-600",
     darkColor: "from-violet-600 to-purple-700",
-    bgLight: "bg-violet-50",
-    bgDark: "dark:bg-violet-950/30",
+    bgLight: "bg-redwood-100",
+    bgDark: "dark:bg-redwood-100/30",
     borderLight: "border-violet-200",
     borderDark: "dark:border-violet-800",
     days: [1, 2, 3, 4, 5],
@@ -128,10 +128,10 @@ const MODULES = [
     icon: "🏗️",
     color: "from-indigo-500 to-blue-600",
     darkColor: "from-indigo-600 to-blue-700",
-    bgLight: "bg-indigo-50",
-    bgDark: "dark:bg-indigo-950/30",
-    borderLight: "border-indigo-200",
-    borderDark: "dark:border-indigo-800",
+    bgLight: "bg-redwood-500",
+    bgDark: "dark:bg-redwood-500/30",
+    borderLight: "border-redwood-500",
+    borderDark: "dark:border-redwood-500",
     days: [26, 27, 28, 29, 30],
     skills: ["Monitoring", "Audit Plans", "Production Systems", "End-to-End Pipeline", "Blueprint"]
   }
@@ -232,7 +232,7 @@ export default function LearningPath({ blogs, topics }) {
             <div className="flex justify-center mb-6">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-violet-100 to-purple-100 dark:from-violet-900/40 dark:to-purple-900/40 border border-violet-200 dark:border-violet-700">
                 <span className="text-2xl">🎓</span>
-                <span className="text-sm font-semibold text-violet-700 dark:text-violet-300">Structured Learning Path</span>
+                <span className="text-sm font-semibold text-redwood-500 dark:text-redwood-500">Structured Learning Path</span>
               </div>
             </div>
             
@@ -252,7 +252,7 @@ export default function LearningPath({ blogs, topics }) {
             {/* Stats Cards */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
               <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-5 border border-gray-200 dark:border-gray-700 text-center">
-                <div className="text-3xl font-bold text-violet-600 dark:text-violet-400 mb-1">30</div>
+                <div className="text-3xl font-bold text-redwood-500 dark:text-redwood-500 mb-1">30</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">Lessons</div>
               </div>
               <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-5 border border-gray-200 dark:border-gray-700 text-center">
@@ -391,7 +391,7 @@ export default function LearningPath({ blogs, topics }) {
                             strokeWidth="4"
                             fill="none"
                             strokeDasharray={`${progress.percentage * 1.256} 125.6`}
-                            className={isCompleted ? "text-emerald-500" : "text-violet-500"}
+                            className={isCompleted ? "text-emerald-500" : "text-redwood-500"}
                           />
                         </svg>
                         <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-gray-700 dark:text-gray-300">
@@ -486,21 +486,21 @@ export default function LearningPath({ blogs, topics }) {
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{fontFamily: 'Charter, Georgia, serif'}}>
               Ready to Master Data Science Math?
             </h2>
-            <p className="text-lg text-violet-100 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-redwood-500 mb-8 max-w-2xl mx-auto">
               Start with Day 1 and work your way through. Each lesson builds on the previous, 
               creating a solid foundation for robust decision-making.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               {blogs.length > 0 && (
                 <Link href={`/blogs/${generateSlug(blogs[0].data.Title)}`}>
-                  <a className="inline-flex items-center gap-2 px-8 py-4 bg-white text-violet-700 font-semibold rounded-full hover:bg-violet-50 transition-colors shadow-lg">
+                  <a className="inline-flex items-center gap-2 px-8 py-4 bg-white text-redwood-500 font-semibold rounded-full hover:bg-redwood-100 transition-colors shadow-lg">
                     <FiPlay className="w-5 h-5" />
                     Start Day 1
                   </a>
                 </Link>
               )}
               <Link href="/topic/Data%20Science">
-                <a className="inline-flex items-center gap-2 px-8 py-4 bg-violet-500/30 text-white font-semibold rounded-full hover:bg-violet-500/40 transition-colors border border-white/20">
+                <a className="inline-flex items-center gap-2 px-8 py-4 bg-redwood-100/30 text-white font-semibold rounded-full hover:bg-redwood-100/40 transition-colors border border-white/20">
                   <FiBookOpen className="w-5 h-5" />
                   Browse All Posts
                 </a>

@@ -4,7 +4,7 @@ function BlogShare({ data }) {
   return (
     <div className="flex items-center">
       <a
-        className="bg-indigo-500 hover:bg-indigo-600 text-white px-3 py-2 rounded-lg text-sm font-medium inline-flex items-center space-x-2 transition-colors"
+        className="bg-redwood-500 hover:bg-redwood-500 text-white px-3 py-2 rounded-lg text-sm font-medium inline-flex items-center space-x-2 transition-colors"
         rel="noopener noreferrer"
         target="_blank"
         href={`https://twitter.com/intent/tweet?text=${

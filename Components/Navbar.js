@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { BiTerminal } from "react-icons/bi";
 import { HiSun, HiMoon } from "react-icons/hi";
 import { CgUserlane } from "react-icons/cg";
@@ -21,10 +22,24 @@ function Navbar({ topics }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
   const [viewAlert, setViewAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  // Scroll-aware compact navbar
+  const handleScroll = useCallback(() => {
+    setScrolled(window.scrollY > 40);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
+  const isActive = (href) => router.pathname === href;
 
   useEffect(() => {
     setIsMounted(true);
@@ -124,7 +139,7 @@ function Navbar({ topics }) {
       <Alert show={viewAlert} type="success" message={alertMessage} />
       
       {/* Desktop Navigation */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#f7f5f2]/90 dark:bg-[#0b1220]/90 border-b border-[#e6dfd3] dark:border-[#141b2c] backdrop-blur-xl desktop-nav">
+      <header className={`fixed top-0 left-0 right-0 z-50 bg-[#FAF8F6]/90 dark:bg-[#201E1C]/90 border-b border-[#E0DDD9] dark:border-[#3D3A36] backdrop-blur-xl desktop-nav transition-all duration-300 ${scrolled ? "navbar-compact py-0" : "py-0"}`}>
         <div className="flex items-center justify-between px-4 py-3">
           {/* Left side - Menu and Logo */}
           <div className="flex items-center space-x-4">
@@ -139,7 +154,7 @@ function Navbar({ topics }) {
             
             <Link href="/">
               <a className="flex items-center space-x-3 text-gray-900 hover:text-gray-600 dark:text-white dark:hover:text-gray-300 transition-colors">
-                <div className="w-9 h-9 rounded-full bg-gray-900 text-white dark:bg-white dark:text-gray-900 flex items-center justify-center font-semibold">
+                <div className="w-9 h-9 rounded-full bg-redwood-500 text-white dark:bg-redwood-400 dark:text-white flex items-center justify-center font-semibold">
                   S
                 </div>
                 <span className="text-xl font-bold tracking-tight" style={{fontFamily: 'Charter, Georgia, serif'}}>Sughosh's Chronicles</span>
@@ -152,7 +167,7 @@ function Navbar({ topics }) {
             <div className="relative">
               <button
                 onClick={() => setSearchOpen(true)}
-                className="w-full flex items-center justify-between px-4 py-2 bg-white/80 dark:bg-[#111a2e] rounded-full text-[#716857] dark:text-[#c1c9e5] hover:bg-white dark:hover:bg-[#18243c] transition-colors border border-[#e6dfd3] dark:border-[#1c2a45] shadow-sm"
+                className="w-full flex items-center justify-between px-4 py-2 bg-white/80 dark:bg-[#2C2A27] rounded-full text-[#6E6B68] dark:text-[#B8B4B0] hover:bg-white dark:hover:bg-[#3D3A36] transition-colors border border-[#E0DDD9] dark:border-[#3D3A36] shadow-sm"
                 title="Search articles (Ctrl+K)"
               >
                 <div className="flex items-center space-x-2">
@@ -168,30 +183,30 @@ function Navbar({ topics }) {
 
           {/* Right side - Actions */}
           <div className="flex items-center space-x-4">
-            <div className="hidden lg:flex items-center space-x-6 text-sm text-[#645b4a] dark:text-[#d5dcf3]">
+            <div className="hidden lg:flex items-center space-x-6 text-sm text-[#6E6B68] dark:text-[#F5F4F2]">
               <Link href="/learning-path">
-                <a className="hover:text-[#1a8917] transition-colors flex items-center gap-1">
+                <a className={`hover:text-[#C74634] transition-colors flex items-center gap-1 relative ${isActive("/learning-path") ? "nav-link-active" : ""}`}>
                   <span>30-Day Challenge</span>
-                  <span className="px-1.5 py-0.5 text-[10px] font-bold bg-violet-100 dark:bg-violet-900 text-violet-700 dark:text-violet-300 rounded">NEW</span>
+                  <span className="px-1.5 py-0.5 text-[10px] font-bold bg-redwood-100 dark:bg-redwood-900 text-redwood-700 dark:text-redwood-300 rounded badge-pulse">NEW</span>
                 </a>
               </Link>
               <Link href="/dashboard">
-                <a className="hover:text-[#1a8917] transition-colors">Dashboard</a>
+                <a className={`hover:text-[#C74634] transition-colors relative ${isActive("/dashboard") ? "nav-link-active" : ""}`}>Dashboard</a>
               </Link>
               <a
                 href="https://sughoshdixit.github.io/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#1a8917] transition-colors"
+                className="hover:text-[#C74634] transition-colors link-underline"
               >
                 Our story
               </a>
               <Link href="/ai-gallery">
-                <a className="hover:text-[#1a8917] transition-colors">Labs</a>
+                <a className={`hover:text-[#C74634] transition-colors relative ${isActive("/ai-gallery") ? "nav-link-active" : ""}`}>Labs</a>
               </Link>
             </div>
             <button
-              className="p-2 text-[#716857] hover:text-gray-900 dark:text-[#c8d0ec] dark:hover:text-white transition-colors"
+              className="p-2 text-[#6E6B68] hover:text-gray-900 dark:text-[#B8B4B0] dark:hover:text-white transition-colors"
               onClick={toggleTheme}
               title={isMounted && theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             >
@@ -229,7 +244,7 @@ function Navbar({ topics }) {
       </header>
 
       {/* Mobile Navigation */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#f7f5f2]/95 dark:bg-[#0b1220]/90 border-b border-[#e6dfd3] dark:border-[#141b2c] backdrop-blur-xl mobile-nav">
+      <header className={`fixed top-0 left-0 right-0 z-50 bg-[#FAF8F6]/95 dark:bg-[#201E1C]/90 border-b border-[#E0DDD9] dark:border-[#3D3A36] backdrop-blur-xl mobile-nav transition-all duration-300 ${scrolled ? "navbar-compact" : ""}`}>
         <div className="flex items-center justify-between px-4 py-3">
           {/* Left side - Menu and Logo */}
           <div className="flex items-center space-x-3">
@@ -244,7 +259,7 @@ function Navbar({ topics }) {
             
             <Link href="/">
               <a className="flex items-center space-x-2 text-gray-900 hover:text-gray-600 dark:text-white dark:hover:text-gray-300 transition-colors">
-                <div className="w-8 h-8 rounded-full bg-gray-900 text-white dark:bg-white dark:text-gray-900 flex items-center justify-center text-sm font-semibold">
+                <div className="w-8 h-8 rounded-full bg-redwood-500 text-white dark:bg-redwood-400 dark:text-white flex items-center justify-center text-sm font-semibold">
                   S
                 </div>
                 <span className="text-lg font-bold" style={{fontFamily: 'Charter, Georgia, serif'}}>Sughosh's Chronicles</span>
@@ -256,14 +271,14 @@ function Navbar({ topics }) {
           <div className="flex items-center space-x-2">
             <button
               onClick={() => setSearchOpen(true)}
-              className="p-2 text-gray-600 hover:text-gray-900 dark:text-[#d5dcf3] dark:hover:text-white transition-colors mobile-search"
+              className="p-2 text-gray-600 hover:text-gray-900 dark:text-[#F5F4F2] dark:hover:text-white transition-colors mobile-search"
               title="Search articles"
             >
               <FiSearch className="w-5 h-5" />
             </button>
 
             <button
-              className="p-2 text-gray-600 hover:text-gray-900 dark:text-[#c8d0ec] dark:hover:text-white transition-colors"
+              className="p-2 text-gray-600 hover:text-gray-900 dark:text-[#B8B4B0] dark:hover:text-white transition-colors"
               onClick={toggleTheme}
               title={isMounted && theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             >
@@ -355,7 +370,7 @@ function Navbar({ topics }) {
               <a className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
                 <FiBookOpen className="w-5 h-5" />
                 <span>30-Day Challenge</span>
-                <span className="ml-auto inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-violet-100 dark:bg-violet-900 text-violet-800 dark:text-violet-200">New</span>
+                <span className="ml-auto inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-redwood-100 dark:bg-redwood-900 text-redwood-700 dark:text-redwood-200">New</span>
               </a>
             </Link>
             

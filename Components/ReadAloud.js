@@ -534,7 +534,7 @@ function ReadAloud({ articleRef }) {
       {isPlaying && (
         <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <div className="w-2 h-2 bg-redwood-500 rounded-full animate-pulse"></div>
             <span>Reading...</span>
           </div>
         </div>

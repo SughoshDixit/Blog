@@ -55,7 +55,7 @@ function AuthorBio({ data, allBlogs }) {
               href="https://github.com/SughoshDixit"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-600 hover:text-[#1a8917] dark:text-gray-400 dark:hover:text-[#26c281] transition-colors"
+              className="flex items-center gap-2 text-gray-600 hover:text-[#C74634] dark:text-gray-400 dark:hover:text-[#26c281] transition-colors"
             >
               <FiGithub />
               <span className="text-sm">GitHub</span>
@@ -64,7 +64,7 @@ function AuthorBio({ data, allBlogs }) {
               href="https://www.linkedin.com/in/sughosh-dixit/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-600 hover:text-[#1a8917] dark:text-gray-400 dark:hover:text-[#26c281] transition-colors"
+              className="flex items-center gap-2 text-gray-600 hover:text-[#C74634] dark:text-gray-400 dark:hover:text-[#26c281] transition-colors"
             >
               <FiLinkedin />
               <span className="text-sm">LinkedIn</span>
@@ -73,7 +73,7 @@ function AuthorBio({ data, allBlogs }) {
               href="https://www.youtube.com/@sughoshdixit"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-600 hover:text-[#1a8917] dark:text-gray-400 dark:hover:text-[#26c281] transition-colors"
+              className="flex items-center gap-2 text-gray-600 hover:text-[#C74634] dark:text-gray-400 dark:hover:text-[#26c281] transition-colors"
             >
               <FiYoutube />
               <span className="text-sm">YouTube</span>
@@ -82,7 +82,7 @@ function AuthorBio({ data, allBlogs }) {
               href="https://sughoshdixit.github.io/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-600 hover:text-[#1a8917] dark:text-gray-400 dark:hover:text-[#26c281] transition-colors"
+              className="flex items-center gap-2 text-gray-600 hover:text-[#C74634] dark:text-gray-400 dark:hover:text-[#26c281] transition-colors"
             >
               <FiExternalLink />
               <span className="text-sm">Portfolio</span>
@@ -97,7 +97,7 @@ function AuthorBio({ data, allBlogs }) {
                   const slug = generateSlug(post.data.Title);
                   return (
                     <Link href={`/blogs/${slug}`} key={slug}>
-                      <a className="block text-sm text-gray-600 dark:text-gray-300 hover:text-[#1a8917] dark:hover:text-[#26c281] transition-colors">
+                      <a className="block text-sm text-gray-600 dark:text-gray-300 hover:text-[#C74634] dark:hover:text-[#26c281] transition-colors">
                         {post.data.Title}
                       </a>
                     </Link>

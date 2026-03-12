@@ -40,7 +40,7 @@ function CopyCodeButton({ code, className = "" }) {
       aria-label={copied ? "Copied!" : "Copy code"}
     >
       {copied ? (
-        <FiCheck className="w-4 h-4 text-green-400" />
+        <FiCheck className="w-4 h-4 text-redwood-500" />
       ) : (
         <FiCopy className="w-4 h-4" />
       )}

@@ -57,7 +57,7 @@ function NewsletterForm({ compact = false }) {
     return (
       <div className="bg-[#f0e9dd] dark:bg-[#1f2a44] rounded-lg p-4 border border-[#e6dfd3] dark:border-[#25304a]">
         <div className="flex items-center gap-2 mb-2">
-          <FiMail className="text-[#1a8917] dark:text-[#26c281]" />
+          <FiMail className="text-[#C74634] dark:text-[#26c281]" />
           <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Stay Updated</h3>
         </div>
         <p className="text-xs text-gray-600 dark:text-gray-300 mb-3">
@@ -70,12 +70,12 @@ function NewsletterForm({ compact = false }) {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="your@email.com"
             required
-            className="flex-1 px-3 py-2 text-sm rounded-lg border border-[#e6dfd3] dark:border-[#25304a] bg-white dark:bg-[#0d1424] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#1a8917] dark:focus:ring-[#26c281]"
+            className="flex-1 px-3 py-2 text-sm rounded-lg border border-[#e6dfd3] dark:border-[#25304a] bg-white dark:bg-[#0d1424] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#C74634] dark:focus:ring-[#26c281]"
           />
           <button
             type="submit"
             disabled={isSubmitting}
-            className="px-4 py-2 text-sm font-medium rounded-lg bg-[#1a8917] dark:bg-[#26c281] text-white hover:bg-[#0f730c] dark:hover:bg-[#1ea869] transition-colors disabled:opacity-50"
+            className="px-4 py-2 text-sm font-medium rounded-lg bg-[#C74634] dark:bg-[#26c281] text-white hover:bg-[#A73A2C] dark:hover:bg-[#1ea869] transition-colors disabled:opacity-50"
           >
             {isSubmitting ? "..." : "Sign Up"}
           </button>
@@ -83,7 +83,7 @@ function NewsletterForm({ compact = false }) {
         {status.message && (
           <p className={`text-xs mt-2 ${
             status.type === "success" 
-              ? "text-green-600 dark:text-green-400 font-medium" 
+              ? "text-redwood-500 dark:text-redwood-500 font-medium" 
               : status.type === "error"
               ? "text-red-600 dark:text-red-400"
               : "text-gray-600 dark:text-gray-400"
@@ -98,7 +98,7 @@ function NewsletterForm({ compact = false }) {
   return (
     <div className="bg-gradient-to-br from-[#f0e9dd] to-[#e6dfd3] dark:from-[#1f2a44] dark:to-[#25304a] rounded-xl p-6 border border-[#e6dfd3] dark:border-[#25304a]">
       <div className="flex items-center gap-3 mb-3">
-        <div className="p-2 bg-[#1a8917] dark:bg-[#26c281] rounded-lg">
+        <div className="p-2 bg-[#C74634] dark:bg-[#26c281] rounded-lg">
           <FiMail className="text-white text-xl" />
         </div>
         <div>
@@ -113,12 +113,12 @@ function NewsletterForm({ compact = false }) {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
           required
-          className="w-full px-4 py-3 rounded-lg border border-[#e6dfd3] dark:border-[#25304a] bg-white dark:bg-[#0d1424] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#1a8917] dark:focus:ring-[#26c281]"
+          className="w-full px-4 py-3 rounded-lg border border-[#e6dfd3] dark:border-[#25304a] bg-white dark:bg-[#0d1424] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#C74634] dark:focus:ring-[#26c281]"
         />
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full px-4 py-3 text-sm font-medium rounded-lg bg-[#1a8917] dark:bg-[#26c281] text-white hover:bg-[#0f730c] dark:hover:bg-[#1ea869] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+          className="w-full px-4 py-3 text-sm font-medium rounded-lg bg-[#C74634] dark:bg-[#26c281] text-white hover:bg-[#A73A2C] dark:hover:bg-[#1ea869] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
         >
           {status.type === "success" ? (
             <>
@@ -134,7 +134,7 @@ function NewsletterForm({ compact = false }) {
         {status.message && (
           <p className={`text-sm ${
             status.type === "success" 
-              ? "text-green-600 dark:text-green-400 font-medium" 
+              ? "text-redwood-500 dark:text-redwood-500 font-medium" 
               : "text-red-600 dark:text-red-400"
           }`}>
             {status.message}

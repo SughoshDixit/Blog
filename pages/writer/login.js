@@ -52,7 +52,7 @@ export default function WriterLogin() {
                 value={formState.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#1a8917] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
+                className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#C74634] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
                 placeholder="you@example.com"
               />
             </div>
@@ -64,7 +64,7 @@ export default function WriterLogin() {
                 value={formState.password}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#1a8917] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
+                className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#C74634] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
                 placeholder="••••••••"
               />
             </div>

@@ -419,7 +419,7 @@ function PercentileThresholdTuner({ defaultValues, defaultPercentile = 90 }) {
             <button
               type="button"
               onClick={downloadCsv}
-              className="text-xs px-3 py-1.5 rounded bg-green-600 hover:bg-green-700 text-white"
+              className="text-xs px-3 py-1.5 rounded bg-redwood-500 hover:bg-redwood-500 text-white"
             >
               Download results (CSV)
             </button>

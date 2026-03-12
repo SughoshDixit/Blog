@@ -52,7 +52,7 @@ function PostSeries({ currentPost, allPosts, seriesName }) {
                   idx === currentIndex
                     ? "bg-blue-600 dark:bg-blue-400"
                     : idx < currentIndex
-                    ? "bg-green-500 dark:bg-green-400"
+                    ? "bg-redwood-500 dark:bg-redwood-500"
                     : "bg-gray-300 dark:bg-gray-600"
                 }`}
                 title={`Part ${idx + 1}`}

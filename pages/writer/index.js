@@ -275,7 +275,7 @@ export default function WriterDashboard() {
                     value={formState.fileName}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#1a8917] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
+                    className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#C74634] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
                   />
                 </div>
                 <div className="space-y-2">
@@ -285,7 +285,7 @@ export default function WriterDashboard() {
                     value={formState.id}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#1a8917] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
+                    className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#C74634] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
                   />
                 </div>
                 <div className="space-y-2 md:col-span-2">
@@ -295,7 +295,7 @@ export default function WriterDashboard() {
                     value={formState.title}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#1a8917] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
+                    className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#C74634] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
                   />
                 </div>
                 <div className="space-y-2">
@@ -305,7 +305,7 @@ export default function WriterDashboard() {
                     value={formState.author}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#1a8917] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
+                    className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#C74634] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
                   />
                 </div>
                 <div className="space-y-2">
@@ -316,7 +316,7 @@ export default function WriterDashboard() {
                     value={formState.date}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#1a8917] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
+                    className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#C74634] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
                   />
                 </div>
                 <div className="space-y-2">
@@ -325,7 +325,7 @@ export default function WriterDashboard() {
                     name="tags"
                     value={formState.tags}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#1a8917] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
+                    className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#C74634] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
                   />
                 </div>
                 <div className="space-y-2">
@@ -334,7 +334,7 @@ export default function WriterDashboard() {
                     name="topic"
                     value={formState.topic}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#1a8917] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
+                    className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#C74634] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
                   />
                 </div>
               </div>
@@ -346,7 +346,7 @@ export default function WriterDashboard() {
                   onChange={handleChange}
                   required
                   rows={3}
-                  className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#1a8917] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
+                  className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#C74634] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
                 />
               </div>
               <div className="space-y-2">
@@ -355,7 +355,7 @@ export default function WriterDashboard() {
                   name="headerImage"
                   value={formState.headerImage}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#1a8917] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
+                  className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#C74634] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8]"
                 />
               </div>
               <label className="flex items-center gap-3 text-sm font-medium text-[#5e5645] dark:text-[#aab4d1]">
@@ -364,7 +364,7 @@ export default function WriterDashboard() {
                   name="isPublished"
                   checked={formState.isPublished}
                   onChange={handleChange}
-                  className="w-4 h-4 rounded border border-[#e6dfd3] text-[#1a8917] focus:ring-[#1a8917]"
+                  className="w-4 h-4 rounded border border-[#e6dfd3] text-[#C74634] focus:ring-[#C74634]"
                 />
                 Mark as published
               </label>
@@ -381,7 +381,7 @@ export default function WriterDashboard() {
                     onClick={() => setViewMode("edit")}
                     className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                       viewMode === "edit"
-                        ? "bg-[#1a8917] text-white dark:bg-[#26c281]"
+                        ? "bg-[#C74634] text-white dark:bg-[#26c281]"
                         : "bg-[#f0e9dd] text-[#5b5241] dark:bg-[#1f2a44] dark:text-[#d1d7ef] hover:bg-[#e6dfd3] dark:hover:bg-[#25304a]"
                     }`}
                   >
@@ -392,7 +392,7 @@ export default function WriterDashboard() {
                     onClick={() => setViewMode("split")}
                     className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                       viewMode === "split"
-                        ? "bg-[#1a8917] text-white dark:bg-[#26c281]"
+                        ? "bg-[#C74634] text-white dark:bg-[#26c281]"
                         : "bg-[#f0e9dd] text-[#5b5241] dark:bg-[#1f2a44] dark:text-[#d1d7ef] hover:bg-[#e6dfd3] dark:hover:bg-[#25304a]"
                     }`}
                   >
@@ -403,7 +403,7 @@ export default function WriterDashboard() {
                     onClick={() => setViewMode("preview")}
                     className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                       viewMode === "preview"
-                        ? "bg-[#1a8917] text-white dark:bg-[#26c281]"
+                        ? "bg-[#C74634] text-white dark:bg-[#26c281]"
                         : "bg-[#f0e9dd] text-[#5b5241] dark:bg-[#1f2a44] dark:text-[#d1d7ef] hover:bg-[#e6dfd3] dark:hover:bg-[#25304a]"
                     }`}
                   >
@@ -499,7 +499,7 @@ export default function WriterDashboard() {
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
                       disabled={isUploading}
-                      className="px-2.5 py-1 text-xs font-medium rounded-lg bg-[#1a8917] dark:bg-[#26c281] text-white border border-[#1a8917] dark:border-[#26c281] hover:bg-[#0f730c] dark:hover:bg-[#1ea869] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-2.5 py-1 text-xs font-medium rounded-lg bg-[#C74634] dark:bg-[#26c281] text-white border border-[#C74634] dark:border-[#26c281] hover:bg-[#A73A2C] dark:hover:bg-[#1ea869] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isUploading ? "Uploading..." : "📷 Upload Image"}
                     </button>
@@ -517,7 +517,7 @@ export default function WriterDashboard() {
                       value={formState.body}
                       onChange={handleChange}
                       rows={30}
-                      className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#1a8917] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8] font-mono resize-none"
+                      className="w-full px-4 py-3 rounded-2xl border border-[#e6dfd3] focus:outline-none focus:border-[#C74634] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#0d1424] dark:text-[#dadff7] dark:border-[#25304a] dark:placeholder:text-[#7783a8] font-mono resize-none"
                       style={{ minHeight: "600px" }}
                       placeholder="Start writing your markdown here..."
                     />
@@ -563,7 +563,7 @@ export default function WriterDashboard() {
                     status.type === "error"
                       ? "text-sm text-red-600 dark:text-red-400"
                       : status.type === "success"
-                      ? "text-sm text-green-700 dark:text-green-400"
+                      ? "text-sm text-redwood-500 dark:text-redwood-500"
                       : "text-sm text-[#6e6553] dark:text-[#9aa6c6]"
                   }
                 >

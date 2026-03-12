@@ -60,7 +60,7 @@ function CommentReactions({ commentId, postId }) {
             disabled={isReacting}
             className={`flex items-center gap-1 px-2 py-1 rounded-md text-xs transition-colors ${
               isActive
-                ? "bg-[#1a8917]/10 dark:bg-[#26c281]/20 text-[#1a8917] dark:text-[#26c281]"
+                ? "bg-[#C74634]/10 dark:bg-[#26c281]/20 text-[#C74634] dark:text-[#26c281]"
                 : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700"
             }`}
             title={reaction.label}

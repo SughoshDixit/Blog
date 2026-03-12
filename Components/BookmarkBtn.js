@@ -55,7 +55,7 @@ function BookmarkBtn({ postId, postTitle, postData }) {
       title={isBookmarked ? "Remove bookmark" : "Save for later"}
     >
       {isBookmarked ? (
-        <FiCheck className="text-[#1a8917] dark:text-[#26c281]" style={{ fontSize: "1.5rem" }} />
+        <FiCheck className="text-[#C74634] dark:text-[#26c281]" style={{ fontSize: "1.5rem" }} />
       ) : (
         <FiBookmark style={{ fontSize: "1.5rem" }} />
       )}

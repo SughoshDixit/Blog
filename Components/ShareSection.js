@@ -43,11 +43,11 @@ function ShareSection({ headingId, headingText }) {
   return (
     <button
       onClick={handleShare}
-      className="ml-2 p-1.5 text-gray-400 hover:text-[#1a8917] dark:hover:text-[#26c281] transition-colors opacity-0 group-hover:opacity-100"
+      className="ml-2 p-1.5 text-gray-400 hover:text-[#C74634] dark:hover:text-[#26c281] transition-colors opacity-0 group-hover:opacity-100"
       title="Share this section"
     >
       {copied ? (
-        <FiCheck className="w-4 h-4 text-green-500" />
+        <FiCheck className="w-4 h-4 text-redwood-500" />
       ) : (
         <FiShare2 className="w-4 h-4" />
       )}

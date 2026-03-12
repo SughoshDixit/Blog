@@ -69,7 +69,7 @@ function Toc({ headings }) {
                   : "text-gray-600 dark:text-gray-400 ml-4"
               } ${
                 heading.id === active 
-                  ? "bg-[#1a8917]/10 dark:bg-[#26c281]/20 text-[#1a8917] dark:text-[#26c281] font-semibold" 
+                  ? "bg-[#C74634]/10 dark:bg-[#26c281]/20 text-[#C74634] dark:text-[#26c281] font-semibold" 
                   : "hover:bg-gray-100 dark:hover:bg-gray-800"
               }`}
               onClick={() => scrollToHeading(heading.id)}

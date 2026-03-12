@@ -169,7 +169,7 @@ function Comments({ id }) {
                 Reset
               </button>
               <button
-                className="bg-indigo-500 hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors w-full sm:w-auto"
+                className="bg-redwood-500 hover:bg-redwood-500 dark:bg-redwood-500 dark:hover:bg-redwood-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors w-full sm:w-auto"
                 onClick={handelPost}
               >
                 Post Comment

@@ -287,7 +287,7 @@ function about({ topics }) {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4" style={{fontFamily: 'Charter, Georgia, serif'}}>
-              <FaBriefcase className="inline mr-3 text-indigo-600" />
+              <FaBriefcase className="inline mr-3 text-redwood-500" />
               Professional Journey
             </h2>
           </div>
@@ -300,7 +300,7 @@ function about({ topics }) {
                 <div className="w-14 h-14 mb-6 rounded-xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
                   <span className="text-red-600 font-bold text-xl">O</span>
                 </div>
-                <div className="inline-block px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-semibold mb-4">
+                <div className="inline-block px-3 py-1 rounded-full bg-redwood-500 dark:bg-redwood-500/30 text-redwood-500 dark:text-redwood-500 text-xs font-semibold mb-4">
                   CURRENT
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Data Scientist</h3>

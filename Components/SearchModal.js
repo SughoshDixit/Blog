@@ -102,7 +102,7 @@ function SearchModal({ isOpen, onClose }) {
         <div className="max-h-96 overflow-y-auto">
           {loading && (
             <div className="p-8 text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600 mx-auto"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-redwood-500 mx-auto"></div>
               <p className="text-gray-500 dark:text-gray-400 mt-2">Searching...</p>
             </div>
           )}
@@ -179,7 +179,7 @@ function SearchModal({ isOpen, onClose }) {
                 </h3>
                 <button
                   onClick={clearRecentSearches}
-                  className="text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+                  className="text-xs text-redwood-500 hover:text-redwood-500 dark:text-redwood-500 dark:hover:text-redwood-500"
                 >
                   Clear
                 </button>

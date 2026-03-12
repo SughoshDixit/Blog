@@ -3,90 +3,110 @@ import { FiLinkedin } from "react-icons/fi";
 import NewsletterForm from "./NewsletterForm";
 
 function Footer() {
-  const date = new Date();
-  const year = date.getFullYear();
+  const year = new Date().getFullYear();
   return (
-    <footer className="w-full border-t border-gray-200 dark:border-gray-700">
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Medium-style footer content */}
+    <footer className="w-full border-t border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#201E1C]">
+      {/* Redwood divider accent */}
+      <div className="h-[3px] bg-gradient-to-r from-[#C74634] via-[#E8572A] to-[#C74634]" />
+
+      <div className="max-w-7xl mx-auto px-6 py-14">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+
+          {/* Brand */}
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gray-900 dark:bg-white rounded-full flex items-center justify-center">
-                <span className="text-white dark:text-gray-900 font-bold text-sm">S</span>
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-9 h-9 rounded-full bg-[#C74634] flex items-center justify-center shadow-md shadow-[#C74634]/20">
+                <span className="text-white font-bold text-sm">S</span>
               </div>
-              <span className="text-lg font-bold text-gray-900 dark:text-white">Sughosh's Chronicles</span>
+              <span className="text-lg font-bold text-[#161513] dark:text-[#F5F4F2]" style={{fontFamily: 'Charter, Georgia, serif'}}>
+                Sughosh&apos;s Chronicles
+              </span>
             </div>
-            <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
-              Stories and ideas for people who think differently.
+            <p className="text-[#6E6B68] dark:text-[#B8B4B0] text-sm mb-6 max-w-xs leading-relaxed">
+              Stories and ideas at the intersection of data science, philosophy, and the beautiful game.
             </p>
-            <div className="flex space-x-4">
-              <a
-                href="https://twitter.com/PSughosh"
-                rel="noopener noreferrer"
-                target="_blank"
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-              >
-                <SiTwitter className="w-5 h-5" />
-              </a>
-              <a
-                href="https://github.com/SughoshDixit"
-                rel="noopener noreferrer"
-                target="_blank"
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-              >
-                <SiGithub className="w-5 h-5" />
-              </a>
-              <a
-                href="https://www.instagram.com/sughoshdixit/"
-                rel="noopener noreferrer"
-                target="_blank"
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-              >
-                <SiInstagram className="w-5 h-5" />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/sughosh-dixit/"
-                rel="noopener noreferrer"
-                target="_blank"
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-              >
-                <FiLinkedin className="w-5 h-5" />
-              </a>
+            {/* Social icons */}
+            <div className="flex space-x-3">
+              {[
+                { href: "https://twitter.com/PSughosh", icon: <SiTwitter className="w-4 h-4" />, label: "Twitter" },
+                { href: "https://github.com/SughoshDixit", icon: <SiGithub className="w-4 h-4" />, label: "GitHub" },
+                { href: "https://www.instagram.com/sughoshdixit/", icon: <SiInstagram className="w-4 h-4" />, label: "Instagram" },
+                { href: "https://www.linkedin.com/in/sughosh-dixit/", icon: <FiLinkedin className="w-4 h-4" />, label: "LinkedIn" },
+              ].map(({ href, icon, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  data-tooltip={label}
+                  className="w-9 h-9 rounded-full border border-[#E0DDD9] dark:border-[#3D3A36] flex items-center justify-center text-[#6E6B68] dark:text-[#B8B4B0] hover:border-[#C74634] hover:text-[#C74634] hover:bg-[#FDF3F1] dark:hover:bg-[#2C2A27] dark:hover:border-[#C74634] dark:hover:text-[#E8572A] transition-all duration-200"
+                >
+                  {icon}
+                </a>
+              ))}
             </div>
           </div>
-          
+
+          {/* Links */}
           <div>
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-4">About</h3>
-            <ul className="space-y-2 text-sm">
-              <li><a href="/about" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">About</a></li>
-              <li><a href="/ai-gallery" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">AI Gallery</a></li>
-              <li><a href="/dashboard" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Dashboard</a></li>
+            <h3 className="text-xs font-semibold text-[#6E6B68] dark:text-[#B8B4B0] uppercase tracking-widest mb-5">Explore</h3>
+            <ul className="space-y-3 text-sm">
+              {[
+                { href: "/about", label: "About" },
+                { href: "/ai-gallery", label: "AI Gallery" },
+                { href: "/dashboard", label: "Dashboard" },
+                { href: "/learning-path", label: "30-Day Challenge" },
+              ].map(({ href, label }) => (
+                <li key={href}>
+                  <a href={href} className="text-[#6E6B68] dark:text-[#B8B4B0] hover:text-[#C74634] dark:hover:text-[#E8572A] transition-colors link-underline">
+                    {label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
-          
+
+          {/* Connect + Newsletter */}
           <div>
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Connect</h3>
-            <ul className="space-y-2 text-sm mb-4">
-              <li><a href="https://sughoshdixit.github.io/" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Portfolio</a></li>
-              <li><a href="https://www.youtube.com/@sughoshdixit" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">YouTube</a></li>
-              <li><a href="mailto:sughoshdixit@gmail.com" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</a></li>
+            <h3 className="text-xs font-semibold text-[#6E6B68] dark:text-[#B8B4B0] uppercase tracking-widest mb-5">Connect</h3>
+            <ul className="space-y-3 text-sm mb-6">
+              {[
+                { href: "https://sughoshdixit.github.io/", label: "Portfolio", external: true },
+                { href: "https://www.youtube.com/@sughoshdixit", label: "YouTube", external: true },
+                { href: "mailto:sughoshdixit@gmail.com", label: "Contact", external: false },
+              ].map(({ href, label, external }) => (
+                <li key={href}>
+                  <a
+                    href={href}
+                    target={external ? "_blank" : undefined}
+                    rel={external ? "noopener noreferrer" : undefined}
+                    className="text-[#6E6B68] dark:text-[#B8B4B0] hover:text-[#C74634] dark:hover:text-[#E8572A] transition-colors link-underline"
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
             </ul>
             <NewsletterForm compact={true} />
           </div>
         </div>
-        
-        <div className="border-t border-gray-200 dark:border-gray-700 mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              © {year} Sughosh Dixit. All rights reserved.
-            </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <a href="/api/feed" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">RSS Feed</a>
-              <a href="#" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Privacy</a>
-              <a href="#" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Terms</a>
-              <a href="#" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Help</a>
-            </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-[#E0DDD9] dark:border-[#3D3A36] mt-10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-[#6E6B68] dark:text-[#B8B4B0]">
+            © {year} Sughosh Dixit. Built with{" "}
+            <span className="text-[#C74634]">♥</span> using Next.js &amp; Oracle Redwood.
+          </p>
+          <div className="flex space-x-6">
+            {[
+              { href: "/api/feed", label: "RSS Feed" },
+              { href: "#", label: "Privacy" },
+              { href: "#", label: "Terms" },
+            ].map(({ href, label }) => (
+              <a key={label} href={href} className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] hover:text-[#C74634] dark:hover:text-[#E8572A] transition-colors">
+                {label}
+              </a>
+            ))}
           </div>
         </div>
       </div>

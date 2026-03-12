@@ -81,7 +81,7 @@ function RelatedPosts({ currentPost, allBlogs, maxPosts = 3 }) {
                   <div className="p-4">
                     <div className="flex items-center gap-2 mb-2">
                       {post.data.Topic && (
-                        <span className="text-xs font-medium text-[#1a8917] dark:text-[#26c281]">
+                        <span className="text-xs font-medium text-[#C74634] dark:text-[#26c281]">
                           {post.data.Topic}
                         </span>
                       )}
@@ -91,7 +91,7 @@ function RelatedPosts({ currentPost, allBlogs, maxPosts = 3 }) {
                         </span>
                       )}
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-[#1a8917] dark:group-hover:text-[#26c281] transition-colors line-clamp-2" style={{ fontFamily: "Charter, Georgia, serif" }}>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-[#C74634] dark:group-hover:text-[#26c281] transition-colors line-clamp-2" style={{ fontFamily: "Charter, Georgia, serif" }}>
                       {post.data.Title}
                     </h3>
                     {post.data.Abstract && (
@@ -99,7 +99,7 @@ function RelatedPosts({ currentPost, allBlogs, maxPosts = 3 }) {
                         {post.data.Abstract}
                       </p>
                     )}
-                    <div className="flex items-center text-sm text-[#1a8917] dark:text-[#26c281] font-medium">
+                    <div className="flex items-center text-sm text-[#C74634] dark:text-[#26c281] font-medium">
                       Read more
                       <FiArrowRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>

@@ -549,7 +549,7 @@ export default function Dashboard({ blogs, topics }) {
       <div className="min-h-screen relative bg-white dark:bg-gray-900">
         <Navbar topics={topics} />
         <div className="flex items-center justify-center min-h-screen">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-indigo-600"></div>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-redwood-500"></div>
         </div>
         <Footer />
       </div>
@@ -594,8 +594,8 @@ export default function Dashboard({ blogs, topics }) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
               <div className="flex items-center">
-                <div className="p-3 rounded-full bg-indigo-100 dark:bg-indigo-900">
-                  <FiBookOpen className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+                <div className="p-3 rounded-full bg-redwood-500 dark:bg-redwood-500">
+                  <FiBookOpen className="h-6 w-6 text-redwood-500 dark:text-redwood-500" />
                 </div>
                 <div className="ml-4">
                   <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Blogs</p>
@@ -622,8 +622,8 @@ export default function Dashboard({ blogs, topics }) {
 
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
               <div className="flex items-center">
-                <div className="p-3 rounded-full bg-green-100 dark:bg-green-900">
-                  <FiCheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+                <div className="p-3 rounded-full bg-redwood-500 dark:bg-redwood-500">
+                  <FiCheckCircle className="h-6 w-6 text-redwood-500 dark:text-redwood-500" />
                 </div>
                 <div className="ml-4">
                   <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Your Reads</p>
@@ -842,8 +842,8 @@ export default function Dashboard({ blogs, topics }) {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="flex-shrink-0 h-8 w-8">
-                            <div className="h-8 w-8 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center">
-                              <span className="text-sm font-medium text-indigo-600 dark:text-indigo-400">
+                            <div className="h-8 w-8 rounded-full bg-redwood-500 dark:bg-redwood-500 flex items-center justify-center">
+                              <span className="text-sm font-medium text-redwood-500 dark:text-redwood-500">
                                 {index + 1}
                               </span>
                             </div>
@@ -859,7 +859,7 @@ export default function Dashboard({ blogs, topics }) {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200">
+                        <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-redwood-500 text-redwood-500 dark:bg-redwood-500 dark:text-redwood-500">
                           {blog.topic}
                         </span>
                       </td>

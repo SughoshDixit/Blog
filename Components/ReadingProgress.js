@@ -30,7 +30,7 @@ function ReadingProgress() {
   return (
     <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-gray-200 dark:bg-gray-800">
       <div
-        className="h-full bg-[#1a8917] dark:bg-[#26c281] transition-all duration-150 ease-out"
+        className="h-full bg-[#C74634] dark:bg-[#26c281] transition-all duration-150 ease-out"
         style={{ width: `${progress}%` }}
       />
     </div>

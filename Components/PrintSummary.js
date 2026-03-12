@@ -252,7 +252,7 @@ function PrintSummary({ title, abstract, headings = [], headerImage, articleRef 
         <button
           type="button"
           onClick={handlePrint}
-          className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm"
+          className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-redwood-500 hover:bg-redwood-500 text-white text-xs sm:text-sm"
           aria-label="Download summary PDF"
         >
           Download Summary (PDF)

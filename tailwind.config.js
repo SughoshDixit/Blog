@@ -7,35 +7,48 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#FF6B6B",
-        secondary: "#4ECDC4",
-        tertiary: "#FFE66D",
-        accent: "#FFB677",
-        dark: "#2B2D42",
-        light: "#EDF2F4",
+        // Oracle Redwood Design System
+        primary: "#C74634",
+        secondary: "#E8572A",
+        tertiary: "#F5E4D3",
+        accent: "#0572CE",
+        dark: "#201E1C",
+        light: "#FAF8F6",
+        redwood: {
+          50: "#FDF3F1",
+          100: "#FAE4DF",
+          200: "#F5C4BB",
+          300: "#EE9A8B",
+          400: "#E46A57",
+          500: "#C74634",
+          600: "#A73A2C",
+          700: "#8B2F24",
+          800: "#73271E",
+          900: "#60211A",
+        },
       },
       boxShadow: {
         2: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
       },
       fontFamily: {
-        sans: ["Inter", ...fontFamily.sans],
+        sans: ["DM Sans", "Inter", ...fontFamily.sans],
       },
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            color: "#242424",
+            color: "#161513",
             maxWidth: "none",
             a: {
-              color: "#1a8917",
+              color: "#C74634",
               textDecoration: "none",
               "&:hover": {
-                color: "#0f730c",
+                color: "#A73A2C",
                 textDecoration: "underline",
               },
-              code: { color: "#1a8917" },
+              code: { color: "#C74634" },
             },
             "h1, h2, h3, h4, h5, h6": {
-              color: "#191919",
+              color: "#161513",
               fontWeight: "600",
               lineHeight: "1.2",
               marginTop: "1.5em",
@@ -45,33 +58,33 @@ module.exports = {
               "scroll-margin-top": spacing[32],
             },
             p: {
-              color: "#242424",
+              color: "#161513",
               marginTop: "1em",
               marginBottom: "1em",
             },
             strong: {
-              color: "#191919",
+              color: "#161513",
               fontWeight: "700",
             },
-            code: { 
-              color: "#191919",
-              backgroundColor: "#f3f4f6",
+            code: {
+              color: "#161513",
+              backgroundColor: "#F5EDE9",
               padding: "0.125rem 0.375rem",
               borderRadius: "0.25rem",
               fontWeight: "400",
             },
             pre: {
-              color: "#191919",
-              backgroundColor: "#f3f4f6",
+              color: "#161513",
+              backgroundColor: "#F5EDE9",
             },
             blockquote: {
-              color: "#4b5563",
-              borderLeftColor: "#d1d5db",
+              color: "#6E6B68",
+              borderLeftColor: "#C74634",
               "p:first-of-type::before": false,
               "p:last-of-type::after": false,
             },
             li: {
-              color: "#242424",
+              color: "#161513",
             },
             img: {
               display: "block",
@@ -88,40 +101,40 @@ module.exports = {
         },
         dark: {
           css: {
-            color: theme("colors.light"),
+            color: "#F5F4F2",
             a: {
-              color: theme("colors.primary"),
+              color: "#E8572A",
               "&:hover": {
-                color: theme("colors.primary"),
+                color: "#F07A56",
               },
-              code: { color: theme("colors.primary") },
+              code: { color: "#E8572A" },
             },
             blockquote: {
-              borderLeftColor: theme("colors.gray.700"),
-              color: theme("colors.gray.300"),
+              borderLeftColor: "#E8572A",
+              color: "#B8B4B0",
             },
             "h2,h3,h4": {
-              color: theme("colors.gray.100"),
+              color: "#F5F4F2",
               "scroll-margin-top": spacing[32],
             },
-            hr: { borderColor: theme("colors.gray.700") },
+            hr: { borderColor: "#3D3A36" },
             ol: {
               li: {
-                "&:before": { color: theme("colors.gray.500") },
+                "&:before": { color: "#B8B4B0" },
               },
             },
             ul: {
               li: {
-                "&:before": { backgroundColor: theme("colors.gray.500") },
+                "&:before": { backgroundColor: "#B8B4B0" },
               },
             },
-            strong: { color: theme("colors.light") },
+            strong: { color: "#F5F4F2" },
             thead: {
-              color: theme("colors.light"),
+              color: "#F5F4F2",
             },
             tbody: {
               tr: {
-                borderBottomColor: theme("colors.gray.700"),
+                borderBottomColor: "#3D3A36",
               },
             },
             img: {
