@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import { FaRobot, FaImage, FaVideo, FaEye, FaMagic } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
@@ -104,6 +105,8 @@ export const getStaticProps = async () => {
 };
 
 function AIGallery({ topics, aiImages }) {
+  const router = useRouter();
+  const basePath = router.basePath || "";
   const [selectedImage, setSelectedImage] = useState(null);
   const [filter, setFilter] = useState('all');
 
@@ -184,39 +187,48 @@ function AIGallery({ topics, aiImages }) {
               className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer"
               onClick={() => openModal(item)}
             >
-              <div className="aspect-square bg-gray-200 dark:bg-gray-700 overflow-hidden">
+              <div className="relative aspect-square bg-gray-200 dark:bg-gray-700 overflow-hidden">
                 {item.type === 'video' ? (
-                  <video 
-                    className="w-full h-full object-cover"
-                    poster={item.src}
-                    preload="metadata"
-                  >
-                    <source src={item.src} type="video/mp4" />
-                    <div className="w-full h-full flex items-center justify-center">
+                  <>
+                    <div className="absolute inset-0 flex items-center justify-center bg-gray-200 dark:bg-gray-700">
                       <div className="text-center">
                         <FaVideo className="text-4xl text-gray-400 mb-2" />
-                        <p className="text-gray-500">AI Generated Video</p>
+                        <p className="text-gray-500 text-sm">AI Generated Video</p>
                       </div>
                     </div>
-                  </video>
+                    <video
+                      className="relative w-full h-full object-cover"
+                      preload="metadata"
+                      aria-hidden="true"
+                    >
+                      <source src={`${basePath}${item.src}`} type="video/mp4" />
+                    </video>
+                  </>
                 ) : (
-                  <img 
-                    src={item.src} 
-                    alt={item.title}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    loading="lazy"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
-                    }}
-                  />
+                  <>
+                    <img
+                      src={`${basePath}${item.src}`}
+                      alt={item.title}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                      onError={(e) => {
+                        e.target.style.display = "none";
+                        const fallback = e.target.nextElementSibling;
+                        if (fallback) fallback.style.display = "flex";
+                      }}
+                    />
+                    <div
+                      className="absolute inset-0 hidden w-full items-center justify-center bg-gray-200 dark:bg-gray-700"
+                      style={{ display: "none" }}
+                      aria-hidden="true"
+                    >
+                      <div className="text-center">
+                        <FaImage className="text-4xl text-gray-400 mb-2" />
+                        <p className="text-gray-500">AI Generated Image</p>
+                      </div>
+                    </div>
+                  </>
                 )}
-                <div className="w-full h-full flex items-center justify-center absolute inset-0 bg-gray-200 dark:bg-gray-700" style={{display: 'none'}}>
-                  <div className="text-center">
-                    <FaImage className="text-4xl text-gray-400 mb-2" />
-                    <p className="text-gray-500">AI Generated Image</p>
-                  </div>
-                </div>
               </div>
               <div className="p-4">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 truncate">
@@ -229,7 +241,7 @@ function AIGallery({ topics, aiImages }) {
                   {item.tags.slice(0, 3).map((tag, index) => (
                     <span
                       key={index}
-                      className="bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 px-2 py-1 rounded text-xs"
+                      className="bg-redwood-500 dark:bg-redwood-500 text-redwood-500 dark:text-redwood-500 px-2 py-1 rounded text-xs"
                     >
                       {tag}
                     </span>
@@ -243,7 +255,7 @@ function AIGallery({ topics, aiImages }) {
                 <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
                   <span>{item.date}</span>
                   <div className="flex items-center space-x-2">
-                    <FaEye className="text-indigo-500" />
+                    <FaEye className="text-redwood-500" />
                     <span>View</span>
                   </div>
                 </div>
@@ -288,17 +300,17 @@ function AIGallery({ topics, aiImages }) {
             
             <div className="p-6">
               {selectedImage.type === 'video' ? (
-                <video 
+                <video
                   className="w-full h-auto max-h-[60vh] object-contain"
                   controls
                   autoPlay
                 >
-                  <source src={selectedImage.src} type="video/mp4" />
+                  <source src={`${basePath}${selectedImage.src}`} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               ) : (
-                <img 
-                  src={selectedImage.src} 
+                <img
+                  src={`${basePath}${selectedImage.src}`}
                   alt={selectedImage.title}
                   className="w-full h-auto max-h-[60vh] object-contain"
                 />
@@ -313,7 +325,7 @@ function AIGallery({ topics, aiImages }) {
                   {selectedImage.tags.map((tag, index) => (
                     <span
                       key={index}
-                      className="bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 px-3 py-1 rounded-full text-sm"
+                      className="bg-redwood-500 dark:bg-redwood-500 text-redwood-500 dark:text-redwood-500 px-3 py-1 rounded-full text-sm"
                     >
                       {tag}
                     </span>
