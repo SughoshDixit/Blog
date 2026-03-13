@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { FaRobot, FaImage, FaVideo, FaEye, FaMagic } from "react-icons/fa";
+import { FaRobot, FaImage, FaVideo, FaEye, FaMagic, FaTimes, FaFilter } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import fs from "fs";
@@ -9,21 +9,19 @@ import path from "path";
 export const getStaticProps = async () => {
   const aiDir = path.join(process.cwd(), "public", "AI");
   let aiImages = [];
-  
+
   try {
     const files = fs.readdirSync(aiDir);
     aiImages = files.map((file, index) => {
       const filePath = path.join(aiDir, file);
       const stats = fs.statSync(filePath);
       const isVideo = file.endsWith('.mp4') || file.endsWith('.mov') || file.endsWith('.avi');
-      
-      // Generate descriptive titles based on filename
-      let title = file.replace(/\.[^/.]+$/, ""); // Remove extension
+
+      let title = file.replace(/\.[^/.]+$/, "");
       let description = "";
       let category = "general";
       let tags = [];
-      
-      // Categorize and title based on filename patterns
+
       if (title.includes("replicate-prediction")) {
         title = "AI Generated Art";
         description = "Creative artwork generated using AI models";
@@ -80,10 +78,10 @@ export const getStaticProps = async () => {
         category = "general";
         tags = ["AI", "Generated", "Creative"];
       }
-      
+
       return {
         id: index,
-        src: `/AI/${file}`,
+        src: `/AI/${encodeURIComponent(file)}`,
         title,
         description,
         category,
@@ -121,95 +119,134 @@ function AIGallery({ topics, aiImages }) {
     { id: 'general', name: 'General', icon: FaImage }
   ];
 
-  const filteredContent = filter === 'all' 
-    ? aiImages 
+  const filteredContent = filter === 'all'
+    ? aiImages
     : aiImages.filter(item => item.category === filter);
 
-  const openModal = (item) => {
-    setSelectedImage(item);
-  };
-
-  const closeModal = () => {
-    setSelectedImage(null);
-  };
+  const openModal = (item) => setSelectedImage(item);
+  const closeModal = () => setSelectedImage(null);
 
   return (
-    <div className="min-h-screen relative bg-white dark:bg-gray-900">
+    <div className="min-h-screen" style={{ backgroundColor: '#FAF8F6' }}>
       <Navbar topics={topics} />
-      
-      {/* Medium-style hero section */}
-      <div className="pt-20 pb-16 bg-white dark:bg-gray-900">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center mb-6">
-              <FaRobot className="text-6xl text-purple-600" />
+
+      {/* Redwood Hero */}
+      <div className="pt-20 pb-12" style={{ backgroundColor: '#FAF8F6' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          {/* Redwood-style breadcrumb bar */}
+          <div className="flex items-center space-x-2 text-sm mb-8 pt-6" style={{ color: '#6E6B68' }}>
+            <span>Labs</span>
+            <span>/</span>
+            <span style={{ color: '#C74634', fontWeight: 500 }}>AI Gallery</span>
+          </div>
+
+          <div className="flex items-start space-x-6 mb-2">
+            {/* Redwood icon panel */}
+            <div
+              className="flex-shrink-0 w-16 h-16 rounded-lg flex items-center justify-center"
+              style={{ backgroundColor: '#C74634' }}
+            >
+              <FaRobot className="text-2xl text-white" />
             </div>
-            <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6" style={{fontFamily: 'Charter, Georgia, serif'}}>
-              AI Gallery
-            </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Explore my collection of AI-generated images, videos, and creative content. 
-              From custom LoRA models to diffusion art, discover the intersection of technology and creativity.
-            </p>
+            <div>
+              <h1
+                className="text-4xl font-semibold mb-3"
+                style={{ fontFamily: 'DM Sans, sans-serif', color: '#161513', letterSpacing: '-0.02em' }}
+              >
+                AI Gallery
+              </h1>
+              <p className="text-lg max-w-2xl" style={{ color: '#6E6B68', lineHeight: 1.6 }}>
+                A curated collection of AI-generated images, videos, and creative content —
+                from custom LoRA models to diffusion art.
+              </p>
+            </div>
+          </div>
+
+          {/* Redwood divider */}
+          <div className="mt-8 mb-0" style={{ borderBottom: '1px solid #E0DDD9' }} />
+        </div>
+      </div>
+
+      {/* Redwood Filter Bar */}
+      <div style={{ backgroundColor: '#FFFFFF', borderBottom: '1px solid #E0DDD9' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="flex items-center space-x-1 overflow-x-auto py-0 no-scrollbar">
+            <FaFilter className="flex-shrink-0 mr-3 text-sm" style={{ color: '#6E6B68' }} />
+            {categories.map((category) => {
+              const IconComponent = category.icon;
+              const isActive = filter === category.id;
+              return (
+                <button
+                  key={category.id}
+                  onClick={() => setFilter(category.id)}
+                  className="flex items-center space-x-2 px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors focus:outline-none"
+                  style={{
+                    color: isActive ? '#C74634' : '#6E6B68',
+                    borderBottom: isActive ? '2px solid #C74634' : '2px solid transparent',
+                    backgroundColor: 'transparent',
+                    marginBottom: '-1px',
+                  }}
+                >
+                  <IconComponent className="text-xs" />
+                  <span>{category.name}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
 
-      {/* Medium-style filter tabs */}
-      <div className="max-w-4xl mx-auto px-6 mb-12">
-        <div className="flex flex-wrap justify-center gap-4">
-          {categories.map((category) => {
-            const IconComponent = category.icon;
-            return (
-              <button
-                key={category.id}
-                onClick={() => setFilter(category.id)}
-                className={`flex items-center space-x-2 px-6 py-3 rounded-full font-medium transition-colors ${
-                  filter === category.id
-                    ? 'medium-button'
-                    : 'medium-button-outline'
-                }`}
-              >
-                <IconComponent />
-                <span>{category.name}</span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
       {/* Gallery Grid */}
-      <div className="max-w-6xl mx-auto px-6 pb-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      <div className="max-w-5xl mx-auto px-6 py-10">
+        {/* Count bar */}
+        <div className="flex items-center justify-between mb-6">
+          <p className="text-sm" style={{ color: '#6E6B68' }}>
+            {filteredContent.length} item{filteredContent.length !== 1 ? 's' : ''}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {filteredContent.map((item) => (
             <div
               key={item.id}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer"
               onClick={() => openModal(item)}
+              className="group cursor-pointer overflow-hidden transition-all duration-200"
+              style={{
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #E0DDD9',
+                borderRadius: '6px',
+                boxShadow: '0 1px 3px rgba(22,21,19,0.06)',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.boxShadow = '0 4px 16px rgba(199,70,52,0.12)';
+                e.currentTarget.style.borderColor = '#C74634';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.boxShadow = '0 1px 3px rgba(22,21,19,0.06)';
+                e.currentTarget.style.borderColor = '#E0DDD9';
+              }}
             >
-              <div className="relative aspect-square bg-gray-200 dark:bg-gray-700 overflow-hidden">
+              {/* Thumbnail */}
+              <div
+                className="relative overflow-hidden"
+                style={{ aspectRatio: '1', backgroundColor: '#F1EFED' }}
+              >
                 {item.type === 'video' ? (
-                  <>
-                    <div className="absolute inset-0 flex items-center justify-center bg-gray-200 dark:bg-gray-700">
-                      <div className="text-center">
-                        <FaVideo className="text-4xl text-gray-400 mb-2" />
-                        <p className="text-gray-500 text-sm">AI Generated Video</p>
-                      </div>
-                    </div>
-                    <video
-                      className="relative w-full h-full object-cover"
-                      preload="metadata"
-                      aria-hidden="true"
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <div
+                      className="w-12 h-12 rounded-full flex items-center justify-center mb-2"
+                      style={{ backgroundColor: '#C74634' }}
                     >
-                      <source src={`${basePath}${item.src}`} type="video/mp4" />
-                    </video>
-                  </>
+                      <FaVideo className="text-white text-lg" />
+                    </div>
+                    <p className="text-xs font-medium" style={{ color: '#6E6B68' }}>AI Video</p>
+                  </div>
                 ) : (
                   <>
                     <img
                       src={`${basePath}${item.src}`}
                       alt={item.title}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       loading="lazy"
                       onError={(e) => {
                         e.target.style.display = "none";
@@ -218,44 +255,55 @@ function AIGallery({ topics, aiImages }) {
                       }}
                     />
                     <div
-                      className="absolute inset-0 hidden w-full items-center justify-center bg-gray-200 dark:bg-gray-700"
-                      style={{ display: "none" }}
-                      aria-hidden="true"
+                      className="absolute inset-0 flex-col items-center justify-center"
+                      style={{ display: "none", backgroundColor: '#F1EFED' }}
                     >
-                      <div className="text-center">
-                        <FaImage className="text-4xl text-gray-400 mb-2" />
-                        <p className="text-gray-500">AI Generated Image</p>
+                      <div
+                        className="w-10 h-10 rounded-full flex items-center justify-center mb-2"
+                        style={{ backgroundColor: '#E0DDD9' }}
+                      >
+                        <FaImage style={{ color: '#B8B4B0' }} />
                       </div>
+                      <p className="text-xs" style={{ color: '#B8B4B0' }}>Image</p>
                     </div>
                   </>
                 )}
               </div>
+
+              {/* Card Body */}
               <div className="p-4">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 truncate">
+                <h3
+                  className="text-sm font-semibold mb-1 truncate"
+                  style={{ color: '#161513', fontFamily: 'DM Sans, sans-serif' }}
+                >
                   {item.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-3 line-clamp-2">
+                <p className="text-xs mb-3 line-clamp-2" style={{ color: '#6E6B68' }}>
                   {item.description}
                 </p>
+
+                {/* Tags */}
                 <div className="flex flex-wrap gap-1 mb-3">
                   {item.tags.slice(0, 3).map((tag, index) => (
                     <span
                       key={index}
-                      className="bg-redwood-500 dark:bg-redwood-500 text-redwood-500 dark:text-redwood-500 px-2 py-1 rounded text-xs"
+                      className="px-2 py-0.5 rounded text-xs font-medium"
+                      style={{
+                        backgroundColor: '#FDF3F1',
+                        color: '#A73A2C',
+                        border: '1px solid #F5C4BB',
+                      }}
                     >
                       {tag}
                     </span>
                   ))}
-                  {item.tags.length > 3 && (
-                    <span className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded text-xs">
-                      +{item.tags.length - 3}
-                    </span>
-                  )}
                 </div>
-                <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
-                  <span>{item.date}</span>
-                  <div className="flex items-center space-x-2">
-                    <FaEye className="text-redwood-500" />
+
+                {/* Footer row */}
+                <div className="flex items-center justify-between">
+                  <span className="text-xs" style={{ color: '#B8B4B0' }}>{item.date}</span>
+                  <div className="flex items-center space-x-1 text-xs font-medium" style={{ color: '#C74634' }}>
+                    <FaEye className="text-xs" />
                     <span>View</span>
                   </div>
                 </div>
@@ -266,13 +314,21 @@ function AIGallery({ topics, aiImages }) {
 
         {/* Empty State */}
         {filteredContent.length === 0 && (
-          <div className="text-center py-12">
-            <FaRobot className="text-6xl text-gray-400 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+          <div
+            className="text-center py-20 rounded-lg"
+            style={{ backgroundColor: '#FFFFFF', border: '1px solid #E0DDD9' }}
+          >
+            <div
+              className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+              style={{ backgroundColor: '#FDF3F1' }}
+            >
+              <FaRobot className="text-2xl" style={{ color: '#C74634' }} />
+            </div>
+            <h3 className="text-lg font-semibold mb-2" style={{ color: '#161513' }}>
               No content found
             </h3>
-            <p className="text-gray-600 dark:text-gray-300">
-              Try selecting a different category or check back later for new AI creations.
+            <p className="text-sm" style={{ color: '#6E6B68' }}>
+              Try selecting a different category or check back later.
             </p>
           </div>
         )}
@@ -280,30 +336,66 @@ function AIGallery({ topics, aiImages }) {
 
       {/* Modal */}
       {selectedImage && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-xl max-w-4xl max-h-[90vh] overflow-hidden">
-            <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-              <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {selectedImage.title}
-                </h2>
-                <button
-                  onClick={closeModal}
-                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+        <div
+          className="fixed inset-0 flex items-center justify-center z-50 p-4"
+          style={{ backgroundColor: 'rgba(22,21,19,0.8)' }}
+          onClick={closeModal}
+        >
+          <div
+            className="relative w-full max-w-4xl max-h-[92vh] overflow-hidden flex flex-col"
+            style={{
+              backgroundColor: '#FAF8F6',
+              borderRadius: '8px',
+              boxShadow: '0 24px 64px rgba(22,21,19,0.4)',
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div
+              className="flex items-center justify-between px-6 py-4 flex-shrink-0"
+              style={{ borderBottom: '1px solid #E0DDD9', backgroundColor: '#FFFFFF' }}
+            >
+              <div className="flex items-center space-x-3">
+                <div
+                  className="w-8 h-8 rounded flex items-center justify-center"
+                  style={{ backgroundColor: '#C74634' }}
                 >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
+                  {selectedImage.type === 'video'
+                    ? <FaVideo className="text-white text-xs" />
+                    : <FaImage className="text-white text-xs" />
+                  }
+                </div>
+                <div>
+                  <h2 className="text-base font-semibold" style={{ color: '#161513' }}>
+                    {selectedImage.title}
+                  </h2>
+                  <p className="text-xs" style={{ color: '#6E6B68' }}>
+                    {selectedImage.date}
+                  </p>
+                </div>
               </div>
+              <button
+                onClick={closeModal}
+                className="w-8 h-8 rounded flex items-center justify-center transition-colors"
+                style={{ color: '#6E6B68' }}
+                onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#F1EFED'; }}
+                onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; }}
+              >
+                <FaTimes />
+              </button>
             </div>
-            
-            <div className="p-6">
+
+            {/* Modal Media */}
+            <div
+              className="flex-1 overflow-auto flex items-center justify-center p-6"
+              style={{ backgroundColor: '#201E1C', minHeight: 0 }}
+            >
               {selectedImage.type === 'video' ? (
                 <video
-                  className="w-full h-auto max-h-[60vh] object-contain"
+                  className="max-w-full max-h-[55vh] rounded"
                   controls
                   autoPlay
+                  style={{ objectFit: 'contain' }}
                 >
                   <source src={`${basePath}${selectedImage.src}`} type="video/mp4" />
                   Your browser does not support the video tag.
@@ -312,29 +404,34 @@ function AIGallery({ topics, aiImages }) {
                 <img
                   src={`${basePath}${selectedImage.src}`}
                   alt={selectedImage.title}
-                  className="w-full h-auto max-h-[60vh] object-contain"
+                  className="max-w-full max-h-[55vh] rounded"
+                  style={{ objectFit: 'contain' }}
                 />
               )}
-              
-              <div className="mt-6">
-                <p className="text-gray-600 dark:text-gray-300 mb-4">
-                  {selectedImage.description}
-                </p>
-                
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {selectedImage.tags.map((tag, index) => (
-                    <span
-                      key={index}
-                      className="bg-redwood-500 dark:bg-redwood-500 text-redwood-500 dark:text-redwood-500 px-3 py-1 rounded-full text-sm"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                
-                <div className="text-sm text-gray-500 dark:text-gray-400">
-                  Created: {selectedImage.date}
-                </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div
+              className="px-6 py-4 flex-shrink-0"
+              style={{ borderTop: '1px solid #E0DDD9', backgroundColor: '#FFFFFF' }}
+            >
+              <p className="text-sm mb-3" style={{ color: '#6E6B68' }}>
+                {selectedImage.description}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {selectedImage.tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1 rounded text-xs font-medium"
+                    style={{
+                      backgroundColor: '#FDF3F1',
+                      color: '#A73A2C',
+                      border: '1px solid #F5C4BB',
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
           </div>

@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:pretius.com)",
+      "WebFetch(domain:redwood.oracle.com)",
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:blogs.oracle.com)",
+      "WebSearch",
+      "Bash(ls -la /c/Users/sugho/Projects/Blog/pages/*.js)",
+      "Bash(grep -r \"next.config\" /c/Users/sugho/Projects/Blog/*.js)",
+      "Bash(grep -l \"import\\\\|require\" /c/Users/sugho/Projects/Blog/Components/*.js)",
+      "WebFetch(domain:www.techtarget.com)",
+      "Bash(for f in \"C:/Users/sugho/Projects/Blog/Components/BookmarkBtn.js\" \"C:/Users/sugho/Projects/Blog/Components/PrintSummary.js\" \"C:/Users/sugho/Projects/Blog/Components/PercentileThresholdTuner.js\" \"C:/Users/sugho/Projects/Blog/Components/ReadAloud.js\" \"C:/Users/sugho/Projects/Blog/Components/NewsletterForm.js\" \"C:/Users/sugho/Projects/Blog/Components/PostSeries.js\" \"C:/Users/sugho/Projects/Blog/Components/ShareSection.js\" \"C:/Users/sugho/Projects/Blog/Components/CommentReactions.js\" \"C:/Users/sugho/Projects/Blog/Components/Comments.js\" \"C:/Users/sugho/Projects/Blog/Components/AuthorBio.js\" \"C:/Users/sugho/Projects/Blog/Components/RelatedPosts.js\" \"C:/Users/sugho/Projects/Blog/Components/Toc.js\" \"C:/Users/sugho/Projects/Blog/Components/CopyCodeButton.js\" \"C:/Users/sugho/Projects/Blog/Components/ReadingProgress.js\" \"C:/Users/sugho/Projects/Blog/Components/BlogShare.js\" \"C:/Users/sugho/Projects/Blog/Components/SearchModal.js\" \"C:/Users/sugho/Projects/Blog/Components/BlogHeader.js\")",
+      "Bash(do)",
+      "Bash(sed -i -e 's/#1a8917/#C74634/g' -e 's/#0f730c/#A73A2C/g' -e 's/text-green-[0-9]*/text-redwood-500/g' -e 's/bg-green-[0-9]*/bg-redwood-500/g' -e 's/hover:text-green-[0-9]*/hover:text-redwood-400/g' -e 's/hover:bg-green-[0-9]*/hover:bg-redwood-600/g' -e 's/border-green-[0-9]*/border-redwood-500/g' -e 's/ring-green-[0-9]*/ring-redwood-500/g' -e 's/text-indigo-[0-9]*/text-redwood-500/g' -e 's/bg-indigo-[0-9]*/bg-redwood-500/g' -e 's/hover:bg-indigo-[0-9]*/hover:bg-redwood-600/g' -e 's/dark:bg-indigo-[0-9]*/dark:bg-redwood-700/g' -e 's/dark:text-indigo-[0-9]*/dark:text-redwood-300/g' -e 's/border-indigo-[0-9]*/border-redwood-500/g' -e 's/text-violet-[0-9]*/text-redwood-500/g' -e 's/bg-violet-[0-9]*/bg-redwood-100/g' -e 's/dark:bg-violet-[0-9]*/dark:bg-redwood-900/g' -e 's/dark:text-violet-[0-9]*/dark:text-redwood-300/g' -e 's/focus:ring-green-[0-9]*/focus:ring-redwood-500/g' \"$f\")",
+      "Bash(done)",
+      "Bash(for f in \"C:/Users/sugho/Projects/Blog/pages/index.js\" \"C:/Users/sugho/Projects/Blog/pages/dashboard.js\" \"C:/Users/sugho/Projects/Blog/pages/learning-path.js\" \"C:/Users/sugho/Projects/Blog/pages/about.js\" \"C:/Users/sugho/Projects/Blog/pages/saved.js\" \"C:/Users/sugho/Projects/Blog/pages/writer/index.js\" \"C:/Users/sugho/Projects/Blog/pages/writer/login.js\" \"C:/Users/sugho/Projects/Blog/pages/ai-gallery.js\")",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(cmd.exe /c \"netstat -ano | findstr :3000\")",
+      "Bash(cmd.exe /c \"tasklist /FI \"\"PID eq 10976\"\"\")",
+      "Bash(cmd.exe /c \"tasklist /FI \"\"PID eq 10976\"\" 2>nul || echo not found\")",
+      "Bash(cmd.exe /c \"for %I in \\(npm.cmd\\) do @echo %~$PATH:I\")",
+      "Bash(\"C:/Users/sugho/Projects/Blog/styles/globals.css\":*)"
+    ]
+  }
+}
