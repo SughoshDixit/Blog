@@ -6,7 +6,7 @@ import readingTime from "reading-time";
 const dir = path.join(process.cwd(), "_content");
 
 export const getAllBlogPosts = () => {
-  const allFiles = fs.readdirSync(dir);
+  const allFiles = fs.readdirSync(dir).filter((f) => f.endsWith(".md"));
   const allBlogs = allFiles.map((file) => {
     const filePath = path.join(dir, file);
     const fileContent = fs.readFileSync(filePath, "utf-8");
@@ -19,7 +19,7 @@ export const getAllBlogPosts = () => {
 };
 
 export const getAllTopics = () => {
-  const allFiles = fs.readdirSync(dir);
+  const allFiles = fs.readdirSync(dir).filter((f) => f.endsWith(".md"));
   const allTopics = allFiles.map((file) => {
     const filePath = path.join(dir, file);
     const fileContent = fs.readFileSync(filePath, "utf-8");
