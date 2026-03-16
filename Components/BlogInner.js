@@ -516,7 +516,7 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
       {/* Medium-style article content with TOC */}
       <div className="flex gap-8 w-full">
         {/* Main content */}
-        <div className="flex-1 article-content min-w-0 w-full">
+        <div className={`flex-1 article-content min-w-0 w-full${data.Topic && data.Topic.includes('Love Story') ? ' manuscript-post' : ''}`}>
           <article 
             ref={articleRef}
             className="prose prose-sm sm:prose-lg max-w-none break-words overflow-x-hidden"

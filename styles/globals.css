@@ -21,6 +21,9 @@
 /* Oracle Redwood - DM Sans font */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,700&family=Charter:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
+/* Manuscript font for personal/love story posts */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
 /* Ensure anchored headings are not hidden behind fixed navbar */
 h1[id], h2[id], h3[id], h4[id], h5[id], h6[id] {
   scroll-margin-top: 80px;
@@ -1671,4 +1674,149 @@ html {
 [data-tooltip]:hover::after {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================
+   MANUSCRIPT POST STYLES
+   Personal narratives, love stories, memoirs
+   ============================================ */
+
+.manuscript-post {
+  font-family: 'Cormorant Garamond', 'Charter', Georgia, serif !important;
+  font-size: 24px !important;
+  line-height: 1.78 !important;
+  font-weight: 400;
+}
+
+.manuscript-post p {
+  font-family: 'Cormorant Garamond', 'Charter', Georgia, serif !important;
+  font-size: 24px !important;
+  line-height: 1.78 !important;
+  margin-bottom: 1.6rem;
+}
+
+.manuscript-post .prose > p:first-of-type::first-letter {
+  font-size: 4.2em;
+  float: left;
+  line-height: 0.78;
+  padding-right: 0.1em;
+  padding-top: 0.06em;
+  font-weight: 600;
+  color: #C74634;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.dark .manuscript-post .prose > p:first-of-type::first-letter {
+  color: #E8572A;
+}
+
+.manuscript-post h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-weight: 300 !important;
+  font-size: 2.1rem !important;
+  font-style: italic;
+  letter-spacing: 0.03em;
+  margin-top: 3rem !important;
+  margin-bottom: 1.8rem !important;
+  text-align: center;
+  color: #C74634 !important;
+}
+
+.dark .manuscript-post h2 {
+  color: #E8572A !important;
+}
+
+.manuscript-post hr {
+  border: none !important;
+  text-align: center;
+  margin: 2.8rem auto !important;
+  overflow: visible;
+  height: auto !important;
+  background: none !important;
+}
+
+.manuscript-post hr::before {
+  content: '❦';
+  font-size: 1.6rem;
+  color: #C74634;
+  display: block;
+  letter-spacing: 0.5em;
+}
+
+.dark .manuscript-post hr::before {
+  color: #E8572A;
+}
+
+.manuscript-post blockquote {
+  border-left: 3px solid #C74634 !important;
+  font-style: italic;
+  font-size: 1.1em;
+  padding: 1rem 1.5rem !important;
+  margin: 2.2rem 0 !important;
+  background: rgba(199, 70, 52, 0.04) !important;
+  border-radius: 0 8px 8px 0;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+}
+
+.dark .manuscript-post blockquote {
+  border-left-color: #E8572A !important;
+  background: rgba(232, 87, 42, 0.06) !important;
+  color: #F5F4F2 !important;
+}
+
+.manuscript-post blockquote p {
+  font-style: italic;
+  color: #4A4440 !important;
+}
+
+.dark .manuscript-post blockquote p {
+  color: #D4D0CC !important;
+}
+
+.manuscript-post img {
+  border-radius: 6px !important;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12) !important;
+  margin: 2.5rem auto !important;
+}
+
+.dark .manuscript-post img {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35) !important;
+}
+
+.manuscript-post em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.manuscript-post strong {
+  font-weight: 600 !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+}
+
+.manuscript-post a {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+}
+
+@media (max-width: 768px) {
+  .manuscript-post {
+    font-size: 20px !important;
+    line-height: 1.72 !important;
+  }
+
+  .manuscript-post p {
+    font-size: 20px !important;
+    line-height: 1.72 !important;
+  }
+
+  .manuscript-post h2 {
+    font-size: 1.6rem !important;
+  }
+
+  .manuscript-post .prose > p:first-of-type::first-letter {
+    font-size: 3.4em;
+  }
+
+  .manuscript-post img {
+    border-radius: 4px !important;
+  }
 }
