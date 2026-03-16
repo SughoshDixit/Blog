@@ -1,6 +1,6 @@
 ---
 Id: 2003
-Title: "I too had a Love Story
+Title: "I too had a Love Story"
 Author: Sughosh P Dixit
 Date: "2026-03-13"
 Tags: LoveStory ArrangedToLove Marriage Wedding Soulmate Shreya Gratitude PersonalStory Forever
