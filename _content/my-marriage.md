@@ -6,7 +6,7 @@ Date: "2026-03-13"
 Tags: LoveStory ArrangedToLove Marriage Wedding Soulmate Shreya Gratitude PersonalStory Forever
 Topic: My Love Story 💌
 Abstract: "It's almost been an year since I met my wife (then my girlfriend), and here's a small note of gratitude, thanksgiving to God, parents and everyone involved to have made my life even ,ore beautiful than it was"
-HeaderImage: /Marriage/title.JPG
+HeaderImage: /Marriage/title.jpg
 isPublished: true
 ---
 
