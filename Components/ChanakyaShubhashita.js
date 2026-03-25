@@ -566,6 +566,22 @@ const BLOG_SPECIFIC_SHUBHASHITAS = {
     translation: 'Unity is all-powerful.',
     meaning: 'Liverpool embodies unity—the team, the fans, "You\'ll Never Walk Alone." Football is the beautiful game because it unites billions across the world. When players, fans, and communities come together with passion and dedication, that unity creates something powerful and transcendent.',
     reference: 'Arthashastra - Book 1, Chapter 2'
+  },
+
+  // BL-7 — Dhurandhar 2 (same verse as in post: rashtra-bhakti / ladder of tyāga)
+  'the-hype-is-real-dhurandhar-2-hit-me-where-it-hurts-the-most-🇮🇳🔥': {
+    sanskrit: 'त्यजेदेकं कुलस्यार्थे ग्रामस्यार्थे कुलं त्यजेत् ।\nग्रामं जनपदस्यार्थे आत्मार्थे पृथिवीं त्यजेत् ॥',
+    transliteration: 'Tyajed ekaṃ kulasyārthe, grāmasyārthe kulaṃ tyajet।\nGrāmaṃ janapadasyārthe, ātmārthe pṛthivīṃ tyajet।',
+    translation: 'Give up one for the family; give up the family for the village; give up the village for the nation (janapada); for the sake of the Self, give up the whole earth.',
+    meaning: 'Acharya Chanakya lays down the ladder of tyāga: the larger whole ranks above the smaller circle. Rashtra-bhakti — steadfast love of the motherland — is the highest devotion in the world of action; it is what soldiers and their families live when the line is drawn.',
+    reference: 'Chanakya Niti, Chapter 3, Verse 10'
+  },
+  'the-hype-is-real-dhurandhar-2-hit-me-where-it-hurts-the-most': {
+    sanskrit: 'त्यजेदेकं कुलस्यार्थे ग्रामस्यार्थे कुलं त्यजेत् ।\nग्रामं जनपदस्यार्थे आत्मार्थे पृथिवीं त्यजेत् ॥',
+    transliteration: 'Tyajed ekaṃ kulasyārthe, grāmasyārthe kulaṃ tyajet।\nGrāmaṃ janapadasyārthe, ātmārthe pṛthivīṃ tyajet।',
+    translation: 'Give up one for the family; give up the family for the village; give up the village for the nation (janapada); for the sake of the Self, give up the whole earth.',
+    meaning: 'Acharya Chanakya lays down the ladder of tyāga: the larger whole ranks above the smaller circle. Rashtra-bhakti — steadfast love of the motherland — is the highest devotion in the world of action; it is what soldiers and their families live when the line is drawn.',
+    reference: 'Chanakya Niti, Chapter 3, Verse 10'
   }
 };
 
