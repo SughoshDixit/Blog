@@ -7,6 +7,8 @@ function SearchModal({ isOpen, onClose }) {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [recentSearches, setRecentSearches] = useState([]);
+  const [topicFilter, setTopicFilter] = useState('');
+  const [maxReadFilter, setMaxReadFilter] = useState('');
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -23,7 +25,7 @@ function SearchModal({ isOpen, onClose }) {
     }
   }, []);
 
-  const handleSearch = async (searchQuery) => {
+  const handleSearch = async (searchQuery, currentTopic = topicFilter, currentMaxRead = maxReadFilter) => {
     if (!searchQuery.trim()) {
       setResults([]);
       return;
@@ -31,7 +33,10 @@ function SearchModal({ isOpen, onClose }) {
 
     setLoading(true);
     try {
-      const response = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`);
+      const params = new URLSearchParams({ q: searchQuery });
+      if (currentTopic) params.set('topic', currentTopic);
+      if (currentMaxRead) params.set('maxRead', currentMaxRead);
+      const response = await fetch(`/api/search?${params.toString()}`);
       const data = await response.json();
       setResults(data.results || []);
       
@@ -56,7 +61,7 @@ function SearchModal({ isOpen, onClose }) {
     // Debounce search
     clearTimeout(window.searchTimeout);
     window.searchTimeout = setTimeout(() => {
-      handleSearch(value);
+      handleSearch(value, topicFilter, maxReadFilter);
     }, 300);
   };
 
@@ -69,6 +74,11 @@ function SearchModal({ isOpen, onClose }) {
   const clearRecentSearches = () => {
     setRecentSearches([]);
     localStorage.removeItem('recentSearches');
+  };
+
+  const applyQuickJump = (term) => {
+    setQuery(term);
+    handleSearch(term, topicFilter, maxReadFilter);
   };
 
   if (!isOpen) return null;
@@ -95,6 +105,53 @@ function SearchModal({ isOpen, onClose }) {
             >
               <FiX className="w-5 h-5 text-gray-500" />
             </button>
+          </div>
+          <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <select
+              value={topicFilter}
+              onChange={(e) => {
+                const nextTopic = e.target.value;
+                setTopicFilter(nextTopic);
+                if (query.trim()) handleSearch(query, nextTopic, maxReadFilter);
+              }}
+              className="px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm text-gray-700 dark:text-gray-200"
+            >
+              <option value="">All topics</option>
+              <option value="Data Science">Data Science</option>
+              <option value="Personal">Personal</option>
+              <option value="Vedic Studies">Vedic Studies</option>
+              <option value="Book">Book</option>
+              <option value="Experience">Experience</option>
+              <option value="Civilization">Civilization</option>
+              <option value="RSS Centenary">RSS Centenary</option>
+              <option value="My Love Story 💌">My Love Story</option>
+            </select>
+            <select
+              value={maxReadFilter}
+              onChange={(e) => {
+                const nextMaxRead = e.target.value;
+                setMaxReadFilter(nextMaxRead);
+                if (query.trim()) handleSearch(query, topicFilter, nextMaxRead);
+              }}
+              className="px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm text-gray-700 dark:text-gray-200"
+            >
+              <option value="">Any read time</option>
+              <option value="5">Up to 5 min</option>
+              <option value="10">Up to 10 min</option>
+              <option value="15">Up to 15 min</option>
+              <option value="20">Up to 20 min</option>
+            </select>
+          </div>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {["equation", "verse", "quote", "fuzzy", "martyr", "Liverpool"].map((jump) => (
+              <button
+                key={jump}
+                onClick={() => applyQuickJump(jump)}
+                className="px-2.5 py-1 rounded-full text-xs border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-[#C74634] dark:hover:border-[#26c281]"
+              >
+                Jump: {jump}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -149,6 +206,11 @@ function SearchModal({ isOpen, onClose }) {
                               <FiTag className="w-3 h-3" />
                               <span>{result.topic}</span>
                             </div>
+                            {Array.isArray(result.matchedIn) && result.matchedIn.length > 0 && (
+                              <span className="px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-[10px] uppercase tracking-wide">
+                                in {result.matchedIn.join(', ')}
+                              </span>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -190,7 +252,7 @@ function SearchModal({ isOpen, onClose }) {
                     key={index}
                     onClick={() => {
                       setQuery(search);
-                      handleSearch(search);
+                      handleSearch(search, topicFilter, maxReadFilter);
                     }}
                     className="w-full text-left p-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors"
                   >

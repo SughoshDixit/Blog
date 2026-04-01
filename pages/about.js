@@ -17,8 +17,8 @@ function about({ topics }) {
   return (
     <div className="min-h-screen relative bg-[#f7f5f2] dark:bg-[#050810]">
       <Head>
-        <title>About Sughosh Dixit - Data Scientist & Football Enthusiast</title>
-        <meta name="description" content="Data Scientist at Oracle, Masters from BITS Pilani, and passionate footballer. Explore my journey through data, code, and the beautiful game." />
+        <title>About Sughosh Dixit — Data Scientist, Writer, Footballer</title>
+        <meta name="description" content="Data Scientist at Oracle (BITS Pilani). This blog spans the 30-Day Data Science Challenge, personal stories, Vedic studies, books, cinema, Liverpool FC, and reflections on India — beyond code, into life." />
       </Head>
       
       <Navbar topics={topics} />
@@ -58,12 +58,11 @@ function about({ topics }) {
           
           {/* Tagline */}
           <p className="text-xl sm:text-2xl text-[#a8b2d1] mb-4 font-light">
-            <span className="text-[#64ffda]">Data Scientist</span> • <span className="text-[#ff6b6b]">Code Craftsman</span> • <span className="text-[#50fa7b]">Unapologetic Liverpool Fan</span>
+            <span className="text-[#64ffda]">Data Scientist</span> • <span className="text-[#ff6b6b]">Writer</span> • <span className="text-[#50fa7b]">Liverpool Fan</span>
           </p>
           
           <p className="text-lg text-[#8892b0] max-w-2xl mx-auto mb-8 leading-relaxed">
-            Building intelligent systems at Oracle by day, dissecting the "Beautiful Game" by night. 
-            I believe the best insights come from combining <span className="text-[#bd93f9]">rigorous mathematics</span> with the <span className="text-[#f1fa8c]">raw passion of football</span>.
+            Building intelligent systems at Oracle by day; writing this blog by night — <span className="text-[#bd93f9]">rigorous data science</span> (including my 30-Day Challenge), <span className="text-[#f1fa8c]">personal essays</span>, Vedic studies, books, cinema, and the beautiful game. The best insights come when numbers and stories speak to each other.
           </p>
           
           {/* Quick Stats */}
@@ -118,10 +117,10 @@ function about({ topics }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4" style={{fontFamily: 'Charter, Georgia, serif'}}>
-              Two Worlds, One Passion
+              Many Threads, One Voice
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              My life revolves around two seemingly different worlds that share a common thread: the pursuit of excellence through pattern recognition and strategic thinking.
+              The blog mirrors that mix: deep technical series alongside family, dharma, cinema, and football — all of it honest, long-form, and mine.
             </p>
           </div>
           
@@ -198,7 +197,7 @@ function about({ topics }) {
                 </div>
                 
                 <a
-                  href="https://sughoshblog.vercel.app/blogs/why-support-liverpool-f.c-the-beautiful-game-vs-the-lazy-game"
+                  href="/blogs/why-support-liverpool-f.c-the-beautiful-game-vs-the-lazy-game"
                   className="inline-flex items-center gap-2 text-[#2d6a4f] font-semibold hover:gap-3 transition-all"
                 >
                   Read My Manifesto

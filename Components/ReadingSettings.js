@@ -7,6 +7,7 @@ function ReadingSettings({ articleRef }) {
   const [fontSize, setFontSize] = useState(21); // Default from CSS
   const [lineHeight, setLineHeight] = useState(1.58);
   const [focusMode, setFocusMode] = useState(false);
+  const [sepiaMode, setSepiaMode] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -15,10 +16,12 @@ function ReadingSettings({ articleRef }) {
     const savedFontSize = localStorage.getItem('readingFontSize');
     const savedLineHeight = localStorage.getItem('readingLineHeight');
     const savedFocusMode = localStorage.getItem('readingFocusMode');
+    const savedSepiaMode = localStorage.getItem('readingSepiaMode');
     
     if (savedFontSize) setFontSize(parseFloat(savedFontSize));
     if (savedLineHeight) setLineHeight(parseFloat(savedLineHeight));
     if (savedFocusMode === 'true') setFocusMode(true);
+    if (savedSepiaMode === 'true') setSepiaMode(true);
   }, []);
 
   useEffect(() => {
@@ -42,7 +45,15 @@ function ReadingSettings({ articleRef }) {
       document.body.classList.remove('focus-mode');
       localStorage.setItem('readingFocusMode', 'false');
     }
-  }, [fontSize, lineHeight, focusMode, isMounted, articleRef]);
+
+    if (sepiaMode) {
+      document.body.classList.add('sepia-mode');
+      localStorage.setItem('readingSepiaMode', 'true');
+    } else {
+      document.body.classList.remove('sepia-mode');
+      localStorage.setItem('readingSepiaMode', 'false');
+    }
+  }, [fontSize, lineHeight, focusMode, sepiaMode, isMounted, articleRef]);
 
   if (!isMounted) return null;
 
@@ -125,7 +136,7 @@ function ReadingSettings({ articleRef }) {
             <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
               <label className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <FaEye />
-                Focus Mode
+                Distraction Free
               </label>
               <button
                 onClick={() => setFocusMode(!focusMode)}
@@ -142,12 +153,34 @@ function ReadingSettings({ articleRef }) {
               </button>
             </div>
 
+            {/* Sepia mode */}
+            <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
+              <label className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                <FaKeyboard />
+                Sepia Mode
+              </label>
+              <button
+                onClick={() => setSepiaMode(!sepiaMode)}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                  sepiaMode ? 'bg-amber-600' : 'bg-gray-300 dark:bg-gray-600'
+                }`}
+                aria-label="Toggle Sepia Mode"
+              >
+                <span
+                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    sepiaMode ? 'translate-x-6' : 'translate-x-1'
+                  }`}
+                />
+              </button>
+            </div>
+
             {/* Reset Button */}
             <button
               onClick={() => {
                 setFontSize(21);
                 setLineHeight(1.58);
                 setFocusMode(false);
+                setSepiaMode(false);
               }}
               className="w-full px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-lg transition-colors text-sm"
             >

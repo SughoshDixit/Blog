@@ -7,6 +7,11 @@ import { useState, useEffect, useMemo } from "react";
 import RecentlyViewed from "../Components/RecentlyViewed";
 import ReadingStreak from "../Components/ReadingStreak";
 import useScrollReveal from "../Lib/useScrollReveal";
+import {
+  SITE_URL,
+  SITE_TITLE_HOME,
+  SITE_DESCRIPTION,
+} from "../Lib/siteConfig";
 
 export const getStaticProps = () => {
   const allBlogs = getAllBlogPosts();
@@ -221,32 +226,23 @@ export default function Home({ blogs, topics }) {
   return (
     <>
       <Head>
-        <title>Sughosh Dixit - Tech Insights & Innovation</title>
-        <meta name="title" content="Sughosh Dixit - Tech Insights & Innovation" />
-        <meta
-          name="description"
-          content="Explore technology, data science, and innovation through insightful articles and tutorials. Join the journey of learning and discovery in the digital world."
-        />
+        <title>{SITE_TITLE_HOME}</title>
+        <meta name="title" content={SITE_TITLE_HOME} />
+        <meta name="description" content={SITE_DESCRIPTION} />
 
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://sughoshblog.vercel.app/" />
-        <meta property="og:title" content="Sughosh Dixit - Tech Insights & Innovation" />
-        <meta
-          property="og:description"
-          content="Explore technology, data science, and innovation through insightful articles and tutorials. Join the journey of learning and discovery in the digital world."
-        />
+        <meta property="og:url" content={`${SITE_URL}/`} />
+        <meta property="og:title" content={SITE_TITLE_HOME} />
+        <meta property="og:description" content={SITE_DESCRIPTION} />
         <meta
           property="og:image"
           content="https://raw.githubusercontent.com/SughoshDixit/Blog/main/Extra/sc.png"
         />
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://sughoshblog.vercel.app/" />
-        <meta property="twitter:title" content="Sughosh Dixit - Tech Insights & Innovation" />
-        <meta
-          property="twitter:description"
-          content="Explore technology, data science, and innovation through insightful articles and tutorials. Join the journey of learning and discovery in the digital world."
-        />
+        <meta property="twitter:url" content={`${SITE_URL}/`} />
+        <meta property="twitter:title" content={SITE_TITLE_HOME} />
+        <meta property="twitter:description" content={SITE_DESCRIPTION} />
         <meta
           property="twitter:image"
           content="https://raw.githubusercontent.com/SughoshDixit/Blog/main/Extra/sc.png"
@@ -272,16 +268,16 @@ export default function Home({ blogs, topics }) {
               <div className="grid gap-12 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-center py-20">
                 <div>
                   <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#F5E4D3]/20 border border-[#F5E4D3]/30 text-[#F5E4D3] text-sm font-medium mb-6 backdrop-blur">
-                    Stay curious — welcome back to the chronicles
+                    Data • dharma • stories • football — welcome to the chronicles
                   </div>
                   <h1
                     className="text-4xl md:text-5xl lg:text-[56px] font-semibold leading-tight text-white mb-6"
                     style={{ fontFamily: "Charter, Georgia, serif" }}
                   >
-                    Where Logic Meets Passion: Data Science &amp; The Beautiful Game
+                    Where Numbers Meet Stories
                   </h1>
                   <p className="text-lg md:text-xl text-[#B8E0D8] max-w-2xl leading-relaxed mb-10">
-                    Join me on a journey through the mathematical foundations of AI and the emotional rollercoaster of supporting Liverpool FC. A blog for those who calculate probabilities and those who believe in miracles.
+                    A long-form blog by Sughosh Dixit: the 30-Day Data Science Challenge and deep dives into statistics &amp; AI, plus personal essays (family, marriage, cinema), Vedic studies, books, football, heritage, and life in India — one chronicle at a time.
                   </p>
                   <div className="flex flex-wrap gap-4">
                     <a
@@ -341,42 +337,53 @@ export default function Home({ blogs, topics }) {
                    <h2 className="text-3xl md:text-4xl font-bold text-[#161513] dark:text-[#F5F4F2] mb-4" style={{ fontFamily: "Charter, Georgia, serif" }}>
                       What's Inside The Chronicles?
                    </h2>
-                   <p className="text-lg text-[#6E6B68] dark:text-[#B8B4B0] max-w-2xl mx-auto">
-                      A unique blend of rigorous academics and raw emotion. Here is the trailer of what you can expect.
+                   <p className="text-lg text-[#6E6B68] dark:text-[#B8B4B0] max-w-3xl mx-auto">
+                      Rigorous data science, intimate personal essays, śāstra and cinema, football and books — browse by topic below or jump into the latest post.
                    </p>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-8">
+                <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-8">
                    {/* Data Science Card */}
                    <div className="reveal stagger-1 p-8 rounded-3xl bg-[#FAF8F6] dark:bg-[#2C2A27] border border-[#E0DDD9] dark:border-[#3D3A36] rw-card hover:shadow-lg transition-all duration-300">
                       <div className="w-14 h-14 rounded-2xl bg-[#C74634]/10 flex items-center justify-center text-3xl mb-6">
                          📊
                       </div>
-                      <h3 className="text-xl font-bold text-[#161513] dark:text-[#F5F4F2] mb-3">Deep Tech & Math</h3>
+                      <h3 className="text-xl font-bold text-[#161513] dark:text-[#F5F4F2] mb-3">Data Science &amp; AI</h3>
                       <p className="text-[#6E6B68] dark:text-[#B8B4B0] leading-relaxed">
-                         From <strong>Boolean Logic</strong> to <strong>Fuzzy Systems</strong>. I break down complex mathematical concepts that power modern AI. No hand-waving, just pure understanding.
+                         The <strong>30-Day Challenge</strong> and beyond: Boolean logic, fuzzy systems, robustness, sampling — the math that powers modern ML, explained without hand-waving.
                       </p>
                    </div>
 
-                   {/* Football Card */}
+                   {/* Life & personal stories */}
                    <div className="reveal stagger-2 p-8 rounded-3xl bg-[#FAF8F6] dark:bg-[#2C2A27] border border-[#E0DDD9] dark:border-[#3D3A36] rw-card hover:shadow-lg transition-all duration-300">
+                      <div className="w-14 h-14 rounded-2xl bg-[#C74634]/10 flex items-center justify-center text-3xl mb-6">
+                         💌
+                      </div>
+                      <h3 className="text-xl font-bold text-[#161513] dark:text-[#F5F4F2] mb-3">Life &amp; Memory</h3>
+                      <p className="text-[#6E6B68] dark:text-[#B8B4B0] leading-relaxed">
+                         Love stories, family tributes, career reflections, and film — the personal threads that sit alongside the technical work.
+                      </p>
+                   </div>
+
+                   {/* Dharma / Vedic / civilization */}
+                   <div className="reveal stagger-3 p-8 rounded-3xl bg-[#FAF8F6] dark:bg-[#2C2A27] border border-[#E0DDD9] dark:border-[#3D3A36] rw-card hover:shadow-lg transition-all duration-300">
+                      <div className="w-14 h-14 rounded-2xl bg-[#C74634]/10 flex items-center justify-center text-3xl mb-6">
+                         📿
+                      </div>
+                      <h3 className="text-xl font-bold text-[#161513] dark:text-[#F5F4F2] mb-3">Dharma &amp; Śāstra</h3>
+                      <p className="text-[#6E6B68] dark:text-[#B8B4B0] leading-relaxed">
+                         <strong>Vedic studies</strong>, civilization, heritage, and Chanakya — how ancient frameworks meet modern questions.
+                      </p>
+                   </div>
+
+                   {/* Football & books */}
+                   <div className="reveal stagger-4 p-8 rounded-3xl bg-[#FAF8F6] dark:bg-[#2C2A27] border border-[#E0DDD9] dark:border-[#3D3A36] rw-card hover:shadow-lg transition-all duration-300">
                       <div className="w-14 h-14 rounded-2xl bg-[#C74634]/10 flex items-center justify-center text-3xl mb-6">
                          ⚽
                       </div>
-                      <h3 className="text-xl font-bold text-[#161513] dark:text-[#F5F4F2] mb-3">The Beautiful Game</h3>
+                      <h3 className="text-xl font-bold text-[#161513] dark:text-[#F5F4F2] mb-3">Football &amp; Books</h3>
                       <p className="text-[#6E6B68] dark:text-[#B8B4B0] leading-relaxed">
-                         Unapologetic love for <strong>Liverpool FC</strong>. Why football is the greatest sport, the philosophy of Klopp, and why I chose the "Beautiful Game" over the "Lazy Game" (Cricket).
-                      </p>
-                   </div>
-
-                   {/* Philosophy Card */}
-                   <div className="reveal stagger-3 p-8 rounded-3xl bg-[#FAF8F6] dark:bg-[#2C2A27] border border-[#E0DDD9] dark:border-[#3D3A36] rw-card hover:shadow-lg transition-all duration-300">
-                      <div className="w-14 h-14 rounded-2xl bg-[#C74634]/10 flex items-center justify-center text-3xl mb-6">
-                         🧘
-                      </div>
-                      <h3 className="text-xl font-bold text-[#161513] dark:text-[#F5F4F2] mb-3">Philosophy & Roots</h3>
-                      <p className="text-[#6E6B68] dark:text-[#B8B4B0] leading-relaxed">
-                         Reflections on my Bharatiya heritage, Swami Vivekananda's wisdom, and how ancient values shape modern technological thinking.
+                         <strong>Liverpool</strong>, the beautiful game, and long-form <strong>book notes</strong> — passion, strategy, and what I&apos;m reading.
                       </p>
                    </div>
                 </div>
@@ -510,7 +517,7 @@ export default function Home({ blogs, topics }) {
                   </p>
                   <div className="flex flex-wrap gap-4">
                     <a
-                      href="https://sughoshblog.vercel.app/blogs/why-support-liverpool-f.c-the-beautiful-game-vs-the-lazy-game"
+                      href="/blogs/why-support-liverpool-f.c-the-beautiful-game-vs-the-lazy-game"
                       className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#C74634] text-white font-semibold hover:bg-[#A73A2C] transition-all duration-300 shadow-lg shadow-[#C74634]/30"
                     >
                       <span>⚽</span>

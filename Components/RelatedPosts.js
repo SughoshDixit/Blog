@@ -14,7 +14,7 @@ function RelatedPosts({ currentPost, allBlogs, maxPosts = 3 }) {
   const currentId = generateSlug(currentTitle);
 
   // Find related posts based on topic and tags
-  const relatedPosts = allBlogs
+  const scoredPosts = allBlogs
     .filter((blog) => {
       if (!blog?.data) return false;
       const blogId = generateSlug(blog.data.Title);
@@ -47,8 +47,11 @@ function RelatedPosts({ currentPost, allBlogs, maxPosts = 3 }) {
       const bScore = bTopic + bTags;
 
       return bScore - aScore;
-    })
-    .slice(0, maxPosts);
+    });
+
+  const sameTopic = scoredPosts.filter((post) => post.data.Topic === currentTopic).slice(0, 2);
+  const crossTopic = scoredPosts.filter((post) => post.data.Topic !== currentTopic).slice(0, Math.max(1, maxPosts - sameTopic.length));
+  const relatedPosts = [...sameTopic, ...crossTopic].slice(0, maxPosts);
 
   if (relatedPosts.length === 0) {
     return null;
@@ -79,12 +82,15 @@ function RelatedPosts({ currentPost, allBlogs, maxPosts = 3 }) {
                     </div>
                   )}
                   <div className="p-4">
-                    <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center gap-2 mb-2">
                       {post.data.Topic && (
                         <span className="text-xs font-medium text-[#C74634] dark:text-[#26c281]">
                           {post.data.Topic}
                         </span>
                       )}
+                <span className="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300">
+                  {post.data.Topic === currentTopic ? "Keep learning" : "Fresh perspective"}
+                </span>
                       {post.readTime && (
                         <span className="text-xs text-gray-500 dark:text-gray-400">
                           {post.readTime.text}

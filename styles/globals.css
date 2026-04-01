@@ -948,6 +948,27 @@ button:focus {
   pointer-events: auto !important;
 }
 
+/* Sepia reading mode */
+body.sepia-mode {
+  background: #f3ead7 !important;
+  color: #3b3122 !important;
+}
+
+body.sepia-mode .article-content,
+body.sepia-mode .prose,
+body.sepia-mode .prose p,
+body.sepia-mode .prose li,
+body.sepia-mode .prose h1,
+body.sepia-mode .prose h2,
+body.sepia-mode .prose h3,
+body.sepia-mode .prose h4 {
+  color: #3b3122 !important;
+}
+
+body.sepia-mode .article-content img {
+  box-shadow: 0 8px 24px rgba(59, 49, 34, 0.25) !important;
+}
+
 html {
   scroll-behavior: smooth;
 }

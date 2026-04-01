@@ -20,6 +20,7 @@ import PrintButton from "../../Components/PrintButton";
 import PostSeries from "../../Components/PostSeries";
 import ChanakyaShubhashita from "../../Components/ChanakyaShubhashita";
 import PostNavigation from "../../Components/PostNavigation";
+import { SITE_URL } from "../../Lib/siteConfig";
 
 export const getStaticPaths = () => {
   const allBlogs = getAllBlogPosts();
@@ -88,10 +89,10 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
         <title>{data.Title}</title>
         <meta name="title" content={data.Title} />
         <meta name="description" content={data.Abstract} />
-        <link rel="canonical" href={`https://sughoshblog.vercel.app/blogs/${id}`} />
+        <link rel="canonical" href={`${SITE_URL}/blogs/${id}`} />
 
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://sughoshdixit.github.io/" />
+        <meta property="og:url" content={`${SITE_URL}/blogs/${id}`} />
         <meta property="og:title" content={data.Title} />
         <meta property="og:description" content={data.Abstract} />
         <meta
@@ -100,7 +101,7 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
         />
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://sughoshdixit.github.io/" />
+        <meta property="twitter:url" content={`${SITE_URL}/blogs/${id}`} />
         <meta property="twitter:title" content={data.Title} />
         <meta property="twitter:description" content={data.Abstract} />
         <meta
@@ -122,7 +123,7 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
           },
           mainEntityOfPage: {
             '@type': 'WebPage',
-            '@id': `https://sughoshblog.vercel.app/blogs/${id}`,
+            '@id': `${SITE_URL}/blogs/${id}`,
           },
         })}
       </Script>
@@ -138,7 +139,7 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
           
           {/* Medium-style article layout */}
           <div className="max-w-4xl mx-auto px-4 sm:px-6 overflow-x-hidden">
-            <BlogInner data={data} content={content} headings={headings} readTime={readTime} allBlogs={allBlogs} />
+            <BlogInner data={data} content={content} headings={headings} readTime={readTime} allBlogs={allBlogs} postId={id} />
             
             {/* Reading History Tracker */}
             <ReadingHistory postId={id} postTitle={data.Title} postData={data} />

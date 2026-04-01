@@ -1,7 +1,8 @@
 import { MDXRemote } from "next-mdx-remote";
 import { BsThreeDots } from "react-icons/bs";
 import Toc from "./Toc";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
+import Link from "next/link";
 import CopyCodeButton from "./CopyCodeButton";
 import ShareSection from "./ShareSection";
 import AuthorBio from "./AuthorBio";
@@ -14,6 +15,8 @@ import Tldr from "./Tldr";
 import HypergeomCalculator from "./HypergeomCalculator";
 import PercentileThresholdTuner from "./PercentileThresholdTuner";
 import PrintSummary from "./PrintSummary";
+import { FiBookmark, FiShare2, FiArrowRight } from "react-icons/fi";
+import { generateSlug } from "../Lib/utils";
 
 const LOTTIE_ANIMATIONS = {
   boxplotIntro: "https://assets10.lottiefiles.com/packages/lf20_tutvdkg0.json",
@@ -26,10 +29,39 @@ const LOTTIE_ANIMATIONS = {
   robustWorkflow: "/lottie/robust_workflow.json"
 };
 
-function BlogInner({ data, content, headings, readTime, allBlogs }) {
+function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
   const articleRef = useRef(null);
+
+  const dayMatch = data?.Title?.match(/day[\s\-:]*([0-9]+)/i);
+  const currentDay = dayMatch ? Number(dayMatch[1]) : null;
+  const isDataSciencePost = data?.Topic === "Data Science" && currentDay;
+
+  const publishedPosts = useMemo(
+    () =>
+      (allBlogs || [])
+        .filter((blog) => blog?.data?.isPublished)
+        .sort((a, b) => {
+          const dateA = Date.parse(a?.data?.Date || "");
+          const dateB = Date.parse(b?.data?.Date || "");
+          const validA = !Number.isNaN(dateA);
+          const validB = !Number.isNaN(dateB);
+          if (validA && validB) return dateB - dateA;
+          if (validA) return -1;
+          if (validB) return 1;
+          return (Number(b?.data?.Id) || 0) - (Number(a?.data?.Id) || 0);
+        }),
+    [allBlogs]
+  );
+
+  const currentIndex = useMemo(
+    () => publishedPosts.findIndex((post) => generateSlug(post?.data?.Title) === postId),
+    [publishedPosts, postId]
+  );
+  const nextPost = currentIndex >= 0 && currentIndex < publishedPosts.length - 1 ? publishedPosts[currentIndex + 1] : null;
+  const nextPostSlug = nextPost ? generateSlug(nextPost?.data?.Title) : null;
 
   useEffect(() => {
     // Check if mobile viewport
@@ -76,6 +108,47 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
       }
     };
   }, [content]);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !postId) return;
+    const bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
+    setIsBookmarked(bookmarks.some((b) => b.id === postId));
+  }, [postId]);
+
+  const toggleBookmark = () => {
+    if (typeof window === "undefined" || !postId) return;
+    const bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
+    if (isBookmarked) {
+      const updated = bookmarks.filter((b) => b.id !== postId);
+      localStorage.setItem("bookmarks", JSON.stringify(updated));
+      setIsBookmarked(false);
+    } else {
+      const bookmark = {
+        id: postId,
+        title: data?.Title,
+        data,
+        savedAt: new Date().toISOString(),
+      };
+      localStorage.setItem("bookmarks", JSON.stringify([...bookmarks, bookmark]));
+      setIsBookmarked(true);
+    }
+    window.dispatchEvent(new CustomEvent("bookmarksUpdated"));
+  };
+
+  const shareCurrentPost = async () => {
+    if (typeof window === "undefined") return;
+    const url = window.location.href;
+    const title = data?.Title || "Blog post";
+    try {
+      if (navigator.share) {
+        await navigator.share({ title, url });
+      } else if (navigator.clipboard) {
+        await navigator.clipboard.writeText(url);
+      }
+    } catch (error) {
+      // no-op on cancelled share
+    }
+  };
 
   const LottiePlayer = ({ animation, height = 220, width = 220, loop = true, caption, className, style }) => {
     const containerRef = useRef(null);
@@ -165,9 +238,7 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
   };
 
   const openModal = (src, alt) => {
-    if (isMobile) {
-      setSelectedImage({ src, alt });
-    }
+    setSelectedImage({ src, alt });
   };
 
   const closeModal = () => {
@@ -177,9 +248,7 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
   // Escape key handler
   useEffect(() => {
     const handleEscape = (e) => {
-      if (e.key === 'Escape' && selectedImage) {
-        setSelectedImage(null);
-      }
+      if (e.key === 'Escape' && selectedImage) setSelectedImage(null);
     };
     
     if (selectedImage) {
@@ -235,13 +304,13 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
       const isDSImage = props.src && (props.src.includes('/DS-6/') || props.src.includes('/DS-7/') || props.src.includes('/DS-11/') || props.src.includes('/DS-12/') || props.src.includes('/DS-16/'));
       
       return (
-        <div className={`my-6 flex justify-center ${isHeaderImage || isDSImage ? 'bg-gray-50 dark:bg-gray-900 p-4 rounded-lg' : ''}`}>
+        <figure className={`my-6 flex flex-col items-center ${isHeaderImage || isDSImage ? 'bg-gray-50 dark:bg-gray-900 p-4 rounded-lg' : ''}`}>
           <img
             loading="lazy"
             decoding="async"
             referrerPolicy="no-referrer"
             crossOrigin="anonymous"
-            className={`rounded-md ${isHeaderImage || isDSImage ? 'w-full max-w-5xl' : 'max-w-full'} h-auto ${isMobile ? 'cursor-pointer hover:opacity-90' : 'hover:opacity-90'} transition-opacity`}
+            className={`rounded-md skeleton ${isHeaderImage || isDSImage ? 'w-full max-w-5xl' : 'max-w-full'} h-auto cursor-zoom-in hover:opacity-90 transition-opacity`}
             style={{
               maxWidth: '100%',
               height: 'auto',
@@ -284,10 +353,16 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
               e.target.classList.add('loaded');
               e.target.style.opacity = '1';
               e.target.style.filter = 'blur(0)';
+              e.target.classList.remove("skeleton");
             }}
             {...props}
           />
-        </div>
+          {props.alt ? (
+            <figcaption className="mt-2 text-xs sm:text-sm italic text-gray-500 dark:text-gray-400 text-center max-w-2xl">
+              {props.alt}
+            </figcaption>
+          ) : null}
+        </figure>
       );
     },
     pre: (props) => {
@@ -387,7 +462,7 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
     },
   };
   return (
-    <div className="max-w-4xl mx-auto w-full overflow-x-hidden">
+    <div className="max-w-4xl mx-auto w-full overflow-x-hidden pb-20 md:pb-0">
       {/* Medium-style article header */}
       <div className="mb-8">
         <div className="flex items-center space-x-4 mb-6">
@@ -405,6 +480,27 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 leading-tight" style={{fontFamily: 'Charter, Georgia, serif'}}>
           {data.Title}
         </h1>
+
+        <div className="flex flex-wrap items-center gap-2 mb-4">
+          {isDataSciencePost ? (
+            <>
+              <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200">
+                Day {currentDay} of 30
+              </span>
+              <div className="w-36 h-2 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden" aria-label="Series progress">
+                <div
+                  className="h-full bg-blue-600 dark:bg-blue-400"
+                  style={{ width: `${Math.max(0, Math.min(100, (currentDay / 30) * 100))}%` }}
+                />
+              </div>
+            </>
+          ) : null}
+          {currentDay ? (
+            <span className="text-xs text-gray-500 dark:text-gray-400">
+              Continue from your last DS day in Learning Path
+            </span>
+          ) : null}
+        </div>
         
         <div className="flex flex-wrap gap-2 mb-8">
           {(data?.Tags || "").split(" ").filter(Boolean).map((tag) => (
@@ -549,7 +645,39 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
       {/* Reading Time Remaining */}
       <ReadingTimeRemaining readTime={readTime} articleRef={articleRef} />
 
-      {/* Image Modal for Mobile */}
+      {/* Mobile sticky actions */}
+      <div className="fixed md:hidden bottom-0 left-0 right-0 z-40 border-t border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95 backdrop-blur px-4 py-2">
+        <div className="max-w-4xl mx-auto flex items-center justify-between gap-3">
+          <button
+            type="button"
+            onClick={toggleBookmark}
+            className={`inline-flex items-center gap-1 text-xs px-3 py-2 rounded-full border ${isBookmarked ? "border-[#C74634] text-[#C74634] dark:border-[#26c281] dark:text-[#26c281]" : "border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300"}`}
+          >
+            <FiBookmark className="w-4 h-4" />
+            {isBookmarked ? "Saved" : "Save"}
+          </button>
+          <button
+            type="button"
+            onClick={shareCurrentPost}
+            className="inline-flex items-center gap-1 text-xs px-3 py-2 rounded-full border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300"
+          >
+            <FiShare2 className="w-4 h-4" />
+            Share
+          </button>
+          {nextPostSlug ? (
+            <Link href={`/blogs/${nextPostSlug}`}>
+              <a className="inline-flex items-center gap-1 text-xs px-3 py-2 rounded-full border border-[#C74634] dark:border-[#26c281] text-[#C74634] dark:text-[#26c281]">
+                Next
+                <FiArrowRight className="w-4 h-4" />
+              </a>
+            </Link>
+          ) : (
+            <span className="text-xs text-gray-400 dark:text-gray-500">End of feed</span>
+          )}
+        </div>
+      </div>
+
+      {/* Image Modal */}
       {selectedImage && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
@@ -579,6 +707,9 @@ function BlogInner({ data, content, headings, readTime, allBlogs }) {
                 alt={selectedImage.alt}
                 className="w-full h-auto max-h-[70vh] object-contain"
               />
+              {selectedImage.alt ? (
+                <p className="mt-3 text-sm text-gray-600 dark:text-gray-300 text-center italic">{selectedImage.alt}</p>
+              ) : null}
             </div>
           </div>
         </div>

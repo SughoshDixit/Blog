@@ -1,4 +1,6 @@
 import { FaTwitter } from "react-icons/fa";
+import { generateSlug } from "../Lib/utils";
+import { SITE_URL } from "../Lib/siteConfig";
 
 function BlogShare({ data }) {
   return (
@@ -10,9 +12,7 @@ function BlogShare({ data }) {
         href={`https://twitter.com/intent/tweet?text=${
           data?.Title || ""
         } by @PSughosh
-        &url=sughoshblog.vercel.app/${String(
-          (data?.Title || "").split(" ").join("-").toLowerCase()
-        )}
+        &url=${SITE_URL}/blogs/${generateSlug(data?.Title || "")}
         &hashtags=${(data?.Tags || "").split(" ").join(",")}`}
       >
         <FaTwitter className="w-4 h-4" />

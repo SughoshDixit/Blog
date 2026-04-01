@@ -22,8 +22,8 @@ function Footer() {
                 Sughosh&apos;s Chronicles
               </span>
             </div>
-            <p className="text-[#6E6B68] dark:text-[#B8B4B0] text-sm mb-6 max-w-xs leading-relaxed">
-              Stories and ideas at the intersection of data science, philosophy, and the beautiful game.
+            <p className="text-[#6E6B68] dark:text-[#B8B4B0] text-sm mb-6 max-w-sm leading-relaxed">
+              Data science deep dives, personal essays, Vedic studies, books, football, and life in India — Sughosh&apos;s long-form chronicles.
             </p>
             {/* Social icons */}
             <div className="flex space-x-3">
