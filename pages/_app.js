@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import { Analytics } from "@vercel/analytics/react";
+import ChatBot from "../Components/ChatBot";
 import { ThemeProvider } from "next-themes";
 import { Provider } from "react-redux";
 import { store } from "../Redux/store";
@@ -58,6 +59,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <ThemeProvider attribute="class">
           <PageProgressBar loading={loading} />
           <Component {...pageProps} />
+          <ChatBot />
           <Analytics />
         </ThemeProvider>
       </Provider>
