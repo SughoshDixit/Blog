@@ -1,12 +1,14 @@
 import "../styles/globals.css";
 import { Analytics } from "@vercel/analytics/react";
-import ChatBot from "../Components/ChatBot";
+import dynamic from "next/dynamic";
 import { ThemeProvider } from "next-themes";
 import { Provider } from "react-redux";
 import { store } from "../Redux/store";
 import { SessionProvider } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+
+const ChatBot = dynamic(() => import("../Components/ChatBot"), { ssr: false });
 
 function PageProgressBar({ loading }) {
   return (
