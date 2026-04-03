@@ -148,19 +148,39 @@ export default function Home({ blogs, topics }) {
   }, [publishedBlogs]);
 
   const recentPosts = useMemo(
-    () => rankedBlogs.filter((b) => !isDSPost(b)).slice(0, 5),
-    [rankedBlogs]
+    () =>
+      [...publishedBlogs]
+        .filter((b) => !isDSPost(b))
+        .sort((a, b) => {
+          const da = Date.parse(a?.data?.Date);
+          const db = Date.parse(b?.data?.Date);
+          if (!Number.isNaN(da) && !Number.isNaN(db)) return db - da;
+          if (!Number.isNaN(da)) return -1;
+          if (!Number.isNaN(db)) return 1;
+          return (Number(b?.data?.Id) || 0) - (Number(a?.data?.Id) || 0);
+        })
+        .slice(0, 5),
+    [publishedBlogs]
   );
 
   const remainingPosts = useMemo(
     () =>
-      rankedBlogs.filter((blog) => {
-        if (isDSPost(blog)) return false;
-        const isInRecent = recentPosts.some((r) => r?.data?.Id === blog?.data?.Id);
-        const isFeatured = featureHighlight?.data?.Id === blog?.data?.Id;
-        return !isInRecent && !isFeatured;
-      }),
-    [rankedBlogs, recentPosts, featureHighlight]
+      publishedBlogs
+        .filter((blog) => {
+          if (isDSPost(blog)) return false;
+          const isInRecent = recentPosts.some((r) => r?.data?.Id === blog?.data?.Id);
+          const isFeatured = featureHighlight?.data?.Id === blog?.data?.Id;
+          return !isInRecent && !isFeatured;
+        })
+        .sort((a, b) => {
+          const da = Date.parse(a?.data?.Date);
+          const db = Date.parse(b?.data?.Date);
+          if (!Number.isNaN(da) && !Number.isNaN(db)) return db - da;
+          if (!Number.isNaN(da)) return -1;
+          if (!Number.isNaN(db)) return 1;
+          return (Number(b?.data?.Id) || 0) - (Number(a?.data?.Id) || 0);
+        }),
+    [publishedBlogs, recentPosts, featureHighlight]
   );
 
   const POSTS_PER_PAGE = 6;
