@@ -2,7 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  // Enable Fast Refresh
+  images: {
+    domains: ["miro.medium.com", "raw.githubusercontent.com"],
+  },
   webpack: (config, { dev, isServer }) => {
     if (dev && !isServer) {
       config.watchOptions = {

@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "next-themes";
 import { Provider } from "react-redux";
 import { store } from "../Redux/store";
@@ -57,6 +58,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <ThemeProvider attribute="class">
           <PageProgressBar loading={loading} />
           <Component {...pageProps} />
+          <Analytics />
         </ThemeProvider>
       </Provider>
     </SessionProvider>

@@ -154,10 +154,10 @@ function Navbar({ topics }) {
             
             <Link href="/">
               <a className="flex items-center space-x-3 text-gray-900 hover:text-gray-600 dark:text-white dark:hover:text-gray-300 transition-colors">
-                <div className="w-9 h-9 rounded-full bg-redwood-500 text-white dark:bg-redwood-400 dark:text-white flex items-center justify-center font-semibold">
-                  S
+                <div className="w-9 h-9 rounded-full bg-redwood-500 text-white dark:bg-redwood-400 dark:text-white flex items-center justify-center font-bold text-sm tracking-tight">
+                  SD
                 </div>
-                <span className="text-xl font-bold tracking-tight" style={{fontFamily: 'Charter, Georgia, serif'}}>Sughosh's Chronicles</span>
+                <span className="text-xl font-bold tracking-tight" style={{fontFamily: 'Charter, Georgia, serif'}}>Sughosh Dixit</span>
               </a>
             </Link>
           </div>
@@ -184,25 +184,19 @@ function Navbar({ topics }) {
           {/* Right side - Actions */}
           <div className="flex items-center space-x-4">
             <div className="hidden lg:flex items-center space-x-6 text-sm text-[#6E6B68] dark:text-[#F5F4F2]">
+              <Link href="/start-here">
+                <a className={`hover:text-[#C74634] transition-colors relative ${isActive("/start-here") ? "nav-link-active" : ""}`}>Start Here</a>
+              </Link>
               <Link href="/learning-path">
                 <a className={`hover:text-[#C74634] transition-colors flex items-center gap-1 relative ${isActive("/learning-path") ? "nav-link-active" : ""}`}>
-                  <span>30-Day Challenge</span>
-                  <span className="px-1.5 py-0.5 text-[10px] font-bold bg-redwood-100 dark:bg-redwood-900 text-redwood-700 dark:text-redwood-300 rounded badge-pulse">NEW</span>
+                  30-Day Challenge
                 </a>
+              </Link>
+              <Link href="/about">
+                <a className={`hover:text-[#C74634] transition-colors relative ${isActive("/about") ? "nav-link-active" : ""}`}>About</a>
               </Link>
               <Link href="/dashboard">
                 <a className={`hover:text-[#C74634] transition-colors relative ${isActive("/dashboard") ? "nav-link-active" : ""}`}>Dashboard</a>
-              </Link>
-              <a
-                href="https://sughoshdixit.github.io/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#C74634] transition-colors link-underline"
-              >
-                Our story
-              </a>
-              <Link href="/ai-gallery">
-                <a className={`hover:text-[#C74634] transition-colors relative ${isActive("/ai-gallery") ? "nav-link-active" : ""}`}>Labs</a>
               </Link>
             </div>
             <button
@@ -259,10 +253,10 @@ function Navbar({ topics }) {
             
             <Link href="/">
               <a className="flex items-center space-x-2 text-gray-900 hover:text-gray-600 dark:text-white dark:hover:text-gray-300 transition-colors">
-                <div className="w-8 h-8 rounded-full bg-redwood-500 text-white dark:bg-redwood-400 dark:text-white flex items-center justify-center text-sm font-semibold">
-                  S
+                <div className="w-8 h-8 rounded-full bg-redwood-500 text-white dark:bg-redwood-400 dark:text-white flex items-center justify-center text-xs font-bold tracking-tight">
+                  SD
                 </div>
-                <span className="text-lg font-bold" style={{fontFamily: 'Charter, Georgia, serif'}}>Sughosh's Chronicles</span>
+                <span className="text-lg font-bold" style={{fontFamily: 'Charter, Georgia, serif'}}>Sughosh Dixit</span>
               </a>
             </Link>
           </div>
@@ -384,15 +378,6 @@ function Navbar({ topics }) {
               </a>
             </Link>
             
-            <a 
-              href="https://sughoshdixit.github.io/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-            >
-              <FiList className="w-5 h-5" />
-              <span>Portfolio</span>
-            </a>
           </nav>
 
           {/* Topics Section */}
@@ -409,34 +394,26 @@ function Navbar({ topics }) {
             </div>
           </div>
 
-          {/* Following Section */}
+          {/* External links */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">Following</h3>
-            <div className="space-y-2">
-              <div className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors cursor-pointer">
-                <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">A</span>
-                </div>
-                <span className="text-sm">AI Content</span>
-              </div>
-              <div className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors cursor-pointer">
-                <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">T</span>
-                </div>
-                <span className="text-sm">Tech Insights</span>
-              </div>
-              <div className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors cursor-pointer">
-                <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">D</span>
-                </div>
-                <span className="text-sm">Data Science</span>
-              </div>
-              <div className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors cursor-pointer">
-                <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">M</span>
-                </div>
-                <span className="text-sm">Machine Learning</span>
-              </div>
+            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">Connect</h3>
+            <div className="space-y-1">
+              <a
+                href="https://sughoshdixit.github.io/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+              >
+                Portfolio
+              </a>
+              <a
+                href="https://www.youtube.com/@sughoshdixit"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+              >
+                YouTube
+              </a>
             </div>
           </div>
         </div>
