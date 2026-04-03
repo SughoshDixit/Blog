@@ -10,6 +10,10 @@ import {
   SITE_URL,
   SITE_TITLE_HOME,
   SITE_DESCRIPTION,
+  siteOgImageUrl,
+  SITE_OG_IMAGE_WIDTH,
+  SITE_OG_IMAGE_HEIGHT,
+  SITE_OG_IMAGE_ALT,
 } from "../Lib/siteConfig";
 
 export const getStaticProps = () => {
@@ -232,19 +236,17 @@ export default function Home({ blogs, topics }) {
         <meta property="og:url" content={`${SITE_URL}/`} />
         <meta property="og:title" content={SITE_TITLE_HOME} />
         <meta property="og:description" content={SITE_DESCRIPTION} />
-        <meta
-          property="og:image"
-          content="https://raw.githubusercontent.com/SughoshDixit/Blog/main/Extra/sc.png"
-        />
+        <meta property="og:image" content={siteOgImageUrl()} />
+        <meta property="og:image:width" content={String(SITE_OG_IMAGE_WIDTH)} />
+        <meta property="og:image:height" content={String(SITE_OG_IMAGE_HEIGHT)} />
+        <meta property="og:image:alt" content={SITE_OG_IMAGE_ALT} />
 
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content={`${SITE_URL}/`} />
         <meta property="twitter:title" content={SITE_TITLE_HOME} />
         <meta property="twitter:description" content={SITE_DESCRIPTION} />
-        <meta
-          property="twitter:image"
-          content="https://raw.githubusercontent.com/SughoshDixit/Blog/main/Extra/sc.png"
-        />
+        <meta property="twitter:image" content={siteOgImageUrl()} />
+        <meta name="twitter:image:alt" content={SITE_OG_IMAGE_ALT} />
       </Head>
 
       <div className="min-h-screen relative bg-[#FAF8F6] dark:bg-[#201E1C] transition-colors duration-300">

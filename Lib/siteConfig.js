@@ -14,3 +14,16 @@ export const SITE_TITLE_HOME =
 
 export const SITE_DESCRIPTION =
   "Long-form writing by Sughosh Dixit: data science deep dives, the 30-Day DS Challenge, personal essays, Vedic studies, books, football, and life in India.";
+
+/** Served from /public/og — swap the file to change social previews (LinkedIn caches; use Post Inspector after deploy). */
+export const SITE_OG_IMAGE_PATH = "/og/social-share.jpg";
+
+export const SITE_OG_IMAGE_WIDTH = 1200;
+export const SITE_OG_IMAGE_HEIGHT = 630;
+
+export const SITE_OG_IMAGE_ALT =
+  "Sughosh Dixit — blog and portfolio: data science, AI art, and long-form writing";
+
+export function siteOgImageUrl() {
+  return `${SITE_URL}${SITE_OG_IMAGE_PATH}`;
+}
