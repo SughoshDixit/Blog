@@ -13,6 +13,7 @@ import BlogShare from "../../Components/BlogShare";
 import { remarkHeadingId } from "remark-custom-heading-id";
 import { getHeadings } from "../../Lib/GetHeadings";
 import ReadingProgress from "../../Components/ReadingProgress";
+import ReadingProgressSync from "../../Components/ReadingProgressSync";
 import RelatedPosts from "../../Components/RelatedPosts";
 import BookmarkBtn from "../../Components/BookmarkBtn";
 import ReadingHistory from "../../Components/ReadingHistory";
@@ -130,6 +131,7 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
 
       <div className="min-h-screen relative bg-white dark:bg-gray-900">
         <ReadingProgress />
+        <ReadingProgressSync slug={id} />
         <Navbar topics={topics} />
         <div className="pt-20">
           {/* best-effort visit counter per post */}

@@ -14,6 +14,7 @@ import { SiCodefactor } from "react-icons/si";
 import { IoMdArrowDropdown } from "react-icons/io";
 import Alert from "./Alert";
 import SearchModal from "./SearchModal";
+import NotificationBell from "./NotificationBell";
 import { useDispatch } from "react-redux";
 
 function Navbar({ topics }) {
@@ -199,6 +200,7 @@ function Navbar({ topics }) {
                 <a className={`hover:text-[#C74634] transition-colors relative ${isActive("/dashboard") ? "nav-link-active" : ""}`}>Dashboard</a>
               </Link>
             </div>
+            <NotificationBell />
             <button
               className="p-2 text-[#6E6B68] hover:text-gray-900 dark:text-[#B8B4B0] dark:hover:text-white transition-colors"
               onClick={toggleTheme}

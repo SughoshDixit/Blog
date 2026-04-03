@@ -1,46 +1,52 @@
 import { useState, useEffect } from "react";
 import { FiBookmark, FiCheck } from "react-icons/fi";
+import { useSelector } from "react-redux";
+import {
+  addBookmarkToFirestore,
+  removeBookmarkFromFirestore,
+} from "../Lib/firebaseBookmarks";
 
 function BookmarkBtn({ postId, postTitle, postData }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     setIsClient(true);
-    if (typeof window === 'undefined') return;
-    // Check if post is bookmarked
+    if (typeof window === "undefined") return;
     const bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
     setIsBookmarked(bookmarks.some((b) => b.id === postId));
   }, [postId]);
 
-  const handleBookmark = () => {
-    if (typeof window === 'undefined') return;
+  const handleBookmark = async () => {
+    if (typeof window === "undefined") return;
     setIsLoading(true);
     const bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
-    
+
     if (isBookmarked) {
-      // Remove bookmark
       const updated = bookmarks.filter((b) => b.id !== postId);
       localStorage.setItem("bookmarks", JSON.stringify(updated));
       setIsBookmarked(false);
+      if (user?.uid) {
+        removeBookmarkFromFirestore(user.uid, postId).catch(() => {});
+      }
     } else {
-      // Add bookmark
       const bookmark = {
         id: postId,
         title: postTitle,
         data: postData,
         savedAt: new Date().toISOString(),
       };
-      const updated = [...bookmarks, bookmark];
-      localStorage.setItem("bookmarks", JSON.stringify(updated));
+      localStorage.setItem("bookmarks", JSON.stringify([...bookmarks, bookmark]));
       setIsBookmarked(true);
+      if (user?.uid) {
+        addBookmarkToFirestore(user.uid, postId, postTitle, postData).catch(() => {});
+      }
     }
-    
+
     setIsLoading(false);
-    
-    // Trigger custom event for other components
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       window.dispatchEvent(new CustomEvent("bookmarksUpdated"));
     }
   };
@@ -55,7 +61,7 @@ function BookmarkBtn({ postId, postTitle, postData }) {
       title={isBookmarked ? "Remove bookmark" : "Save for later"}
     >
       {isBookmarked ? (
-        <FiCheck className="text-[#C74634] dark:text-[#26c281]" style={{ fontSize: "1.5rem" }} />
+        <FiCheck className="text-[#C74634]" style={{ fontSize: "1.5rem" }} />
       ) : (
         <FiBookmark style={{ fontSize: "1.5rem" }} />
       )}
@@ -67,4 +73,3 @@ function BookmarkBtn({ postId, postTitle, postData }) {
 }
 
 export default BookmarkBtn;
-
