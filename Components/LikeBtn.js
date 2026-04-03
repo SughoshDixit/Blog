@@ -3,7 +3,7 @@ import useSWR, { useSWRConfig } from "swr";
 import { useSelector } from "react-redux";
 import { AiOutlineHeart, AiFillHeart, AiOutlineLoading } from "react-icons/ai";
 
-function LikeBtn({ id }) {
+function LikeBtn({ id, className = "pt-8 pb-4 sm:pt-16 sm:pb-6" }) {
   const [loading, setLoading] = useState(false);
   const { mutate } = useSWRConfig();
   const user = useSelector((state) => state.user);
@@ -26,7 +26,7 @@ function LikeBtn({ id }) {
   };
 
   return (
-    <div className="flex items-center justify-center pt-8 pb-4 sm:pt-16 sm:pb-6">
+    <div className={`flex items-center justify-center ${className}`}>
       {loading ? (
         <AiOutlineLoading className="animate-spin text-gray-500" style={{ fontSize: "1.25rem" }} />
       ) : (

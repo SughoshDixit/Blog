@@ -21,6 +21,8 @@ import PrintButton from "../../Components/PrintButton";
 import PostSeries from "../../Components/PostSeries";
 import ChanakyaShubhashita from "../../Components/ChanakyaShubhashita";
 import PostNavigation from "../../Components/PostNavigation";
+import LikeBtn from "../../Components/LikeBtn";
+import Comments from "../../Components/Comments";
 import { SITE_URL } from "../../Lib/siteConfig";
 
 export const getStaticPaths = () => {
@@ -152,7 +154,8 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
             {/* Medium-style engagement section */}
             <div className="mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-gray-200 dark:border-gray-700">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
-                <div className="flex items-center justify-center sm:justify-start space-x-6">
+                <div className="flex items-center justify-center sm:justify-start flex-wrap gap-x-6 gap-y-3">
+                  <LikeBtn id={id} className="py-0" />
                   <BookmarkBtn postId={id} postTitle={data.Title} postData={data} />
                   <BlogShare data={data} />
                 </div>
@@ -164,6 +167,19 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
                 </div>
               </div>
             </div>
+
+            <section
+              className="mt-12 sm:mt-16 pt-8 border-t border-gray-200 dark:border-gray-700"
+              aria-labelledby="post-comments-heading"
+            >
+              <h2
+                id="post-comments-heading"
+                className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6"
+              >
+                Discussion
+              </h2>
+              <Comments id={id} />
+            </section>
 
             {/* Post Series */}
             <PostSeries 

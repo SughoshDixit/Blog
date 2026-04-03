@@ -447,8 +447,29 @@ export default function Home({ blogs, topics }) {
                         <p className="text-sm text-[#494132] dark:text-[#B8B4B0] line-clamp-3">
                           {post.data.Abstract}
                         </p>
-                        <div className="flex items-center justify-between text-sm text-[#7c7461] dark:text-[#6E6B68]">
+                        <div className="flex items-center gap-4 text-sm text-[#7c7461] dark:text-[#6E6B68]">
                           <span>{post.readTime.text}</span>
+                          {(() => {
+                            const slug = generateSlug(post.data.Title);
+                            const eng = engagementMap[slug];
+                            if (!eng) return null;
+                            return (
+                              <span className="flex items-center gap-3">
+                                {eng.likes > 0 && (
+                                  <span className="flex items-center gap-1" title="Likes">
+                                    <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" /></svg>
+                                    {eng.likes}
+                                  </span>
+                                )}
+                                {eng.comments > 0 && (
+                                  <span className="flex items-center gap-1" title="Comments">
+                                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+                                    {eng.comments}
+                                  </span>
+                                )}
+                              </span>
+                            );
+                          })()}
                         </div>
                       </div>
                     </article>
@@ -518,12 +539,35 @@ export default function Home({ blogs, topics }) {
                               </span>
                             ))}
                         </div>
-                        <a
-                          href={`/blogs/${generateSlug(blog.data.Title)}`}
-                          className="text-[#C74634] hover:text-[#A73A2C] font-semibold dark:text-[#E8572A] dark:hover:text-[#C74634]"
-                        >
-                          Continue reading &rarr;
-                        </a>
+                        <div className="flex items-center gap-4">
+                          {(() => {
+                            const slug = generateSlug(blog.data.Title);
+                            const eng = engagementMap[slug];
+                            if (!eng) return null;
+                            return (
+                              <span className="flex items-center gap-3">
+                                {eng.likes > 0 && (
+                                  <span className="flex items-center gap-1" title="Likes">
+                                    <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" /></svg>
+                                    {eng.likes}
+                                  </span>
+                                )}
+                                {eng.comments > 0 && (
+                                  <span className="flex items-center gap-1" title="Comments">
+                                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+                                    {eng.comments}
+                                  </span>
+                                )}
+                              </span>
+                            );
+                          })()}
+                          <a
+                            href={`/blogs/${generateSlug(blog.data.Title)}`}
+                            className="text-[#C74634] hover:text-[#A73A2C] font-semibold dark:text-[#E8572A] dark:hover:text-[#C74634]"
+                          >
+                            Continue reading &rarr;
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </article>
