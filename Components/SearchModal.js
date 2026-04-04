@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { FiSearch, FiX, FiClock, FiTag, FiUser } from 'react-icons/fi';
 import Link from 'next/link';
 
-function SearchModal({ isOpen, onClose }) {
+function SearchModal({ isOpen, onClose, topics = [] }) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -116,15 +116,16 @@ function SearchModal({ isOpen, onClose }) {
               }}
               className="px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm text-gray-700 dark:text-gray-200"
             >
-              <option value="">All topics</option>
-              <option value="Data Science">Data Science</option>
-              <option value="Personal">Personal</option>
-              <option value="Vedic Studies">Vedic Studies</option>
-              <option value="Book">Book</option>
-              <option value="Experience">Experience</option>
-              <option value="Civilization">Civilization</option>
-              <option value="RSS Centenary">RSS Centenary</option>
-              <option value="My Love Story 💌">My Love Story</option>
+              <option value="">All topics (main shelf)</option>
+              {Array.isArray(topics) &&
+                topics
+                  .filter(Boolean)
+                  .sort((a, b) => String(a).localeCompare(String(b)))
+                  .map((t) => (
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
+                  ))}
             </select>
             <select
               value={maxReadFilter}
@@ -273,7 +274,7 @@ function SearchModal({ isOpen, onClose }) {
                 Search articles
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Start typing to search through all blog posts, topics, and tags.
+                Start typing to search posts on the main shelf, topics, and tags.
               </p>
             </div>
           )}

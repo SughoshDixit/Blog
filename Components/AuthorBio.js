@@ -2,13 +2,20 @@ import { useState } from "react";
 import { FiChevronDown, FiChevronUp, FiGithub, FiLinkedin, FiYoutube, FiExternalLink } from "react-icons/fi";
 import Link from "next/link";
 import { generateSlug } from "../Lib/utils";
+import { isProminentShelf } from "../Lib/postVisibility";
 
 function AuthorBio({ data, allBlogs }) {
   const [isExpanded, setIsExpanded] = useState(false);
   
   // Get recent posts by same author
   const recentPosts = allBlogs
-    ?.filter((blog) => blog.data.Author === data.Author && blog.data.isPublished && generateSlug(blog.data.Title) !== generateSlug(data.Title))
+    ?.filter(
+      (blog) =>
+        blog.data.Author === data.Author &&
+        blog.data.isPublished &&
+        isProminentShelf(blog) &&
+        generateSlug(blog.data.Title) !== generateSlug(data.Title)
+    )
     .sort((a, b) => new Date(b.data.Date) - new Date(a.data.Date))
     .slice(0, 3) || [];
 

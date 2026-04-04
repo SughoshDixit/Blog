@@ -9,10 +9,10 @@ import {
 import {
   FiAward, FiCpu, FiBookOpen, FiArrowRight,
 } from "react-icons/fi";
-import { getAllTopics } from "../Lib/Data";
+import { getProminentTopics } from "../Lib/Data";
 
 export const getStaticProps = () => {
-  const allTopics = getAllTopics();
+  const allTopics = getProminentTopics();
   return { props: { topics: allTopics } };
 };
 

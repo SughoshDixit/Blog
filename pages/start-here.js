@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
-import { getAllBlogPosts, getAllTopics } from "../Lib/Data";
+import { getAllBlogPosts, getProminentTopics } from "../Lib/Data";
 import { generateSlug } from "../Lib/utils";
 import { SITE_URL } from "../Lib/siteConfig";
 
@@ -47,7 +47,7 @@ const CURATED = [
 
 export const getStaticProps = () => {
   const allBlogs = getAllBlogPosts();
-  const allTopics = getAllTopics();
+  const allTopics = getProminentTopics();
   const blogMap = {};
   allBlogs
     .filter((b) => b?.data?.isPublished)

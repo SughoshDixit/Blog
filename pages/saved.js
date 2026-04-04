@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
-import { getAllTopics } from "../Lib/Data";
+import { getProminentTopics } from "../Lib/Data";
 import Link from "next/link";
 import { FiBookmark, FiTrash2, FiCloud } from "react-icons/fi";
 import { useSelector } from "react-redux";
@@ -14,7 +14,7 @@ import {
 } from "../Lib/firebaseBookmarks";
 
 export const getStaticProps = () => {
-  const allTopics = getAllTopics();
+  const allTopics = getProminentTopics();
   return { props: { topics: allTopics || [] } };
 };
 

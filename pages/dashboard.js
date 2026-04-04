@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
-import { getAllBlogPosts, getAllTopics } from "../Lib/Data";
+import { getAllBlogPosts, getProminentTopics } from "../Lib/Data";
 import { generateSlug } from "../Lib/utils";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { 
@@ -42,7 +42,7 @@ ChartJS.register(
 
 export const getStaticProps = () => {
   const allBlogs = getAllBlogPosts();
-  const allTopics = getAllTopics();
+  const allTopics = getProminentTopics();
   
   // Remove content from blogs to reduce page data size
   // Content is only needed on individual blog pages, not the dashboard listing

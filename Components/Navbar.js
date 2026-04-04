@@ -430,9 +430,10 @@ function Navbar({ topics }) {
       )}
 
       {/* Search Modal */}
-      <SearchModal 
-        isOpen={searchOpen} 
-        onClose={() => setSearchOpen(false)} 
+      <SearchModal
+        isOpen={searchOpen}
+        onClose={() => setSearchOpen(false)}
+        topics={topics}
       />
     </>
   );

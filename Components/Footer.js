@@ -55,6 +55,7 @@ function Footer() {
                 { href: "/start-here", label: "Start Here" },
                 { href: "/about", label: "About" },
                 { href: "/learning-path", label: "30-Day Challenge" },
+                { href: "/archive", label: "Archive" },
                 { href: "/dashboard", label: "Dashboard" },
               ].map(({ href, label }) => (
                 <li key={href}>

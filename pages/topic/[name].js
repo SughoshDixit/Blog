@@ -1,5 +1,6 @@
 import React from "react";
-import { getAllBlogPosts, getAllTopics } from "../../Lib/Data";
+import { getAllBlogPosts, getAllTopics, getProminentTopics } from "../../Lib/Data";
+import { isProminentShelf } from "../../Lib/postVisibility";
 import { generateSlug } from "../../Lib/utils";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
@@ -21,12 +22,12 @@ export const getStaticPaths = () => {
 export const getStaticProps = async (context) => {
   const params = context.params;
   const allBlogs = getAllBlogPosts();
-  const allTopics = getAllTopics();
+  const navTopics = getProminentTopics();
 
   // Remove content from blogs to reduce page data size
   // Content is only needed on individual blog pages, not the topic listing
   const blogsWithoutContent = allBlogs
-    .filter((blog) => blog && blog.data && blog.readTime)
+    .filter((blog) => blog && blog.data && blog.readTime && isProminentShelf(blog))
     .map((blog) => ({
       data: blog.data,
       readTime: blog.readTime,
@@ -39,7 +40,7 @@ export const getStaticProps = async (context) => {
   return {
     props: {
       blogs: filteredBlogs,
-      topics: allTopics || [],
+      topics: navTopics || [],
       topicName: params.name || '',
     },
   };
@@ -85,8 +86,18 @@ function name({ blogs, topics, topicName }) {
               {topicName}
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-4">
-              {publishedBlogs.length} {publishedBlogs.length === 1 ? 'article' : 'articles'} about {topicName}
+              {publishedBlogs.length}{" "}
+              {publishedBlogs.length === 1 ? "article" : "articles"} about {topicName}
             </p>
+            {publishedBlogs.length === 0 && (
+              <p className="text-base text-amber-800 dark:text-amber-200/90 max-w-2xl mx-auto mb-6">
+                No featured articles in this topic on the main shelf.{" "}
+                <a href="/archive" className="underline hover:text-[#C74634] dark:hover:text-[#E8572A]">
+                  See the archive
+                </a>{" "}
+                for other pieces that may use this tag elsewhere.
+              </p>
+            )}
             <p className="text-base text-gray-500 dark:text-gray-400 max-w-3xl mx-auto">
               {topicDescriptions[topicName] || "Curated posts from this track. Start with the latest and then follow the sequence below."}
             </p>

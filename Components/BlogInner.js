@@ -17,6 +17,7 @@ import PercentileThresholdTuner from "./PercentileThresholdTuner";
 import PrintSummary from "./PrintSummary";
 import { FiBookmark, FiShare2, FiArrowRight } from "react-icons/fi";
 import { generateSlug } from "../Lib/utils";
+import { isProminentShelf } from "../Lib/postVisibility";
 
 const LOTTIE_ANIMATIONS = {
   boxplotIntro: "https://assets10.lottiefiles.com/packages/lf20_tutvdkg0.json",
@@ -461,8 +462,19 @@ function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
       );
     },
   };
+  const isOffShelf = data && !isProminentShelf({ data });
+
   return (
     <div className="max-w-4xl mx-auto w-full overflow-x-hidden pb-20 md:pb-0">
+      {isOffShelf && (
+        <p className="mb-8 text-sm text-[#5e5645] dark:text-[#B8B4B0] border border-[#E0DDD9] dark:border-[#3D3A36] rounded-xl px-4 py-3 bg-[#faf8f6] dark:bg-[#2C2A27]">
+          This piece is in the{" "}
+          <Link href="/archive" className="text-[#C74634] dark:text-[#E8572A] font-medium hover:underline">
+            archive
+          </Link>{" "}
+          (off the main shelf). It stays on the site and can be shared by link.
+        </p>
+      )}
       {/* Medium-style article header */}
       <div className="mb-8">
         <div className="flex items-center space-x-4 mb-6">

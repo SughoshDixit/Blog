@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { generateSlug } from "../Lib/utils";
 import { FiArrowRight } from "react-icons/fi";
+import { isProminentShelf } from "../Lib/postVisibility";
 
 function RelatedPosts({ currentPost, allBlogs, maxPosts = 3 }) {
   if (!currentPost || !allBlogs || allBlogs.length === 0) {
@@ -13,8 +14,13 @@ function RelatedPosts({ currentPost, allBlogs, maxPosts = 3 }) {
   const currentTags = (currentPost.data?.Tags || "").split(" ").filter(Boolean);
   const currentId = generateSlug(currentTitle);
 
+  const pool =
+    currentPost && isProminentShelf(currentPost)
+      ? allBlogs.filter((b) => isProminentShelf(b))
+      : allBlogs;
+
   // Find related posts based on topic and tags
-  const scoredPosts = allBlogs
+  const scoredPosts = pool
     .filter((blog) => {
       if (!blog?.data) return false;
       const blogId = generateSlug(blog.data.Title);

@@ -8,6 +8,7 @@ Topic: Personal
 Abstract: Lifestory of Ajju - !
 HeaderImage: /Ajju/WhatsApp Image 2025-09-03 at 22.48.16_c74e6520.jpg
 isPublished: true
+prominentShelf: false
 ---
 
 

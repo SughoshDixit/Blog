@@ -1,5 +1,6 @@
 import { getAllBlogPosts } from "../../Lib/Data";
 import { generateSlug } from "../../Lib/utils";
+import { isProminentShelf } from "../../Lib/postVisibility";
 
 export default function handler(req, res) {
   if (req.method !== "GET") {
@@ -9,7 +10,7 @@ export default function handler(req, res) {
   try {
     const allBlogs = getAllBlogPosts();
     const publishedBlogs = allBlogs
-      .filter((blog) => blog.data.isPublished)
+      .filter((blog) => blog.data.isPublished && isProminentShelf(blog))
       .sort((a, b) => new Date(b.data.Date) - new Date(a.data.Date));
 
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://sughoshblog.vercel.app";

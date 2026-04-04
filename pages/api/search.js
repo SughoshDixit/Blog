@@ -1,5 +1,6 @@
 import { getAllBlogPosts } from "../../Lib/Data";
 import { generateSlug } from "../../Lib/utils";
+import { isProminentShelf } from "../../Lib/postVisibility";
 
 export default function handler(req, res) {
   if (req.method !== 'GET') {
@@ -24,7 +25,7 @@ export default function handler(req, res) {
     };
 
     const searchResults = allBlogs
-      .filter((blog) => blog.data.isPublished)
+      .filter((blog) => blog.data.isPublished && isProminentShelf(blog))
       .filter((blog) => (topic ? blog?.data?.Topic === topic : true))
       .filter((blog) => {
         if (!maxRead) return true;

@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../Lib/authOptions";
 import db from "../../../Firebase/Firebase-admin";
 import { getAllBlogPosts } from "../../../Lib/Data";
+import { isProminentShelf } from "../../../Lib/postVisibility";
 import { generateSlug } from "../../../Lib/utils";
 import { sendWeeklyDigest } from "../../../Lib/email";
 
@@ -27,7 +28,7 @@ export default async function handler(req, res) {
 
     const recentPosts = allBlogs
       .filter((blog) => {
-        if (!blog.data || !blog.data.isPublished) return false;
+        if (!blog.data || !blog.data.isPublished || !isProminentShelf(blog)) return false;
         const postDate = new Date(blog.data.Date);
         return postDate >= oneWeekAgo;
       })

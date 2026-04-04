@@ -2,7 +2,8 @@ import Head from "next/head";
 import Image from "next/image";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
-import { getAllBlogPosts, getAllTopics } from "../Lib/Data";
+import { getAllBlogPosts, getProminentTopics } from "../Lib/Data";
+import { isProminentShelf } from "../Lib/postVisibility";
 import { generateSlug } from "../Lib/utils";
 import { useState, useEffect, useMemo } from "react";
 import useScrollReveal from "../Lib/useScrollReveal";
@@ -18,7 +19,7 @@ import {
 
 export const getStaticProps = () => {
   const allBlogs = getAllBlogPosts();
-  const allTopics = getAllTopics();
+  const allTopics = getProminentTopics();
   
   // Remove content from blogs to reduce page data size
   // Content is only needed on individual blog pages, not the home page listing
@@ -68,15 +69,20 @@ export default function Home({ blogs, topics }) {
     });
   }, [blogs]);
 
+  const shelfBlogs = useMemo(
+    () => publishedBlogs.filter((b) => isProminentShelf(b)),
+    [publishedBlogs]
+  );
+
   const [engagementMap, setEngagementMap] = useState({});
 
   useEffect(() => {
     let isCancelled = false;
 
     const loadEngagement = async () => {
-      if (!Array.isArray(publishedBlogs) || publishedBlogs.length === 0) return;
+      if (!Array.isArray(shelfBlogs) || shelfBlogs.length === 0) return;
 
-      const slugs = publishedBlogs
+      const slugs = shelfBlogs
         .map((b) => generateSlug(b?.data?.Title))
         .filter(Boolean);
 
@@ -100,7 +106,7 @@ export default function Home({ blogs, topics }) {
 
     loadEngagement();
     return () => { isCancelled = true; };
-  }, [publishedBlogs]);
+  }, [shelfBlogs]);
 
   useEffect(() => {
     fetch("/api/visits", {
@@ -111,7 +117,7 @@ export default function Home({ blogs, topics }) {
   }, []);
 
   const rankedBlogs = useMemo(() => {
-    return publishedBlogs
+    return shelfBlogs
       .map((blog) => {
         const slug = generateSlug(blog?.data?.Title);
         const engagement = engagementMap[slug] || { likes: 0, comments: 0 };
@@ -126,7 +132,7 @@ export default function Home({ blogs, topics }) {
         };
       })
       .sort((a, b) => b._score - a._score);
-  }, [publishedBlogs, engagementMap]);
+  }, [shelfBlogs, engagementMap]);
  
   const isDSPost = (blog) => blog?.data?.Topic === "Data Science";
 
@@ -136,7 +142,7 @@ export default function Home({ blogs, topics }) {
   );
 
   const featureHighlight = useMemo(() => {
-    const sortedByRecency = [...publishedBlogs].sort((a, b) => {
+    const sortedByRecency = [...shelfBlogs].sort((a, b) => {
       const dateA = Date.parse(a?.data?.Date);
       const dateB = Date.parse(b?.data?.Date);
       const isValidDateA = !Number.isNaN(dateA);
@@ -149,11 +155,11 @@ export default function Home({ blogs, topics }) {
       return idB - idA;
     });
     return sortedByRecency[0];
-  }, [publishedBlogs]);
+  }, [shelfBlogs]);
 
   const recentPosts = useMemo(
     () =>
-      [...publishedBlogs]
+      [...shelfBlogs]
         .filter((b) => !isDSPost(b))
         .sort((a, b) => {
           const da = Date.parse(a?.data?.Date);
@@ -164,12 +170,12 @@ export default function Home({ blogs, topics }) {
           return (Number(b?.data?.Id) || 0) - (Number(a?.data?.Id) || 0);
         })
         .slice(0, 5),
-    [publishedBlogs]
+    [shelfBlogs]
   );
 
   const remainingPosts = useMemo(
     () =>
-      publishedBlogs
+      shelfBlogs
         .filter((blog) => {
           if (isDSPost(blog)) return false;
           const isInRecent = recentPosts.some((r) => r?.data?.Id === blog?.data?.Id);
@@ -184,7 +190,7 @@ export default function Home({ blogs, topics }) {
           if (!Number.isNaN(db)) return 1;
           return (Number(b?.data?.Id) || 0) - (Number(a?.data?.Id) || 0);
         }),
-    [publishedBlogs, recentPosts, featureHighlight]
+    [shelfBlogs, recentPosts, featureHighlight]
   );
 
   const POSTS_PER_PAGE = 6;
@@ -657,6 +663,13 @@ export default function Home({ blogs, topics }) {
                     >
                       Key Terms
                       <span className="text-xs text-[#9a8f75] dark:text-[#6E6B68]">Data glossary</span>
+                    </a>
+                    <a
+                      href="/archive"
+                      className="flex items-center justify-between text-sm text-[#4f4636] dark:text-[#F5F4F2] hover:text-[#C74634] dark:hover:text-[#E8572A] transition-colors"
+                    >
+                      Archive
+                      <span className="text-xs text-[#9a8f75] dark:text-[#6E6B68]">Off the main shelf</span>
                     </a>
                   </div>
                 </div>

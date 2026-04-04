@@ -8,6 +8,7 @@ Topic: RSS Centenary
 Abstract: My experience at the 100th year of RSS as a Prabandhak
 HeaderImage: /BL-2/header.jpg
 isPublished: true
+prominentShelf: false
 ---
 
 ## Celebrating 100 Years of RSS

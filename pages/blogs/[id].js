@@ -1,4 +1,4 @@
-import { getAllBlogPosts, getAllTopics } from "../../Lib/Data";
+import { getAllBlogPosts, getProminentTopics } from "../../Lib/Data";
 import { generateSlug } from "../../Lib/utils";
 import readingTime from "reading-time";
 import { serialize } from "next-mdx-remote/serialize";
@@ -40,7 +40,7 @@ export const getStaticPaths = () => {
 export const getStaticProps = async (context) => {
   const params = context.params;
   const allBlogs = getAllBlogPosts();
-  const allTopics = getAllTopics();
+  const allTopics = getProminentTopics();
 
   const page = allBlogs.find(
     (blog) =>
