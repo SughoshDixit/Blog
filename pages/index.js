@@ -16,6 +16,7 @@ import {
   SITE_OG_IMAGE_HEIGHT,
   SITE_OG_IMAGE_ALT,
 } from "../Lib/siteConfig";
+import TechPodcastsShelf from "../Components/TechPodcastsShelf";
 
 export const getStaticProps = () => {
   const allBlogs = getAllBlogPosts();
@@ -491,6 +492,7 @@ export default function Home({ blogs, topics }) {
           <section id="latest-posts" className="py-16">
             <div className="max-w-7xl mx-auto px-4 md:px-8 grid gap-16 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)]">
               <div className="space-y-14">
+                <TechPodcastsShelf />
                 {paginatedPosts.map((blog) => (
                   <article
                     key={blog.data.Id}
