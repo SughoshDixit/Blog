@@ -14,7 +14,7 @@ prominentShelf: true
 # Dr. Vinayak Damodar Savarkar — The Underrated Colossus of Bharat's Freedom Struggle 🇮🇳
 
 <div style={{background: 'linear-gradient(135deg, #FF6B00 0%, #C74634 100%)', padding: '1.5rem', borderRadius: '15px', color: 'white', textAlign: 'center', margin: '2rem 0', boxShadow: '0 5px 20px rgba(199,70,52,0.4)'}}>
-<p style={{fontStyle: 'italic', fontSize: '1.3rem', margin: 0, fontWeight: 'bold'}}>🇮🇳 "Ne me vincas" — Do not overcome me. The motto Savarkar lived by. 🔥</p>
+<p style={{fontStyle: 'italic', fontSize: '1.3rem', margin: 0, fontWeight: 'bold'}}>🇮🇳 "Hinduization of politics and militarization of Hindus." — Veer Savarkar 🔥</p>
 </div>
 
 ---
