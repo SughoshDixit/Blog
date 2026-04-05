@@ -52,7 +52,7 @@ Like we all know he was born in **1883 May 28th**, his father was **Damodar Sava
 With the help of **Lokamanya Bala Gangadhar Tilak** he could complete his degree in Pune University and with the help of a scholarship/sponsorship from **Tilak Ji** could go on to **London** to pursue Law.
 
 <div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Bal_Gangadhar_Tilak.jpg/440px-Bal_Gangadhar_Tilak.jpg" alt="Lokamanya Bal Gangadhar Tilak" style={{maxWidth: '280px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.25)'}} />
+<img src="/BL-8/tilak.jpg" alt="Lokamanya Bal Gangadhar Tilak" style={{maxWidth: '280px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.25)'}} />
 </div>
 <p style={{textAlign: 'center', fontSize: '0.85rem', color: '#888', marginTop: '-1rem'}}>Lokamanya Bal Gangadhar Tilak — Savarkar's mentor and sponsor</p>
 
@@ -63,7 +63,7 @@ With the help of **Lokamanya Bala Gangadhar Tilak** he could complete his degree
 Also associated with the revolutionaries at the **India House** in London, in collaboration with **Madam Bikaji Kama** and **Panduranga Mahadeva Bapat**, he instigated the movement for Bharat's freedom in many ways.
 
 <div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/India_House_Highgate.jpg/800px-India_House_Highgate.jpg" alt="India House London" style={{maxWidth: '480px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.25)'}} />
+<img src="/BL-8/india-house.jpg" alt="India House London" style={{maxWidth: '480px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.25)'}} />
 </div>
 <p style={{textAlign: 'center', fontSize: '0.85rem', color: '#888', marginTop: '-1rem'}}>India House, London — the nerve centre of India's revolutionary movement abroad</p>
 
@@ -94,12 +94,12 @@ Post his arrest for trials he had to be shifted to Bharat, where he tries to **b
 He would face a very cruel time in **Andaman and Nicobar Island's jail** called **Black Water (Kaala Paani)** for **10 years** and will luckily be shifted to other jail at Ratnagiri amid political pressure.
 
 <div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Cellular_Jail.jpg/1200px-Cellular_Jail.jpg" alt="Cellular Jail Andaman - Kaala Paani" style={{maxWidth: '560px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.35)'}} />
+<img src="/BL-8/kaala-paani.jpg" alt="Cellular Jail Andaman - Kaala Paani" style={{maxWidth: '560px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.35)'}} />
 </div>
 <p style={{textAlign: 'center', fontSize: '0.85rem', color: '#888', marginTop: '-1rem'}}>Cellular Jail, Andaman — Kaala Paani, where Savarkar was imprisoned for 10 years</p>
 
 <div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Cellular_Jail_Inside.jpg/1200px-Cellular_Jail_Inside.jpg" alt="Inside the Cellular Jail" style={{maxWidth: '560px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.35)'}} />
+<img src="/BL-8/cellular-jail-inside.jpg" alt="Inside the Cellular Jail" style={{maxWidth: '560px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.35)'}} />
 </div>
 <p style={{textAlign: 'center', fontSize: '0.85rem', color: '#888', marginTop: '-1rem'}}>Inside the Cellular Jail — solitary cells designed to break the spirit</p>
 
@@ -125,7 +125,7 @@ He also becomes the **President of Hindu Mahasabha from 1937 to 1942**.
 In **1940 he meets Netaji** and has a conversation. Netaji says all the statues and monuments of the Brits established in Bharat must be demolished and asks Savarkar Ji if it was the right move.
 
 <div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Subhas_Chandra_Bose_in_uniform.jpg/440px-Subhas_Chandra_Bose_in_uniform.jpg" alt="Netaji Subhash Chandra Bose" style={{maxWidth: '280px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.25)'}} />
+<img src="/BL-8/netaji.jpg" alt="Netaji Subhash Chandra Bose" style={{maxWidth: '280px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.25)'}} />
 </div>
 <p style={{textAlign: 'center', fontSize: '0.85rem', color: '#888', marginTop: '-1rem'}}>Netaji Subhash Chandra Bose — Commander of the Indian National Army</p>
 
