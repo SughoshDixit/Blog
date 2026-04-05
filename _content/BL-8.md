@@ -6,7 +6,7 @@ Date: "2026-04-05"
 Tags: Savarkar VeerSavarkar VinayakDamodarSavarkar FreedomFighter IndianHistory BharatMata AbhinavaBharata KaalaPaani AndamanJail HinduMahasabha Patriotism Civilization
 Topic: Civilization
 Abstract: "I was invited to give a session on Dr. Vinayak Damodar Savarkar — one of the most controversial yet consequential figures of Bharat's freedom struggle. With little time to prepare, I bought a detailed book and an Amar Chitra Katha comic on him, read both cover to cover, and here is my take."
-HeaderImage: https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/V_D_Savarkar.jpg/800px-V_D_Savarkar.jpg
+HeaderImage: /BL-8/swatantrya-veer-savarkar.jpg
 isPublished: true
 prominentShelf: true
 ---
@@ -25,12 +25,16 @@ I was invited to give a session on Dr. Vinayak Damodar Savarkar (Veer Savarkar) 
 
 <div style={{display: 'flex', justifyContent: 'center', gap: '2rem', margin: '2rem 0', flexWrap: 'wrap', alignItems: 'flex-start'}}>
 <div style={{textAlign: 'center'}}>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/V_D_Savarkar.jpg/440px-V_D_Savarkar.jpg" alt="Veer Savarkar Portrait" style={{maxWidth: '240px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.25)'}} />
-<p style={{fontSize: '0.8rem', color: '#888', marginTop: '0.5rem'}}>Veer Savarkar — The Revolutionary</p>
+<img src="/BL-8/swatantrya-veer-savarkar.jpg" alt="Swatantrya Veer Savarkar" style={{maxWidth: '220px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.3)'}} />
+<p style={{fontSize: '0.8rem', color: '#888', marginTop: '0.5rem'}}>Swatantrya Veer Savarkar</p>
 </div>
 <div style={{textAlign: 'center'}}>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Amar_Chitra_Katha_Savarkar.jpg/440px-Amar_Chitra_Katha_Savarkar.jpg" alt="Amar Chitra Katha on Savarkar" style={{maxWidth: '240px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.25)'}} />
-<p style={{fontSize: '0.8rem', color: '#888', marginTop: '0.5rem'}}>Amar Chitra Katha — Savarkar</p>
+<img src="/BL-8/savarkar-jayanti.webp" alt="Veer Savarkar Jayanti" style={{maxWidth: '220px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.3)'}} />
+<p style={{fontSize: '0.8rem', color: '#888', marginTop: '0.5rem'}}>Savarkar Jayanti — The Revolutionary's Legacy</p>
+</div>
+<div style={{textAlign: 'center'}}>
+<img src="/BL-8/Book-Source.jpeg" alt="Book Source — Research for this post" style={{maxWidth: '220px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.3)'}} />
+<p style={{fontSize: '0.8rem', color: '#888', marginTop: '0.5rem'}}>Books that shaped this take</p>
 </div>
 </div>
 
@@ -148,9 +152,9 @@ Further, post independence he again gets **arrested wrongfully** — blamed for 
 By then he would have a son and a daughter and a grandson and granddaughter. In **1965** he loses his wife **Yamuna** and in another year he too reaches the abode.
 
 <div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Vinayak_Damodar_Savarkar_2.jpg/440px-Vinayak_Damodar_Savarkar_2.jpg" alt="Veer Savarkar in later years" style={{maxWidth: '280px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.25)'}} />
+<img src="/BL-8/savarkar-jayanti.webp" alt="Veer Savarkar" style={{maxWidth: '480px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.25)'}} />
 </div>
-<p style={{textAlign: 'center', fontSize: '0.85rem', color: '#888', marginTop: '-1rem'}}>Veer Savarkar in his later years</p>
+<p style={{textAlign: 'center', fontSize: '0.85rem', color: '#888', marginTop: '-1rem'}}>Veer Savarkar — His legacy lives on</p>
 
 ---
 
