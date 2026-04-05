@@ -2,14 +2,14 @@ import Image from "next/image";
 import { FiYoutube, FiExternalLink } from "react-icons/fi";
 import { FaChartLine } from "react-icons/fa";
 import {
-  DS_HERO_VIDEO_ID,
+  DS_EMBED_SRC,
   DS_VIDEOS,
   DS_PLAYLIST_URL,
   YOUTUBE_CHANNEL_URL,
 } from "../Lib/dataScienceYouTubeData";
 
 function DataScienceYouTubeShelf() {
-  const embedSrc = `https://www.youtube.com/embed/${DS_HERO_VIDEO_ID}?modestbranding=1&rel=0`;
+  const embedSrc = DS_EMBED_SRC;
 
   return (
     <section
@@ -58,7 +58,7 @@ function DataScienceYouTubeShelf() {
       <div className="p-6 md:p-8 pt-0 md:pt-2">
         <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-black/5 dark:bg-black/40 mb-8">
           <iframe
-            title="Data Science video by Sughosh Dixit"
+            title="Data Science & Tech Podcasts playlist by Sughosh Dixit"
             src={embedSrc}
             className="absolute inset-0 w-full h-full"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

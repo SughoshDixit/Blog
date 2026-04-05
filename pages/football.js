@@ -8,7 +8,7 @@ import { getAllBlogPosts, getProminentTopics } from "../Lib/Data";
 import { generateSlug } from "../Lib/utils";
 import {
   FOOTBALL_VIDEOS,
-  FOOTBALL_HERO_VIDEO_ID,
+  FOOTBALL_EMBED_SRC,
   FOOTBALL_PLAYLIST_URL,
   YOUTUBE_CHANNEL_URL,
 } from "../Lib/footballYouTubeData";
@@ -47,7 +47,7 @@ const PAGE_DESCRIPTION =
   "Sughosh Dixit on football: analysis, passion pieces, goal highlights, and the beautiful game — from Liverpool FC to data-driven match insights.";
 
 export default function FootballPage({ topics, footballPosts }) {
-  const embedSrc = `https://www.youtube.com/embed/${FOOTBALL_HERO_VIDEO_ID}?modestbranding=1&rel=0`;
+  const embedSrc = FOOTBALL_EMBED_SRC;
 
   return (
     <>
@@ -156,7 +156,7 @@ export default function FootballPage({ topics, footballPosts }) {
               <div>
                 <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-black/5 dark:bg-black/40 shadow-xl mb-6">
                   <iframe
-                    title="Football video by Sughosh Dixit"
+                    title="Football playlist by Sughosh Dixit"
                     src={embedSrc}
                     className="absolute inset-0 w-full h-full"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

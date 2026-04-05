@@ -5,13 +5,11 @@
 export const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@sughoshdixit";
 
 /**
- * Data Science playlist on the channel.
- * Replace DS_PLAYLIST_ID with your actual playlist ID once you create one.
+ * Tech Podcasts / Data Science playlist on the channel.
+ * https://www.youtube.com/playlist?list=PL6OvmCeVVrDtOBGNO7uL89ZahyRgR6yjg
  */
-export const DS_PLAYLIST_ID = null; // e.g. "PL6OvmCeVVrD..."
-export const DS_PLAYLIST_URL = DS_PLAYLIST_ID
-  ? `https://www.youtube.com/playlist?list=${DS_PLAYLIST_ID}`
-  : YOUTUBE_CHANNEL_URL;
+export const DS_PLAYLIST_ID = "PL6OvmCeVVrDtOBGNO7uL89ZahyRgR6yjg";
+export const DS_PLAYLIST_URL = `https://www.youtube.com/playlist?list=${DS_PLAYLIST_ID}`;
 
 /** Data Science videos — curated from the channel. Add more as you publish. */
 export const DS_VIDEOS = [
@@ -33,5 +31,5 @@ export const DS_VIDEOS = [
   },
 ];
 
-/** The primary video to embed full-width at the top of the shelf. */
-export const DS_HERO_VIDEO_ID = DS_VIDEOS[0]?.id;
+/** Embed src — uses the full playlist so new videos appear automatically. */
+export const DS_EMBED_SRC = `https://www.youtube.com/embed/videoseries?list=${DS_PLAYLIST_ID}&modestbranding=1`;

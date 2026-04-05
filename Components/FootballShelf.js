@@ -2,14 +2,14 @@ import Image from "next/image";
 import { FiYoutube, FiExternalLink } from "react-icons/fi";
 import { FaFutbol } from "react-icons/fa";
 import {
-  FOOTBALL_HERO_VIDEO_ID,
+  FOOTBALL_EMBED_SRC,
   FOOTBALL_VIDEOS,
   FOOTBALL_PLAYLIST_URL,
   YOUTUBE_CHANNEL_URL,
 } from "../Lib/footballYouTubeData";
 
 function FootballShelf() {
-  const embedSrc = `https://www.youtube.com/embed/${FOOTBALL_HERO_VIDEO_ID}?modestbranding=1&rel=0`;
+  const embedSrc = FOOTBALL_EMBED_SRC;
 
   return (
     <section
@@ -56,7 +56,7 @@ function FootballShelf() {
       <div className="p-6 md:p-8 pt-0 md:pt-2">
         <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-black/5 dark:bg-black/40 mb-8">
           <iframe
-            title="Football video by Sughosh Dixit"
+            title="Football playlist by Sughosh Dixit"
             src={embedSrc}
             className="absolute inset-0 w-full h-full"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
