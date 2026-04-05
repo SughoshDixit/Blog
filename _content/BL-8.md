@@ -44,9 +44,9 @@ I was invited to give a session on Dr. Vinayak Damodar Savarkar (Veer Savarkar) 
 
 Like we all know he was born in **1883 May 28th**, his father was **Damodar Savarkar** and mother **Radhabai** in **Bhagooru, Nasik District, Maharashtra**.
 
-<div style={{background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)', padding: '1.5rem', borderRadius: '15px', color: '#e0e0e0', margin: '2rem 0', borderLeft: '4px solid #C74634'}}>
-<h4 style={{color: '#FF9A3C', marginTop: 0}}>⚡ The Spark — Chapekar Brothers</h4>
-<p style={{margin: 0, lineHeight: '1.8'}}>A very smart and intelligent boy, Savarkar among his brothers was very much inspired by the <strong style={{color: '#FFD700'}}>Chapekar Brothers' mutiny</strong> against the East India Company — the second big revolt for independence post 1857's First War of Indian Independence. Post their imprisonment and death at the hands of the Brits, he started something called <strong style={{color: '#FFD700'}}>Mitra Mela</strong> which then became the <strong style={{color: '#FFD700'}}>Abhinava Bharata Society (Young India Society)</strong>.</p>
+<div style={{background: '#FFF4ED', padding: '1.5rem', borderRadius: '15px', color: '#2d1a0e', margin: '2rem 0', borderLeft: '4px solid #C74634'}}>
+<h4 style={{color: '#C74634', marginTop: 0}}>⚡ The Spark — Chapekar Brothers</h4>
+<p style={{margin: 0, lineHeight: '1.8'}}>A very smart and intelligent boy, Savarkar among his brothers was very much inspired by the <strong>Chapekar Brothers' mutiny</strong> against the East India Company — the second big revolt for independence post 1857's First War of Indian Independence. Post their imprisonment and death at the hands of the Brits, he started something called <strong>Mitra Mela</strong> which then became the <strong>Abhinava Bharata Society (Young India Society)</strong>.</p>
 </div>
 
 With the help of **Lokamanya Bala Gangadhar Tilak** he could complete his degree in Pune University and with the help of a scholarship/sponsorship from **Tilak Ji** could go on to **London** to pursue Law.
@@ -67,9 +67,9 @@ Also associated with the revolutionaries at the **India House** in London, in co
 </div>
 <p style={{textAlign: 'center', fontSize: '0.85rem', color: '#888', marginTop: '-1rem'}}>India House, London — the nerve centre of India's revolutionary movement abroad</p>
 
-<div style={{background: 'linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%)', padding: '1.5rem', borderRadius: '15px', color: '#e0e0e0', margin: '2rem 0', borderLeft: '4px solid #FFD700'}}>
-<h4 style={{color: '#FFD700', marginTop: 0}}>📚 The Smuggled Book — "The Indian War of Independence 1857"</h4>
-<p style={{margin: 0, lineHeight: '1.8'}}>What's interesting is this book he wrote — was <strong style={{color: '#FF9A3C'}}>not even allowed to be published in England</strong> (the Brits were scared) of such literature, but Savarkar Ji found his way by <strong style={{color: '#FF9A3C'}}>masking the book cover</strong> with other titles like <em>Don Quixote</em>, <em>The Pickwick Papers</em>, and <em>Oliver Twist</em> and silently smuggled it to Bharat. In Bharat this literature was consumed by the likes of <strong style={{color: '#FFD700'}}>Bhagat Singh</strong> — and <strong style={{color: '#FFD700'}}>Netaji Subhash Chandra Bose</strong> even got this book printed in multiple copies for his Army when in Japan.</p>
+<div style={{background: '#FFFBEA', padding: '1.5rem', borderRadius: '15px', color: '#2d2600', margin: '2rem 0', borderLeft: '4px solid #D4A017'}}>
+<h4 style={{color: '#8B6914', marginTop: 0}}>📚 The Smuggled Book — "The Indian War of Independence 1857"</h4>
+<p style={{margin: 0, lineHeight: '1.8'}}>What's interesting is this book he wrote — was <strong>not even allowed to be published in England</strong> (the Brits were scared) of such literature, but Savarkar Ji found his way by <strong>masking the book cover</strong> with other titles like <em>Don Quixote</em>, <em>The Pickwick Papers</em>, and <em>Oliver Twist</em> and silently smuggled it to Bharat. In Bharat this literature was consumed by the likes of <strong>Bhagat Singh</strong> — and <strong>Netaji Subhash Chandra Bose</strong> even got this book printed in multiple copies for his Army when in Japan.</p>
 </div>
 
 He also established the **Free India Society in 1906**. He also got his hands through **Bapat Ji** on some **bomb making manuals**, who he instructed his partners and followers to set up bomb making factories all over Bharat before igniting the first one.
@@ -82,9 +82,9 @@ All through this, when the Brits got information on Savarkar Ji's activities by 
 
 Post his arrest for trials he had to be shifted to Bharat, where he tries to **bravely make an attempt to escape** — and to his credit would be almost successful in doing so but unfortunately gets caught again.
 
-<div style={{background: 'linear-gradient(135deg, #3d0000 0%, #6b0f0f 100%)', padding: '1.5rem', borderRadius: '15px', color: '#e0e0e0', margin: '2rem 0', borderLeft: '4px solid #FF0000'}}>
-<h4 style={{color: '#FF6B6B', marginTop: 0}}>⚖️ The Verdict — Two Life Sentences</h4>
-<p style={{margin: 0, lineHeight: '1.8'}}>In Bharat he gets convicted as a political criminal in courts and will be convicted for <strong style={{color: '#FF9A3C'}}>Lifetime (50 years) imprisonment</strong> and extradition out of Bharat. A punishment unprecedented in the history of colonial India — two consecutive life sentences for one man.</p>
+<div style={{background: '#FEF2F2', padding: '1.5rem', borderRadius: '15px', color: '#2d0a0a', margin: '2rem 0', borderLeft: '4px solid #DC2626'}}>
+<h4 style={{color: '#DC2626', marginTop: 0}}>⚖️ The Verdict — Two Life Sentences</h4>
+<p style={{margin: 0, lineHeight: '1.8'}}>In Bharat he gets convicted as a political criminal in courts and will be convicted for <strong>Lifetime (50 years) imprisonment</strong> and extradition out of Bharat. A punishment unprecedented in the history of colonial India — two consecutive life sentences for one man.</p>
 </div>
 
 ---
@@ -111,9 +111,9 @@ He faces some really bad and unbearable pain and punishment during his days in t
 
 On coming back to **Ratnagiri in 1924** where he gets some freedom — not completely — he establishes the **Patita Pavana Mandir** for the untouchables community to oppose this discrimination in our society in **1931**.
 
-<div style={{background: 'linear-gradient(135deg, #004d00 0%, #006600 100%)', padding: '1.5rem', borderRadius: '15px', color: '#e0e0e0', margin: '2rem 0', borderLeft: '4px solid #00FF88'}}>
-<h4 style={{color: '#00FF88', marginTop: 0}}>🙏 Patita Pavana Mandir — A Temple for All</h4>
-<p style={{margin: 0, lineHeight: '1.8'}}>In a deeply casteist society, Savarkar's decision to build a temple open to <strong style={{color: '#90EE90'}}>all Hindus regardless of caste</strong> was a radical act of social reform. He was decades ahead of his time in fighting untouchability — even before it became mainstream political discourse.</p>
+<div style={{background: '#F0FDF4', padding: '1.5rem', borderRadius: '15px', color: '#052e16', margin: '2rem 0', borderLeft: '4px solid #16A34A'}}>
+<h4 style={{color: '#15803D', marginTop: 0}}>🙏 Patita Pavana Mandir — A Temple for All</h4>
+<p style={{margin: 0, lineHeight: '1.8'}}>In a deeply casteist society, Savarkar's decision to build a temple open to <strong>all Hindus regardless of caste</strong> was a radical act of social reform. He was decades ahead of his time in fighting untouchability — even before it became mainstream political discourse.</p>
 </div>
 
 He also becomes the **President of Hindu Mahasabha from 1937 to 1942**.
@@ -129,9 +129,9 @@ In **1940 he meets Netaji** and has a conversation. Netaji says all the statues 
 </div>
 <p style={{textAlign: 'center', fontSize: '0.85rem', color: '#888', marginTop: '-1rem'}}>Netaji Subhash Chandra Bose — Commander of the Indian National Army</p>
 
-<div style={{background: 'linear-gradient(135deg, #1a0533 0%, #2d0f5e 100%)', padding: '1.5rem', borderRadius: '15px', color: '#e0e0e0', margin: '2rem 0', borderLeft: '4px solid #9B59B6'}}>
-<h4 style={{color: '#DDA0DD', marginTop: 0}}>💡 The Counsel that Shaped the INA</h4>
-<p style={{margin: 0, lineHeight: '1.8'}}>But <strong style={{color: '#DDA0DD'}}>Savarkar Ji refuses Netaji's proposal</strong> — saying he would get absolutely nothing by doing this. Instead he asks him to try for a <strong style={{color: '#FFD700'}}>partnership with the enemy countries of the Brits</strong> — upon whose suggestion <strong style={{color: '#FFD700'}}>Netaji's INA (Indian National Army)</strong> will be formed and trained in Japan. A piece of counsel that changed the course of India's independence movement.</p>
+<div style={{background: '#FAF5FF', padding: '1.5rem', borderRadius: '15px', color: '#1e0a2e', margin: '2rem 0', borderLeft: '4px solid #7C3AED'}}>
+<h4 style={{color: '#6D28D9', marginTop: 0}}>💡 The Counsel that Shaped the INA</h4>
+<p style={{margin: 0, lineHeight: '1.8'}}>But <strong>Savarkar Ji refuses Netaji's proposal</strong> — saying he would get absolutely nothing by doing this. Instead he asks him to try for a <strong>partnership with the enemy countries of the Brits</strong> — upon whose suggestion <strong>Netaji's INA (Indian National Army)</strong> will be formed and trained in Japan. A piece of counsel that changed the course of India's independence movement.</p>
 </div>
 
 ---
@@ -140,8 +140,8 @@ In **1940 he meets Netaji** and has a conversation. Netaji says all the statues 
 
 Further, post independence he again gets **arrested wrongfully** — blamed for the assassination of **Gandhi Ji in 1948** along with RSS Sarasanghachalak Golwalkar Ji — who got released upon disproving this conviction in **1949**.
 
-<div style={{background: 'linear-gradient(135deg, #1a1200 0%, #3d2e00 100%)', padding: '1.5rem', borderRadius: '15px', color: '#e0e0e0', margin: '2rem 0', borderLeft: '4px solid #FFD700'}}>
-<h4 style={{color: '#FFD700', marginTop: 0}}>🎓 Honours — Better Late Than Never</h4>
+<div style={{background: '#FFFBEA', padding: '1.5rem', borderRadius: '15px', color: '#2d2600', margin: '2rem 0', borderLeft: '4px solid #D4A017'}}>
+<h4 style={{color: '#8B6914', marginTop: 0}}>🎓 Honours — Better Late Than Never</h4>
 <ul style={{margin: 0, lineHeight: '2', paddingLeft: '1.2rem'}}>
 <li><strong>1958</strong> — Amruta Mahotsava organized on his 75th birthday, honouring his contributions</li>
 <li><strong>1958</strong> — Honorary Doctorate from <strong>Pune University</strong> for his great work during the freedom struggle</li>
@@ -177,6 +177,6 @@ What I learnt and got from Savarkar Ji is his commitment towards getting freedom
 
 His sacrifice is irreplaceable and I feel he is one of the **underrated freedom fighters** who is starting to get his fair share of lauds off-late, when the leftist propaganda is being exposed left right and center.
 
-<div style={{background: 'linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%)', padding: '1.5rem', borderRadius: '15px', color: '#e0e0e0', margin: '2rem 0', textAlign: 'center', boxShadow: '0 5px 20px rgba(0,0,0,0.3)'}}>
-<p style={{fontStyle: 'italic', fontSize: '1.15rem', margin: 0, lineHeight: '1.8'}}>🙏 <strong style={{color: '#FFD700'}}>Jai Hind. Vande Mataram.</strong><br/>The least we can do is remember, honour, and tell the story of those who gave everything. 🇮🇳</p>
+<div style={{background: '#FFF4ED', padding: '1.5rem', borderRadius: '15px', color: '#2d1a0e', margin: '2rem 0', textAlign: 'center', boxShadow: '0 5px 20px rgba(199,70,52,0.15)'}}>
+<p style={{fontStyle: 'italic', fontSize: '1.15rem', margin: 0, lineHeight: '1.8'}}>🙏 <strong style={{color: '#C74634'}}>Jai Hind. Vande Mataram.</strong><br/>The least we can do is remember, honour, and tell the story of those who gave everything. 🇮🇳</p>
 </div>
