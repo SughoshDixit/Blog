@@ -9,6 +9,7 @@ import { useState, useEffect, useMemo } from "react";
 import useScrollReveal from "../Lib/useScrollReveal";
 import {
   SITE_URL,
+  SITE_NAME,
   SITE_TITLE_HOME,
   SITE_DESCRIPTION,
   siteOgImageUrl,
@@ -17,6 +18,8 @@ import {
   SITE_OG_IMAGE_ALT,
 } from "../Lib/siteConfig";
 import TechPodcastsShelf from "../Components/TechPodcastsShelf";
+import FootballShelf from "../Components/FootballShelf";
+import DataScienceYouTubeShelf from "../Components/DataScienceYouTubeShelf";
 
 export const getStaticProps = () => {
   const allBlogs = getAllBlogPosts();
@@ -239,6 +242,8 @@ export default function Home({ blogs, topics }) {
         <meta name="title" content={SITE_TITLE_HOME} />
         <meta name="description" content={SITE_DESCRIPTION} />
 
+        <link rel="canonical" href={`${SITE_URL}/`} />
+
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${SITE_URL}/`} />
         <meta property="og:title" content={SITE_TITLE_HOME} />
@@ -254,6 +259,59 @@ export default function Home({ blogs, topics }) {
         <meta property="twitter:description" content={SITE_DESCRIPTION} />
         <meta property="twitter:image" content={siteOgImageUrl()} />
         <meta name="twitter:image:alt" content={SITE_OG_IMAGE_ALT} />
+
+        {/* Person schema — enables Google Knowledge Panel for "Sughosh Dixit" */}
+        <script
+          id="ld-json-person"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Sughosh Dixit",
+              url: SITE_URL,
+              image: `${SITE_URL}/og/social-share.jpg`,
+              jobTitle: "Data Scientist",
+              worksFor: {
+                "@type": "Organization",
+                name: "Oracle",
+              },
+              alumniOf: {
+                "@type": "EducationalOrganization",
+                name: "BITS Pilani",
+              },
+              description:
+                "Data Scientist at Oracle, M.Tech from BITS Pilani. Long-form writer on data science, AI, football, Vedic studies, and life in India.",
+              sameAs: [
+                "https://www.youtube.com/@sughoshdixit",
+                "https://github.com/SughoshDixit",
+                "https://www.linkedin.com/in/sughosh-dixit/",
+                "https://twitter.com/PSughosh",
+              ],
+            }),
+          }}
+        />
+        {/* WebSite schema — enables sitelinks search box */}
+        <script
+          id="ld-json-website"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: SITE_NAME,
+              url: SITE_URL,
+              potentialAction: {
+                "@type": "SearchAction",
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate: `${SITE_URL}/topic/{search_term_string}`,
+                },
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
       </Head>
 
       <div className="min-h-screen relative bg-[#FAF8F6] dark:bg-[#201E1C] transition-colors duration-300">
@@ -270,7 +328,7 @@ export default function Home({ blogs, topics }) {
               <div className="grid gap-12 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-center py-20">
                 <div>
                   <p className="text-sm font-medium uppercase tracking-widest text-[#B8E0D8]/70 mb-4">
-                    Data Science &middot; Personal Essays &middot; Ideas
+                    Data Science &middot; Football &middot; Personal Essays &middot; Ideas
                   </p>
                   <h1
                     className="text-4xl md:text-5xl lg:text-[56px] font-semibold leading-[1.15] text-white mb-6"
@@ -279,7 +337,7 @@ export default function Home({ blogs, topics }) {
                     Hi, I&apos;m <span className="text-[#F5E4D3]">Sughosh Dixit</span>.
                   </h1>
                   <p className="text-lg md:text-xl text-[#B8E0D8] max-w-xl leading-relaxed mb-10">
-                    Data scientist at Oracle. I write long-form pieces on statistics, AI, Vedic studies, football, and life in India.
+                    Data scientist at Oracle. I write long-form pieces on statistics, AI, Vedic studies, football, and life in India — and document it all on YouTube.
                   </p>
                   <div className="flex flex-wrap gap-4">
                     <a
@@ -287,6 +345,15 @@ export default function Home({ blogs, topics }) {
                       className="rw-btn-primary inline-flex items-center justify-center px-8 py-3 text-base font-medium"
                     >
                       Read the latest
+                    </a>
+                    <a
+                      href="https://www.youtube.com/@sughoshdixit"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rw-btn-ghost inline-flex items-center gap-2 justify-center px-8 py-3 text-base font-medium"
+                    >
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                      YouTube
                     </a>
                     <a
                       href="/about"
@@ -492,6 +559,8 @@ export default function Home({ blogs, topics }) {
           <section id="latest-posts" className="py-16">
             <div className="max-w-7xl mx-auto px-4 md:px-8 grid gap-16 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)]">
               <div className="space-y-14">
+                <DataScienceYouTubeShelf />
+                <FootballShelf />
                 <TechPodcastsShelf />
                 {paginatedPosts.map((blog) => (
                   <article

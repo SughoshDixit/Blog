@@ -1,4 +1,4 @@
-import { getAllBlogPosts } from "../../Lib/Data";
+import { getAllBlogPosts, getProminentTopics } from "../../Lib/Data";
 import { generateSlug } from "../../Lib/utils";
 import { SITE_URL } from "../../Lib/siteConfig";
 
@@ -12,13 +12,19 @@ export default function handler(req, res) {
       return 0;
     });
 
+  const topics = getProminentTopics() || [];
+  const topicPages = topics.map((t) => ({ loc: `/topic/${encodeURIComponent(t)}`, priority: "0.6" }));
+
   const staticPages = [
     { loc: "/", priority: "1.0" },
-    { loc: "/about", priority: "0.8" },
+    { loc: "/about", priority: "0.9" },
+    { loc: "/football", priority: "0.8" },
     { loc: "/learning-path", priority: "0.8" },
     { loc: "/ai-gallery", priority: "0.6" },
     { loc: "/dashboard", priority: "0.5" },
     { loc: "/key", priority: "0.5" },
+    { loc: "/archive", priority: "0.5" },
+    ...topicPages,
   ];
 
   const postEntries = posts.map((p) => {
