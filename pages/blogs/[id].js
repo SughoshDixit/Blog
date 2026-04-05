@@ -23,7 +23,7 @@ import ChanakyaShubhashita from "../../Components/ChanakyaShubhashita";
 import PostNavigation from "../../Components/PostNavigation";
 import LikeBtn from "../../Components/LikeBtn";
 import Comments from "../../Components/Comments";
-import { SITE_URL } from "../../Lib/siteConfig";
+import { SITE_URL, siteOgImageUrl } from "../../Lib/siteConfig";
 
 export const getStaticPaths = () => {
   const allBlogs = getAllBlogPosts();
@@ -86,6 +86,16 @@ export const getStaticProps = async (context) => {
 };
 
 function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, currentPost }) {
+  // Build a fully-qualified OG image URL served from the live domain.
+  // - Local paths like /BL-8/foo.jpg  → https://sughoshdixit.com/BL-8/foo.jpg
+  // - External URLs (miro.medium.com) → used as-is
+  // - Missing HeaderImage             → fall back to site-wide OG image
+  const ogImage = data.HeaderImage
+    ? data.HeaderImage.startsWith("http")
+      ? data.HeaderImage
+      : `${SITE_URL}${data.HeaderImage}`
+    : siteOgImageUrl();
+
   return (
     <>
       <Head>
@@ -94,23 +104,20 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
         <meta name="description" content={data.Abstract} />
         <link rel="canonical" href={`${SITE_URL}/blogs/${id}`} />
 
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
         <meta property="og:url" content={`${SITE_URL}/blogs/${id}`} />
         <meta property="og:title" content={data.Title} />
         <meta property="og:description" content={data.Abstract} />
-        <meta
-          property="og:image"
-          content={`https://raw.githubusercontent.com/SughoshDixit/Blog/main/public${data.HeaderImage}`}
-        />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="Sughosh Dixit" />
 
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content={`${SITE_URL}/blogs/${id}`} />
         <meta property="twitter:title" content={data.Title} />
         <meta property="twitter:description" content={data.Abstract} />
-        <meta
-          property="twitter:image"
-          content={`https://raw.githubusercontent.com/SughoshDixit/Blog/main/public${data.HeaderImage}`}
-        />
+        <meta property="twitter:image" content={ogImage} />
       </Head>
 
       <Script id="ld-json-article" type="application/ld+json">
@@ -119,7 +126,7 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
           '@type': 'Article',
           headline: data.Title,
           description: data.Abstract,
-          image: [`https://raw.githubusercontent.com/SughoshDixit/Blog/main/public${data.HeaderImage}`],
+          image: [ogImage],
           author: {
             '@type': 'Person',
             name: data.Author,
