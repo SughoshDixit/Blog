@@ -5,7 +5,7 @@ Author: Sughosh P Dixit
 Date: "2026-04-05"
 Tags: Savarkar VeerSavarkar VinayakDamodarSavarkar FreedomFighter IndianHistory BharatMata AbhinavaBharata KaalaPaani AndamanJail HinduMahasabha Patriotism Civilization
 Topic: Civilization
-Abstract: "I was invited to give a session on Dr. Vinayak Damodar Savarkar — one of the most controversial yet consequential figures of Bharat's freedom struggle. With little time to prepare, I bought a detailed book and an Amar Chitra Katha comic on him, read both cover to cover, and here is my take."
+Abstract: "I was invited to give a session on Dr. Vinayak Damodar Savarkar — one of the most consequential yet misunderstood figures of Bharat's freedom struggle. With little time to prepare, I bought a detailed book and an Amar Chitra Katha comic on him, read both cover to cover, and here is my take."
 HeaderImage: /BL-8/swatantrya-veer-savarkar.jpg
 isPublished: true
 prominentShelf: true
@@ -21,7 +21,7 @@ prominentShelf: true
 
 ## 📖 How It All Began — The Invitation
 
-I was invited to give a session on Dr. Vinayak Damodar Savarkar (Veer Savarkar) who is kind of a controversial figure depending which faction you belong to (be it extreme left or be it extreme right). Once told I really had less time to prepare but I left no stone unturned — bought a detailed book and a comic on him too in Amar Chitra Katha. Ended up reading both of them, and here is my take on Veer Savarkar.
+I was invited to give a session on Dr. Vinayak Damodar Savarkar (Veer Savarkar) — a figure whose legacy is viewed differently depending on which faction you belong to (be it extreme left or be it extreme right). Once told I really had less time to prepare but I left no stone unturned — bought a detailed book and a comic on him too in Amar Chitra Katha. Ended up reading both of them, and here is my take on Veer Savarkar.
 
 <div style={{display: 'flex', justifyContent: 'center', gap: '2rem', margin: '2rem 0', flexWrap: 'wrap', alignItems: 'flex-start'}}>
 <div style={{textAlign: 'center'}}>
@@ -159,6 +159,14 @@ By then he would have a son and a daughter and a grandson and granddaughter. In 
 ---
 
 ## 🪔 My Reflections — What I Learnt from Savarkar Ji
+
+<div style={{background: '#FFF4ED', padding: '1.5rem 2rem', borderRadius: '15px', color: '#2d1a0e', margin: '2rem 0', borderLeft: '4px solid #C74634', boxShadow: '0 4px 20px rgba(199,70,52,0.12)'}}>
+<p style={{fontSize: '1.25rem', fontStyle: 'italic', margin: 0, lineHeight: '1.9', fontFamily: 'Charter, Georgia, serif'}}>
+"The Hindu himself is the greatest enemy of the Hindu."
+</p>
+<p style={{fontSize: '0.9rem', color: '#8B4513', marginTop: '0.75rem', marginBottom: 0, fontWeight: '600'}}>— Dr. Vinayak Damodar Savarkar</p>
+<p style={{fontSize: '0.85rem', color: '#7a5c3a', marginTop: '0.5rem', marginBottom: 0, lineHeight: '1.7'}}>A piercing indictment of internal divisions — caste prejudice, untouchability, and factionalism — that he saw as the single greatest obstacle to Hindu unity and Bharat's civilizational resurgence. He didn't say this to shame, but to awaken.</p>
+</div>
 
 <div style={{background: 'linear-gradient(135deg, #C74634 0%, #FF6B00 100%)', padding: '2rem', borderRadius: '15px', color: 'white', margin: '2rem 0', boxShadow: '0 8px 30px rgba(199,70,52,0.4)'}}>
 <h3 style={{color: 'white', marginTop: 0, textAlign: 'center'}}>🇮🇳 The Lessons of a Giant</h3>
