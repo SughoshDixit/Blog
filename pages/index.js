@@ -410,6 +410,55 @@ export default function Home({ blogs, topics }) {
             </div>
           </section>
 
+          {/* Featured documentary */}
+          <section className="border-b border-[#E0DDD9] dark:border-[#3D3A36] bg-[#FAF8F6] dark:bg-[#201E1C]">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 py-12">
+              <div className="reveal rounded-3xl overflow-hidden border border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27] shadow-soft">
+                <div className="grid gap-6 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
+                  <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
+                    <iframe
+                      title="Veer Savarkar AI cinematic documentary"
+                      src="https://www.youtube.com/embed/5fBTT9MwQio?rel=0&modestbranding=1"
+                      className="absolute inset-0 w-full h-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  </div>
+                  <div className="p-6 md:p-8 flex flex-col justify-center">
+                    <p className="text-xs uppercase tracking-[0.2em] text-[#9a8f75] dark:text-[#6E6B68] mb-3">
+                      Featured Documentary
+                    </p>
+                    <h2
+                      className="text-2xl md:text-3xl font-semibold text-[#161513] dark:text-[#F5F4F2] mb-4"
+                      style={{ fontFamily: "Charter, Georgia, serif" }}
+                    >
+                      Veer Savarkar — AI Cinematic Documentary
+                    </h2>
+                    <p className="text-[#5e5645] dark:text-[#B8B4B0] leading-relaxed mb-6">
+                      A NotebookLM-powered documentary that captures the civilizational thread in one cinematic narrative.
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                      <a
+                        href="/savarkar-documentary"
+                        className="inline-flex items-center px-5 py-2.5 rounded-full bg-[#C74634] text-white font-medium hover:bg-[#A73A2C] transition-colors"
+                      >
+                        Explore documentary
+                      </a>
+                      <a
+                        href="https://youtu.be/5fBTT9MwQio?si=ENxM8fQhtUCEOrm4"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center px-5 py-2.5 rounded-full border border-[#E0DDD9] dark:border-[#3D3A36] text-[#4f4636] dark:text-[#F5F4F2] hover:border-[#cbbf9f] transition-colors"
+                      >
+                        Watch on YouTube
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* Compact 30-Day DS Challenge banner */}
           <section className="relative overflow-hidden border-b border-[#E0DDD9] dark:border-[#3D3A36]">
             <div className="absolute inset-0 bg-gradient-to-br rw-section-teal"></div>
