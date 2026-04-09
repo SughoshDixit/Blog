@@ -355,8 +355,8 @@ export default function Dashboard({ blogs, topics }) {
       {
         label: 'Visits',
         data: perPostData,
-        backgroundColor: 'rgba(59, 130, 246, 0.8)',
-        borderColor: 'rgba(59, 130, 246, 1)',
+        backgroundColor: 'rgba(199, 70, 52, 0.8)',
+        borderColor: 'rgba(199, 70, 52, 1)',
         borderWidth: 1,
       },
     ],
@@ -368,8 +368,8 @@ export default function Dashboard({ blogs, topics }) {
       {
         label: 'Visits',
         data: topTopics.map(([, stats]) => stats.visits),
-        backgroundColor: 'rgba(99, 102, 241, 0.8)',
-        borderColor: 'rgba(99, 102, 241, 1)',
+        backgroundColor: 'rgba(199, 70, 52, 0.8)',
+        borderColor: 'rgba(199, 70, 52, 1)',
         borderWidth: 1,
       },
       {
@@ -388,18 +388,18 @@ export default function Dashboard({ blogs, topics }) {
       {
         data: topTopics.map(([, stats]) => stats.blogs),
         backgroundColor: [
-          'rgba(99, 102, 241, 0.8)',
-          'rgba(239, 68, 68, 0.8)',
-          'rgba(34, 197, 94, 0.8)',
-          'rgba(245, 158, 11, 0.8)',
-          'rgba(168, 85, 247, 0.8)',
+          'rgba(199,70,52,0.85)',
+          'rgba(232,87,42,0.85)',
+          'rgba(13,110,95,0.85)',
+          'rgba(212,160,23,0.85)',
+          'rgba(109,40,217,0.85)',
         ],
         borderColor: [
-          'rgba(99, 102, 241, 1)',
-          'rgba(239, 68, 68, 1)',
-          'rgba(34, 197, 94, 1)',
-          'rgba(245, 158, 11, 1)',
-          'rgba(168, 85, 247, 1)',
+          'rgba(199,70,52,1)',
+          'rgba(232,87,42,1)',
+          'rgba(13,110,95,1)',
+          'rgba(212,160,23,1)',
+          'rgba(109,40,217,1)',
         ],
         borderWidth: 2,
       }
@@ -546,10 +546,10 @@ export default function Dashboard({ blogs, topics }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen relative bg-white dark:bg-gray-900">
+      <div className="min-h-screen relative bg-[#FAF8F6] dark:bg-[#201E1C]">
         <Navbar topics={topics} />
         <div className="flex items-center justify-center min-h-screen">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-redwood-500"></div>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#C74634]"></div>
         </div>
         <Footer />
       </div>
@@ -559,89 +559,79 @@ export default function Dashboard({ blogs, topics }) {
   return (
     <>
       <Head>
-        <title>Blog Analytics Dashboard</title>
+        <title>Dashboard — Sughosh Dixit</title>
         <meta name="description" content="Analytics dashboard for blog performance, topics, and readership" />
       </Head>
 
-      <div className="min-h-screen relative bg-white dark:bg-gray-900 transition-all duration-300">
+      <div className="min-h-screen relative bg-[#FAF8F6] dark:bg-[#201E1C] transition-all duration-300">
         <Navbar topics={topics} />
-        
-        {/* Medium-style hero section */}
-        <div className="pt-20 pb-16 bg-white dark:bg-gray-900">
-          <div className="max-w-4xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6" style={{fontFamily: 'Charter, Georgia, serif'}}>
-                Analytics Dashboard
-              </h1>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                Track performance, readership trends, and topic distribution in real-time.
-              </p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="py-8 px-4 md:px-8 mx-auto max-w-7xl">
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-              Overview
+
+        {/* Hero section */}
+        <div className="pt-24 pb-10 bg-[#FAF8F6] dark:bg-[#201E1C] border-b border-[#E0DDD9] dark:border-[#3D3A36]">
+          <div className="max-w-7xl mx-auto px-4 md:px-8">
+            <h1 className="text-3xl md:text-4xl font-semibold text-[#161513] dark:text-[#F5F4F2]" style={{fontFamily: 'Charter, Georgia, serif'}}>
+              Blog Dashboard
             </h1>
-            <p className="text-gray-600 dark:text-gray-400">
-              Key metrics across all published content
+            <p className="text-[#6E6B68] dark:text-[#B8B4B0] mt-2">
+              Publishing stats, consistency tracking, and topic breakdown.
             </p>
           </div>
+        </div>
+
+        <div className="py-8 px-4 md:px-8 mx-auto max-w-7xl">
 
           {/* Key Metrics */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36]">
               <div className="flex items-center">
-                <div className="p-3 rounded-full bg-redwood-500 dark:bg-redwood-500">
-                  <FiBookOpen className="h-6 w-6 text-redwood-500 dark:text-redwood-500" />
+                <div className="p-3 rounded-full bg-[#FDF3F1] dark:bg-[#3D2A28]">
+                  <FiBookOpen className="h-6 w-6 text-[#C74634]" />
                 </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Blogs</p>
-                  <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+                  <p className="text-sm font-medium text-[#6E6B68] dark:text-[#B8B4B0]">Total Blogs</p>
+                  <p className="text-2xl font-semibold text-[#161513] dark:text-[#F5F4F2]">
                     {analytics.blogStats.length}
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36]">
               <div className="flex items-center">
-                <div className="p-3 rounded-full bg-blue-100 dark:bg-blue-900">
-                  <FiEye className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                <div className="p-3 rounded-full bg-[#FDF3F1] dark:bg-[#3D2A28]">
+                  <FiEye className="h-6 w-6 text-[#C74634]" />
                 </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Reads</p>
-                  <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+                  <p className="text-sm font-medium text-[#6E6B68] dark:text-[#B8B4B0]">Total Reads</p>
+                  <p className="text-2xl font-semibold text-[#161513] dark:text-[#F5F4F2]">
                     {analytics.totalVisits}
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36]">
               <div className="flex items-center">
-                <div className="p-3 rounded-full bg-redwood-500 dark:bg-redwood-500">
-                  <FiCheckCircle className="h-6 w-6 text-redwood-500 dark:text-redwood-500" />
+                <div className="p-3 rounded-full bg-[#FDF3F1] dark:bg-[#3D2A28]">
+                  <FiCheckCircle className="h-6 w-6 text-[#C74634]" />
                 </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Your Reads</p>
-                  <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+                  <p className="text-sm font-medium text-[#6E6B68] dark:text-[#B8B4B0]">Your Reads</p>
+                  <p className="text-2xl font-semibold text-[#161513] dark:text-[#F5F4F2]">
                     {personalStats.readCount}
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36]">
               <div className="flex items-center">
-                <div className="p-3 rounded-full bg-purple-100 dark:bg-purple-900">
-                  <FiClock className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                <div className="p-3 rounded-full bg-[#FDF3F1] dark:bg-[#3D2A28]">
+                  <FiClock className="h-6 w-6 text-[#C74634]" />
                 </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Avg. Read Time</p>
-                  <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+                  <p className="text-sm font-medium text-[#6E6B68] dark:text-[#B8B4B0]">Avg. Read Time</p>
+                  <p className="text-2xl font-semibold text-[#161513] dark:text-[#F5F4F2]">
                     {analytics.avgReadTime} min
                   </p>
                 </div>
@@ -651,15 +641,15 @@ export default function Dashboard({ blogs, topics }) {
 
           {/* Charts */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36]">
+              <h3 className="text-lg font-semibold text-[#161513] dark:text-[#F5F4F2] mb-4">
                 Topic Performance (Visits vs Count)
               </h3>
               <Bar data={topicChartData} options={chartOptions} />
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36]">
+              <h3 className="text-lg font-semibold text-[#161513] dark:text-[#F5F4F2] mb-4">
                 Content Distribution
               </h3>
               <Doughnut data={topicDoughnutData} options={doughnutOptions} />
@@ -667,25 +657,25 @@ export default function Dashboard({ blogs, topics }) {
           </div>
 
           {/* Per-Post Visits */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700 mb-8">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36] mb-8">
+            <h3 className="text-lg font-semibold text-[#161513] dark:text-[#F5F4F2] mb-4">
               Top 10 Most Read Articles
             </h3>
             <Bar data={perPostChartData} options={chartOptions} />
           </div>
 
           {/* Posting Consistency Histogram */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700 mb-8">
+          <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36] mb-8">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-[#161513] dark:text-[#F5F4F2] flex items-center gap-2">
                   <FiCalendar className="h-5 w-5 text-emerald-500" />
                   30-Day Challenge Consistency
-                  <span className="text-xs font-normal text-gray-500 dark:text-gray-400">(Nov 2025+)</span>
+                  <span className="text-xs font-normal text-[#6E6B68] dark:text-[#B8B4B0]">(Nov 2025+)</span>
                 </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                  {viewMode === 'daily' 
-                    ? 'Day-by-day posting streak for the Data Science Challenge' 
+                <p className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] mt-1">
+                  {viewMode === 'daily'
+                    ? 'Day-by-day posting streak for the Data Science Challenge'
                     : 'Monthly overview of challenge progress'}
                 </p>
               </div>
@@ -697,7 +687,7 @@ export default function Dashboard({ blogs, topics }) {
                     className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all ${
                       viewMode === 'daily'
                         ? 'bg-white dark:bg-gray-600 text-emerald-600 dark:text-emerald-400 shadow-sm'
-                        : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                        : 'text-[#6E6B68] dark:text-[#B8B4B0] hover:text-[#161513] dark:hover:text-[#F5F4F2]'
                     }`}
                   >
                     Daily
@@ -707,7 +697,7 @@ export default function Dashboard({ blogs, topics }) {
                     className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all ${
                       viewMode === 'monthly'
                         ? 'bg-white dark:bg-gray-600 text-emerald-600 dark:text-emerald-400 shadow-sm'
-                        : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                        : 'text-[#6E6B68] dark:text-[#B8B4B0] hover:text-[#161513] dark:hover:text-[#F5F4F2]'
                     }`}
                   >
                     Monthly
@@ -729,37 +719,37 @@ export default function Dashboard({ blogs, topics }) {
                 <div className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">
                   {consistencyData.totalPosts}
                 </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 font-medium">Total Posts</div>
+                <div className="text-xs text-[#6E6B68] dark:text-[#B8B4B0] mt-1 font-medium">Total Posts</div>
               </div>
               <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 text-center border border-blue-100 dark:border-blue-800/30">
                 <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
                   {consistencyData.postingDays}<span className="text-lg text-blue-400 dark:text-blue-500">/{consistencyData.totalDays}</span>
                 </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 font-medium">Days Posted</div>
+                <div className="text-xs text-[#6E6B68] dark:text-[#B8B4B0] mt-1 font-medium">Days Posted</div>
               </div>
               <div className="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-4 text-center border border-purple-100 dark:border-purple-800/30">
                 <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">
                   {consistencyData.consistencyRate}%
                 </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 font-medium">Consistency Rate</div>
+                <div className="text-xs text-[#6E6B68] dark:text-[#B8B4B0] mt-1 font-medium">Consistency Rate</div>
               </div>
               <div className="bg-amber-50 dark:bg-amber-900/20 rounded-xl p-4 text-center border border-amber-100 dark:border-amber-800/30">
                 <div className="text-3xl font-bold text-amber-600 dark:text-amber-400">
                   {consistencyData.maxStreak} 🔥
                 </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 font-medium">Best Streak</div>
+                <div className="text-xs text-[#6E6B68] dark:text-[#B8B4B0] mt-1 font-medium">Best Streak</div>
               </div>
               <div className="bg-rose-50 dark:bg-rose-900/20 rounded-xl p-4 text-center border border-rose-100 dark:border-rose-800/30">
                 <div className="text-3xl font-bold text-rose-600 dark:text-rose-400">
                   {consistencyData.currentStreak}
                 </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 font-medium">Current Streak</div>
+                <div className="text-xs text-[#6E6B68] dark:text-[#B8B4B0] mt-1 font-medium">Current Streak</div>
               </div>
               <div className="bg-gray-50 dark:bg-gray-700/30 rounded-xl p-4 text-center border border-gray-200 dark:border-gray-600/30">
-                <div className="text-3xl font-bold text-gray-600 dark:text-gray-400">
+                <div className="text-3xl font-bold text-[#6E6B68] dark:text-[#B8B4B0]">
                   {consistencyData.missedDays}
                 </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 font-medium">Missed Days</div>
+                <div className="text-xs text-[#6E6B68] dark:text-[#B8B4B0] mt-1 font-medium">Missed Days</div>
               </div>
             </div>
 
@@ -768,21 +758,21 @@ export default function Dashboard({ blogs, topics }) {
               <div className="flex items-center justify-center gap-6 mb-4 text-sm">
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 rounded bg-emerald-500"></div>
-                  <span className="text-gray-600 dark:text-gray-400">Posted</span>
+                  <span className="text-[#6E6B68] dark:text-[#B8B4B0]">Posted</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 rounded bg-red-300"></div>
-                  <span className="text-gray-600 dark:text-gray-400">Missed</span>
+                  <span className="text-[#6E6B68] dark:text-[#B8B4B0]">Missed</span>
                 </div>
               </div>
             )}
 
             {/* Main Histogram Chart */}
             <div id="consistency-chart-container" className={viewMode === 'daily' ? 'h-96' : 'h-80'}>
-              <Bar 
+              <Bar
                 ref={consistencyChartRef}
-                data={consistencyChartData} 
-                options={consistencyChartOptions} 
+                data={consistencyChartData}
+                options={consistencyChartOptions}
               />
             </div>
 
@@ -790,8 +780,8 @@ export default function Dashboard({ blogs, topics }) {
             {consistencyData.dateRange && (
               <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-sm">
-                  <div className="text-gray-600 dark:text-gray-400">
-                    <span className="font-semibold text-gray-800 dark:text-gray-200">Challenge Period:</span>{' '}
+                  <div className="text-[#6E6B68] dark:text-[#B8B4B0]">
+                    <span className="font-semibold text-[#161513] dark:text-[#F5F4F2]">Challenge Period:</span>{' '}
                     <span className="font-medium text-emerald-600 dark:text-emerald-400">
                       {new Date(consistencyData.dateRange.start).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </span>
@@ -814,62 +804,62 @@ export default function Dashboard({ blogs, topics }) {
           </div>
 
           {/* Top Blogs */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700 mb-8">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36] mb-8">
+            <h3 className="text-lg font-semibold text-[#161513] dark:text-[#F5F4F2] mb-4">
               Most Popular Content
             </h3>
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <table className="min-w-full divide-y divide-[#E0DDD9] dark:divide-[#3D3A36]">
                 <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-[#6E6B68] dark:text-[#B8B4B0] uppercase tracking-wider">
                       Blog Title
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-[#6E6B68] dark:text-[#B8B4B0] uppercase tracking-wider">
                       Topic
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-[#6E6B68] dark:text-[#B8B4B0] uppercase tracking-wider">
                       Reads
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-[#6E6B68] dark:text-[#B8B4B0] uppercase tracking-wider">
                       Length
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                <tbody className="bg-white dark:bg-[#2C2A27] divide-y divide-[#E0DDD9] dark:divide-[#3D3A36]">
                   {topBlogs.map((blog, index) => (
                     <tr key={blog.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="flex-shrink-0 h-8 w-8">
-                            <div className="h-8 w-8 rounded-full bg-redwood-500 dark:bg-redwood-500 flex items-center justify-center">
-                              <span className="text-sm font-medium text-redwood-500 dark:text-redwood-500">
+                            <div className="h-8 w-8 rounded-full bg-[#FDF3F1] dark:bg-[#3D2A28] flex items-center justify-center">
+                              <span className="text-sm font-medium text-[#C74634]">
                                 {index + 1}
                               </span>
                             </div>
                           </div>
                           <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900 dark:text-white">
+                            <div className="text-sm font-medium text-[#161513] dark:text-[#F5F4F2]">
                               {blog.title}
                             </div>
-                            <div className="text-sm text-gray-500 dark:text-gray-400">
+                            <div className="text-sm text-[#6E6B68] dark:text-[#B8B4B0]">
                               by {blog.author}
                             </div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-redwood-500 text-redwood-500 dark:bg-redwood-500 dark:text-redwood-500">
+                        <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-[#FDF3F1] text-[#C74634] dark:bg-[#3D2A28] dark:text-[#E8572A]">
                           {blog.topic}
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-[#161513] dark:text-[#F5F4F2]">
                         <div className="flex items-center">
-                          <FiEye className="h-4 w-4 text-blue-500 mr-1" />
+                          <FiEye className="h-4 w-4 text-[#C74634] mr-1" />
                           {blog.visits}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-[#6E6B68] dark:text-[#B8B4B0]">
                         {blog.readTime}
                       </td>
                     </tr>
@@ -880,22 +870,22 @@ export default function Dashboard({ blogs, topics }) {
           </div>
 
           {/* Topic Stats */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36]">
+            <h3 className="text-lg font-semibold text-[#161513] dark:text-[#F5F4F2] mb-4">
               Topic Breakdown
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {Object.entries(analytics.topicStats).map(([topic, stats]) => (
                 <div key={topic} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">{topic}</h4>
+                  <h4 className="font-medium text-[#161513] dark:text-[#F5F4F2] mb-2">{topic}</h4>
                   <div className="space-y-1">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Blogs:</span>
-                      <span className="font-medium text-gray-900 dark:text-white">{stats.blogs}</span>
+                      <span className="text-[#6E6B68] dark:text-[#B8B4B0]">Blogs:</span>
+                      <span className="font-medium text-[#161513] dark:text-[#F5F4F2]">{stats.blogs}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Total Reads:</span>
-                      <span className="font-medium text-gray-900 dark:text-white">{stats.visits}</span>
+                      <span className="text-[#6E6B68] dark:text-[#B8B4B0]">Total Reads:</span>
+                      <span className="font-medium text-[#161513] dark:text-[#F5F4F2]">{stats.visits}</span>
                     </div>
                   </div>
                 </div>
@@ -905,20 +895,20 @@ export default function Dashboard({ blogs, topics }) {
 
           {/* Users Table - Admin only */}
           {isAdmin && (
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700 mt-8">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36] mt-8">
+            <h3 className="text-lg font-semibold text-[#161513] dark:text-[#F5F4F2] mb-4">
               Recent Users
             </h3>
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <table className="min-w-full divide-y divide-[#E0DDD9] dark:divide-[#3D3A36]">
                 <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
-                    <th onClick={() => setUsersSort(s => ({ key: "name", dir: s.key === "name" && s.dir === "asc" ? "desc" : "asc" }))} className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer">User</th>
-                    <th onClick={() => setUsersSort(s => ({ key: "email", dir: s.key === "email" && s.dir === "asc" ? "desc" : "asc" }))} className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer">Email</th>
-                    <th onClick={() => setUsersSort(s => ({ key: "lastSeen", dir: s.key === "lastSeen" && s.dir === "asc" ? "desc" : "asc" }))} className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer">Last Seen</th>
+                    <th onClick={() => setUsersSort(s => ({ key: "name", dir: s.key === "name" && s.dir === "asc" ? "desc" : "asc" }))} className="px-6 py-3 text-left text-xs font-medium text-[#6E6B68] dark:text-[#B8B4B0] uppercase tracking-wider cursor-pointer">User</th>
+                    <th onClick={() => setUsersSort(s => ({ key: "email", dir: s.key === "email" && s.dir === "asc" ? "desc" : "asc" }))} className="px-6 py-3 text-left text-xs font-medium text-[#6E6B68] dark:text-[#B8B4B0] uppercase tracking-wider cursor-pointer">Email</th>
+                    <th onClick={() => setUsersSort(s => ({ key: "lastSeen", dir: s.key === "lastSeen" && s.dir === "asc" ? "desc" : "asc" }))} className="px-6 py-3 text-left text-xs font-medium text-[#6E6B68] dark:text-[#B8B4B0] uppercase tracking-wider cursor-pointer">Last Seen</th>
                   </tr>
                 </thead>
-                <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                <tbody className="bg-white dark:bg-[#2C2A27] divide-y divide-[#E0DDD9] dark:divide-[#3D3A36]">
                   {([...analytics.users]
                     .sort((a,b) => {
                       const dir = usersSort.dir === "asc" ? 1 : -1;
@@ -942,21 +932,21 @@ export default function Dashboard({ blogs, topics }) {
                             <img src={u.photo || '/favicon.ico'} alt={u.name || 'User'} className="h-8 w-8 rounded-full object-cover" />
                           </div>
                           <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900 dark:text-white">{u.name || 'Anonymous'}</div>
-                            <div className="text-xs text-gray-500 dark:text-gray-400">{u.uid}</div>
+                            <div className="text-sm font-medium text-[#161513] dark:text-[#F5F4F2]">{u.name || 'Anonymous'}</div>
+                            <div className="text-xs text-[#6E6B68] dark:text-[#B8B4B0]">{u.uid}</div>
                           </div>
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{u.email || '-'}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{u.lastSeen ? (u.lastSeen._seconds ? new Date(u.lastSeen._seconds * 1000).toDateString() : new Date(u.lastSeen).toDateString()) : '-'}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-[#161513] dark:text-[#F5F4F2]">{u.email || '-'}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-[#6E6B68] dark:text-[#B8B4B0]">{u.lastSeen ? (u.lastSeen._seconds ? new Date(u.lastSeen._seconds * 1000).toDateString() : new Date(u.lastSeen).toDateString()) : '-'}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
               <div className="flex items-center justify-between mt-4">
-                <button className="px-3 py-1 text-sm rounded border border-gray-300 dark:border-gray-600 disabled:opacity-50" disabled={usersPage===0} onClick={()=>setUsersPage(p=>Math.max(0,p-1))}>Previous</button>
-                <div className="text-xs text-gray-600 dark:text-gray-400">Page {usersPage+1} / {Math.max(1, Math.ceil(analytics.users.length / pageSize))}</div>
-                <button className="px-3 py-1 text-sm rounded border border-gray-300 dark:border-gray-600 disabled:opacity-50" disabled={(usersPage+1)*pageSize >= analytics.users.length} onClick={()=>setUsersPage(p=>p+1)}>Next</button>
+                <button className="px-3 py-1 text-sm rounded border border-[#E0DDD9] dark:border-[#3D3A36] disabled:opacity-50" disabled={usersPage===0} onClick={()=>setUsersPage(p=>Math.max(0,p-1))}>Previous</button>
+                <div className="text-xs text-[#6E6B68] dark:text-[#B8B4B0]">Page {usersPage+1} / {Math.max(1, Math.ceil(analytics.users.length / pageSize))}</div>
+                <button className="px-3 py-1 text-sm rounded border border-[#E0DDD9] dark:border-[#3D3A36] disabled:opacity-50" disabled={(usersPage+1)*pageSize >= analytics.users.length} onClick={()=>setUsersPage(p=>p+1)}>Next</button>
               </div>
             </div>
           </div>

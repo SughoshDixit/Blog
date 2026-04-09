@@ -68,6 +68,16 @@ function About({ topics }) {
           name="description"
           content="Data Scientist at Oracle, BITS Pilani. Writing about data science, personal stories, Vedic studies, football, and life in India."
         />
+        <link rel="canonical" href="https://sughoshdixit.com/about" />
+        <meta property="og:type" content="profile" />
+        <meta property="og:url" content="https://sughoshdixit.com/about" />
+        <meta property="og:title" content="About — Sughosh Dixit" />
+        <meta property="og:description" content="Data Scientist at Oracle, BITS Pilani. Writing about data science, personal stories, Vedic studies, football, and life in India." />
+        <meta property="og:image" content="https://sughoshdixit.com/og/social-share.jpg" />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content="About — Sughosh Dixit" />
+        <meta property="twitter:description" content="Data Scientist at Oracle, BITS Pilani. Writing about data science, personal stories, Vedic studies, football, and life in India." />
+        <meta property="twitter:image" content="https://sughoshdixit.com/og/social-share.jpg" />
       </Head>
 
       <Navbar topics={topics} />

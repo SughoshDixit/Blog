@@ -1,102 +1,116 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { FaRobot, FaImage, FaVideo, FaEye, FaMagic, FaTimes, FaFilter } from "react-icons/fa";
+import { FaRobot, FaImage, FaVideo, FaMagic, FaTimes, FaFilter } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import fs from "fs";
 import path from "path";
+import { getProminentTopics } from "../Lib/Data";
 
 export const getStaticProps = async () => {
   const aiDir = path.join(process.cwd(), "public", "AI");
   let aiImages = [];
 
+  const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.mp4', '.mov', '.avi'];
+
   try {
     const files = fs.readdirSync(aiDir);
-    aiImages = files.map((file, index) => {
-      const filePath = path.join(aiDir, file);
-      const stats = fs.statSync(filePath);
-      const isVideo = file.endsWith('.mp4') || file.endsWith('.mov') || file.endsWith('.avi');
+    aiImages = files
+      .filter(file => {
+        const ext = path.extname(file).toLowerCase();
+        return allowedExtensions.includes(ext);
+      })
+      .map((file, index) => {
+        try {
+          const filePath = path.join(aiDir, file);
+          const stats = fs.statSync(filePath);
+          const isVideo = file.endsWith('.mp4') || file.endsWith('.mov') || file.endsWith('.avi');
 
-      let title = file.replace(/\.[^/.]+$/, "");
-      let description = "";
-      let category = "general";
-      let tags = [];
+          let title = file.replace(/\.[^/.]+$/, "");
+          let description = "";
+          let category = "general";
+          let tags = [];
 
-      if (title.includes("replicate-prediction")) {
-        title = "AI Generated Art";
-        description = "Creative artwork generated using AI models";
-        category = "replicate";
-        tags = ["AI Art", "Generated", "Creative"];
-      } else if (title.includes("LFC") || title.includes("football") || title.includes("soccer")) {
-        title = "Football Content";
-        description = "Football and sports related AI content";
-        category = "sports";
-        tags = ["Football", "Sports", "LFC"];
-      } else if (title.includes("RM") || title.includes("Real Madrid")) {
-        title = "Real Madrid Content";
-        description = "Real Madrid football club AI content";
-        category = "sports";
-        tags = ["Real Madrid", "Football", "Sports"];
-      } else if (title.includes("knee slide") || title.includes("celebration")) {
-        title = "Football Celebration";
-        description = "Football celebration moment captured";
-        category = "sports";
-        tags = ["Celebration", "Football", "Moment"];
-      } else if (title.includes("Coding") || title.includes("programming")) {
-        title = "Programming & Coding";
-        description = "Programming and coding related content";
-        category = "tech";
-        tags = ["Programming", "Coding", "Tech"];
-      } else if (title.includes("Paris-Fashion-Week") || title.includes("fashion")) {
-        title = "Fashion Week Content";
-        description = "Fashion and style related AI content";
-        category = "fashion";
-        tags = ["Fashion", "Style", "Paris"];
-      } else if (title.includes("winning-matchball") || title.includes("trophy")) {
-        title = "Victory Moment";
-        description = "Winning and achievement moment";
-        category = "sports";
-        tags = ["Victory", "Achievement", "Success"];
-      } else if (title.includes("2025myyear") || title.includes("personal")) {
-        title = "Personal Year Reflection";
-        description = "Personal reflection and year summary";
-        category = "personal";
-        tags = ["Personal", "Reflection", "Year"];
-      } else if (title.includes("WhatsApp")) {
-        title = "Personal Moment";
-        description = "Personal captured moment";
-        category = "personal";
-        tags = ["Personal", "Moment", "Memory"];
-      } else if (title.includes("Screenshot")) {
-        title = "Screen Capture";
-        description = "Screenshot or screen capture content";
-        category = "tech";
-        tags = ["Screenshot", "Screen", "Capture"];
-      } else {
-        title = "AI Generated Content";
-        description = "Creative content generated using AI";
-        category = "general";
-        tags = ["AI", "Generated", "Creative"];
-      }
+          if (title.includes("replicate-prediction")) {
+            title = "AI Generated Art";
+            description = "Creative artwork generated using AI models";
+            category = "replicate";
+            tags = ["AI Art", "Generated", "Creative"];
+          } else if (title.includes("LFC") || title.includes("football") || title.includes("soccer")) {
+            title = "Football Content";
+            description = "Football and sports related AI content";
+            category = "sports";
+            tags = ["Football", "Sports", "LFC"];
+          } else if (title.includes("RM") || title.includes("Real Madrid")) {
+            title = "Real Madrid Content";
+            description = "Real Madrid football club AI content";
+            category = "sports";
+            tags = ["Real Madrid", "Football", "Sports"];
+          } else if (title.includes("knee slide") || title.includes("celebration")) {
+            title = "Football Celebration";
+            description = "Football celebration moment captured";
+            category = "sports";
+            tags = ["Celebration", "Football", "Moment"];
+          } else if (title.includes("Coding") || title.includes("programming")) {
+            title = "Programming & Coding";
+            description = "Programming and coding related content";
+            category = "tech";
+            tags = ["Programming", "Coding", "Tech"];
+          } else if (title.includes("Paris-Fashion-Week") || title.includes("fashion")) {
+            title = "Fashion Week Content";
+            description = "Fashion and style related AI content";
+            category = "fashion";
+            tags = ["Fashion", "Style", "Paris"];
+          } else if (title.includes("winning-matchball") || title.includes("trophy")) {
+            title = "Victory Moment";
+            description = "Winning and achievement moment";
+            category = "sports";
+            tags = ["Victory", "Achievement", "Success"];
+          } else if (title.includes("2025myyear") || title.includes("personal")) {
+            title = "Personal Year Reflection";
+            description = "Personal reflection and year summary";
+            category = "personal";
+            tags = ["Personal", "Reflection", "Year"];
+          } else if (title.includes("WhatsApp")) {
+            title = "Personal Moment";
+            description = "Personal captured moment";
+            category = "personal";
+            tags = ["Personal", "Moment", "Memory"];
+          } else if (title.includes("Screenshot")) {
+            title = "Screen Capture";
+            description = "Screenshot or screen capture content";
+            category = "tech";
+            tags = ["Screenshot", "Screen", "Capture"];
+          } else {
+            title = "AI Generated Content";
+            description = "Creative content generated using AI";
+            category = "general";
+            tags = ["AI", "Generated", "Creative"];
+          }
 
-      return {
-        id: index,
-        src: `/AI/${encodeURIComponent(file)}`,
-        title,
-        description,
-        category,
-        tags,
-        type: isVideo ? 'video' : 'image',
-        date: stats.mtime.toLocaleDateString()
-      };
-    });
+          return {
+            id: index,
+            src: `/AI/${encodeURIComponent(file)}`,
+            title,
+            description,
+            category,
+            tags,
+            type: isVideo ? 'video' : 'image',
+            date: stats.mtime.toISOString().split('T')[0]
+          };
+        } catch (err) {
+          console.error(`Error processing file ${file}:`, err);
+          return null;
+        }
+      })
+      .filter(Boolean);
   } catch (error) {
     console.error("Error reading AI directory:", error);
   }
 
   return {
     props: {
-      topics: ["AI", "Technology", "Creative", "Sports", "Personal"],
+      topics: getProminentTopics(),
       aiImages
     }
   };
@@ -205,31 +219,22 @@ function AIGallery({ topics, aiImages }) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredContent.map((item) => (
             <div
               key={item.id}
               onClick={() => openModal(item)}
-              className="group cursor-pointer overflow-hidden transition-all duration-200"
+              className="group cursor-pointer rounded-xl overflow-hidden transition-all duration-200 hover:shadow-lg hover:ring-2 hover:ring-[#C74634]/40"
               style={{
                 backgroundColor: '#FFFFFF',
                 border: '1px solid #E0DDD9',
-                borderRadius: '6px',
                 boxShadow: '0 1px 3px rgba(22,21,19,0.06)',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.boxShadow = '0 4px 16px rgba(199,70,52,0.12)';
-                e.currentTarget.style.borderColor = '#C74634';
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.boxShadow = '0 1px 3px rgba(22,21,19,0.06)';
-                e.currentTarget.style.borderColor = '#E0DDD9';
               }}
             >
               {/* Thumbnail */}
               <div
-                className="relative overflow-hidden"
-                style={{ aspectRatio: '1', backgroundColor: '#F1EFED' }}
+                className="relative overflow-hidden aspect-square"
+                style={{ backgroundColor: '#F1EFED' }}
               >
                 {item.type === 'video' ? (
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
@@ -268,44 +273,10 @@ function AIGallery({ topics, aiImages }) {
                     </div>
                   </>
                 )}
-              </div>
 
-              {/* Card Body */}
-              <div className="p-4">
-                <h3
-                  className="text-sm font-semibold mb-1 truncate"
-                  style={{ color: '#161513', fontFamily: 'DM Sans, sans-serif' }}
-                >
-                  {item.title}
-                </h3>
-                <p className="text-xs mb-3 line-clamp-2" style={{ color: '#6E6B68' }}>
-                  {item.description}
-                </p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-1 mb-3">
-                  {item.tags.slice(0, 3).map((tag, index) => (
-                    <span
-                      key={index}
-                      className="px-2 py-0.5 rounded text-xs font-medium"
-                      style={{
-                        backgroundColor: '#FDF3F1',
-                        color: '#A73A2C',
-                        border: '1px solid #F5C4BB',
-                      }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Footer row */}
-                <div className="flex items-center justify-between">
-                  <span className="text-xs" style={{ color: '#B8B4B0' }}>{item.date}</span>
-                  <div className="flex items-center space-x-1 text-xs font-medium" style={{ color: '#C74634' }}>
-                    <FaEye className="text-xs" />
-                    <span>View</span>
-                  </div>
+                {/* Hover overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+                  <p className="text-white text-xs font-medium line-clamp-2">{item.title}</p>
                 </div>
               </div>
             </div>
