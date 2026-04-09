@@ -265,6 +265,10 @@ function AIGallery({ topics, aiImages }) {
                       alt={item.title}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       loading="lazy"
+                      onLoad={(e) => {
+                        e.currentTarget.classList.add("loaded");
+                        e.currentTarget.style.display = "block";
+                      }}
                       onError={(e) => {
                         const img = e.currentTarget;
                         const hasRetriedRaw = img.dataset.retriedRaw === "1";

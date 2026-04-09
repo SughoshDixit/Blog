@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { getAllBlogPosts, getProminentTopics } from "../Lib/Data";
@@ -17,28 +16,35 @@ import {
   FiCalendar
 } from "react-icons/fi";
 import dynamic from 'next/dynamic';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+  PointElement,
+  LineElement,
+} from "chart.js";
 
 // Dynamically import charts to avoid SSR issues with Next 12
 const Bar = dynamic(() => import('react-chartjs-2').then(m => m.Bar), { ssr: false });
 const Doughnut = dynamic(() => import('react-chartjs-2').then(m => m.Doughnut), { ssr: false });
 
-// Register Chart.js components only on client side
-if (typeof window !== 'undefined') {
-  const chartjs = require('chart.js');
-  const ChartJS = chartjs.Chart;
-
+// Stable Chart.js registration for react-chartjs-2
 ChartJS.register(
-    chartjs.CategoryScale,
-    chartjs.LinearScale,
-    chartjs.BarElement,
-    chartjs.Title,
-    chartjs.Tooltip,
-    chartjs.Legend,
-    chartjs.ArcElement,
-    chartjs.PointElement,
-    chartjs.LineElement,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+  PointElement,
+  LineElement
 );
-}
 
 export const getStaticProps = () => {
   const allBlogs = getAllBlogPosts();
@@ -62,7 +68,6 @@ export const getStaticProps = () => {
 };
 
 export default function Dashboard({ blogs, topics }) {
-  const router = useRouter();
   const cardShell = "bg-white dark:bg-[#2C2A27] rounded-2xl shadow-sm p-6 border border-[#E0DDD9] dark:border-[#3D3A36]";
   const metricShell = "bg-white dark:bg-[#2C2A27] rounded-2xl shadow-sm p-6 border border-[#E0DDD9] dark:border-[#3D3A36]";
   const [isAdmin, setIsAdmin] = useState(false);
