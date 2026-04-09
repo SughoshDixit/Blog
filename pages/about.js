@@ -10,6 +10,7 @@ import {
   FiAward, FiCpu, FiBookOpen, FiArrowRight,
 } from "react-icons/fi";
 import { getProminentTopics } from "../Lib/Data";
+import { SITE_URL, siteOgImageUrl } from "../Lib/siteConfig";
 
 export const getStaticProps = () => {
   const allTopics = getProminentTopics();
@@ -17,6 +18,8 @@ export const getStaticProps = () => {
 };
 
 const CHARTER = { fontFamily: "Charter, Georgia, serif" };
+const SECTION_TITLE = "text-3xl sm:text-4xl md:text-5xl font-semibold text-[#161513] dark:text-[#F5F4F2] mb-4";
+const SECTION_COPY = "text-base md:text-lg text-[#6E6B68] dark:text-[#B8B4B0] max-w-2xl mx-auto leading-relaxed";
 
 const achievements = [
   {
@@ -68,16 +71,16 @@ function About({ topics }) {
           name="description"
           content="Data Scientist at Oracle, BITS Pilani. Writing about data science, personal stories, Vedic studies, football, and life in India."
         />
-        <link rel="canonical" href="https://sughoshdixit.com/about" />
+        <link rel="canonical" href={`${SITE_URL}/about`} />
         <meta property="og:type" content="profile" />
-        <meta property="og:url" content="https://sughoshdixit.com/about" />
+        <meta property="og:url" content={`${SITE_URL}/about`} />
         <meta property="og:title" content="About — Sughosh Dixit" />
         <meta property="og:description" content="Data Scientist at Oracle, BITS Pilani. Writing about data science, personal stories, Vedic studies, football, and life in India." />
-        <meta property="og:image" content="https://sughoshdixit.com/og/social-share.jpg" />
+        <meta property="og:image" content={siteOgImageUrl()} />
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:title" content="About — Sughosh Dixit" />
         <meta property="twitter:description" content="Data Scientist at Oracle, BITS Pilani. Writing about data science, personal stories, Vedic studies, football, and life in India." />
-        <meta property="twitter:image" content="https://sughoshdixit.com/og/social-share.jpg" />
+        <meta property="twitter:image" content={siteOgImageUrl()} />
       </Head>
 
       <Navbar topics={topics} />
@@ -98,7 +101,7 @@ function About({ topics }) {
             />
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6" style={CHARTER}>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-white mb-6" style={CHARTER}>
             Sughosh Dixit
           </h1>
 
@@ -128,7 +131,7 @@ function About({ topics }) {
               href="https://sughoshdixit.github.io/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#C74634] text-white font-semibold shadow-lg shadow-[#C74634]/30 hover:shadow-[#C74634]/50 hover:scale-105 transition-all duration-300"
+              className="pro-cta inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#C74634] text-white font-semibold shadow-lg shadow-[#C74634]/30 hover:shadow-[#C74634]/50 hover:scale-105 transition-all duration-300"
             >
               <FaLaptop />
               View Portfolio
@@ -137,7 +140,7 @@ function About({ topics }) {
               href="/Sughosh_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-all duration-300"
+              className="pro-ghost inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-all duration-300"
             >
               <FaDownload />
               Download Resume
@@ -146,14 +149,45 @@ function About({ topics }) {
         </div>
       </section>
 
+      {/* Current focus */}
+      <section className="py-12 border-b border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid md:grid-cols-3 gap-4">
+            {[
+              {
+                title: "Data Science & AI",
+                desc: "Publishing rigorous, practical pieces from robust statistics to production workflows.",
+              },
+              {
+                title: "Civilization & Indian Thought",
+                desc: "Long-form reflections connecting tradition, history, and modernity.",
+              },
+              {
+                title: "Football & Storytelling",
+                desc: "The beautiful game as culture, discipline, and personal philosophy.",
+              },
+            ].map((item) => (
+              <div key={item.title} className="rounded-2xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-[#FAF8F6] dark:bg-[#201E1C] p-5">
+                <h3 className="text-lg font-semibold text-[#161513] dark:text-[#F5F4F2] mb-2" style={CHARTER}>
+                  {item.title}
+                </h3>
+                <p className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Two Worlds */}
-      <section className="py-20 bg-[#FAF8F6] dark:bg-[#201E1C]">
+      <section className="py-16 md:py-20 bg-[#FAF8F6] dark:bg-[#201E1C]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#161513] dark:text-[#F5F4F2] mb-4" style={CHARTER}>
+            <h2 className={SECTION_TITLE} style={CHARTER}>
               Many Threads, One Voice
             </h2>
-            <p className="text-lg text-[#6E6B68] dark:text-[#B8B4B0] max-w-2xl mx-auto">
+            <p className={SECTION_COPY}>
               Deep technical series alongside family, dharma, cinema, and football — all of it honest, long-form, and mine.
             </p>
           </div>
@@ -187,7 +221,7 @@ function About({ topics }) {
                 </div>
                 <a
                   href="/learning-path"
-                  className="inline-flex items-center gap-2 text-[#C74634] font-semibold hover:gap-3 transition-all"
+                  className="pro-ghost inline-flex items-center gap-2 text-[#C74634] font-semibold hover:gap-3 transition-all"
                 >
                   Start the DS Challenge
                   <FiArrowRight className="w-4 h-4" />
@@ -222,7 +256,7 @@ function About({ topics }) {
                 </div>
                 <a
                   href="/blogs/why-support-liverpool-f.c-the-beautiful-game-vs-the-lazy-game"
-                  className="inline-flex items-center gap-2 text-[#2d6a4f] font-semibold hover:gap-3 transition-all"
+                  className="pro-ghost inline-flex items-center gap-2 text-[#2d6a4f] font-semibold hover:gap-3 transition-all"
                 >
                   Read My Manifesto
                   <FiArrowRight className="w-4 h-4" />
@@ -234,13 +268,13 @@ function About({ topics }) {
       </section>
 
       {/* YouTube */}
-      <section className="py-20 border-y border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27]">
+      <section className="py-16 md:py-20 border-y border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#161513] dark:text-[#F5F4F2] mb-4" style={CHARTER}>
+            <h2 className={SECTION_TITLE} style={CHARTER}>
               Watch &amp; Learn
             </h2>
-            <p className="text-lg text-[#6E6B68] dark:text-[#B8B4B0] max-w-2xl mx-auto">
+            <p className={SECTION_COPY}>
               From tech tutorials to football highlights — subscribe for a mix of knowledge and entertainment.
             </p>
           </div>
@@ -285,10 +319,10 @@ function About({ topics }) {
       </section>
 
       {/* Professional Journey */}
-      <section className="py-20 bg-[#FAF8F6] dark:bg-[#201E1C]">
+      <section className="py-16 md:py-20 bg-[#FAF8F6] dark:bg-[#201E1C]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#161513] dark:text-[#F5F4F2] mb-4" style={CHARTER}>
+            <h2 className={SECTION_TITLE} style={CHARTER}>
               Professional Journey
             </h2>
           </div>
@@ -321,7 +355,7 @@ function About({ topics }) {
       </section>
 
       {/* Skills & Achievements */}
-      <section className="py-20 border-y border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27]">
+      <section className="py-16 md:py-20 border-y border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="grid md:grid-cols-2 gap-16">
             <div>
@@ -371,12 +405,12 @@ function About({ topics }) {
       </section>
 
       {/* Connect */}
-      <section className="py-20 bg-[#FAF8F6] dark:bg-[#201E1C]">
+      <section className="py-16 md:py-20 bg-[#FAF8F6] dark:bg-[#201E1C]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#161513] dark:text-[#F5F4F2] mb-6" style={CHARTER}>
+          <h2 className={SECTION_TITLE} style={CHARTER}>
             Let&apos;s Connect
           </h2>
-          <p className="text-lg text-[#6E6B68] dark:text-[#B8B4B0] mb-10 max-w-2xl mx-auto">
+          <p className={`${SECTION_COPY} mb-10`}>
             Whether you want to discuss data science, collaborate on a project, or just talk football — I&apos;m always happy to connect.
           </p>
 

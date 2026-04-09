@@ -1620,6 +1620,39 @@ a:active, button:active {
   background-size: 100% 2px;
 }
 
+/* Professional interaction primitives */
+.pro-cta,
+.pro-ghost,
+.pro-chip {
+  position: relative;
+  transition: transform 0.18s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.pro-cta:hover,
+.pro-ghost:hover,
+.pro-chip:hover {
+  transform: translateY(-1px);
+}
+
+.pro-cta:active,
+.pro-ghost:active,
+.pro-chip:active {
+  transform: translateY(0);
+}
+
+.pro-cta:focus-visible,
+.pro-ghost:focus-visible,
+.pro-chip:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(199, 70, 52, 0.28);
+}
+
+.dark .pro-cta:focus-visible,
+.dark .pro-ghost:focus-visible,
+.dark .pro-chip:focus-visible {
+  box-shadow: 0 0 0 3px rgba(232, 87, 42, 0.35);
+}
+
 /* ── Section entry shimmer highlight ── */
 @keyframes section-flash {
   0%   { box-shadow: 0 0 0 0 rgba(199, 70, 52, 0); }

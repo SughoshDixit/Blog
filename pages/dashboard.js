@@ -63,6 +63,8 @@ export const getStaticProps = () => {
 
 export default function Dashboard({ blogs, topics }) {
   const router = useRouter();
+  const cardShell = "bg-white dark:bg-[#2C2A27] rounded-2xl shadow-sm p-6 border border-[#E0DDD9] dark:border-[#3D3A36]";
+  const metricShell = "bg-white dark:bg-[#2C2A27] rounded-2xl shadow-sm p-6 border border-[#E0DDD9] dark:border-[#3D3A36]";
   const [isAdmin, setIsAdmin] = useState(false);
   const [analytics, setAnalytics] = useState({
     totalVisits: 0,
@@ -84,6 +86,7 @@ export default function Dashboard({ blogs, topics }) {
   const pageSize = 10;
   const consistencyChartRef = useRef(null);
   const [viewMode, setViewMode] = useState('daily'); // 'daily' or 'monthly'
+  const todayLabel = new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
 
   // Process blog dates for consistency histogram
   const consistencyData = useMemo(() => {
@@ -570,68 +573,90 @@ export default function Dashboard({ blogs, topics }) {
         <div className="pt-24 pb-10 bg-[#FAF8F6] dark:bg-[#201E1C] border-b border-[#E0DDD9] dark:border-[#3D3A36]">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <h1 className="text-3xl md:text-4xl font-semibold text-[#161513] dark:text-[#F5F4F2]" style={{fontFamily: 'Charter, Georgia, serif'}}>
-              Blog Dashboard
+              Creator Dashboard
             </h1>
             <p className="text-[#6E6B68] dark:text-[#B8B4B0] mt-2">
-              Publishing stats, consistency tracking, and topic breakdown.
+              A compact cockpit for publishing momentum, audience response, and topic performance.
             </p>
+            <div className="mt-3 inline-flex items-center px-3 py-1.5 rounded-full bg-white dark:bg-[#2C2A27] border border-[#E0DDD9] dark:border-[#3D3A36] text-xs text-[#6E6B68] dark:text-[#B8B4B0]">
+              Updated view: {todayLabel}
+            </div>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <a href="/start-here" className="pro-chip inline-flex items-center px-4 py-2 rounded-full border border-[#E0DDD9] dark:border-[#3D3A36] text-sm text-[#4f4636] dark:text-[#F5F4F2]">
+                Reader journey
+              </a>
+              <a href="/learning-path" className="pro-chip inline-flex items-center px-4 py-2 rounded-full border border-[#E0DDD9] dark:border-[#3D3A36] text-sm text-[#4f4636] dark:text-[#F5F4F2]">
+                30-Day challenge
+              </a>
+              <a href="/savarkar-documentary" className="pro-chip inline-flex items-center px-4 py-2 rounded-full border border-[#E0DDD9] dark:border-[#3D3A36] text-sm text-[#4f4636] dark:text-[#F5F4F2]">
+                Featured documentary
+              </a>
+            </div>
           </div>
         </div>
 
         <div className="py-8 px-4 md:px-8 mx-auto max-w-7xl">
+          <div className="mb-8 rounded-2xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27] p-5 md:p-6">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#9a8f75] dark:text-[#6E6B68] mb-2">
+              At A Glance
+            </p>
+            <p className="text-[#5e5645] dark:text-[#B8B4B0] leading-relaxed">
+              Use this page to monitor the writing engine: how often you publish, what topics are landing, and which essays are carrying audience attention.
+            </p>
+          </div>
 
           {/* Key Metrics */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36]">
+            <div className={metricShell}>
               <div className="flex items-center">
                 <div className="p-3 rounded-full bg-[#FDF3F1] dark:bg-[#3D2A28]">
                   <FiBookOpen className="h-6 w-6 text-[#C74634]" />
                 </div>
                 <div className="ml-4">
                   <p className="text-sm font-medium text-[#6E6B68] dark:text-[#B8B4B0]">Total Blogs</p>
-                  <p className="text-2xl font-semibold text-[#161513] dark:text-[#F5F4F2]">
+                  <p className="text-2xl font-semibold tracking-tight tabular-nums text-[#161513] dark:text-[#F5F4F2]">
                     {analytics.blogStats.length}
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36]">
+            <div className={metricShell}>
               <div className="flex items-center">
                 <div className="p-3 rounded-full bg-[#FDF3F1] dark:bg-[#3D2A28]">
                   <FiEye className="h-6 w-6 text-[#C74634]" />
                 </div>
                 <div className="ml-4">
                   <p className="text-sm font-medium text-[#6E6B68] dark:text-[#B8B4B0]">Total Reads</p>
-                  <p className="text-2xl font-semibold text-[#161513] dark:text-[#F5F4F2]">
+                  <p className="text-2xl font-semibold tracking-tight tabular-nums text-[#161513] dark:text-[#F5F4F2]">
                     {analytics.totalVisits}
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36]">
+            <div className={metricShell}>
               <div className="flex items-center">
                 <div className="p-3 rounded-full bg-[#FDF3F1] dark:bg-[#3D2A28]">
                   <FiCheckCircle className="h-6 w-6 text-[#C74634]" />
                 </div>
                 <div className="ml-4">
                   <p className="text-sm font-medium text-[#6E6B68] dark:text-[#B8B4B0]">Your Reads</p>
-                  <p className="text-2xl font-semibold text-[#161513] dark:text-[#F5F4F2]">
+                  <p className="text-2xl font-semibold tracking-tight tabular-nums text-[#161513] dark:text-[#F5F4F2]">
                     {personalStats.readCount}
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36]">
+            <div className={metricShell}>
               <div className="flex items-center">
                 <div className="p-3 rounded-full bg-[#FDF3F1] dark:bg-[#3D2A28]">
                   <FiClock className="h-6 w-6 text-[#C74634]" />
                 </div>
                 <div className="ml-4">
                   <p className="text-sm font-medium text-[#6E6B68] dark:text-[#B8B4B0]">Avg. Read Time</p>
-                  <p className="text-2xl font-semibold text-[#161513] dark:text-[#F5F4F2]">
+                  <p className="text-2xl font-semibold tracking-tight tabular-nums text-[#161513] dark:text-[#F5F4F2]">
                     {analytics.avgReadTime} min
                   </p>
                 </div>
@@ -641,14 +666,14 @@ export default function Dashboard({ blogs, topics }) {
 
           {/* Charts */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-            <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36]">
+            <div className={cardShell}>
               <h3 className="text-lg font-semibold text-[#161513] dark:text-[#F5F4F2] mb-4">
                 Topic Performance (Visits vs Count)
               </h3>
               <Bar data={topicChartData} options={chartOptions} />
             </div>
 
-            <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36]">
+            <div className={cardShell}>
               <h3 className="text-lg font-semibold text-[#161513] dark:text-[#F5F4F2] mb-4">
                 Content Distribution
               </h3>
@@ -657,7 +682,7 @@ export default function Dashboard({ blogs, topics }) {
           </div>
 
           {/* Per-Post Visits */}
-          <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36] mb-8">
+          <div className={`${cardShell} mb-8`}>
             <h3 className="text-lg font-semibold text-[#161513] dark:text-[#F5F4F2] mb-4">
               Top 10 Most Read Articles
             </h3>
@@ -665,7 +690,7 @@ export default function Dashboard({ blogs, topics }) {
           </div>
 
           {/* Posting Consistency Histogram */}
-          <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36] mb-8">
+          <div className={`${cardShell} mb-8`}>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div>
                 <h3 className="text-lg font-semibold text-[#161513] dark:text-[#F5F4F2] flex items-center gap-2">

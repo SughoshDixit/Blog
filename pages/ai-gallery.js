@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { FaRobot, FaImage, FaVideo, FaMagic, FaTimes, FaFilter } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
@@ -90,7 +90,7 @@ export const getStaticProps = async () => {
 
           return {
             id: index,
-            src: `/AI/${encodeURIComponent(file)}`,
+            fileName: file,
             title,
             description,
             category,
@@ -121,6 +121,11 @@ function AIGallery({ topics, aiImages }) {
   const basePath = router.basePath || "";
   const [selectedImage, setSelectedImage] = useState(null);
   const [filter, setFilter] = useState('all');
+  const buildMediaUrl = (fileName, mode = "encoded") => {
+    if (!fileName) return "";
+    const safeName = mode === "raw" ? fileName : encodeURIComponent(fileName);
+    return `${basePath}/AI/${safeName}`;
+  };
 
   const categories = [
     { id: 'all', name: 'All Content', icon: FaMagic },
@@ -133,25 +138,33 @@ function AIGallery({ topics, aiImages }) {
     { id: 'general', name: 'General', icon: FaImage }
   ];
 
-  const filteredContent = filter === 'all'
-    ? aiImages
-    : aiImages.filter(item => item.category === filter);
+  const filteredContent = useMemo(() => {
+    const selected = filter === 'all'
+      ? aiImages
+      : aiImages.filter(item => item.category === filter);
+    return [...selected].sort((a, b) => {
+      const dateA = Date.parse(a?.date || "");
+      const dateB = Date.parse(b?.date || "");
+      if (!Number.isNaN(dateA) && !Number.isNaN(dateB)) return dateB - dateA;
+      return String(a?.title || "").localeCompare(String(b?.title || ""));
+    });
+  }, [aiImages, filter]);
 
   const openModal = (item) => setSelectedImage(item);
   const closeModal = () => setSelectedImage(null);
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#FAF8F6' }}>
+    <div className="min-h-screen bg-[#FAF8F6] dark:bg-[#201E1C] transition-colors duration-300">
       <Navbar topics={topics} />
 
       {/* Redwood Hero */}
-      <div className="pt-20 pb-12" style={{ backgroundColor: '#FAF8F6' }}>
+      <div className="pt-20 pb-12 border-b border-[#E0DDD9] dark:border-[#3D3A36]">
         <div className="max-w-5xl mx-auto px-6">
           {/* Redwood-style breadcrumb bar */}
-          <div className="flex items-center space-x-2 text-sm mb-8 pt-6" style={{ color: '#6E6B68' }}>
+          <div className="flex items-center space-x-2 text-sm mb-8 pt-6 text-[#6E6B68] dark:text-[#B8B4B0]">
             <span>Labs</span>
             <span>/</span>
-            <span style={{ color: '#C74634', fontWeight: 500 }}>AI Gallery</span>
+            <span className="text-[#C74634] dark:text-[#E8572A] font-medium">AI Gallery</span>
           </div>
 
           <div className="flex items-start space-x-6 mb-2">
@@ -164,14 +177,17 @@ function AIGallery({ topics, aiImages }) {
             </div>
             <div>
               <h1
-                className="text-4xl font-semibold mb-3"
-                style={{ fontFamily: 'DM Sans, sans-serif', color: '#161513', letterSpacing: '-0.02em' }}
+                className="text-4xl md:text-5xl font-semibold mb-3 text-[#161513] dark:text-[#F5F4F2]"
+                style={{ fontFamily: 'Charter, Georgia, serif', letterSpacing: '-0.02em' }}
               >
                 AI Gallery
               </h1>
-              <p className="text-lg max-w-2xl" style={{ color: '#6E6B68', lineHeight: 1.6 }}>
+              <p className="text-lg max-w-2xl text-[#6E6B68] dark:text-[#B8B4B0]" style={{ lineHeight: 1.6 }}>
                 A curated collection of AI-generated images, videos, and creative content —
                 from custom LoRA models to diffusion art.
+              </p>
+              <p className="text-sm text-[#9a8f75] dark:text-[#6E6B68] mt-3">
+                Sorted by latest additions first.
               </p>
             </div>
           </div>
@@ -182,10 +198,10 @@ function AIGallery({ topics, aiImages }) {
       </div>
 
       {/* Redwood Filter Bar */}
-      <div style={{ backgroundColor: '#FFFFFF', borderBottom: '1px solid #E0DDD9' }}>
+      <div className="bg-white dark:bg-[#2C2A27] border-b border-[#E0DDD9] dark:border-[#3D3A36]">
         <div className="max-w-5xl mx-auto px-6">
           <div className="flex items-center space-x-1 overflow-x-auto py-0 no-scrollbar">
-            <FaFilter className="flex-shrink-0 mr-3 text-sm" style={{ color: '#6E6B68' }} />
+            <FaFilter className="flex-shrink-0 mr-3 text-sm text-[#6E6B68] dark:text-[#B8B4B0]" />
             {categories.map((category) => {
               const IconComponent = category.icon;
               const isActive = filter === category.id;
@@ -193,7 +209,7 @@ function AIGallery({ topics, aiImages }) {
                 <button
                   key={category.id}
                   onClick={() => setFilter(category.id)}
-                  className="flex items-center space-x-2 px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors focus:outline-none"
+                  className="pro-chip flex items-center space-x-2 px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors focus:outline-none"
                   style={{
                     color: isActive ? '#C74634' : '#6E6B68',
                     borderBottom: isActive ? '2px solid #C74634' : '2px solid transparent',
@@ -214,22 +230,18 @@ function AIGallery({ topics, aiImages }) {
       <div className="max-w-5xl mx-auto px-6 py-10">
         {/* Count bar */}
         <div className="flex items-center justify-between mb-6">
-          <p className="text-sm" style={{ color: '#6E6B68' }}>
+          <p className="text-sm text-[#6E6B68] dark:text-[#B8B4B0]">
             {filteredContent.length} item{filteredContent.length !== 1 ? 's' : ''}
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
           {filteredContent.map((item) => (
             <div
               key={item.id}
               onClick={() => openModal(item)}
-              className="group cursor-pointer rounded-xl overflow-hidden transition-all duration-200 hover:shadow-lg hover:ring-2 hover:ring-[#C74634]/40"
-              style={{
-                backgroundColor: '#FFFFFF',
-                border: '1px solid #E0DDD9',
-                boxShadow: '0 1px 3px rgba(22,21,19,0.06)',
-              }}
+              style={{ boxShadow: '0 1px 3px rgba(22,21,19,0.06)' }}
+              className="group cursor-pointer rounded-2xl overflow-hidden transition-all duration-200 hover:shadow-lg hover:ring-2 hover:ring-[#C74634]/40 bg-white dark:bg-[#2C2A27] border border-[#E0DDD9] dark:border-[#3D3A36]"
             >
               {/* Thumbnail */}
               <div
@@ -249,13 +261,26 @@ function AIGallery({ topics, aiImages }) {
                 ) : (
                   <>
                     <img
-                      src={`${basePath}${item.src}`}
+                      src={buildMediaUrl(item.fileName, "encoded")}
                       alt={item.title}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       loading="lazy"
                       onError={(e) => {
-                        e.target.style.display = "none";
-                        const fallback = e.target.nextElementSibling;
+                        const img = e.currentTarget;
+                        const hasRetriedRaw = img.dataset.retriedRaw === "1";
+                        const hasRetriedEncoded = img.dataset.retriedEncoded === "1";
+                        if (!hasRetriedRaw) {
+                          img.dataset.retriedRaw = "1";
+                          img.src = buildMediaUrl(item.fileName, "raw");
+                          return;
+                        }
+                        if (!hasRetriedEncoded) {
+                          img.dataset.retriedEncoded = "1";
+                          img.src = buildMediaUrl(item.fileName, "encoded");
+                          return;
+                        }
+                        img.style.display = "none";
+                        const fallback = img.nextElementSibling;
                         if (fallback) fallback.style.display = "flex";
                       }}
                     />
@@ -285,20 +310,17 @@ function AIGallery({ topics, aiImages }) {
 
         {/* Empty State */}
         {filteredContent.length === 0 && (
-          <div
-            className="text-center py-20 rounded-lg"
-            style={{ backgroundColor: '#FFFFFF', border: '1px solid #E0DDD9' }}
-          >
+          <div className="text-center py-20 rounded-lg bg-white dark:bg-[#2C2A27] border border-[#E0DDD9] dark:border-[#3D3A36]">
             <div
               className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
               style={{ backgroundColor: '#FDF3F1' }}
             >
               <FaRobot className="text-2xl" style={{ color: '#C74634' }} />
             </div>
-            <h3 className="text-lg font-semibold mb-2" style={{ color: '#161513' }}>
+            <h3 className="text-lg font-semibold mb-2 text-[#161513] dark:text-[#F5F4F2]">
               No content found
             </h3>
-            <p className="text-sm" style={{ color: '#6E6B68' }}>
+            <p className="text-sm text-[#6E6B68] dark:text-[#B8B4B0]">
               Try selecting a different category or check back later.
             </p>
           </div>
@@ -313,12 +335,11 @@ function AIGallery({ topics, aiImages }) {
           onClick={closeModal}
         >
           <div
-            className="relative w-full max-w-4xl max-h-[92vh] overflow-hidden flex flex-col"
             style={{
-              backgroundColor: '#FAF8F6',
               borderRadius: '8px',
               boxShadow: '0 24px 64px rgba(22,21,19,0.4)',
             }}
+            className="relative w-full max-w-4xl max-h-[92vh] overflow-hidden flex flex-col bg-[#FAF8F6] dark:bg-[#201E1C]"
             onClick={e => e.stopPropagation()}
           >
             {/* Modal Header */}
@@ -337,17 +358,17 @@ function AIGallery({ topics, aiImages }) {
                   }
                 </div>
                 <div>
-                  <h2 className="text-base font-semibold" style={{ color: '#161513' }}>
+                  <h2 className="text-base font-semibold text-[#161513] dark:text-[#F5F4F2]">
                     {selectedImage.title}
                   </h2>
-                  <p className="text-xs" style={{ color: '#6E6B68' }}>
+                  <p className="text-xs text-[#6E6B68] dark:text-[#B8B4B0]">
                     {selectedImage.date}
                   </p>
                 </div>
               </div>
               <button
                 onClick={closeModal}
-                className="w-8 h-8 rounded flex items-center justify-center transition-colors"
+                className="pro-chip w-8 h-8 rounded flex items-center justify-center transition-colors"
                 style={{ color: '#6E6B68' }}
                 onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#F1EFED'; }}
                 onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; }}
@@ -368,12 +389,12 @@ function AIGallery({ topics, aiImages }) {
                   autoPlay
                   style={{ objectFit: 'contain' }}
                 >
-                  <source src={`${basePath}${selectedImage.src}`} type="video/mp4" />
+                  <source src={buildMediaUrl(selectedImage.fileName, "encoded")} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               ) : (
                 <img
-                  src={`${basePath}${selectedImage.src}`}
+                  src={buildMediaUrl(selectedImage.fileName, "encoded")}
                   alt={selectedImage.title}
                   className="max-w-full max-h-[55vh] rounded"
                   style={{ objectFit: 'contain' }}
@@ -386,7 +407,7 @@ function AIGallery({ topics, aiImages }) {
               className="px-6 py-4 flex-shrink-0"
               style={{ borderTop: '1px solid #E0DDD9', backgroundColor: '#FFFFFF' }}
             >
-              <p className="text-sm mb-3" style={{ color: '#6E6B68' }}>
+              <p className="text-sm mb-3 text-[#6E6B68] dark:text-[#B8B4B0]">
                 {selectedImage.description}
               </p>
               <div className="flex flex-wrap gap-2">

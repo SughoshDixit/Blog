@@ -440,7 +440,7 @@ export default function Home({ blogs, topics }) {
                     <div className="flex flex-wrap gap-3">
                       <a
                         href="/savarkar-documentary"
-                        className="inline-flex items-center px-5 py-2.5 rounded-full bg-[#C74634] text-white font-medium hover:bg-[#A73A2C] transition-colors"
+                        className="pro-cta inline-flex items-center px-5 py-2.5 rounded-full bg-[#C74634] text-white font-medium hover:bg-[#A73A2C] transition-colors"
                       >
                         Explore documentary
                       </a>
@@ -448,7 +448,7 @@ export default function Home({ blogs, topics }) {
                         href="https://youtu.be/5fBTT9MwQio?si=ENxM8fQhtUCEOrm4"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center px-5 py-2.5 rounded-full border border-[#E0DDD9] dark:border-[#3D3A36] text-[#4f4636] dark:text-[#F5F4F2] hover:border-[#cbbf9f] transition-colors"
+                        className="pro-ghost inline-flex items-center px-5 py-2.5 rounded-full border border-[#E0DDD9] dark:border-[#3D3A36] text-[#4f4636] dark:text-[#F5F4F2] hover:border-[#cbbf9f] transition-colors"
                       >
                         Watch on YouTube
                       </a>
@@ -608,10 +608,41 @@ export default function Home({ blogs, topics }) {
           <section id="latest-posts" className="py-16">
             <div className="max-w-7xl mx-auto px-4 md:px-8 grid gap-16 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)]">
               <div className="space-y-14">
+                <div className="reveal rounded-3xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-white/90 dark:bg-[#2C2A27] p-8 shadow-soft">
+                  <p className="text-xs uppercase tracking-[0.2em] text-[#9a8f75] dark:text-[#6E6B68] mb-2">
+                    Editorial Feed
+                  </p>
+                  <h2
+                    className="text-2xl md:text-3xl font-semibold text-[#161513] dark:text-[#F5F4F2] mb-2"
+                    style={{ fontFamily: "Charter, Georgia, serif" }}
+                  >
+                    Latest essays from the main shelf
+                  </h2>
+                  <p className="text-sm md:text-base text-[#5e5645] dark:text-[#B8B4B0]">
+                    Long-form writing across data science, civilization, football, and personal reflections.
+                  </p>
+                </div>
                 <DataScienceYouTubeShelf />
                 <FootballShelf />
                 <TechPodcastsShelf />
-                {paginatedPosts.map((blog) => (
+                {paginatedPosts.length === 0 ? (
+                  <div className="reveal rounded-3xl border border-dashed border-[#d8cdb2] dark:border-[#3D3A36] bg-[#fffaf3] dark:bg-[#2C2A27] p-8">
+                    <h3
+                      className="text-xl font-semibold text-[#161513] dark:text-[#F5F4F2] mb-3"
+                      style={{ fontFamily: "Charter, Georgia, serif" }}
+                    >
+                      New essays coming soon
+                    </h3>
+                    <p className="text-[#5e5645] dark:text-[#B8B4B0] mb-5">
+                      You can continue with the curated tracks meanwhile:
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                      <a href="/start-here" className="pro-cta inline-flex items-center px-4 py-2 rounded-full bg-[#C74634] text-white text-sm font-medium hover:bg-[#A73A2C] transition-colors">Start Here</a>
+                      <a href="/learning-path" className="pro-chip inline-flex items-center px-4 py-2 rounded-full border border-[#E0DDD9] dark:border-[#3D3A36] text-sm font-medium text-[#4f4636] dark:text-[#F5F4F2]">30-Day Challenge</a>
+                      <a href="/archive" className="pro-chip inline-flex items-center px-4 py-2 rounded-full border border-[#E0DDD9] dark:border-[#3D3A36] text-sm font-medium text-[#4f4636] dark:text-[#F5F4F2]">Archive</a>
+                    </div>
+                  </div>
+                ) : paginatedPosts.map((blog) => (
                   <article
                     key={blog.data.Id}
                     className="reveal group rounded-3xl border border-transparent hover:border-[#dfd2b7] bg-white/85 dark:bg-[#2C2A27]/90 hover:bg-white transition-all duration-300 shadow-lg shadow-transparent hover:shadow-[0_16px_60px_-30px_rgba(0,0,0,0.45)] dark:hover:bg-[#2C2A27]"
