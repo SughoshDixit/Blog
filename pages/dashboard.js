@@ -46,6 +46,16 @@ ChartJS.register(
   LineElement
 );
 
+/**
+ * Chart.js v3's default numeric tick formatter can throw RangeError from Intl.NumberFormat
+ * when tick spacing is degenerate (e.g. only one tick). Format ticks without that path.
+ */
+function formatLinearTick(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return "";
+  return String(Math.round(n));
+}
+
 export const getStaticProps = () => {
   const allBlogs = getAllBlogPosts();
   const allTopics = getProminentTopics();
@@ -275,17 +285,29 @@ export default function Dashboard({ blogs, topics }) {
         let totalMinutes = 0;
         let totalWords = 0;
         let perPostVisits = {};
+        let fetchedTotalUsers = 0;
+        let fetchedUsers = [];
 
         // Fetch aggregate users and visits
         try {
-          const visitsSnap = await fetch('/api/visits/summary').then(r=>r.json()).catch(()=>({ total: 0, perPost: {} }));
-          totalVisits = visitsSnap.total || 0;
-          perPostVisits = visitsSnap.perPost || {};
-          
+          const visitsRes = await fetch("/api/visits/summary");
+          const visitsSnap = visitsRes.ok
+            ? await visitsRes.json().catch(() => ({}))
+            : {};
+          totalVisits = typeof visitsSnap.total === "number" ? visitsSnap.total : 0;
+          perPostVisits =
+            visitsSnap.perPost && typeof visitsSnap.perPost === "object"
+              ? visitsSnap.perPost
+              : {};
+
           if (isAdmin) {
-            const usersSnap = await fetch('/api/users/list').then(r=>r.json()).catch(()=>({ total: 0, users: [] }));
-            analytics.totalUsers = usersSnap.total || 0;
-            analytics.users = usersSnap.users || [];
+            const usersRes = await fetch("/api/users/list");
+            const usersSnap = usersRes.ok
+              ? await usersRes.json().catch(() => ({}))
+              : {};
+            fetchedTotalUsers =
+              typeof usersSnap.total === "number" ? usersSnap.total : 0;
+            fetchedUsers = Array.isArray(usersSnap.users) ? usersSnap.users : [];
           }
         } catch (err) {
           console.error("Error fetching summary", err);
@@ -334,8 +356,8 @@ export default function Dashboard({ blogs, topics }) {
           blogStats,
           avgReadTime,
           totalWords,
-          totalUsers: isAdmin ? prev.totalUsers : 0,
-          users: isAdmin ? prev.users : []
+          totalUsers: isAdmin ? fetchedTotalUsers : 0,
+          users: isAdmin ? fetchedUsers : []
         }));
       } catch (error) {
         console.error('Error fetching analytics:', error);
@@ -424,6 +446,9 @@ export default function Dashboard({ blogs, topics }) {
     scales: {
       y: {
         beginAtZero: true,
+        ticks: {
+          callback: (v) => formatLinearTick(v),
+        },
       },
     },
   };
@@ -523,6 +548,7 @@ export default function Dashboard({ blogs, topics }) {
         ticks: {
           stepSize: 1,
           color: '#6B7280',
+          callback: (v) => formatLinearTick(v),
         },
         grid: {
           color: 'rgba(107, 114, 128, 0.1)',
