@@ -20,6 +20,8 @@ import {
 import TechPodcastsShelf from "../Components/TechPodcastsShelf";
 import FootballShelf from "../Components/FootballShelf";
 import DataScienceYouTubeShelf from "../Components/DataScienceYouTubeShelf";
+import HeroLottieAccent from "../Components/HeroLottieAccent";
+import FocusStripLottieAccent from "../Components/FocusStripLottieAccent";
 
 export const getStaticProps = () => {
   const allBlogs = getAllBlogPosts();
@@ -364,48 +366,110 @@ export default function Home({ blogs, topics }) {
                   </div>
                 </div>
 
-                {featureHighlight && (
-                  <article className="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md shadow-xl shadow-black/20">
-                    {featureHighlight.data.HeaderImage && featureHighlight.data.HeaderImage.trim() && (
-                      <div className="relative aspect-[2/1] overflow-hidden rounded-t-2xl">
-                        <Image
-                          src={featureHighlight.data.HeaderImage}
-                          alt=""
-                          layout="fill"
-                          objectFit="cover"
-                          objectPosition="top"
-                          priority
-                        />
-                      </div>
-                    )}
-                    <div className="p-8 space-y-4">
-                      <div className="flex items-center gap-3 text-sm text-[#B8E0D8]/80">
-                        <span className="font-semibold">
-                          {featureHighlight.data.Author || "Sughosh Dixit"}
-                        </span>
-                        <span>&middot;</span>
-                        <span>{featureHighlight.data.Date}</span>
-                        <span>&middot;</span>
-                        <span>{featureHighlight.readTime.text}</span>
-                      </div>
-                      <h2
-                        className="text-2xl md:text-3xl text-white font-semibold leading-tight"
-                        style={{ fontFamily: "Charter, Georgia, serif" }}
-                      >
-                        <a
-                          href={`/blogs/${generateSlug(featureHighlight.data.Title)}`}
-                          className="hover:text-[#F5E4D3] transition-colors"
+                <div className="space-y-4">
+                  <HeroLottieAccent />
+                  {featureHighlight && (
+                    <article className="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md shadow-xl shadow-black/20">
+                      {featureHighlight.data.HeaderImage && featureHighlight.data.HeaderImage.trim() && (
+                        <div className="relative aspect-[2/1] overflow-hidden rounded-t-2xl">
+                          <Image
+                            src={featureHighlight.data.HeaderImage}
+                            alt=""
+                            layout="fill"
+                            objectFit="cover"
+                            objectPosition="top"
+                            priority
+                          />
+                        </div>
+                      )}
+                      <div className="p-8 space-y-4">
+                        <div className="flex items-center gap-3 text-sm text-[#B8E0D8]/80">
+                          <span className="font-semibold">
+                            {featureHighlight.data.Author || "Sughosh Dixit"}
+                          </span>
+                          <span>&middot;</span>
+                          <span>{featureHighlight.data.Date}</span>
+                          <span>&middot;</span>
+                          <span>{featureHighlight.readTime.text}</span>
+                        </div>
+                        <h2
+                          className="text-2xl md:text-3xl text-white font-semibold leading-tight"
+                          style={{ fontFamily: "Charter, Georgia, serif" }}
                         >
-                          {featureHighlight.data.Title}
-                        </a>
-                      </h2>
-                      <p className="text-base text-[#B8E0D8] leading-relaxed line-clamp-3">
-                        {featureHighlight.data.Abstract}
-                      </p>
-                      <span className="inline-block px-3 py-1 rounded-full bg-[#C74634] text-white text-xs font-semibold">Latest</span>
+                          <a
+                            href={`/blogs/${generateSlug(featureHighlight.data.Title)}`}
+                            className="hover:text-[#F5E4D3] transition-colors"
+                          >
+                            {featureHighlight.data.Title}
+                          </a>
+                        </h2>
+                        <p className="text-base text-[#B8E0D8] leading-relaxed line-clamp-3">
+                          {featureHighlight.data.Abstract}
+                        </p>
+                        <span className="inline-block px-3 py-1 rounded-full bg-[#C74634] text-white text-xs font-semibold">Latest</span>
+                      </div>
+                    </article>
+                  )}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Brand proof + positioning strip */}
+          <section className="border-b border-[#E0DDD9] dark:border-[#3D3A36] bg-white/80 dark:bg-[#23211f]/70">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 py-10">
+              <div className="grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+                <div className="reveal rounded-3xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27] p-6 md:p-8 shadow-soft">
+                  <p className="text-xs uppercase tracking-[0.2em] text-[#9a8f75] dark:text-[#6E6B68] mb-3">
+                    Current focus
+                  </p>
+                  <h2
+                    className="text-2xl md:text-3xl font-semibold text-[#161513] dark:text-[#F5F4F2] mb-3"
+                    style={{ fontFamily: "Charter, Georgia, serif" }}
+                  >
+                    Building a long-form brand across research, storytelling, and culture
+                  </h2>
+                  <p className="text-[#5e5645] dark:text-[#B8B4B0] leading-relaxed">
+                    I publish deep essays and applied notes on data science, AI, civilization studies, and football while documenting the process with videos and experiments.
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <a href="/start-here" className="pro-chip inline-flex items-center px-4 py-2 rounded-full border border-[#E0DDD9] dark:border-[#3D3A36] text-sm font-medium text-[#4f4636] dark:text-[#F5F4F2]">
+                      Reader journey
+                    </a>
+                    <a href="/dashboard" className="pro-chip inline-flex items-center px-4 py-2 rounded-full border border-[#E0DDD9] dark:border-[#3D3A36] text-sm font-medium text-[#4f4636] dark:text-[#F5F4F2]">
+                      Creator dashboard
+                    </a>
+                    <a href="/ai-gallery" className="pro-chip inline-flex items-center px-4 py-2 rounded-full border border-[#E0DDD9] dark:border-[#3D3A36] text-sm font-medium text-[#4f4636] dark:text-[#F5F4F2]">
+                      AI gallery
+                    </a>
+                  </div>
+                  <div className="mt-6">
+                    <FocusStripLottieAccent />
+                  </div>
+                </div>
+
+                <div className="reveal-right rounded-3xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27] p-6 md:p-8 shadow-soft">
+                  <h3
+                    className="text-lg font-semibold text-[#161513] dark:text-[#F5F4F2] mb-5"
+                    style={{ fontFamily: "Charter, Georgia, serif" }}
+                  >
+                    Signals
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="signal-card flex items-center justify-between rounded-2xl border border-[#eee4d5] dark:border-[#3D3A36] bg-[#fffaf3] dark:bg-[#23211f] px-4 py-3">
+                      <span className="text-sm text-[#5e5645] dark:text-[#B8B4B0]">Prominent essays</span>
+                      <span className="text-base font-semibold text-[#161513] dark:text-[#F5F4F2]">{shelfBlogs.length}</span>
                     </div>
-                  </article>
-                )}
+                    <div className="signal-card flex items-center justify-between rounded-2xl border border-[#eee4d5] dark:border-[#3D3A36] bg-[#fffaf3] dark:bg-[#23211f] px-4 py-3">
+                      <span className="text-sm text-[#5e5645] dark:text-[#B8B4B0]">Tracked topics</span>
+                      <span className="text-base font-semibold text-[#161513] dark:text-[#F5F4F2]">{tagPills.length}</span>
+                    </div>
+                    <div className="signal-card flex items-center justify-between rounded-2xl border border-[#eee4d5] dark:border-[#3D3A36] bg-[#fffaf3] dark:bg-[#23211f] px-4 py-3">
+                      <span className="text-sm text-[#5e5645] dark:text-[#B8B4B0]">Trending stories</span>
+                      <span className="text-base font-semibold text-[#161513] dark:text-[#F5F4F2]">{trendingPosts.length}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -486,14 +550,14 @@ export default function Home({ blogs, topics }) {
                 <div className="flex flex-wrap gap-3 shrink-0">
                   <a
                     href="/learning-path"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#C74634] to-[#E8572A] text-white font-semibold shadow-lg shadow-[#C74634]/30 hover:shadow-[#C74634]/50 hover:scale-105 transition-all duration-300"
+                    className="pro-cta inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#C74634] to-[#E8572A] text-white font-semibold shadow-lg shadow-[#C74634]/30 hover:shadow-[#C74634]/50 hover:scale-105 transition-all duration-300"
                   >
                     View Learning Path
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                   </a>
                   <a
                     href="/blogs/day-1-boolean-logic-to-numbers-and-as-min-or-as-max"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-all duration-300"
+                    className="pro-ghost inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-all duration-300"
                   >
                     Start Day 1
                   </a>
@@ -514,7 +578,7 @@ export default function Home({ blogs, topics }) {
                     <a
                       key={topic}
                       href={`/topic/${topic}`}
-                      className="inline-flex items-center whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-white text-[#4f4636] border border-[#E0DDD9] hover:border-[#cbbf9f] hover:bg-[#faf5ec] transition-colors dark:bg-gray-900 dark:text-gray-200 dark:border-gray-800 dark:hover:border-gray-700 dark:hover:bg-gray-800/80"
+                      className="pro-chip inline-flex items-center whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-white text-[#4f4636] border border-[#E0DDD9] hover:border-[#cbbf9f] hover:bg-[#faf5ec] transition-colors dark:bg-gray-900 dark:text-gray-200 dark:border-gray-800 dark:hover:border-gray-700 dark:hover:bg-gray-800/80"
                     >
                       {topic}
                     </a>
