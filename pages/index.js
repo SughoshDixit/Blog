@@ -81,6 +81,7 @@ export default function Home({ blogs, topics }) {
   );
 
   const [engagementMap, setEngagementMap] = useState({});
+  const [totalVisits, setTotalVisits] = useState(null);
   const isDSPost = (blog) => blog?.data?.Topic === "Data Science";
 
   useEffect(() => {
@@ -116,11 +117,32 @@ export default function Home({ blogs, topics }) {
   }, [shelfBlogs]);
 
   useEffect(() => {
-    fetch("/api/visits", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({}),
-    }).catch(() => {});
+    let isCancelled = false;
+
+    const trackAndLoadVisits = async () => {
+      try {
+        await fetch("/api/visits", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({}),
+        }).catch(() => {});
+
+        const summaryRes = await fetch("/api/visits/summary");
+        if (!summaryRes.ok) return;
+        const summary = await summaryRes.json().catch(() => ({}));
+        if (!isCancelled && typeof summary.total === "number") {
+          setTotalVisits(summary.total);
+        }
+      } catch (_) {
+        // Silent fallback: keep UI stable if analytics endpoint is unavailable.
+      }
+    };
+
+    trackAndLoadVisits();
+
+    return () => {
+      isCancelled = true;
+    };
   }, []);
 
   const dsChallengePosts = useMemo(
@@ -483,6 +505,12 @@ export default function Home({ blogs, topics }) {
                     <div className="signal-card flex items-center justify-between rounded-2xl border border-[#eee4d5] dark:border-[#3D3A36] bg-[#fffaf3] dark:bg-[#23211f] px-4 py-3">
                       <span className="text-sm text-[#5e5645] dark:text-[#B8B4B0]">Prominent essays</span>
                       <span className="text-base font-semibold text-[#161513] dark:text-[#F5F4F2]">{editorialBlogs.length}</span>
+                    </div>
+                    <div className="signal-card flex items-center justify-between rounded-2xl border border-[#eee4d5] dark:border-[#3D3A36] bg-[#fffaf3] dark:bg-[#23211f] px-4 py-3">
+                      <span className="text-sm text-[#5e5645] dark:text-[#B8B4B0]">Site visits</span>
+                      <span className="text-base font-semibold text-[#161513] dark:text-[#F5F4F2]">
+                        {typeof totalVisits === "number" ? totalVisits.toLocaleString("en-IN") : "—"}
+                      </span>
                     </div>
                     <div className="signal-card flex items-center justify-between rounded-2xl border border-[#eee4d5] dark:border-[#3D3A36] bg-[#fffaf3] dark:bg-[#23211f] px-4 py-3">
                       <span className="text-sm text-[#5e5645] dark:text-[#B8B4B0]">Tracked topics</span>

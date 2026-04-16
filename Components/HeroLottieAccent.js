@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import skewTuningAnimation from "../public/lottie/skew_tuning.json";
+
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 export default function HeroLottieAccent() {
-  const { basePath } = useRouter();
-  const containerRef = useRef(null);
-  const [shouldLoad, setShouldLoad] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -12,77 +12,6 @@ export default function HeroLottieAccent() {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReducedMotion(media.matches);
   }, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || reducedMotion) return;
-    const el = containerRef.current;
-    if (!el) return;
-
-    if (typeof IntersectionObserver === "undefined") {
-      setShouldLoad(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setShouldLoad(true);
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [reducedMotion]);
-
-  useEffect(() => {
-    if (!shouldLoad || reducedMotion || !containerRef.current) return;
-    let instance;
-    let cancelled = false;
-
-    const load = async () => {
-      try {
-        const { default: lottie } = await import("lottie-web");
-        if (cancelled || !containerRef.current) return;
-
-        const assetUrl = `${basePath || ""}/lottie/robust_workflow.json`;
-        const response = await fetch(assetUrl);
-        if (!response.ok) {
-          console.error("Hero Lottie asset load failed:", response.status, assetUrl);
-          return;
-        }
-        const animationData = await response.json();
-        if (cancelled || !containerRef.current) return;
-
-        instance = lottie.loadAnimation({
-          container: containerRef.current,
-          renderer: "svg",
-          loop: true,
-          autoplay: true,
-          animationData,
-          rendererSettings: {
-            preserveAspectRatio: "xMidYMid meet",
-          },
-        });
-
-        // Keep motion premium but calm in the hero.
-        instance.setSpeed(0.8);
-      } catch (error) {
-        console.error("Hero Lottie failed to load:", error);
-      }
-    };
-
-    load();
-
-    return () => {
-      cancelled = true;
-      if (instance) instance.destroy();
-    };
-  }, [shouldLoad, reducedMotion]);
 
   return (
     <div className="reveal-scale rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md px-4 py-3 shadow-lg shadow-black/20">
@@ -95,7 +24,14 @@ export default function HeroLottieAccent() {
             Motion disabled by preference
           </div>
         ) : (
-          <div ref={containerRef} className="h-full w-full" aria-hidden="true" />
+          <Lottie
+            animationData={skewTuningAnimation}
+            loop
+            autoplay
+            aria-hidden="true"
+            style={{ width: "100%", height: "100%" }}
+            rendererSettings={{ preserveAspectRatio: "xMidYMid meet" }}
+          />
         )}
       </div>
     </div>

@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import classicalVsRobustAnimation from "../public/lottie/classical_vs_robust.json";
+
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 export default function FocusStripLottieAccent() {
-  const { basePath } = useRouter();
-  const containerRef = useRef(null);
-  const [shouldLoad, setShouldLoad] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -12,77 +12,6 @@ export default function FocusStripLottieAccent() {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReducedMotion(media.matches);
   }, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || reducedMotion) return;
-    const el = containerRef.current;
-    if (!el) return;
-
-    if (typeof IntersectionObserver === "undefined") {
-      setShouldLoad(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setShouldLoad(true);
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [reducedMotion]);
-
-  useEffect(() => {
-    if (!shouldLoad || reducedMotion || !containerRef.current) return;
-    let instance;
-    let cancelled = false;
-
-    const load = async () => {
-      try {
-        const { default: lottie } = await import("lottie-web");
-        if (cancelled || !containerRef.current) return;
-
-        const assetUrl = `${basePath || ""}/lottie/classical_vs_robust.json`;
-        const response = await fetch(assetUrl);
-        if (!response.ok) {
-          console.error("Focus Lottie asset load failed:", response.status, assetUrl);
-          return;
-        }
-        const animationData = await response.json();
-        if (cancelled || !containerRef.current) return;
-
-        instance = lottie.loadAnimation({
-          container: containerRef.current,
-          renderer: "svg",
-          loop: true,
-          autoplay: true,
-          animationData,
-          rendererSettings: {
-            preserveAspectRatio: "xMidYMid meet",
-          },
-        });
-
-        // Keep this accent subtle and less energetic than hero animation.
-        instance.setSpeed(0.65);
-      } catch (error) {
-        console.error("Focus strip Lottie failed to load:", error);
-      }
-    };
-
-    load();
-
-    return () => {
-      cancelled = true;
-      if (instance) instance.destroy();
-    };
-  }, [shouldLoad, reducedMotion]);
 
   return (
     <div className="hidden lg:block reveal-right rounded-2xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-[#fffaf3] dark:bg-[#23211f] p-4">
@@ -95,7 +24,15 @@ export default function FocusStripLottieAccent() {
             Motion disabled
           </div>
         ) : (
-          <div ref={containerRef} className="h-full w-full opacity-90" aria-hidden="true" />
+          <div className="h-full w-full opacity-90" aria-hidden="true">
+            <Lottie
+              animationData={classicalVsRobustAnimation}
+              loop
+              autoplay
+              style={{ width: "100%", height: "100%" }}
+              rendererSettings={{ preserveAspectRatio: "xMidYMid meet" }}
+            />
+          </div>
         )}
       </div>
     </div>
