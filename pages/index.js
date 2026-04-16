@@ -81,6 +81,7 @@ export default function Home({ blogs, topics }) {
   );
 
   const [engagementMap, setEngagementMap] = useState({});
+  const isDSPost = (blog) => blog?.data?.Topic === "Data Science";
 
   useEffect(() => {
     let isCancelled = false;
@@ -122,8 +123,28 @@ export default function Home({ blogs, topics }) {
     }).catch(() => {});
   }, []);
 
+  const dsChallengePosts = useMemo(
+    () =>
+      shelfBlogs
+        .filter((blog) => isDSPost(blog))
+        .sort((a, b) => {
+          const da = Date.parse(a?.data?.Date);
+          const db = Date.parse(b?.data?.Date);
+          if (!Number.isNaN(da) && !Number.isNaN(db)) return db - da;
+          if (!Number.isNaN(da)) return -1;
+          if (!Number.isNaN(db)) return 1;
+          return (Number(b?.data?.Id) || 0) - (Number(a?.data?.Id) || 0);
+        }),
+    [shelfBlogs]
+  );
+
+  const editorialBlogs = useMemo(
+    () => shelfBlogs.filter((blog) => !isDSPost(blog)),
+    [shelfBlogs]
+  );
+
   const rankedBlogs = useMemo(() => {
-    return shelfBlogs
+    return editorialBlogs
       .map((blog) => {
         const slug = generateSlug(blog?.data?.Title);
         const engagement = engagementMap[slug] || { likes: 0, comments: 0 };
@@ -138,17 +159,15 @@ export default function Home({ blogs, topics }) {
         };
       })
       .sort((a, b) => b._score - a._score);
-  }, [shelfBlogs, engagementMap]);
+  }, [editorialBlogs, engagementMap]);
  
-  const isDSPost = (blog) => blog?.data?.Topic === "Data Science";
-
   const trendingPosts = useMemo(
     () => rankedBlogs.slice(0, 6),
     [rankedBlogs]
   );
 
   const featureHighlight = useMemo(() => {
-    const sortedByRecency = [...shelfBlogs].sort((a, b) => {
+    const sortedByRecency = [...editorialBlogs].sort((a, b) => {
       const dateA = Date.parse(a?.data?.Date);
       const dateB = Date.parse(b?.data?.Date);
       const isValidDateA = !Number.isNaN(dateA);
@@ -161,12 +180,11 @@ export default function Home({ blogs, topics }) {
       return idB - idA;
     });
     return sortedByRecency[0];
-  }, [shelfBlogs]);
+  }, [editorialBlogs]);
 
   const recentPosts = useMemo(
     () =>
-      [...shelfBlogs]
-        .filter((b) => !isDSPost(b))
+      [...editorialBlogs]
         .sort((a, b) => {
           const da = Date.parse(a?.data?.Date);
           const db = Date.parse(b?.data?.Date);
@@ -176,14 +194,13 @@ export default function Home({ blogs, topics }) {
           return (Number(b?.data?.Id) || 0) - (Number(a?.data?.Id) || 0);
         })
         .slice(0, 5),
-    [shelfBlogs]
+    [editorialBlogs]
   );
 
   const remainingPosts = useMemo(
     () =>
-      shelfBlogs
+      editorialBlogs
         .filter((blog) => {
-          if (isDSPost(blog)) return false;
           const isInRecent = recentPosts.some((r) => r?.data?.Id === blog?.data?.Id);
           const isFeatured = featureHighlight?.data?.Id === blog?.data?.Id;
           return !isInRecent && !isFeatured;
@@ -196,7 +213,7 @@ export default function Home({ blogs, topics }) {
           if (!Number.isNaN(db)) return 1;
           return (Number(b?.data?.Id) || 0) - (Number(a?.data?.Id) || 0);
         }),
-    [shelfBlogs, recentPosts, featureHighlight]
+    [editorialBlogs, recentPosts, featureHighlight]
   );
 
   const POSTS_PER_PAGE = 6;
@@ -220,11 +237,18 @@ export default function Home({ blogs, topics }) {
 
   const tagPills = useMemo(
     () =>
-      topics
-        .filter((topic) => topic && typeof topic === "string")
+      Array.from(
+        new Set(
+          editorialBlogs
+            .map((blog) => blog?.data?.Topic)
+            .filter((topic) => topic && typeof topic === "string")
+        )
+      )
         .sort((a, b) => a.localeCompare(b)),
-    [topics]
+    [editorialBlogs]
   );
+
+  const latestDSPost = dsChallengePosts[0] || null;
 
   // Re-observe whenever the visible post count changes (including Load More)
   useScrollReveal([paginatedPosts.length, trendingPosts.length]);
@@ -458,7 +482,7 @@ export default function Home({ blogs, topics }) {
                   <div className="space-y-3">
                     <div className="signal-card flex items-center justify-between rounded-2xl border border-[#eee4d5] dark:border-[#3D3A36] bg-[#fffaf3] dark:bg-[#23211f] px-4 py-3">
                       <span className="text-sm text-[#5e5645] dark:text-[#B8B4B0]">Prominent essays</span>
-                      <span className="text-base font-semibold text-[#161513] dark:text-[#F5F4F2]">{shelfBlogs.length}</span>
+                      <span className="text-base font-semibold text-[#161513] dark:text-[#F5F4F2]">{editorialBlogs.length}</span>
                     </div>
                     <div className="signal-card flex items-center justify-between rounded-2xl border border-[#eee4d5] dark:border-[#3D3A36] bg-[#fffaf3] dark:bg-[#23211f] px-4 py-3">
                       <span className="text-sm text-[#5e5645] dark:text-[#B8B4B0]">Tracked topics</span>
@@ -523,7 +547,7 @@ export default function Home({ blogs, topics }) {
             </div>
           </section>
 
-          {/* Compact 30-Day DS Challenge banner */}
+          {/* Dedicated Learning Path track */}
           <section className="relative overflow-hidden border-b border-[#E0DDD9] dark:border-[#3D3A36]">
             <div className="absolute inset-0 bg-gradient-to-br rw-section-teal"></div>
             <div className="absolute inset-0 opacity-20">
@@ -538,14 +562,27 @@ export default function Home({ blogs, topics }) {
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C74634] opacity-75"></span>
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E8572A]"></span>
                     </span>
-                    FLAGSHIP SERIES
+                    LEARNING PATH
                   </div>
                   <h2 className="text-2xl md:text-3xl font-bold text-white mb-3" style={{ fontFamily: "Charter, Georgia, serif" }}>
                     30-Day Data Science Challenge
                   </h2>
                   <p className="text-base text-[#a8b2d1] leading-relaxed">
-                    Nonparametric statistics, robust methods, fuzzy logic, and sampling theory — from Boolean algebra to complete audit blueprints. <strong className="text-white">30 days. 6 pillars. 100+ formulas.</strong>
+                    A dedicated curriculum, separate from the editorial blog: nonparametric statistics, robust methods, fuzzy logic, and sampling theory. <strong className="text-white">30 days. 6 pillars. 100+ formulas.</strong>
                   </p>
+                  <div className="mt-4 flex flex-wrap items-center gap-3 text-xs">
+                    <span className="px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[#dbe7ff]">
+                      {dsChallengePosts.length} learning notes published
+                    </span>
+                    {latestDSPost && (
+                      <a
+                        href={`/blogs/${generateSlug(latestDSPost.data.Title)}`}
+                        className="px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[#dbe7ff] hover:bg-white/20 transition-colors"
+                      >
+                        Latest: {latestDSPost.data.Title}
+                      </a>
+                    )}
+                  </div>
                 </div>
                 <div className="flex flex-wrap gap-3 shrink-0">
                   <a
@@ -559,7 +596,7 @@ export default function Home({ blogs, topics }) {
                     href="/blogs/day-1-boolean-logic-to-numbers-and-as-min-or-as-max"
                     className="pro-ghost inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-all duration-300"
                   >
-                    Start Day 1
+                    Open latest lesson
                   </a>
                 </div>
               </div>
@@ -608,7 +645,7 @@ export default function Home({ blogs, topics }) {
                     />
                   </svg>
                   <h2 className="text-2xl font-semibold tracking-tight" style={{ fontFamily: "Charter, Georgia, serif" }}>
-                    Trending
+                    Trending essays
                   </h2>
                 </div>
                 <div className="grid gap-10 md:grid-cols-2">
@@ -680,10 +717,10 @@ export default function Home({ blogs, topics }) {
                     className="text-2xl md:text-3xl font-semibold text-[#161513] dark:text-[#F5F4F2] mb-2"
                     style={{ fontFamily: "Charter, Georgia, serif" }}
                   >
-                    Latest essays from the main shelf
+                    Latest essays from the editorial desk
                   </h2>
                   <p className="text-sm md:text-base text-[#5e5645] dark:text-[#B8B4B0]">
-                    Long-form writing across data science, civilization, football, and personal reflections.
+                    Long-form writing across civilization, football, AI, and personal reflections.
                   </p>
                 </div>
                 <DataScienceYouTubeShelf />

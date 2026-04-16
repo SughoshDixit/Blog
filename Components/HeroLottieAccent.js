@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 
 export default function HeroLottieAccent() {
+  const { basePath } = useRouter();
   const containerRef = useRef(null);
   const [shouldLoad, setShouldLoad] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -47,8 +49,12 @@ export default function HeroLottieAccent() {
         const { default: lottie } = await import("lottie-web");
         if (cancelled || !containerRef.current) return;
 
-        const response = await fetch("/lottie/robust_workflow.json");
-        if (!response.ok) return;
+        const assetUrl = `${basePath || ""}/lottie/robust_workflow.json`;
+        const response = await fetch(assetUrl);
+        if (!response.ok) {
+          console.error("Hero Lottie asset load failed:", response.status, assetUrl);
+          return;
+        }
         const animationData = await response.json();
         if (cancelled || !containerRef.current) return;
 

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 
 export default function FocusStripLottieAccent() {
+  const { basePath } = useRouter();
   const containerRef = useRef(null);
   const [shouldLoad, setShouldLoad] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -47,8 +49,12 @@ export default function FocusStripLottieAccent() {
         const { default: lottie } = await import("lottie-web");
         if (cancelled || !containerRef.current) return;
 
-        const response = await fetch("/lottie/classical_vs_robust.json");
-        if (!response.ok) return;
+        const assetUrl = `${basePath || ""}/lottie/classical_vs_robust.json`;
+        const response = await fetch(assetUrl);
+        if (!response.ok) {
+          console.error("Focus Lottie asset load failed:", response.status, assetUrl);
+          return;
+        }
         const animationData = await response.json();
         if (cancelled || !containerRef.current) return;
 
@@ -89,7 +95,7 @@ export default function FocusStripLottieAccent() {
             Motion disabled
           </div>
         ) : (
-          <div ref={containerRef} className="h-full w-full opacity-85" aria-hidden="true" />
+          <div ref={containerRef} className="h-full w-full opacity-90" aria-hidden="true" />
         )}
       </div>
     </div>
