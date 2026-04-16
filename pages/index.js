@@ -22,6 +22,7 @@ import FootballShelf from "../Components/FootballShelf";
 import DataScienceYouTubeShelf from "../Components/DataScienceYouTubeShelf";
 import HeroLottieAccent from "../Components/HeroLottieAccent";
 import FocusStripLottieAccent from "../Components/FocusStripLottieAccent";
+import TopicWordCloud from "../Components/TopicWordCloud";
 
 export const getStaticProps = () => {
   const allBlogs = getAllBlogPosts();
@@ -652,6 +653,12 @@ export default function Home({ blogs, topics }) {
               </div>
             </section>
           )}
+
+          <section className="border-b border-[#E0DDD9] dark:border-[#3D3A36] bg-[#FAF8F6] dark:bg-[#201E1C]">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 py-12">
+              <TopicWordCloud />
+            </div>
+          </section>
 
           {/* Trending */}
           {trendingPosts.length > 0 && (
