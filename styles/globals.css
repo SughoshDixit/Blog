@@ -35,22 +35,31 @@ body {
   line-height: 1.64;
   color: #161513;
   background-color: #FAF8F6;
-  background-image: url("https://static.oracle.com/cdn/apex/21.1.0/themes/theme_42/1.6/images/rw/textures/texture-6.png");
-  background-repeat: repeat;
-  background-size: auto;
-  background-attachment: fixed;
-  background-blend-mode: multiply;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .dark body {
   background-color: #201E1C;
+  color: #F5F4F2;
+}
+
+/* Global Redwood texture overlay (always visible above section backgrounds) */
+html::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
   background-image: url("https://static.oracle.com/cdn/apex/21.1.0/themes/theme_42/1.6/images/rw/textures/texture-6.png");
   background-repeat: repeat;
   background-size: auto;
-  background-attachment: fixed;
-  background-blend-mode: soft-light;
-  color: #F5F4F2;
+  opacity: 0.13;
+  mix-blend-mode: multiply;
+}
+
+.dark html::before {
+  opacity: 0.08;
+  mix-blend-mode: soft-light;
 }
 
 /* Blog headings */
