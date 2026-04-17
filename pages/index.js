@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import heroTexture from "../sl7_textures.png";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { getAllBlogPosts, getProminentTopics } from "../Lib/Data";
@@ -368,10 +369,14 @@ export default function Home({ blogs, topics }) {
 
         <main className="pt-24 pb-16 bg-[#FAF8F6] dark:bg-[#201E1C] transition-colors duration-300">
           {/* Hero — Refined personal brand */}
-          <section className="relative overflow-hidden border-b border-[#E0DDD9] dark:border-[#3D3A36] rw-hero">
-            <div className="rw-blob rw-blob-1" aria-hidden="true" />
-            <div className="rw-blob rw-blob-2" aria-hidden="true" />
-            <div className="rw-dots" aria-hidden="true" />
+          <section
+            className="relative overflow-hidden border-b border-[#E0DDD9] dark:border-[#3D3A36] rw-hero"
+            style={{
+              backgroundImage: `url(${heroTexture.src})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
 
             <div className="relative max-w-7xl mx-auto px-4 md:px-8">
               <div className="grid gap-12 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-center py-20">
