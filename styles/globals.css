@@ -1329,10 +1329,14 @@ a:active, button:active {
 /* Redwood hero — dark teal/ocean gradient matching Oracle Redwood brand */
 .rw-hero {
   background-color: #003a4c;
-  background-image: url("/redwood%20imgs/sl7_textures.png");
-  background-repeat: repeat;
-  background-size: cover;
-  background-position: center;
+  background-image:
+    linear-gradient(135deg, rgba(0, 58, 76, 0.62) 0%, rgba(0, 77, 58, 0.52) 45%, rgba(0, 48, 48, 0.62) 100%),
+    url("/redwood%20imgs/sl7_textures.png"),
+    url("/redwood%20imgs/ao-navigation-list-bg-new.png");
+  background-repeat: no-repeat, repeat, repeat;
+  background-size: cover, cover, 320px auto;
+  background-position: center, center, center;
+  background-blend-mode: multiply, normal, soft-light;
   position: relative;
   min-height: 520px;
   isolation: isolate;
@@ -1447,10 +1451,14 @@ a:active, button:active {
 /* Redwood teal accent section (e.g. 30-Day challenge, feature banners) */
 .rw-section-teal {
   background-color: #003a4c;
-  background-image: url("/redwood%20imgs/sl7_textures_1.png");
-  background-repeat: repeat;
-  background-size: cover;
-  background-position: center;
+  background-image:
+    linear-gradient(135deg, rgba(0, 58, 76, 0.58) 0%, rgba(0, 80, 74, 0.5) 50%, rgba(0, 58, 56, 0.6) 100%),
+    url("/redwood%20imgs/sl7_textures_1.png"),
+    url("/redwood%20imgs/ROC_bg_texture.png");
+  background-repeat: no-repeat, repeat, repeat;
+  background-size: cover, cover, 360px auto;
+  background-position: center, center, center;
+  background-blend-mode: multiply, normal, overlay;
 }
 
 /* Redwood warm section divider */

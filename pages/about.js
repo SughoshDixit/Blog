@@ -87,10 +87,6 @@ function About({ topics }) {
 
       {/* Hero */}
       <section className="relative overflow-hidden rw-hero">
-        <div className="rw-blob rw-blob-1" aria-hidden="true" />
-        <div className="rw-blob rw-blob-2" aria-hidden="true" />
-        <div className="rw-dots" aria-hidden="true" />
-
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 pt-32 pb-20 text-center">
           <div className="relative inline-block mb-8">
             <div className="absolute inset-0 bg-[#C74634]/40 rounded-full blur-2xl" />
