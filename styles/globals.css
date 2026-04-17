@@ -49,16 +49,34 @@ html::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 9999;
-  background-image: url("https://static.oracle.com/cdn/apex/21.1.0/themes/theme_42/1.6/images/rw/textures/texture-6.png");
+  z-index: 0;
+  background-image: url("/redwood%20imgs/ROC_bg_texture.png");
   background-repeat: repeat;
   background-size: auto;
-  opacity: 0.13;
+  opacity: 0.16;
   mix-blend-mode: multiply;
 }
 
 .dark html::before {
   opacity: 0.08;
+  mix-blend-mode: soft-light;
+}
+
+html::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("/redwood%20imgs/ao-navigation-list-bg-new.png");
+  background-repeat: repeat;
+  background-size: 340px auto;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+}
+
+.dark html::after {
+  opacity: 0.05;
   mix-blend-mode: soft-light;
 }
 
@@ -1310,8 +1328,14 @@ a:active, button:active {
 
 /* Redwood hero — dark teal/ocean gradient matching Oracle Redwood brand */
 .rw-hero {
-  background: linear-gradient(135deg, #003A4C 0%, #004D3A 40%, #003030 100%);
+  background-color: #003a4c;
+  background-image: url("/redwood%20imgs/sl7_textures.png");
+  background-repeat: repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
   min-height: 520px;
+  isolation: isolate;
 }
 
 /* Organic blob shapes — Oracle Redwood signature visual identity */
@@ -1422,7 +1446,11 @@ a:active, button:active {
 
 /* Redwood teal accent section (e.g. 30-Day challenge, feature banners) */
 .rw-section-teal {
-  background: linear-gradient(135deg, #003A4C 0%, #00504A 50%, #003A38 100%);
+  background-color: #003a4c;
+  background-image: url("/redwood%20imgs/sl7_textures_1.png");
+  background-repeat: repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 /* Redwood warm section divider */

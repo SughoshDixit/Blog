@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Image from "next/image";
-import heroTexture from "../sl7_textures.png";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { getAllBlogPosts, getProminentTopics } from "../Lib/Data";
@@ -371,11 +370,6 @@ export default function Home({ blogs, topics }) {
           {/* Hero — Refined personal brand */}
           <section
             className="relative overflow-hidden border-b border-[#E0DDD9] dark:border-[#3D3A36] rw-hero"
-            style={{
-              backgroundImage: `url(${heroTexture.src})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
           >
 
             <div className="relative max-w-7xl mx-auto px-4 md:px-8">
