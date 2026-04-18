@@ -29,55 +29,24 @@ h1[id], h2[id], h3[id], h4[id], h5[id], h6[id] {
   scroll-margin-top: 80px;
 }
 
-/* Oracle Redwood body */
+/* Oracle Redwood body — Apex Redwood theme_42 grain (t-Body-main style) */
 body {
   font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.64;
   color: #161513;
   background-color: #FAF8F6;
+  background-image: url("https://static.oracle.com/cdn/apex/21.1.0/themes/theme_42/1.6/images/rw/textures/texture-6.png");
+  background-repeat: repeat;
+  background-attachment: fixed;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .dark body {
   background-color: #201E1C;
   color: #F5F4F2;
-}
-
-/* Global Redwood texture overlay (always visible above section backgrounds) */
-html::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image: url("/redwood%20imgs/ROC_bg_texture.png");
+  background-image: url("https://static.oracle.com/cdn/apex/21.1.0/themes/theme_42/1.6/images/rw/textures/texture-6.png");
   background-repeat: repeat;
-  background-size: auto;
-  opacity: 0.16;
-  mix-blend-mode: multiply;
-}
-
-.dark html::before {
-  opacity: 0.08;
-  mix-blend-mode: soft-light;
-}
-
-html::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image: url("/redwood%20imgs/ao-navigation-list-bg-new.png");
-  background-repeat: repeat;
-  background-size: 340px auto;
-  opacity: 0.08;
-  mix-blend-mode: overlay;
-}
-
-.dark html::after {
-  opacity: 0.05;
-  mix-blend-mode: soft-light;
+  background-attachment: fixed;
 }
 
 /* Blog headings */
@@ -1329,7 +1298,7 @@ a:active, button:active {
 /* Redwood hero — dark teal/ocean gradient matching Oracle Redwood brand */
 .rw-hero {
   background-color: #003a4c;
-  background-image: url("/redwood%20imgs/sl7_textures.png");
+  background-image: url("/redwood%20imgs/sl7_textures_1.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
