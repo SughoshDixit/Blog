@@ -363,10 +363,10 @@ export default function Home({ blogs, topics }) {
         />
       </Head>
 
-      <div className="min-h-screen relative bg-[#FAF8F6] dark:bg-[#201E1C] transition-colors duration-300">
+      <div className="min-h-screen relative transition-colors duration-300">
         <Navbar topics={topics} />
 
-        <main className="pt-24 pb-16 bg-[#FAF8F6] dark:bg-[#201E1C] transition-colors duration-300">
+        <main className="pt-24 pb-16 transition-colors duration-300">
           {/* Hero — Refined personal brand */}
           <section
             className="relative overflow-hidden border-b border-[#E0DDD9] dark:border-[#3D3A36] rw-hero"
@@ -527,7 +527,7 @@ export default function Home({ blogs, topics }) {
           </section>
 
           {/* Featured documentary */}
-          <section className="border-b border-[#E0DDD9] dark:border-[#3D3A36] bg-[#FAF8F6] dark:bg-[#201E1C]">
+          <section className="border-b border-[#E0DDD9] dark:border-[#3D3A36] rw-bg-page">
             <div className="max-w-7xl mx-auto px-4 md:px-8 py-12">
               <div className="reveal rounded-3xl overflow-hidden border border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27] shadow-soft">
                 <div className="grid gap-6 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
@@ -633,7 +633,7 @@ export default function Home({ blogs, topics }) {
 
           {/* Topics rail */}
           {tagPills.length > 0 && (
-            <section className="border-b border-[#E0DDD9] dark:border-[#3D3A36] bg-[#FAF8F6] dark:bg-[#201E1C]">
+            <section className="border-b border-[#E0DDD9] dark:border-[#3D3A36] rw-bg-page">
               <div className="max-w-7xl mx-auto px-4 md:px-8 py-6">
                 <div className="flex items-center gap-4 overflow-x-auto no-scrollbar">
                   <span className="uppercase tracking-wider text-xs font-semibold text-[#8c8169] dark:text-[#B8B4B0]">
@@ -653,7 +653,7 @@ export default function Home({ blogs, topics }) {
             </section>
           )}
 
-          <section className="border-b border-[#E0DDD9] dark:border-[#3D3A36] bg-[#FAF8F6] dark:bg-[#201E1C]">
+          <section className="border-b border-[#E0DDD9] dark:border-[#3D3A36] rw-bg-page">
             <div className="max-w-7xl mx-auto px-4 md:px-8 py-12">
               <TopicWordCloud />
             </div>

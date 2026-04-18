@@ -96,7 +96,7 @@ export default function FootballPage({ topics, footballPosts }) {
         />
       </Head>
 
-      <div className="min-h-screen bg-[#FAF8F6] dark:bg-[#201E1C] transition-colors duration-300">
+      <div className="min-h-screen relative transition-colors duration-300">
         <Navbar topics={topics} />
 
         <main className="pt-24 pb-16">

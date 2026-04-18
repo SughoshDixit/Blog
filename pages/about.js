@@ -64,7 +64,7 @@ const socials = [
 
 function About({ topics }) {
   return (
-    <div className="min-h-screen relative bg-[#FAF8F6] dark:bg-[#201E1C]">
+    <div className="min-h-screen relative">
       <Head>
         <title>About — Sughosh Dixit</title>
         <meta
@@ -163,7 +163,7 @@ function About({ topics }) {
                 desc: "The beautiful game as culture, discipline, and personal philosophy.",
               },
             ].map((item) => (
-              <div key={item.title} className="rounded-2xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-[#FAF8F6] dark:bg-[#201E1C] p-5">
+              <div key={item.title} className="rounded-2xl border border-[#E0DDD9] dark:border-[#3D3A36] rw-bg-page p-5">
                 <h3 className="text-lg font-semibold text-[#161513] dark:text-[#F5F4F2] mb-2" style={CHARTER}>
                   {item.title}
                 </h3>
@@ -177,7 +177,7 @@ function About({ topics }) {
       </section>
 
       {/* Two Worlds */}
-      <section className="py-16 md:py-20 bg-[#FAF8F6] dark:bg-[#201E1C]">
+      <section className="py-16 md:py-20 rw-bg-page">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
             <h2 className={SECTION_TITLE} style={CHARTER}>
@@ -206,11 +206,11 @@ function About({ topics }) {
                   My 30-Day Challenge covers nonparametric statistics, robust methods, and real-world audit applications.
                 </p>
                 <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="p-4 rounded-xl bg-[#FAF8F6] dark:bg-[#201E1C]">
+                  <div className="p-4 rounded-xl rw-bg-page">
                     <div className="text-2xl font-bold text-[#C74634]">30</div>
                     <div className="text-sm text-[#6E6B68] dark:text-[#B8B4B0]">Day Challenge</div>
                   </div>
-                  <div className="p-4 rounded-xl bg-[#FAF8F6] dark:bg-[#201E1C]">
+                  <div className="p-4 rounded-xl rw-bg-page">
                     <div className="text-2xl font-bold text-[#C74634]">6</div>
                     <div className="text-sm text-[#6E6B68] dark:text-[#B8B4B0]">Core Pillars</div>
                   </div>
@@ -241,11 +241,11 @@ function About({ topics }) {
                   Inspired by <strong>Jurgen Klopp&apos;s</strong> &ldquo;Heavy Metal Football&rdquo; and <strong>Steven Gerrard&apos;s</strong> leadership. I write about why Football teaches us about life, resilience, and unity.
                 </p>
                 <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="p-4 rounded-xl bg-[#FAF8F6] dark:bg-[#201E1C]">
+                  <div className="p-4 rounded-xl rw-bg-page">
                     <div className="text-2xl font-bold text-[#2d6a4f]">LFC</div>
                     <div className="text-sm text-[#6E6B68] dark:text-[#B8B4B0]">Supporter</div>
                   </div>
-                  <div className="p-4 rounded-xl bg-[#FAF8F6] dark:bg-[#201E1C]">
+                  <div className="p-4 rounded-xl rw-bg-page">
                     <div className="text-2xl font-bold text-[#2d6a4f]">YNWA</div>
                     <div className="text-sm text-[#6E6B68] dark:text-[#B8B4B0]">Midfielder</div>
                   </div>
@@ -280,7 +280,7 @@ function About({ topics }) {
               { src: "https://www.youtube.com/embed/rrbSLCis0QY?si=07qJavu89OD2cLfg", title: "Channel Introduction", desc: "Get to know what this channel is all about" },
               { src: "https://www.youtube.com/embed/vX5sqN4Wl78?si=I_UpIrEyLFOlDl-c", title: "Football Skills", desc: "Watch me in action on the football pitch" },
             ].map(({ src, title, desc }) => (
-              <div key={title} className="rounded-2xl overflow-hidden border border-[#E0DDD9] dark:border-[#3D3A36] bg-[#FAF8F6] dark:bg-[#201E1C]">
+              <div key={title} className="rounded-2xl overflow-hidden border border-[#E0DDD9] dark:border-[#3D3A36] rw-bg-page">
                 <div className="aspect-video">
                   <iframe
                     width="100%"
@@ -315,7 +315,7 @@ function About({ topics }) {
       </section>
 
       {/* Professional Journey */}
-      <section className="py-16 md:py-20 bg-[#FAF8F6] dark:bg-[#201E1C]">
+      <section className="py-16 md:py-20 rw-bg-page">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
             <h2 className={SECTION_TITLE} style={CHARTER}>
@@ -382,7 +382,7 @@ function About({ topics }) {
               </h2>
               <div className="space-y-4">
                 {achievements.map(({ icon, gradient, title, desc }) => (
-                  <div key={title} className="p-4 rounded-xl bg-[#FAF8F6] dark:bg-[#201E1C] border border-[#E0DDD9] dark:border-[#3D3A36] hover:shadow-md transition-all">
+                  <div key={title} className="p-4 rounded-xl rw-bg-page border border-[#E0DDD9] dark:border-[#3D3A36] hover:shadow-md transition-all">
                     <div className="flex items-center gap-4">
                       <div className={`w-11 h-11 rounded-full bg-gradient-to-br ${gradient} flex items-center justify-center shrink-0`}>
                         {icon}
@@ -401,7 +401,7 @@ function About({ topics }) {
       </section>
 
       {/* Connect */}
-      <section className="py-16 md:py-20 bg-[#FAF8F6] dark:bg-[#201E1C]">
+      <section className="py-16 md:py-20 rw-bg-page">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <h2 className={SECTION_TITLE} style={CHARTER}>
             Let&apos;s Connect

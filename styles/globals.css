@@ -49,6 +49,21 @@ body {
   background-attachment: fixed;
 }
 
+/* Cream/dark page stripes — include Oracle grain (opaque Tailwind bg-* hid body texture) */
+.rw-bg-page {
+  background-color: #FAF8F6;
+  background-image: url("https://static.oracle.com/cdn/apex/21.1.0/themes/theme_42/1.6/images/rw/textures/texture-6.png");
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+
+.dark .rw-bg-page {
+  background-color: #201E1C;
+  background-image: url("https://static.oracle.com/cdn/apex/21.1.0/themes/theme_42/1.6/images/rw/textures/texture-6.png");
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+
 /* Blog headings */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Charter', Georgia, serif;
