@@ -29,39 +29,52 @@ h1[id], h2[id], h3[id], h4[id], h5[id], h6[id] {
   scroll-margin-top: 80px;
 }
 
-/* Oracle Redwood body — Apex Redwood theme_42 grain (t-Body-main style) */
+/* Oracle Redwood — Apex theme_42 paper grain (self-hosted for reliable delivery) */
+html {
+  min-height: 100%;
+  background-color: #FAF8F6;
+  background-image: url("/redwood-imgs/texture-6.png");
+  background-repeat: repeat;
+}
+
+.dark html {
+  background-color: #201E1C;
+  background-image: url("/redwood-imgs/texture-6.png");
+}
+
+#__next {
+  min-height: 100%;
+  background-color: transparent;
+}
+
+/* Oracle Redwood body — match html grain (scroll attachment: fixed breaks iOS backgrounds) */
 body {
   font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.64;
   color: #161513;
+  min-height: 100%;
   background-color: #FAF8F6;
-  background-image: url("https://static.oracle.com/cdn/apex/21.1.0/themes/theme_42/1.6/images/rw/textures/texture-6.png");
+  background-image: url("/redwood-imgs/texture-6.png");
   background-repeat: repeat;
-  background-attachment: fixed;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .dark body {
   background-color: #201E1C;
   color: #F5F4F2;
-  background-image: url("https://static.oracle.com/cdn/apex/21.1.0/themes/theme_42/1.6/images/rw/textures/texture-6.png");
-  background-repeat: repeat;
-  background-attachment: fixed;
+  background-image: url("/redwood-imgs/texture-6.png");
 }
 
-/* Cream/dark page stripes — include Oracle grain (opaque Tailwind bg-* hid body texture) */
+/* Cream/dark page stripes — same grain as body */
 .rw-bg-page {
   background-color: #FAF8F6;
-  background-image: url("https://static.oracle.com/cdn/apex/21.1.0/themes/theme_42/1.6/images/rw/textures/texture-6.png");
+  background-image: url("/redwood-imgs/texture-6.png");
   background-repeat: repeat;
-  background-attachment: fixed;
 }
 
 .dark .rw-bg-page {
   background-color: #201E1C;
-  background-image: url("https://static.oracle.com/cdn/apex/21.1.0/themes/theme_42/1.6/images/rw/textures/texture-6.png");
-  background-repeat: repeat;
-  background-attachment: fixed;
+  background-image: url("/redwood-imgs/texture-6.png");
 }
 
 /* Blog headings */
@@ -1310,13 +1323,15 @@ a:active, button:active {
    ORACLE REDWOOD HERO & VISUAL ELEMENTS
    ============================================ */
 
-/* Redwood hero — dark teal/ocean gradient matching Oracle Redwood brand */
+/* Redwood hero — sl7 art is light on the left; anchor right + tint so texture reads on teal */
 .rw-hero {
   background-color: #003a4c;
-  background-image: url("/redwood%20imgs/sl7_textures_1.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  background-image:
+    linear-gradient(165deg, rgba(0, 52, 68, 0.78) 0%, rgba(0, 40, 54, 0.35) 45%, rgba(0, 58, 76, 0.82) 100%),
+    url("/redwood-imgs/sl7_textures_1.png");
+  background-repeat: no-repeat, no-repeat;
+  background-size: cover, cover;
+  background-position: center, 88% center;
   position: relative;
   min-height: 520px;
   isolation: isolate;
@@ -1431,10 +1446,12 @@ a:active, button:active {
 /* Redwood teal accent section (e.g. 30-Day challenge, feature banners) */
 .rw-section-teal {
   background-color: #003a4c;
-  background-image: url("/redwood%20imgs/sl7_textures_1.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  background-image:
+    linear-gradient(165deg, rgba(0, 52, 68, 0.75) 0%, rgba(0, 40, 54, 0.3) 50%, rgba(0, 58, 76, 0.78) 100%),
+    url("/redwood-imgs/sl7_textures_1.png");
+  background-repeat: no-repeat, no-repeat;
+  background-size: cover, cover;
+  background-position: center, 88% center;
 }
 
 /* Redwood warm section divider */
