@@ -83,6 +83,10 @@ export default function Home({ blogs, topics }) {
 
   const [engagementMap, setEngagementMap] = useState({});
   const [totalVisits, setTotalVisits] = useState(null);
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterTrack, setNewsletterTrack] = useState("general");
+  const [newsletterState, setNewsletterState] = useState({ type: "idle", message: "" });
+  const [isSubmittingNewsletter, setIsSubmittingNewsletter] = useState(false);
   const isDSPost = (blog) => blog?.data?.Topic === "Data Science";
 
   useEffect(() => {
@@ -284,6 +288,132 @@ export default function Home({ blogs, topics }) {
     return "https://miro.medium.com/v2/resize:fit:640/1*9dZCMV2XpN7dBDEHMyC-qA.png";
   };
 
+  const newsletterTrackOptions = [
+    { value: "general", label: "All major updates" },
+    { value: "data-science-ai", label: "Data Science & AI" },
+    { value: "history-civilization", label: "History & Civilization" },
+    { value: "finance-decisions", label: "Finance & Decision-Making" },
+    { value: "books-intellectual", label: "Books & Intellectual Notes" },
+    { value: "football", label: "Football Lens" },
+  ];
+
+  const handleNewsletterSubmit = async (e) => {
+    e.preventDefault();
+    const email = newsletterEmail.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      setNewsletterState({ type: "error", message: "Please enter a valid email address." });
+      return;
+    }
+
+    setIsSubmittingNewsletter(true);
+    setNewsletterState({ type: "loading", message: "Signing you up..." });
+
+    try {
+      const response = await fetch("/api/newsletter/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          track: newsletterTrack,
+          sourcePage: "home",
+        }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (response.ok) {
+        setNewsletterState({
+          type: "success",
+          message: data.message || "Subscribed successfully. Check your inbox for confirmation.",
+        });
+        setNewsletterEmail("");
+      } else {
+        setNewsletterState({
+          type: "error",
+          message: data.error || "Unable to subscribe right now. Please try again.",
+        });
+      }
+    } catch (error) {
+      setNewsletterState({
+        type: "error",
+        message: "Network error. Please try again in a moment.",
+      });
+    } finally {
+      setIsSubmittingNewsletter(false);
+    }
+  };
+
+  const getRecentByTopic = (topicName, limit = 2) =>
+    [...publishedBlogs]
+      .filter((post) => (post?.data?.Topic || "").toLowerCase() === topicName.toLowerCase())
+      .slice(0, limit);
+
+  const getRecentByKeywords = (keywords, limit = 2) =>
+    [...publishedBlogs]
+      .filter((post) => {
+        const topic = (post?.data?.Topic || "").toLowerCase();
+        const title = (post?.data?.Title || "").toLowerCase();
+        const tags = (post?.data?.Tags || "").toLowerCase();
+        return keywords.some((keyword) => {
+          const normalized = keyword.toLowerCase();
+          return topic.includes(normalized) || title.includes(normalized) || tags.includes(normalized);
+        });
+      })
+      .slice(0, limit);
+
+  const valueTracks = useMemo(() => {
+    const tracks = [
+      {
+        id: "ai-data",
+        label: "Data Science & AI",
+        intent: "Learn practical modeling, reasoning, and implementation.",
+        href: "/learning-path",
+        cta: "Start learning path",
+        picks: getRecentByTopic("Data Science", 2),
+      },
+      {
+        id: "history-national-thought",
+        label: "History, Civilization & National Thought",
+        intent: "Get perspective with long-form historical and cultural analysis.",
+        href: "/start-here",
+        cta: "Open curated guide",
+        picks: getRecentByKeywords(["vedic", "civilization", "bharat", "savarkar", "rss", "history", "national"], 2),
+      },
+      {
+        id: "finance-decisions",
+        label: "Finance & Decision-Making",
+        intent: "Use frameworks for risk, trade-offs, and practical decisions.",
+        href: "/topic/Experience",
+        cta: "Read decision notes",
+        picks: getRecentByKeywords(["finance", "market", "risk", "economy", "money"], 2),
+      },
+      {
+        id: "books-ideas",
+        label: "Book Summaries & Intellectual Notes",
+        intent: "Absorb key ideas quickly, then go deeper.",
+        href: "/topic/Book",
+        cta: "Browse book notes",
+        picks: getRecentByTopic("Book", 2),
+      },
+      {
+        id: "football",
+        label: "Football Lens",
+        intent: "See sport, tactics, and storytelling through football.",
+        href: "/football",
+        cta: "Visit football hub",
+        picks: getRecentByKeywords(["football", "liverpool", "soccer"], 2),
+      },
+    ];
+
+    return tracks
+      .map((track) => ({
+        ...track,
+        picks: track.picks.filter(Boolean),
+      }))
+      .filter((track) => track.picks.length > 0);
+  }, [publishedBlogs]);
+
   return (
     <>
       <Head>
@@ -460,6 +590,69 @@ export default function Home({ blogs, topics }) {
               </div>
             </div>
           </section>
+
+          {/* Value-first entry points */}
+          {valueTracks.length > 0 && (
+            <section className="border-b border-[#E0DDD9] dark:border-[#3D3A36] rw-bg-page">
+              <div className="max-w-7xl mx-auto px-4 md:px-8 py-14">
+                <div className="mb-8 reveal">
+                  <p className="text-xs uppercase tracking-[0.2em] text-[#9a8f75] dark:text-[#6E6B68] mb-3">
+                    Choose by outcome
+                  </p>
+                  <h2
+                    className="text-2xl md:text-3xl font-semibold text-[#161513] dark:text-[#F5F4F2] mb-3"
+                    style={{ fontFamily: "Charter, Georgia, serif" }}
+                  >
+                    Get value in your first 10 minutes
+                  </h2>
+                  <p className="text-[#5e5645] dark:text-[#B8B4B0] max-w-3xl">
+                    Pick a goal and jump straight to the most relevant posts from the current archive. Each track is curated to help you learn, apply, and think better.
+                  </p>
+                </div>
+
+                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                  {valueTracks.map((track, index) => (
+                    <article
+                      key={track.id}
+                      className={`reveal stagger-${Math.min(index + 1, 6)} rounded-3xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27] p-6 shadow-soft`}
+                    >
+                      <h3
+                        className="text-lg font-semibold text-[#161513] dark:text-[#F5F4F2] mb-2"
+                        style={{ fontFamily: "Charter, Georgia, serif" }}
+                      >
+                        {track.label}
+                      </h3>
+                      <p className="text-sm text-[#5e5645] dark:text-[#B8B4B0] mb-4 leading-relaxed">
+                        {track.intent}
+                      </p>
+                      <div className="space-y-3 mb-5">
+                        {track.picks.map((post) => (
+                          <a
+                            key={post.data.Id}
+                            href={`/blogs/${generateSlug(post.data.Title)}`}
+                            className="block rounded-2xl border border-[#EEE4D5] dark:border-[#3D3A36] bg-[#FFFaf3] dark:bg-[#23211f] px-4 py-3 hover:border-[#d7c8a7] transition-colors"
+                          >
+                            <p className="text-sm font-semibold text-[#352f25] dark:text-[#F5F4F2] line-clamp-2">
+                              {post.data.Title}
+                            </p>
+                            <p className="text-xs text-[#7c7461] dark:text-[#9f9a92] mt-1">
+                              {post.readTime.text}
+                            </p>
+                          </a>
+                        ))}
+                      </div>
+                      <a
+                        href={track.href}
+                        className="inline-flex items-center text-sm font-semibold text-[#C74634] dark:text-[#E8572A] hover:text-[#A73A2C]"
+                      >
+                        {track.cta} &rarr;
+                      </a>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
 
           {/* Brand proof + positioning strip */}
           <section className="border-b border-[#E0DDD9] dark:border-[#3D3A36] bg-white/80 dark:bg-[#23211f]/70">
@@ -904,21 +1097,54 @@ export default function Home({ blogs, topics }) {
                     Weekly digest
                   </h2>
                   <p className="text-sm text-[#5e5645] dark:text-[#B8B4B0] mb-6">
-                    Get the top three stories in your inbox every Sunday along with new experiments from the lab.
+                    Get the top stories every Sunday, with updates tailored to what you want to learn most.
                   </p>
-                  <form className="space-y-4">
+                  <form onSubmit={handleNewsletterSubmit} className="space-y-4">
+                    <label className="block">
+                      <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8b7d63] dark:text-[#9f988d]">
+                        Primary track
+                      </span>
+                      <select
+                        value={newsletterTrack}
+                        onChange={(e) => setNewsletterTrack(e.target.value)}
+                        className="mt-2 w-full px-4 py-3 rounded-full border border-[#E0DDD9] focus:outline-none focus:border-[#C74634] bg-white text-sm text-[#333] dark:bg-[#201E1C] dark:text-[#F5F4F2] dark:border-[#3D3A36]"
+                      >
+                        {newsletterTrackOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
                     <input
                       type="email"
+                      value={newsletterEmail}
+                      onChange={(e) => setNewsletterEmail(e.target.value)}
                       placeholder="Your email"
+                      required
                       className="w-full px-4 py-3 rounded-full border border-[#E0DDD9] focus:outline-none focus:border-[#C74634] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#201E1C] dark:text-[#F5F4F2] dark:border-[#3D3A36] dark:placeholder:text-[#6E6B68]"
                     />
                     <button
                       type="submit"
-                      className="w-full medium-button inline-flex items-center justify-center px-6 py-3 text-sm"
+                      disabled={isSubmittingNewsletter}
+                      className="w-full medium-button inline-flex items-center justify-center px-6 py-3 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Sign me up
+                      {isSubmittingNewsletter ? "Signing up..." : "Sign me up"}
                     </button>
                   </form>
+                  {newsletterState.message && (
+                    <p
+                      className={`text-xs mt-3 ${
+                        newsletterState.type === "success"
+                          ? "text-[#2F6B3B] dark:text-[#9fd6aa]"
+                          : newsletterState.type === "error"
+                          ? "text-[#A73A2C] dark:text-[#F29A8A]"
+                          : "text-[#8b7d63] dark:text-[#9f988d]"
+                      }`}
+                    >
+                      {newsletterState.message}
+                    </p>
+                  )}
                   <p className="text-xs text-[#9a8f75] dark:text-[#6E6B68] mt-4">
                     No spam, unsubscribe anytime.
                   </p>

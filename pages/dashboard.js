@@ -98,6 +98,8 @@ export default function Dashboard({ blogs, topics }) {
   const [loading, setLoading] = useState(true);
   const [usersSort, setUsersSort] = useState({ key: "lastSeen", dir: "desc" });
   const [usersPage, setUsersPage] = useState(0);
+  const [digestActionLoading, setDigestActionLoading] = useState(false);
+  const [digestResult, setDigestResult] = useState(null);
   const pageSize = 10;
   const consistencyChartRef = useRef(null);
   const [viewMode, setViewMode] = useState('daily'); // 'daily' or 'monthly'
@@ -255,6 +257,50 @@ export default function Dashboard({ blogs, topics }) {
     } catch (error) {
       console.error('Download failed:', error);
       alert('Download failed: ' + error.message);
+    }
+  };
+
+  const triggerDigest = async ({ preview }) => {
+    if (!preview) {
+      const confirmed = window.confirm(
+        "Send weekly digest to all active subscribers now? This will send real emails."
+      );
+      if (!confirmed) return;
+    }
+
+    setDigestActionLoading(true);
+    setDigestResult(null);
+    try {
+      const url = preview
+        ? "/api/newsletter/send-digest?preview=1"
+        : "/api/newsletter/send-digest";
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ preview }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setDigestResult({
+          type: "error",
+          message: data.error || "Digest action failed.",
+          data: null,
+        });
+        return;
+      }
+      setDigestResult({
+        type: "success",
+        message: data.message || (preview ? "Preview generated." : "Digest sent."),
+        data,
+      });
+    } catch (error) {
+      setDigestResult({
+        type: "error",
+        message: "Network error while running digest action.",
+        data: null,
+      });
+    } finally {
+      setDigestActionLoading(false);
     }
   };
 
@@ -950,6 +996,76 @@ export default function Dashboard({ blogs, topics }) {
           </div>
 
           {/* Users Table - Admin only */}
+          {isAdmin && (
+          <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36] mt-8">
+            <h3 className="text-lg font-semibold text-[#161513] dark:text-[#F5F4F2] mb-2">
+              Newsletter Digest Console
+            </h3>
+            <p className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] mb-4">
+              Preview picks by subscriber track before sending the weekly digest.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={() => triggerDigest({ preview: true })}
+                disabled={digestActionLoading}
+                className="inline-flex items-center px-4 py-2 rounded-full border border-[#E0DDD9] dark:border-[#3D3A36] text-sm font-medium text-[#4f4636] dark:text-[#F5F4F2] hover:border-[#cbbf9f] disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {digestActionLoading ? "Working..." : "Preview Digest"}
+              </button>
+              <button
+                type="button"
+                onClick={() => triggerDigest({ preview: false })}
+                disabled={digestActionLoading}
+                className="inline-flex items-center px-4 py-2 rounded-full bg-[#C74634] text-white text-sm font-semibold hover:bg-[#A73A2C] disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {digestActionLoading ? "Working..." : "Send Digest"}
+              </button>
+            </div>
+
+            {digestResult && (
+              <div className="mt-4">
+                <p
+                  className={`text-sm ${
+                    digestResult.type === "success"
+                      ? "text-[#2F6B3B] dark:text-[#9fd6aa]"
+                      : "text-[#A73A2C] dark:text-[#F29A8A]"
+                  }`}
+                >
+                  {digestResult.message}
+                </p>
+
+                {digestResult.type === "success" && digestResult.data?.mode === "preview" && Array.isArray(digestResult.data?.previewSamples) && (
+                  <div className="mt-4 rounded-xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-[#FAF8F6] dark:bg-[#201E1C] p-4 space-y-4">
+                    <p className="text-xs uppercase tracking-[0.2em] text-[#9a8f75] dark:text-[#6E6B68]">
+                      Preview samples (first {digestResult.data.previewSamples.length})
+                    </p>
+                    <div className="space-y-3 max-h-80 overflow-auto pr-1">
+                      {digestResult.data.previewSamples.map((sample) => (
+                        <div key={sample.email} className="rounded-lg border border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27] p-3">
+                          <p className="text-sm font-semibold text-[#161513] dark:text-[#F5F4F2]">
+                            {sample.email}
+                          </p>
+                          <p className="text-xs text-[#6E6B68] dark:text-[#B8B4B0] mb-2">
+                            {sample.trackLabel} ({sample.track})
+                          </p>
+                          <ul className="space-y-1">
+                            {(sample.picks || []).map((pick) => (
+                              <li key={`${sample.email}-${pick.slug}`} className="text-xs text-[#4f4636] dark:text-[#d2ccc3]">
+                                • {pick.title}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+          )}
+
           {isAdmin && (
           <div className="bg-white dark:bg-[#2C2A27] rounded-lg shadow-md p-6 border border-[#E0DDD9] dark:border-[#3D3A36] mt-8">
             <h3 className="text-lg font-semibold text-[#161513] dark:text-[#F5F4F2] mb-4">

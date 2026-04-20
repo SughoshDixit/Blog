@@ -233,10 +233,12 @@ export const sendSubscriptionNotification = async (subscriberEmail) => {
 };
 
 // Send weekly digest email
-export const sendWeeklyDigest = async (subscriberEmail, posts) => {
+export const sendWeeklyDigest = async (subscriberEmail, posts, options = {}) => {
   const siteName = process.env.SITE_NAME || "Sughosh's Chronicles";
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://sughoshblog.vercel.app";
   const adminEmail = process.env.EDITOR_EMAIL || "sughoshpdixit@gmail.com";
+  const trackLabel = options.trackLabel || "General";
+  const isPersonalized = Boolean(options.isPersonalized);
 
   if (!posts || posts.length === 0) {
     return { success: false, error: "No posts to send" };
@@ -268,7 +270,8 @@ export const sendWeeklyDigest = async (subscriberEmail, posts) => {
         </div>
         <div style="background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px;">
           <p>Hi there,</p>
-          <p>Here are the new posts from this week:</p>
+          <p>Here are your ${isPersonalized ? `${trackLabel} picks` : "top picks"} for this week:</p>
+          ${isPersonalized ? `<p style="font-size: 13px; color: #666;">Primary track: <strong>${trackLabel}</strong></p>` : ""}
           ${postsHtml}
           <div style="margin: 30px 0; text-align: center;">
             <a href="${siteUrl}" style="background: #1a8917; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">Visit Blog</a>

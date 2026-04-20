@@ -7,41 +7,58 @@ import { SITE_URL } from "../Lib/siteConfig";
 
 const CHARTER = { fontFamily: "Charter, Georgia, serif" };
 
-const CURATED = [
+const GOAL_TRACKS = [
   {
-    section: "The 30-Day Data Science Challenge",
-    desc: "My flagship series — a comprehensive journey through nonparametric statistics, robust methods, fuzzy logic, and sampling theory.",
+    section: "I want to become stronger in Data Science & AI",
+    desc: "A structured progression from first principles to practical robustness in real analysis workflows.",
+    outcome: "You leave with a learning sequence, not random isolated posts.",
     picks: [
-      { title: "Day 1 — Boolean Logic to Numbers: AND as min, OR as max", why: "Where it all begins. The foundation for everything that follows." },
-      { title: "Day 14 — Hypergeometric Distribution and Sample Size: Finding Needles in Haystacks", why: "The most-visited post in the series. Practical sampling theory made intuitive." },
-      { title: "Day 30 — The Audit Blueprint: Bringing It All Together", why: "The grand finale — every concept unified into a real-world audit framework." },
+      { title: "Day 1 — Boolean Logic to Numbers: AND as min, OR as max", why: "Start with intuition and notation that power the rest of the series." },
+      { title: "Day 14 — Hypergeometric Distribution & Sample Size: Finding Needles in Haystacks", why: "Master practical sampling choices for real-world data constraints." },
+      { title: "Day 30: A Mathematical Blueprint for Robust Decision Frameworks", why: "Consolidate all concepts into one applied, decision-ready framework." },
     ],
     cta: { label: "See the full learning path", href: "/learning-path" },
   },
   {
-    section: "Personal Essays",
-    desc: "Long-form pieces about family, marriage, career, and the things that matter beyond code.",
+    section: "I want history, civilization, and national thought",
+    desc: "Long-form essays connecting civilizational memory, identity, and present-day context.",
+    outcome: "You gain historical context with argument-driven reading instead of noisy takes.",
     picks: [
-      { title: "I too had a Love Story", why: "The most personal piece on this site. A story of gratitude." },
-      { title: "A heartfelt Ode and a Tribute to Ajjju", why: "A tribute to the person who shaped who I am." },
-      { title: "Five Years at Oracle: From Cloud Analyst to Data Scientist", why: "The career arc — lessons learned, pivots made." },
+      { title: "Gratitude for Being Born in the Ancient Civilization of Bharatavarsha", why: "Begin from cultural lens and civilizational self-understanding." },
+      { title: "Vedic Studies on Marriage Part 1", why: "See classical thought translated into modern life questions." },
+      { title: "Dr. Vinayak Damodar Savarkar: The Underrated Colossus of Bharat's Freedom Struggle", why: "Study a key historical figure with depth and perspective." },
     ],
   },
   {
-    section: "Culture, Dharma & the World",
-    desc: "Vedic studies, Indian civilization, books, and thinking about the world we live in.",
+    section: "I want better decisions in finance and life",
+    desc: "Decision-oriented writing where risk, incentives, and long-horizon thinking are central.",
+    outcome: "You get practical frameworks for evaluating trade-offs under uncertainty.",
     picks: [
-      { title: "Gratitude for Being Born in the Ancient Civilization of Bharatavarsha", why: "Starting with gratitude — a reflection on heritage." },
-      { title: "Vedic Studies on Marriage Part 1", why: "What the Atharva Veda says about marriage — an underexplored topic." },
-      { title: "India in a Shifting Global Order — Book Notes", why: "Notes on India's place in the current world order." },
+      { title: "Five Years at Oracle: From Cloud Analyst to Data Scientist", why: "Career compounding, skill bets, and long-term payoff." },
+      { title: "India in a Shifting Global Order — Book Notes", why: "Macro lens for policy, risk, and strategic positioning." },
+      { title: "Day 14 — Hypergeometric Distribution and Sample Size: Finding Needles in Haystacks", why: "Think in probabilities before taking high-confidence decisions." },
     ],
   },
   {
-    section: "Football & Entertainment",
-    desc: "Liverpool FC, the beautiful game, and why it matters.",
+    section: "I want concise book summaries and intellectual takeaways",
+    desc: "Fast synthesis from books and long-form notes you can apply immediately.",
+    outcome: "You get key ideas quickly, then can dive deeper with linked essays.",
     picks: [
-      { title: "Why Support Liverpool F.C? The Beautiful Game vs The Lazy Game", why: "My manifesto on football, Klopp, and why YNWA is a way of life." },
+      { title: "India in a Shifting Global Order — Book Notes", why: "A distilled strategic read with clear, memorable takeaways." },
+      { title: "Reflection on Ramayana and Mahabharata from Ajamila", why: "Civilizational narratives decoded through practical interpretation." },
+      { title: "Reflections from the Akhila Bharateeya Pratinidhi Sabha 2025", why: "Synthesis of events, themes, and broader relevance." },
     ],
+    cta: { label: "Browse Book topic", href: "/topic/Book" },
+  },
+  {
+    section: "I want football with deeper thinking",
+    desc: "Football posts that mix emotion, tactics, and identity beyond match-day reactions.",
+    outcome: "You understand the game and what it reveals about values and culture.",
+    picks: [
+      { title: "Why Support Liverpool F.C? The Beautiful Game vs The Lazy Game", why: "A foundational football essay: identity, philosophy, and style." },
+      { title: "The HYPE IS REAL — Dhurandhar 2 Hit Me Where It Hurts the Most 🇮🇳🔥", why: "Sports emotion and narrative intensity through a personal lens." },
+    ],
+    cta: { label: "Visit Football hub", href: "/football" },
   },
 ];
 
@@ -77,19 +94,22 @@ export default function StartHere({ blogMap, topics }) {
                 Start Here
               </h1>
               <p className="text-lg text-[#6E6B68] dark:text-[#B8B4B0] leading-relaxed max-w-2xl">
-                New to the site? This page is a curated guide to the best writing across every topic I cover.
-                Think of it as the table of contents for this entire blog.
+                Choose your goal, then follow a guided path through the best existing writing.
+                Each track is organized for outcome first: learn, reflect, apply, and continue.
               </p>
             </header>
 
             <div className="space-y-16">
-              {CURATED.map(({ section, desc, picks, cta }) => (
+              {GOAL_TRACKS.map(({ section, desc, outcome, picks, cta }) => (
                 <section key={section}>
                   <h2 className="text-2xl font-bold text-[#161513] dark:text-[#F5F4F2] mb-2" style={CHARTER}>
                     {section}
                   </h2>
                   <p className="text-[#6E6B68] dark:text-[#B8B4B0] mb-8">
                     {desc}
+                  </p>
+                  <p className="text-sm text-[#7f735f] dark:text-[#9d978d] mb-6 p-4 rounded-xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27]">
+                    <strong>Outcome:</strong> {outcome}
                   </p>
 
                   <div className="space-y-6">

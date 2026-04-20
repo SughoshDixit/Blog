@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { email } = req.body;
+  const { email, track, sourcePage } = req.body;
 
   if (!email) {
     return res.status(400).json({ error: "Email is required" });
@@ -30,13 +30,27 @@ export default async function handler(req, res) {
     }
 
     // Add new subscriber
+    const normalizedTrack =
+      typeof track === "string" && track.trim().length > 0
+        ? track.trim().toLowerCase()
+        : "general";
+    const normalizedSourcePage =
+      typeof sourcePage === "string" && sourcePage.trim().length > 0
+        ? sourcePage.trim().toLowerCase()
+        : "unknown";
+
     const subscriberData = {
       email: emailLower,
       subscribedAt: new Date().toISOString(),
       active: true,
       source: "website",
+      sourcePage: normalizedSourcePage,
       frequency: "weekly",
       digest: true,
+      track: normalizedTrack,
+      preferences: {
+        track: normalizedTrack,
+      },
     };
 
     await subscribersRef.add(subscriberData);
