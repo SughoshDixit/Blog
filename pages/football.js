@@ -101,11 +101,22 @@ export default function FootballPage({ topics, footballPosts }) {
 
         <main className="pt-24 pb-16">
           {/* Hero */}
-          <section className="relative overflow-hidden border-b border-[#E0DDD9] dark:border-[#3D3A36] rw-hero">
-            <div className="rw-blob rw-blob-1" aria-hidden="true" />
-            <div className="rw-blob rw-blob-2" aria-hidden="true" />
-            <div className="rw-dots" aria-hidden="true" />
-            <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-20">
+          <section className="relative overflow-hidden border-b border-[#E0DDD9] dark:border-[#3D3A36] bg-[#161513] dark:bg-[#0a0a0a]">
+            {/* Subtle Video Background */}
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-contain opacity-60 pointer-events-none"
+            >
+              <source src="/sughosh_fb.mp4" type="video/mp4" />
+            </video>
+            
+            {/* Overlay Gradient to ensure text readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#161513] via-[#161513]/40 to-transparent dark:from-[#0a0a0a] dark:via-[#0a0a0a]/60"></div>
+            
+            <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
               <div className="flex items-center gap-3 text-[#C74634] dark:text-[#E8572A] mb-4">
                 <FaFutbol className="w-6 h-6" aria-hidden />
                 <span className="text-sm font-semibold uppercase tracking-widest">Football</span>

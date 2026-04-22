@@ -20,7 +20,31 @@
       "Bash(cmd.exe /c \"tasklist /FI \"\"PID eq 10976\"\"\")",
       "Bash(cmd.exe /c \"tasklist /FI \"\"PID eq 10976\"\" 2>nul || echo not found\")",
       "Bash(cmd.exe /c \"for %I in \\(npm.cmd\\) do @echo %~$PATH:I\")",
-      "Bash(\"C:/Users/sugho/Projects/Blog/styles/globals.css\":*)"
+      "Bash(\"C:/Users/sugho/Projects/Blog/styles/globals.css\":*)",
+      "Bash(git config:*)",
+      "Bash(gh auth:*)",
+      "Bash(xargs ls:*)",
+      "Bash(npm run:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "WebFetch(domain:www.youtube.com)",
+      "WebFetch(domain:digital.amarchitrakatha.com)",
+      "Bash(curl -L \"https://organiser.org/wp-content/uploads/2024/05/whatsapp-image-2024-05-28-at-12.22.21-jpeg.webp\" -o \"/c/Users/sugho/Projects/Blog/public/BL-8/savarkar-jayanti.webp\")",
+      "Bash(curl -L \"https://upload.wikimedia.org/wikipedia/commons/e/e4/Swatyantra_Vir_Savarkar.jpg\" -o \"/c/Users/sugho/Projects/Blog/public/BL-8/swatantrya-veer-savarkar.jpg\")",
+      "Bash(curl -L \"https://www.tallengestore.com/cdn/shop/files/LokmanyaBalGangadharTilak-IndianFreedomFighterPatriot-RajaRaviVarmaChromolithographPrint_a4ba9c01-8831-4439-93b6-293153684da3.jpg?v=1749109890\" -o \"tilak.jpg\" --silent -w \"tilak.jpg: %{http_code} %{size_download}B\\\\n\")",
+      "Bash(curl -L \"https://cdn.sanity.io/images/nlpqts3z/production/872d12aaec19e8f9f6b59cca266637b1f266ff58-1000x562.jpg\" -o \"india-house.jpg\" --silent -w \"india-house.jpg: %{http_code} %{size_download}B\\\\n\")",
+      "Bash(curl -L \"https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1168758968633000\" -o \"kaala-paani.jpg\" --silent -w \"kaala-paani.jpg: %{http_code} %{size_download}B\\\\n\")",
+      "Bash(curl -L \"https://upload.wikimedia.org/wikipedia/commons/5/50/Cellular_Jail%2C_Port_Blair%2C_India%2C_inner_view_of_the_cell_of_prisoners.jpg\" -o \"cellular-jail-inside.jpg\" --silent -w \"cellular-jail-inside.jpg: %{http_code} %{size_download}B\\\\n\")",
+      "Bash(curl -L \"https://upload.wikimedia.org/wikipedia/commons/4/44/Subhas_Chandra_Bose_NRB.jpg\" -o \"netaji.jpg\" --silent -w \"netaji.jpg: %{http_code} %{size_download}B\\\\n\")",
+      "Bash(curl -L \"https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Cellular_Jail.jpg/1200px-Cellular_Jail.jpg\" -o \"kaala-paani.jpg\" --silent -w \"kaala-paani.jpg: %{http_code} %{size_download}B\\\\n\")",
+      "Bash(ls -lh *.jpg *.webp *.jpeg)",
+      "Bash(curl -L \"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Cellular_Jail_Andaman.jpg/1200px-Cellular_Jail_Andaman.jpg\" -o /c/Users/sugho/Projects/Blog/public/BL-8/kaala-paani.jpg --silent -w \"%{http_code} %{size_download}B\\\\n\")",
+      "Bash(curl -L \"https://upload.wikimedia.org/wikipedia/commons/9/9e/Cellular_jail_2.JPG\" -o /c/Users/sugho/Projects/Blog/public/BL-8/kaala-paani.jpg --silent -w \"%{http_code} %{size_download}B\\\\n\")",
+      "Bash(curl -A \"Mozilla/5.0\" -L \"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/CellularJailAndaman.jpg/1200px-CellularJailAndaman.jpg\" -o /c/Users/sugho/Projects/Blog/public/BL-8/kaala-paani.jpg --silent -w \"%{http_code} %{size_download}B\\\\n\")",
+      "WebFetch(domain:en.wikipedia.org)",
+      "Bash(curl -A \"Mozilla/5.0\" -L \"https://upload.wikimedia.org/wikipedia/commons/f/fe/Front_View_of_Cellular_Jail%2C_Port_Blair.JPG\" -o /c/Users/sugho/Projects/Blog/public/BL-8/kaala-paani.jpg --silent -w \"%{http_code} %{size_download}B\\\\n\")",
+      "Bash(grep -vE \"\\\\.\\(jpg|jpeg|png|gif|webp|mp4|mov|avi\\)$\")"
     ]
   }
 }

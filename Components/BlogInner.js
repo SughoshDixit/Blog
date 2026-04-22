@@ -476,7 +476,37 @@ function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
         </p>
       )}
       {/* Medium-style article header */}
-      <div className="mb-8">
+      <div className="mb-8 mt-6">
+        {/* Breadcrumbs */}
+        <nav className="flex text-xs text-[#6E6B68] dark:text-[#B8B4B0] mb-8" aria-label="Breadcrumb">
+          <ol className="inline-flex items-center space-x-1 md:space-x-3">
+            <li className="inline-flex items-center">
+              <Link href="/">
+                <a className="inline-flex items-center hover:text-[#C74634] dark:hover:text-[#E8572A] transition-colors">
+                  <svg className="w-3 h-3 mr-1.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                  Home
+                </a>
+              </Link>
+            </li>
+            {data?.Topic && (
+              <li>
+                <div className="flex items-center">
+                  <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path></svg>
+                  <Link href={`/topic/${data.Topic}`}>
+                    <a className="ml-1 md:ml-2 hover:text-[#C74634] dark:hover:text-[#E8572A] transition-colors">{data.Topic}</a>
+                  </Link>
+                </div>
+              </li>
+            )}
+            <li aria-current="page">
+              <div className="flex items-center">
+                <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path></svg>
+                <span className="ml-1 md:ml-2 text-gray-400 dark:text-gray-500 truncate max-w-[150px] sm:max-w-xs">{data.Title}</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+        
         <div className="flex items-center space-x-4 mb-6">
           <img 
             src="/about.jpeg" 

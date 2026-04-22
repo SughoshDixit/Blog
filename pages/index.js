@@ -23,6 +23,7 @@ import DataScienceYouTubeShelf from "../Components/DataScienceYouTubeShelf";
 import HeroLottieAccent from "../Components/HeroLottieAccent";
 import FocusStripLottieAccent from "../Components/FocusStripLottieAccent";
 import TopicWordCloud from "../Components/TopicWordCloud";
+import NewsletterForm from "../Components/NewsletterForm";
 
 export const getStaticProps = () => {
   const allBlogs = getAllBlogPosts();
@@ -81,6 +82,7 @@ export default function Home({ blogs, topics }) {
     [publishedBlogs]
   );
 
+  const [activeTopic, setActiveTopic] = useState("All");
   const [engagementMap, setEngagementMap] = useState({});
   const [totalVisits, setTotalVisits] = useState(null);
   const [newsletterEmail, setNewsletterEmail] = useState("");
@@ -230,7 +232,8 @@ export default function Home({ blogs, topics }) {
         .filter((blog) => {
           const isInRecent = recentPosts.some((r) => r?.data?.Id === blog?.data?.Id);
           const isFeatured = featureHighlight?.data?.Id === blog?.data?.Id;
-          return !isInRecent && !isFeatured;
+          const matchesTopic = activeTopic === "All" || blog?.data?.Topic === activeTopic;
+          return !isInRecent && !isFeatured && matchesTopic;
         })
         .sort((a, b) => {
           const da = Date.parse(a?.data?.Date);
@@ -248,7 +251,7 @@ export default function Home({ blogs, topics }) {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [remainingPosts.length]);
+  }, [remainingPosts.length, activeTopic]);
 
   const paginatedPosts = useMemo(
     () => remainingPosts.slice(0, currentPage * POSTS_PER_PAGE),
@@ -512,10 +515,10 @@ export default function Home({ blogs, topics }) {
                     className="text-4xl md:text-5xl lg:text-[56px] font-semibold leading-[1.15] text-white mb-6"
                     style={{ fontFamily: "Charter, Georgia, serif" }}
                   >
-                    Hi, I&apos;m <span className="text-[#F5E4D3]">Sughosh Dixit</span>.
+                    Hey, <span className="text-[#F5E4D3]">Sughosh</span> here..
                   </h1>
                   <p className="text-lg md:text-xl text-[#B8E0D8] max-w-xl leading-relaxed mb-10">
-                    Data scientist at Oracle. I write long-form pieces on statistics, AI, Vedic studies, football, and life in India — and document it all on YouTube.
+                    Data scientist at Oracle. Small minds discuss people; strong minds discuss ideas.
                   </p>
                   <div className="flex flex-wrap gap-4">
                     <a
@@ -832,14 +835,28 @@ export default function Home({ blogs, topics }) {
                   <span className="uppercase tracking-wider text-xs font-semibold text-[#8c8169] dark:text-[#B8B4B0]">
                     Explore topics
                   </span>
+                  <button
+                    onClick={() => setActiveTopic("All")}
+                    className={`pro-chip inline-flex items-center whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                      activeTopic === "All"
+                        ? "bg-[#C74634] text-white border-[#C74634] dark:bg-[#E8572A] dark:border-[#E8572A]"
+                        : "bg-white text-[#4f4636] border border-[#E0DDD9] hover:border-[#cbbf9f] hover:bg-[#faf5ec] dark:bg-gray-900 dark:text-gray-200 dark:border-gray-800 dark:hover:border-gray-700 dark:hover:bg-gray-800/80"
+                    }`}
+                  >
+                    All
+                  </button>
                   {tagPills.map((topic) => (
-                    <a
+                    <button
                       key={topic}
-                      href={`/topic/${topic}`}
-                      className="pro-chip inline-flex items-center whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-white text-[#4f4636] border border-[#E0DDD9] hover:border-[#cbbf9f] hover:bg-[#faf5ec] transition-colors dark:bg-gray-900 dark:text-gray-200 dark:border-gray-800 dark:hover:border-gray-700 dark:hover:bg-gray-800/80"
+                      onClick={() => setActiveTopic(topic)}
+                      className={`pro-chip inline-flex items-center whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                        activeTopic === topic
+                          ? "bg-[#C74634] text-white border-[#C74634] dark:bg-[#E8572A] dark:border-[#E8572A]"
+                          : "bg-white text-[#4f4636] border border-[#E0DDD9] hover:border-[#cbbf9f] hover:bg-[#faf5ec] dark:bg-gray-900 dark:text-gray-200 dark:border-gray-800 dark:hover:border-gray-700 dark:hover:bg-gray-800/80"
+                      }`}
                     >
                       {topic}
-                    </a>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -1092,62 +1109,8 @@ export default function Home({ blogs, topics }) {
                   </div>
                 </div>
 
-                <div className="reveal-right stagger-2 rounded-3xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-[#FAF8F6] dark:bg-[#2C2A27] p-8 shadow-soft">
-                  <h2 className="text-xl font-semibold text-[#161513] dark:text-[#F5F4F2] mb-4" style={{ fontFamily: "Charter, Georgia, serif" }}>
-                    Weekly digest
-                  </h2>
-                  <p className="text-sm text-[#5e5645] dark:text-[#B8B4B0] mb-6">
-                    Get the top stories every Sunday, with updates tailored to what you want to learn most.
-                  </p>
-                  <form onSubmit={handleNewsletterSubmit} className="space-y-4">
-                    <label className="block">
-                      <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8b7d63] dark:text-[#9f988d]">
-                        Primary track
-                      </span>
-                      <select
-                        value={newsletterTrack}
-                        onChange={(e) => setNewsletterTrack(e.target.value)}
-                        className="mt-2 w-full px-4 py-3 rounded-full border border-[#E0DDD9] focus:outline-none focus:border-[#C74634] bg-white text-sm text-[#333] dark:bg-[#201E1C] dark:text-[#F5F4F2] dark:border-[#3D3A36]"
-                      >
-                        {newsletterTrackOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-                    <input
-                      type="email"
-                      value={newsletterEmail}
-                      onChange={(e) => setNewsletterEmail(e.target.value)}
-                      placeholder="Your email"
-                      required
-                      className="w-full px-4 py-3 rounded-full border border-[#E0DDD9] focus:outline-none focus:border-[#C74634] bg-white text-sm text-[#333] placeholder:text-[#b1a992] dark:bg-[#201E1C] dark:text-[#F5F4F2] dark:border-[#3D3A36] dark:placeholder:text-[#6E6B68]"
-                    />
-                    <button
-                      type="submit"
-                      disabled={isSubmittingNewsletter}
-                      className="w-full medium-button inline-flex items-center justify-center px-6 py-3 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {isSubmittingNewsletter ? "Signing up..." : "Sign me up"}
-                    </button>
-                  </form>
-                  {newsletterState.message && (
-                    <p
-                      className={`text-xs mt-3 ${
-                        newsletterState.type === "success"
-                          ? "text-[#2F6B3B] dark:text-[#9fd6aa]"
-                          : newsletterState.type === "error"
-                          ? "text-[#A73A2C] dark:text-[#F29A8A]"
-                          : "text-[#8b7d63] dark:text-[#9f988d]"
-                      }`}
-                    >
-                      {newsletterState.message}
-                    </p>
-                  )}
-                  <p className="text-xs text-[#9a8f75] dark:text-[#6E6B68] mt-4">
-                    No spam, unsubscribe anytime.
-                  </p>
+                <div className="reveal-right stagger-2 shadow-soft">
+                  <NewsletterForm />
                 </div>
 
                 <div className="reveal-right stagger-3 rounded-3xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27] p-6 shadow-soft space-y-4">
