@@ -34,7 +34,7 @@ export default function HeroLottieAccent() {
   const currentItem = items[currentIndex];
 
   return (
-    <div className="reveal-scale rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md px-4 py-3 shadow-lg shadow-black/20 w-72 md:w-80">
+    <div className="reveal-scale rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md px-4 py-3 shadow-lg shadow-black/20 w-[22rem] md:w-[26rem]">
       <div className="flex items-center justify-between mb-3">
         <p className="text-[11px] uppercase tracking-[0.24em] text-[#B8E0D8]/80 flex items-center gap-2 m-0">
           <span className="relative flex h-2 w-2">
@@ -46,20 +46,20 @@ export default function HeroLottieAccent() {
         <FaFutbol className="text-white/40 text-sm animate-[spin_4s_linear_infinite]" />
       </div>
       
-      <div className="h-32 overflow-hidden rounded-xl border border-white/10 bg-[#161513]/60 relative flex items-center p-4">
+      <div className="overflow-hidden rounded-xl border border-white/10 bg-[#161513]/60 relative p-3 md:p-4">
         {/* Background tactical lines */}
         <div className="absolute inset-0 opacity-10 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:16px_16px]"></div>
         
-        <div className="relative z-10 w-full h-full flex flex-col justify-center">
+        <div className="relative z-10 w-full min-h-[5rem] md:min-h-[6rem] flex flex-col justify-center">
           {error ? (
-            <p className="text-sm text-red-400">Failed to load live feed.</p>
+            <p className="text-sm text-red-400 text-center">Failed to load live feed.</p>
           ) : !data ? (
-            <div className="flex items-center gap-3 w-full">
-              <div className="w-6 h-6 rounded-full border-2 border-[#C74634]/30 border-t-[#C74634] animate-spin shrink-0"></div>
+            <div className="flex items-center gap-4 w-full">
+              <div className="w-16 h-16 md:w-20 md:h-20 rounded-lg bg-white/10 animate-pulse shrink-0"></div>
               <div className="space-y-2 flex-1">
-                <div className="h-2 bg-white/10 rounded w-full animate-pulse"></div>
-                <div className="h-2 bg-white/10 rounded w-2/3 animate-pulse"></div>
-                <div className="h-2 bg-white/10 rounded w-4/5 animate-pulse"></div>
+                <div className="h-3 bg-white/10 rounded w-full animate-pulse"></div>
+                <div className="h-3 bg-white/10 rounded w-2/3 animate-pulse"></div>
+                <div className="h-2 bg-white/10 rounded w-4/5 animate-pulse mt-4"></div>
               </div>
             </div>
           ) : currentItem ? (
@@ -67,16 +67,30 @@ export default function HeroLottieAccent() {
               href={currentItem.link} 
               target="_blank" 
               rel="noopener noreferrer"
-              className={`block group transition-opacity duration-500 ease-in-out ${isFading ? 'opacity-0' : 'opacity-100'}`}
+              className={`group flex items-center gap-4 transition-opacity duration-500 ease-in-out ${isFading ? 'opacity-0' : 'opacity-100'}`}
             >
-              <h3 
-                className="text-white text-base font-semibold leading-snug line-clamp-3 group-hover:text-[#F5E4D3] transition-colors"
-                style={{ fontFamily: "Charter, Georgia, serif" }}
-              >
-                {currentItem.title}
-              </h3>
-              <div className="mt-2 text-[11px] text-[#B8E0D8]/60 flex items-center gap-1 group-hover:text-[#C74634] transition-colors uppercase tracking-wider font-semibold">
-                Read full story &rarr;
+              {currentItem.thumbnail ? (
+                <img 
+                  src={currentItem.thumbnail} 
+                  alt={currentItem.title}
+                  className="w-16 h-16 md:w-20 md:h-20 rounded-lg object-cover shrink-0 border border-white/10 shadow-sm"
+                />
+              ) : (
+                <div className="w-16 h-16 md:w-20 md:h-20 rounded-lg bg-white/5 flex items-center justify-center shrink-0 border border-white/10">
+                  <FaFutbol className="text-white/20 text-2xl" />
+                </div>
+              )}
+              <div className="flex-1 min-w-0">
+                <h3 
+                  className="text-white text-[13px] md:text-sm font-semibold leading-tight line-clamp-3 group-hover:text-[#F5E4D3] transition-colors"
+                  style={{ fontFamily: "Charter, Georgia, serif" }}
+                  title={currentItem.title}
+                >
+                  {currentItem.title}
+                </h3>
+                <div className="mt-2 text-[10px] md:text-[11px] text-[#B8E0D8]/60 flex items-center gap-1 group-hover:text-[#C74634] transition-colors uppercase tracking-wider font-semibold">
+                  Read story &rarr;
+                </div>
               </div>
             </a>
           ) : null}
