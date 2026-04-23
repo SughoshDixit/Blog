@@ -507,20 +507,20 @@ export default function Home({ blogs, topics }) {
 
             <div className="relative max-w-7xl mx-auto px-4 md:px-8">
               <div className="grid gap-12 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-center py-20">
-                <div>
+                <div className="text-center md:text-left flex flex-col items-center md:items-start">
                   <p className="text-sm font-medium uppercase tracking-widest text-[#B8E0D8]/70 mb-4">
                     Data Science &middot; Football &middot; Personal Essays &middot; Ideas
                   </p>
                   <h1
-                    className="text-4xl md:text-5xl lg:text-[56px] font-semibold leading-[1.15] text-white mb-6"
+                    className="text-4xl md:text-5xl lg:text-[56px] font-semibold leading-[1.15] text-white mb-6 text-center md:text-left"
                     style={{ fontFamily: "Charter, Georgia, serif" }}
                   >
                     Hey, <span className="text-[#F5E4D3]">Sughosh</span> here..
                   </h1>
-                  <p className="text-lg md:text-xl text-[#B8E0D8] max-w-xl leading-relaxed mb-10">
+                  <p className="text-lg md:text-xl text-[#B8E0D8] max-w-xl leading-relaxed mb-10 text-center md:text-left">
                     Data scientist at Oracle. Small minds discuss people; strong minds discuss ideas.
                   </p>
-                  <div className="flex flex-wrap gap-4">
+                  <div className="flex flex-wrap justify-center md:justify-start gap-4">
                     <a
                       href="#latest-posts"
                       className="rw-btn-primary inline-flex items-center justify-center px-8 py-3 text-base font-medium"

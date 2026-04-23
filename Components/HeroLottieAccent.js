@@ -34,7 +34,7 @@ export default function HeroLottieAccent() {
   const currentItem = items[currentIndex];
 
   return (
-    <div className="reveal-scale rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md px-4 py-3 shadow-lg shadow-black/20 w-[22rem] md:w-[26rem]">
+    <div className="reveal-scale rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md px-4 py-3 shadow-lg shadow-black/20 w-full">
       <div className="flex items-center justify-between mb-3">
         <p className="text-[11px] uppercase tracking-[0.24em] text-[#B8E0D8]/80 flex items-center gap-2 m-0">
           <span className="relative flex h-2 w-2">
