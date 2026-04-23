@@ -577,9 +577,9 @@ export default function Home({ blogs, topics }) {
                           />
                         </div>
                       )}
-                      <div className="p-8 space-y-4">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3 text-sm text-[#B8E0D8]/80">
+                      <div className="p-6 md:p-8 space-y-4">
+                        <div className="flex items-center justify-between flex-wrap gap-2">
+                          <div className="flex items-center flex-wrap gap-x-3 gap-y-1 text-sm text-[#B8E0D8]/80">
                             <span className="font-semibold">
                               {currentFeaturedPost.data.Author || "Sughosh Dixit"}
                             </span>

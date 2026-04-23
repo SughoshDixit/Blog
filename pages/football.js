@@ -139,8 +139,8 @@ export default function FootballPage({ topics, footballPosts }) {
             {/* Overlay Gradient to ensure text readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#161513] via-[#161513]/40 to-transparent dark:from-[#0a0a0a] dark:via-[#0a0a0a]/60"></div>
             
-            <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
-              <div className="flex items-center gap-3 text-[#C74634] dark:text-[#E8572A] mb-4">
+            <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32 flex flex-col items-center md:items-start text-center md:text-left">
+              <div className="flex items-center justify-center md:justify-start gap-3 text-[#C74634] dark:text-[#E8572A] mb-4">
                 <FaFutbol className="w-6 h-6" aria-hidden />
                 <span className="text-sm font-semibold uppercase tracking-widest">Football</span>
               </div>
@@ -153,7 +153,7 @@ export default function FootballPage({ topics, footballPosts }) {
               <p className="text-lg md:text-xl text-[#B8E0D8] max-w-xl leading-relaxed mb-10">
                 Goals, analysis, and the passion for football — from Liverpool FC to data-driven match insights on YouTube.
               </p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap justify-center md:justify-start gap-4">
                 <a
                   href={YOUTUBE_CHANNEL_URL}
                   target="_blank"

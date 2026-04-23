@@ -67,7 +67,10 @@ function NewsletterForm({ compact = false }) {
           <input
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if (status.type !== "idle") setStatus({ type: "idle", message: "" });
+            }}
             placeholder="your@email.com"
             required
             className="flex-1 px-3 py-2 text-sm rounded-lg border border-[#e6dfd3] dark:border-[#25304a] bg-white dark:bg-[#0d1424] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#C74634] dark:focus:ring-[#26c281]"
@@ -116,7 +119,10 @@ function NewsletterForm({ compact = false }) {
           <input
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if (status.type !== "idle") setStatus({ type: "idle", message: "" });
+            }}
             placeholder="your@email.com"
             required
             className="w-full px-5 py-4 rounded-xl border border-[#3D3A36] bg-[#161513]/50 text-white placeholder-[#6E6B68] focus:outline-none focus:border-[#C74634] focus:ring-1 focus:ring-[#C74634] transition-all"
