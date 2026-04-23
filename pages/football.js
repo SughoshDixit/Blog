@@ -2,8 +2,9 @@ import Head from "next/head";
 import Image from "next/image";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
-import { FiYoutube, FiExternalLink, FiArrowRight } from "react-icons/fi";
+import { FiYoutube, FiExternalLink, FiArrowRight, FiVolumeX, FiVolume2 } from "react-icons/fi";
 import { FaFutbol } from "react-icons/fa";
+import { useState, useRef } from "react";
 import { getAllBlogPosts, getProminentTopics } from "../Lib/Data";
 import { generateSlug } from "../Lib/utils";
 import {
@@ -48,6 +49,15 @@ const PAGE_DESCRIPTION =
 
 export default function FootballPage({ topics, footballPosts }) {
   const embedSrc = FOOTBALL_EMBED_SRC;
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef(null);
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setIsMuted(videoRef.current.muted);
+    }
+  };
 
   return (
     <>
@@ -104,6 +114,7 @@ export default function FootballPage({ topics, footballPosts }) {
           <section className="relative overflow-hidden border-b border-[#E0DDD9] dark:border-[#3D3A36] bg-[#161513] dark:bg-[#0a0a0a]">
             {/* Subtle Video Background */}
             <video
+              ref={videoRef}
               autoPlay
               loop
               muted
@@ -112,6 +123,18 @@ export default function FootballPage({ topics, footballPosts }) {
             >
               <source src="/sughosh_fb.mp4" type="video/mp4" />
             </video>
+            
+            {/* Audio Toggle Button */}
+            <button
+              onClick={toggleMute}
+              className="absolute bottom-6 right-6 z-20 p-3 rounded-full bg-black/40 text-white hover:bg-[#C74634]/80 transition-colors border border-white/20 backdrop-blur-sm shadow-lg flex items-center justify-center group"
+              aria-label={isMuted ? "Unmute video" : "Mute video"}
+            >
+              {isMuted ? <FiVolumeX className="w-5 h-5" /> : <FiVolume2 className="w-5 h-5" />}
+              <span className="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out text-sm font-medium opacity-0 group-hover:opacity-100 pl-0 group-hover:pl-2">
+                {isMuted ? "Play Audio" : "Mute"}
+              </span>
+            </button>
             
             {/* Overlay Gradient to ensure text readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#161513] via-[#161513]/40 to-transparent dark:from-[#0a0a0a] dark:via-[#0a0a0a]/60"></div>
