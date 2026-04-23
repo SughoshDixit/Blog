@@ -7,8 +7,38 @@ import { store } from "../Redux/store";
 import { SessionProvider } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { FaFutbol } from "react-icons/fa";
 
 const ChatBot = dynamic(() => import("../Components/ChatBot"), { ssr: false });
+
+function FootballSplashScreen({ isVisible }) {
+  const [render, setRender] = useState(isVisible);
+
+  useEffect(() => {
+    if (isVisible) setRender(true);
+  }, [isVisible]);
+
+  const onAnimationEnd = () => {
+    if (!isVisible) setRender(false);
+  };
+
+  if (!render) return null;
+
+  return (
+    <div 
+      className={`fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#161513] transition-opacity duration-700 ease-in-out ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+      onTransitionEnd={onAnimationEnd}
+    >
+      <div className="animate-bounce mb-2">
+        <FaFutbol className="text-white text-6xl animate-[spin_2s_linear_infinite] drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]" />
+      </div>
+      <div className="w-16 h-2 bg-white/10 rounded-[50%] blur-sm mx-auto mb-8 animate-pulse"></div>
+      <h2 className="text-lg font-semibold tracking-[0.2em] text-[#B8E0D8] uppercase animate-pulse">
+        Kicking off...
+      </h2>
+    </div>
+  );
+}
 
 function PageProgressBar({ loading }) {
   return (
@@ -39,8 +69,13 @@ function PageProgressBar({ loading }) {
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
 
   useEffect(() => {
+    // Splash screen timer
+    const splashTimer = setTimeout(() => {
+      setInitialLoading(false);
+    }, 1500);
     const handleStart = () => setLoading(true);
     const handleEnd = () => setLoading(false);
 
@@ -59,6 +94,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     <SessionProvider session={session}>
       <Provider store={store}>
         <ThemeProvider attribute="class">
+          <FootballSplashScreen isVisible={initialLoading} />
           <PageProgressBar loading={loading} />
           <Component {...pageProps} />
           <ChatBot />
