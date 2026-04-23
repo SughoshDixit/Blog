@@ -248,6 +248,22 @@ export default function Home({ blogs, topics }) {
 
   const POSTS_PER_PAGE = 6;
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentFeaturedIndex, setCurrentFeaturedIndex] = useState(0);
+  const [isFeaturedFading, setIsFeaturedFading] = useState(false);
+
+  useEffect(() => {
+    if (!recentPosts || recentPosts.length <= 1) return;
+    const interval = setInterval(() => {
+      setIsFeaturedFading(true);
+      setTimeout(() => {
+        setCurrentFeaturedIndex((prev) => (prev + 1) % recentPosts.length);
+        setIsFeaturedFading(false);
+      }, 500);
+    }, 7000); // Cycle every 7 seconds
+    return () => clearInterval(interval);
+  }, [recentPosts]);
+
+  const currentFeaturedPost = recentPosts && recentPosts.length > 0 ? recentPosts[currentFeaturedIndex] : featureHighlight;
 
   useEffect(() => {
     setCurrentPage(1);
@@ -547,12 +563,12 @@ export default function Home({ blogs, topics }) {
 
                 <div className="space-y-4">
                   <HeroLottieAccent />
-                  {featureHighlight && (
-                    <article className="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md shadow-xl shadow-black/20">
-                      {featureHighlight.data.HeaderImage && featureHighlight.data.HeaderImage.trim() && (
+                  {currentFeaturedPost && (
+                    <article className={`rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md shadow-xl shadow-black/20 transition-opacity duration-500 ease-in-out ${isFeaturedFading ? 'opacity-0' : 'opacity-100'}`}>
+                      {currentFeaturedPost.data.HeaderImage && currentFeaturedPost.data.HeaderImage.trim() && (
                         <div className="relative aspect-[2/1] overflow-hidden rounded-t-2xl">
                           <Image
-                            src={featureHighlight.data.HeaderImage}
+                            src={currentFeaturedPost.data.HeaderImage}
                             alt=""
                             layout="fill"
                             objectFit="cover"
@@ -562,30 +578,39 @@ export default function Home({ blogs, topics }) {
                         </div>
                       )}
                       <div className="p-8 space-y-4">
-                        <div className="flex items-center gap-3 text-sm text-[#B8E0D8]/80">
-                          <span className="font-semibold">
-                            {featureHighlight.data.Author || "Sughosh Dixit"}
-                          </span>
-                          <span>&middot;</span>
-                          <span>{featureHighlight.data.Date}</span>
-                          <span>&middot;</span>
-                          <span>{featureHighlight.readTime.text}</span>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3 text-sm text-[#B8E0D8]/80">
+                            <span className="font-semibold">
+                              {currentFeaturedPost.data.Author || "Sughosh Dixit"}
+                            </span>
+                            <span>&middot;</span>
+                            <span>{currentFeaturedPost.data.Date}</span>
+                            <span>&middot;</span>
+                            <span>{currentFeaturedPost.readTime.text}</span>
+                          </div>
+                          {recentPosts && recentPosts.length > 1 && (
+                            <div className="flex items-center gap-1.5">
+                              {recentPosts.map((_, i) => (
+                                <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === currentFeaturedIndex ? 'w-4 bg-[#E8572A]' : 'w-1.5 bg-white/20'}`}></div>
+                              ))}
+                            </div>
+                          )}
                         </div>
                         <h2
                           className="text-2xl md:text-3xl text-white font-semibold leading-tight"
                           style={{ fontFamily: "Charter, Georgia, serif" }}
                         >
                           <a
-                            href={`/blogs/${generateSlug(featureHighlight.data.Title)}`}
+                            href={`/blogs/${generateSlug(currentFeaturedPost.data.Title)}`}
                             className="hover:text-[#F5E4D3] transition-colors"
                           >
-                            {featureHighlight.data.Title}
+                            {currentFeaturedPost.data.Title}
                           </a>
                         </h2>
                         <p className="text-base text-[#B8E0D8] leading-relaxed line-clamp-3">
-                          {featureHighlight.data.Abstract}
+                          {currentFeaturedPost.data.Abstract}
                         </p>
-                        <span className="inline-block px-3 py-1 rounded-full bg-[#C74634] text-white text-xs font-semibold">Latest</span>
+                        <span className="inline-block px-3 py-1 rounded-full bg-[#C74634] text-white text-xs font-semibold">Featured</span>
                       </div>
                     </article>
                   )}
