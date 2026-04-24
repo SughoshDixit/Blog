@@ -23,6 +23,7 @@ import ChanakyaShubhashita from "../../Components/ChanakyaShubhashita";
 import PostNavigation from "../../Components/PostNavigation";
 import LikeBtn from "../../Components/LikeBtn";
 import Comments from "../../Components/Comments";
+import NewsletterForm from "../../Components/NewsletterForm";
 import { SITE_URL, siteOgImageUrl } from "../../Lib/siteConfig";
 
 export const getStaticPaths = () => {
@@ -152,6 +153,11 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
           <div className="max-w-4xl mx-auto px-4 sm:px-6 overflow-x-hidden">
             <BlogInner data={data} content={content} headings={headings} readTime={readTime} allBlogs={allBlogs} postId={id} />
             
+            {/* Inline Newsletter Capture */}
+            <div className="mt-12 sm:mt-16">
+              <NewsletterForm compact={true} />
+            </div>
+
             {/* Reading History Tracker */}
             <ReadingHistory postId={id} postTitle={data.Title} postData={data} />
 

@@ -184,9 +184,18 @@ function Navbar({ topics }) {
 
           {/* Right side - Actions */}
           <div className="flex items-center space-x-4">
-            <div className="hidden lg:flex items-center space-x-6 text-sm text-[#6E6B68] dark:text-[#F5F4F2]">
+            <div className="hidden xl:flex items-center space-x-5 text-sm text-[#6E6B68] dark:text-[#F5F4F2]">
               <Link href="/start-here">
                 <a className={`hover:text-[#C74634] transition-colors relative ${isActive("/start-here") ? "nav-link-active" : ""}`}>Start Here</a>
+              </Link>
+              <Link href="/projects">
+                <a className={`hover:text-[#C74634] transition-colors relative ${isActive("/projects") ? "nav-link-active" : ""}`}>Portfolio</a>
+              </Link>
+              <Link href="/garden">
+                <a className={`hover:text-[#C74634] transition-colors relative ${isActive("/garden") ? "nav-link-active" : ""}`}>Garden</a>
+              </Link>
+              <Link href="/consulting">
+                <a className={`hover:text-[#C74634] transition-colors relative ${isActive("/consulting") ? "nav-link-active" : ""}`}>Consulting</a>
               </Link>
               <Link href="/learning-path">
                 <a className={`hover:text-[#C74634] transition-colors flex items-center gap-1 relative ${isActive("/learning-path") ? "nav-link-active" : ""}`}>
@@ -331,6 +340,27 @@ function Navbar({ topics }) {
               <a className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
                 <FiHome className="w-5 h-5" />
                 <span>Home</span>
+              </a>
+            </Link>
+
+            <Link href="/projects">
+              <a className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                <FiBarChart2 className="w-5 h-5" />
+                <span>Portfolio</span>
+              </a>
+            </Link>
+
+            <Link href="/garden">
+              <a className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                <FiBookOpen className="w-5 h-5" />
+                <span>Digital Garden</span>
+              </a>
+            </Link>
+
+            <Link href="/consulting">
+              <a className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                <FiUser className="w-5 h-5" />
+                <span>Consulting</span>
               </a>
             </Link>
             
