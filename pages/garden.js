@@ -3,7 +3,7 @@ import Footer from "../Components/Footer";
 import Head from "next/head";
 import { getProminentTopics } from "../Lib/Data";
 import { SITE_URL } from "../Lib/siteConfig";
-import { FiClock, FiTag, FiBookOpen } from "react-icons/fi";
+import { FiClock, FiTag, FiBookOpen, FiExternalLink } from "react-icons/fi";
 import { FaSeedling } from "react-icons/fa";
 
 export const getStaticProps = () => {
@@ -15,30 +15,89 @@ const CHARTER = { fontFamily: "Charter, Georgia, serif" };
 
 const notes = [
   {
+    id: "4",
+    date: "April 29, 2026",
+    title: "Antimatter (IOP) — Why does reality prefer matter?",
+    category: "Physics / Curiosity Stack",
+    content:
+      "Half-baked idea: if antimatter is the mirror twin, maybe the universe has a cosmic bias setting hidden in plain sight. I want to read this and see whether my intuition is deep or just expensive sci-fi fan fiction in a blazer.",
+    tags: ["Antimatter", "Cosmology", "Fundamental Physics"],
+    paperUrl: "https://www.iop.org/sites/default/files/2019-06/Antimatter%202013_0.pdf",
+    visual: "antimatter",
+  },
+  {
     id: "3",
-    date: "April 24, 2026",
-    title: "Understanding Rotary Position Embeddings (RoPE)",
-    category: "LLM Architecture",
-    content: "Was diving deep into the Llama 3 architecture today. Unlike absolute or relative position embeddings, RoPE rotates the token embeddings in the complex plane based on their position. This allows the model to naturally capture relative distances while preserving absolute position info. The math is elegant—using Euler's formula to inject positional info via rotation matrices. Explains why newer models extrapolate to longer context windows so much better.",
-    tags: ["LLMs", "Math", "Attention"]
+    date: "April 29, 2026",
+    title: "A&A 2018 Paper — Star formation, but with receipts",
+    category: "Astrophysics / Data Curiosity",
+    content:
+      "Half-baked idea: every stellar nursery is basically a chaotic startup incubator with gravity as the VC. I want to decode how they model this and see if some of those inference tricks can inspire better uncertainty thinking in ML pipelines.",
+    tags: ["Astrophysics", "A&A", "Modeling"],
+    paperUrl: "https://www.aanda.org/articles/aa/pdf/2018/12/aa32898-18.pdf",
+    visual: "stellar",
   },
   {
     id: "2",
-    date: "April 18, 2026",
-    title: "Pandas query() is vastly underused",
-    category: "Data Engineering",
-    content: "Just a quick TIL. Instead of writing `df[(df['age'] > 30) & (df['department'] == 'Sales')]`, you can just write `df.query('age > 30 and department == \"Sales\"')`. It's cleaner, easier to read, and behind the scenes it evaluates using NumExpr which makes it significantly faster for large DataFrames because it avoids creating intermediate boolean arrays.",
-    tags: ["Python", "Pandas", "Performance"]
+    date: "April 29, 2026",
+    title: "IAEA SEP_03 — Serious science with reactor-grade consequences",
+    category: "Nuclear Science / Applied Systems",
+    content:
+      "Half-baked idea: nuclear literature reads like systems engineering with no room for vibes, and that is exactly why I like it. I want to mine this paper for how experts reason when the error budget is basically 'do not explode'.",
+    tags: ["IAEA", "Nuclear", "Safety Systems"],
+    paperUrl: "https://www-pub.iaea.org/mtcd/publications/pdf/csp_008c/pdf/sep_03.pdf",
+    visual: "reactor",
   },
   {
     id: "1",
-    date: "April 10, 2026",
-    title: "The 'Paper Review' Habit",
-    category: "Continuous Learning",
-    content: "Starting a new habit today: reading one AI research paper a week and writing a 3-bullet summary here in the digital garden. The field is moving too fast to rely solely on YouTube summaries or Twitter threads. First up next week: \"Attention Is All You Need\" (re-reading the classic to solidify my intuition on QKV matrices).",
-    tags: ["Habits", "Research"]
-  }
+    date: "April 29, 2026",
+    title: "IEEE 9783210 — Engineering signal from chaos",
+    category: "IEEE / Applied Intelligence",
+    content:
+      "Half-baked idea: this looks like one of those papers where the abstract feels innocent, but equation 7 quietly changes your worldview. I want to unpack the core method and see where it can plug directly into my production ML workflows.",
+    tags: ["IEEE", "Algorithms", "Applied AI"],
+    paperUrl: "https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9783210",
+    visual: "ieee",
+  },
 ];
+
+function GardenVisual({ type }) {
+  if (type === "antimatter") {
+    return (
+      <div className="garden-visual garden-visual-antimatter" aria-hidden="true">
+        <span className="matter-orb matter-orb-a" />
+        <span className="matter-orb matter-orb-b" />
+        <span className="matter-orb matter-orb-c" />
+      </div>
+    );
+  }
+  if (type === "stellar") {
+    return (
+      <div className="garden-visual garden-visual-stellar" aria-hidden="true">
+        <span className="star star-a" />
+        <span className="star star-b" />
+        <span className="star star-c" />
+        <span className="star star-d" />
+      </div>
+    );
+  }
+  if (type === "reactor") {
+    return (
+      <div className="garden-visual garden-visual-reactor" aria-hidden="true">
+        <span className="reactor-bar reactor-bar-1" />
+        <span className="reactor-bar reactor-bar-2" />
+        <span className="reactor-bar reactor-bar-3" />
+        <span className="reactor-ring" />
+      </div>
+    );
+  }
+  return (
+    <div className="garden-visual garden-visual-ieee" aria-hidden="true">
+      <span className="signal-line signal-line-a" />
+      <span className="signal-line signal-line-b" />
+      <span className="signal-line signal-line-c" />
+    </div>
+  );
+}
 
 function DigitalGarden({ topics }) {
   return (
@@ -95,10 +154,22 @@ function DigitalGarden({ topics }) {
                   <h2 className="text-2xl font-bold text-[#161513] dark:text-[#F5F4F2] mb-4" style={CHARTER}>
                     {note.title}
                   </h2>
+
+                  <GardenVisual type={note.visual} />
                   
                   <div className="prose dark:prose-invert max-w-none text-[#6E6B68] dark:text-[#B8B4B0] mb-6 leading-relaxed">
                     <p>{note.content}</p>
                   </div>
+
+                  <a
+                    href={note.paperUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 mb-5 px-4 py-2 rounded-full bg-[#2d6a4f] text-white text-sm font-medium hover:bg-[#255640] transition-colors"
+                  >
+                    Open paper
+                    <FiExternalLink className="w-4 h-4" />
+                  </a>
                   
                   <div className="flex flex-wrap gap-2">
                     {note.tags.map(tag => (

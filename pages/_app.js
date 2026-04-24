@@ -40,6 +40,93 @@ function FootballSplashScreen({ isVisible }) {
   );
 }
 
+const ROUTE_LOADER_CONFIG = [
+  {
+    match: (url) => url.startsWith("/football"),
+    type: "football-goal",
+    title: "Kicking off...",
+    subtitle: "Final third run in progress",
+  },
+  {
+    match: (url) => url.startsWith("/dashboard") || url.startsWith("/projects"),
+    type: "gif-1",
+    title: "Loading stats...",
+    subtitle: "Crunching the latest signals",
+  },
+  {
+    match: (url) => url.startsWith("/blogs/") || url.startsWith("/topic/"),
+    type: "gif-2",
+    title: "Opening story...",
+    subtitle: "Bringing your next read",
+  },
+  {
+    match: () => true,
+    type: "gif-1",
+    title: "Loading...",
+    subtitle: "Preparing your next page",
+  },
+];
+
+function getLoaderConfig(url) {
+  return ROUTE_LOADER_CONFIG.find((entry) => entry.match(url)) || ROUTE_LOADER_CONFIG[ROUTE_LOADER_CONFIG.length - 1];
+}
+
+function RouteSplashScreen({ isVisible, loaderConfig }) {
+  const [render, setRender] = useState(isVisible);
+
+  useEffect(() => {
+    if (isVisible) setRender(true);
+  }, [isVisible]);
+
+  const onTransitionEnd = () => {
+    if (!isVisible) setRender(false);
+  };
+
+  if (!render) return null;
+
+  return (
+    <div
+      className={`fixed inset-0 z-[99998] flex flex-col items-center justify-center bg-[#161513]/95 backdrop-blur-sm transition-opacity duration-500 ease-in-out ${
+        isVisible ? "opacity-100" : "opacity-0"
+      }`}
+      onTransitionEnd={onTransitionEnd}
+    >
+      {loaderConfig?.type === "football-goal" ? (
+        <div className="goal-loader-scene" aria-hidden="true">
+          <div className="goal-loader-ground" />
+          <div className="goal-loader-player">
+            <span className="goal-loader-head" />
+            <span className="goal-loader-body" />
+            <span className="goal-loader-leg goal-loader-leg-back" />
+            <span className="goal-loader-leg goal-loader-leg-front" />
+          </div>
+          <div className="goal-loader-ball" />
+          <div className="goal-loader-goal">
+            <span />
+            <span />
+            <span />
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-col items-center">
+          <img
+            src={loaderConfig?.type === "gif-2" ? "/redwood-imgs/loading-2.gif" : "/redwood-imgs/loading-1.gif"}
+            alt=""
+            className="w-44 h-44 object-contain rounded-2xl border border-white/10 shadow-2xl shadow-black/40"
+          />
+        </div>
+      )}
+
+      <h2 className="mt-8 text-lg font-semibold tracking-[0.2em] text-[#B8E0D8] uppercase animate-pulse">
+        {loaderConfig?.title || "Loading..."}
+      </h2>
+      <p className="mt-2 text-xs tracking-[0.14em] uppercase text-[#d0cbc4]">
+        {loaderConfig?.subtitle || "Please wait"}
+      </p>
+    </div>
+  );
+}
+
 function PageProgressBar({ loading }) {
   return (
     <div
@@ -70,13 +157,17 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
+  const [loaderConfig, setLoaderConfig] = useState(getLoaderConfig(router.asPath || "/"));
 
   useEffect(() => {
     // Splash screen timer
     const splashTimer = setTimeout(() => {
       setInitialLoading(false);
     }, 1500);
-    const handleStart = () => setLoading(true);
+    const handleStart = (url) => {
+      setLoaderConfig(getLoaderConfig(url));
+      setLoading(true);
+    };
     const handleEnd = () => setLoading(false);
 
     router.events.on("routeChangeStart", handleStart);
@@ -95,6 +186,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       <Provider store={store}>
         <ThemeProvider attribute="class">
           <FootballSplashScreen isVisible={initialLoading} />
+          <RouteSplashScreen isVisible={loading} loaderConfig={loaderConfig} />
           <PageProgressBar loading={loading} />
           <Component {...pageProps} />
           <ChatBot />
