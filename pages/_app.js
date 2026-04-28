@@ -163,18 +163,32 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     // Splash screen timer
     const splashTimer = setTimeout(() => {
       setInitialLoading(false);
-    }, 1500);
+    }, 2000); // Increased slightly for better effect
+
+    let loadStartTime = 0;
+    const MIN_LOAD_TIME = 1200; // Minimum time in ms to show the loader
+
     const handleStart = (url) => {
+      loadStartTime = Date.now();
       setLoaderConfig(getLoaderConfig(url));
       setLoading(true);
     };
-    const handleEnd = () => setLoading(false);
+
+    const handleEnd = () => {
+      const elapsed = Date.now() - loadStartTime;
+      const remaining = Math.max(0, MIN_LOAD_TIME - elapsed);
+      
+      setTimeout(() => {
+        setLoading(false);
+      }, remaining);
+    };
 
     router.events.on("routeChangeStart", handleStart);
     router.events.on("routeChangeComplete", handleEnd);
     router.events.on("routeChangeError", handleEnd);
 
     return () => {
+      clearTimeout(splashTimer);
       router.events.off("routeChangeStart", handleStart);
       router.events.off("routeChangeComplete", handleEnd);
       router.events.off("routeChangeError", handleEnd);

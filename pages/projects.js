@@ -401,70 +401,140 @@ function Projects({ topics, repositories, portfolioSyncError, activityStats }) {
             </div>
           </div>
 
+          {/* Project Filtering */}
+          <div className="flex flex-wrap justify-center gap-4 mb-16">
+            {['All', 'Data Science', 'AI/ML', 'Web Dev', 'Research'].map((filter) => (
+              <button
+                key={filter}
+                className="px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 border border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27] text-[#6E6B68] dark:text-[#B8B4B0] hover:border-[#C74634] hover:text-[#C74634]"
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
+
+          {/* Featured Projects Section */}
+          <div className="mb-24">
+            <div className="flex items-center gap-4 mb-8">
+              <h2 className="text-3xl font-bold text-[#161513] dark:text-[#F5F4F2]" style={CHARTER}>
+                Featured High-Impact Work
+              </h2>
+              <div className="h-px flex-1 bg-gradient-to-r from-[#C74634]/30 to-transparent" />
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Featured Card 1: ML4AML */}
+              <div className="group relative rounded-[2rem] bg-white dark:bg-[#1C1B19] border border-[#E0DDD9] dark:border-[#3D3A36] p-8 overflow-hidden hover:shadow-2xl transition-all duration-500">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#C74634]/5 rounded-bl-[100px] group-hover:bg-[#C74634]/10 transition-colors" />
+                <div className="relative z-10">
+                  <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#C74634] bg-[#C74634]/10 rounded-full mb-4 inline-block">Enterprise AI</span>
+                  <h3 className="text-3xl font-bold mb-4 dark:text-white" style={CHARTER}>ML4AML Engine</h3>
+                  <p className="text-[#6E6B68] dark:text-[#B8B4B0] leading-relaxed mb-6">
+                    Leading the development of Oracle's Anti-Money Laundering engine. Implementing robust statistical models and scalable ML pipelines to detect complex financial crime patterns in real-time.
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {['Python', 'PyTorch', 'Robust Stats', 'Oracle Cloud'].map(tag => (
+                      <span key={tag} className="text-[11px] px-2 py-1 bg-[#F5F2ED] dark:bg-[#2C2A27] rounded text-[#8F846F]">{tag}</span>
+                    ))}
+                  </div>
+                  <div className="flex gap-4">
+                    <button className="px-5 py-2.5 bg-[#161513] dark:bg-white text-white dark:text-[#161513] rounded-xl text-sm font-bold hover:scale-105 transition-transform">Read Case Study</button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Featured Card 2: SughoshKiShreya */}
+              <div className="group relative rounded-[2rem] bg-gradient-to-br from-[#FDFCFB] to-[#F5F2EE] dark:from-[#2C2A27] dark:to-[#161513] border border-[#E0DDD9] dark:border-[#3D3A36] p-8 overflow-hidden hover:shadow-2xl transition-all duration-500">
+                <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-[#C74634]/5 rounded-full blur-3xl group-hover:bg-[#C74634]/10 transition-all" />
+                <div className="relative z-10">
+                  <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#C74634] bg-[#C74634]/10 rounded-full mb-4 inline-block">Personal Project</span>
+                  <h3 className="text-3xl font-bold mb-4 dark:text-white" style={CHARTER}>SughoshKiShreya</h3>
+                  <p className="text-[#6E6B68] dark:text-[#B8B4B0] leading-relaxed mb-6">
+                    A personalized wedding ecosystem integrated with automated guest management, digital itineraries, and live storytelling components. Built with high-performance React patterns.
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {['Next.js', 'Framer Motion', 'Prisma', 'PostgreSQL'].map(tag => (
+                      <span key={tag} className="text-[11px] px-2 py-1 bg-white/50 dark:bg-black/20 rounded text-[#8F846F]">{tag}</span>
+                    ))}
+                  </div>
+                  <div className="flex gap-4">
+                    <a href="https://github.com/SughoshDixit/SughoshKiShreya" target="_blank" className="px-5 py-2.5 bg-[#C74634] text-white rounded-xl text-sm font-bold hover:scale-105 transition-transform">View Source</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Projects List Header */}
+          <div className="flex items-center gap-4 mb-12">
+            <h2 className="text-3xl font-bold text-[#161513] dark:text-[#F5F4F2]" style={CHARTER}>
+              All Repositories
+            </h2>
+            <div className="h-px flex-1 bg-[#E0DDD9] dark:bg-[#3D3A36]" />
+            <span className="text-sm text-[#8F846F] dark:text-[#9F988D]">{repositories.length} Total</span>
+          </div>
+
           {/* Projects List */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {repositories.map((repo) => (
               <article
                 key={repo.id}
-                className="rounded-3xl bg-white dark:bg-[#2C2A27] border border-[#E0DDD9] dark:border-[#3D3A36] p-6 shadow-sm"
+                className="group flex flex-col rounded-3xl bg-white dark:bg-[#2C2A27] border border-[#E0DDD9] dark:border-[#3D3A36] p-6 hover:border-[#C74634] transition-all duration-300 hover:shadow-xl"
               >
-                <div className="flex items-start justify-between gap-4">
-                  <h2 className="text-2xl font-bold text-[#161513] dark:text-[#F5F4F2]" style={CHARTER}>
+                <div className="flex items-start justify-between gap-4 mb-4">
+                  <h3 className="text-xl font-bold text-[#161513] dark:text-[#F5F4F2] group-hover:text-[#C74634] transition-colors" style={CHARTER}>
                     {repo.name}
-                  </h2>
+                  </h3>
                   {repo.archived && (
-                    <span className="text-xs px-2 py-1 rounded-full bg-[#EEE4D5] dark:bg-[#3D3A36] text-[#6E6B68] dark:text-[#B8B4B0]">
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#EEE4D5] dark:bg-[#3D3A36] text-[#6E6B68] dark:text-[#B8B4B0] uppercase tracking-wider">
                       Archived
                     </span>
                   )}
                 </div>
 
-                <p className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] mt-3 leading-relaxed min-h-[52px]">
+                <p className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] leading-relaxed line-clamp-3 mb-6 flex-grow">
                   {repo.summary}
                 </p>
 
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <span className="px-3 py-1 text-xs rounded-full bg-[#F7EFE6] dark:bg-[#3D3A36] text-[#5c5140] dark:text-[#D6D1CA]">
-                    {repo.language}
-                  </span>
-                  {repo.fork && (
-                    <span className="px-3 py-1 text-xs rounded-full bg-[#EDF3FF] dark:bg-[#223047] text-[#325D9C] dark:text-[#9AB7E5]">
-                      Fork
+                <div className="mt-auto space-y-5">
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 text-[11px] rounded-full bg-[#F7EFE6] dark:bg-[#3D3A36] text-[#5c5140] dark:text-[#D6D1CA] font-medium">
+                      {repo.language}
                     </span>
-                  )}
-                </div>
+                    {repo.fork && (
+                      <span className="px-3 py-1 text-[11px] rounded-full bg-[#EDF3FF] dark:bg-[#223047] text-[#325D9C] dark:text-[#9AB7E5]">
+                        Fork
+                      </span>
+                    )}
+                  </div>
 
-                <div className="mt-5 flex flex-wrap items-center gap-4 text-sm text-[#6E6B68] dark:text-[#B8B4B0]">
-                  <span className="inline-flex items-center gap-1.5">
-                    <FiStar className="w-4 h-4" /> {repo.stars}
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <FiGitBranch className="w-4 h-4" /> {repo.forks}
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <FiClock className="w-4 h-4" /> {new Date(repo.updatedAt).toLocaleDateString("en-IN")}
-                  </span>
-                </div>
-
-                <div className="mt-6 flex items-center gap-3">
-                  <a
-                    href={repo.htmlUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#C74634] text-white text-sm font-medium hover:bg-[#A73A2C] transition-colors"
-                  >
-                    <FiGithub /> Source
-                  </a>
-                  {repo.homepage && (
-                    <a
-                      href={repo.homepage}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-[#E0DDD9] dark:border-[#3D3A36] text-sm font-medium text-[#161513] dark:text-[#F5F4F2] hover:bg-[#F5F2ED] dark:hover:bg-[#3D3A36]"
-                    >
-                      Live <FiExternalLink />
-                    </a>
-                  )}
+                  <div className="pt-5 border-t border-[#F5F2ED] dark:border-[#3D3A36] flex items-center justify-between">
+                    <div className="flex items-center gap-4 text-xs text-[#8F846F] dark:text-[#9F988D]">
+                      <span className="inline-flex items-center gap-1.5"><FiStar className="w-3.5 h-3.5" /> {repo.stars}</span>
+                      <span className="inline-flex items-center gap-1.5"><FiClock className="w-3.5 h-3.5" /> {new Date(repo.updatedAt).toLocaleDateString("en-IN", { month: 'short', year: 'numeric' })}</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <a
+                        href={repo.htmlUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-lg bg-[#F5F2ED] dark:bg-[#3D3A36] text-[#161513] dark:text-white hover:bg-[#C74634] hover:text-white transition-all"
+                        title="View Source"
+                      >
+                        <FiGithub size={16} />
+                      </a>
+                      {repo.homepage && (
+                        <a
+                          href={repo.homepage}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 rounded-lg bg-[#C74634]/10 text-[#C74634] hover:bg-[#C74634] hover:text-white transition-all"
+                          title="Live Demo"
+                        >
+                          <FiExternalLink size={16} />
+                        </a>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </article>
             ))}
