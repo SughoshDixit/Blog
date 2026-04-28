@@ -4,22 +4,22 @@
 Blog is a **JavaScript** project. This repository contains the source code, documentation, and any related assets for the project.
 
 ## Intent
-The intention behind this project is to provide a personal blog platform, showcase portfolio items, and share articles.
+The intention behind this project is to provide a reference implementation, demonstrate Blogâ€™s functionality, and serve as a learning or showcase resource.
 
 ## Complexity
-Medium – the project uses a modern JavaScript stack with routing, state management, and styling.
+Medium
 
 ## How to Run
-```bash
+`
 # Clone the repository
+
 git clone https://github.com/SughoshDixit/Blog.git
+
 cd Blog
 
-# Install dependencies
 npm install
 
-# Run the development server
-npm run dev   # or npm start depending on package.json scripts
-```
+npm run dev   # or npm start
+`
 
-*(If the repository uses a different build tool, adjust the commands accordingly.)*
+*(If the project uses a different build tool, replace the commands above with the appropriate instructions.)*
