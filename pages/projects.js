@@ -5,6 +5,7 @@ import { getProminentTopics } from "../Lib/Data";
 import { SITE_URL, siteOgImageUrl } from "../Lib/siteConfig";
 import { FiGithub, FiExternalLink, FiStar, FiGitBranch, FiClock, FiZap, FiTrendingUp } from "react-icons/fi";
 import { FaLaptopCode } from "react-icons/fa";
+import TopicWordCloud from "../Components/TopicWordCloud";
 
 const GITHUB_USERNAME = "SughoshDixit";
 const MAX_REPOS = 36;
@@ -14,6 +15,23 @@ const LINKEDIN_ACHIEVEMENTS = [
   "Hackathon Champion (multiple wins, including Top 15 at Rakathon)",
   "Generative AI practitioner (LoRA + production workflow focus)",
   "M.Tech in Data Science & Engineering, BITS Pilani",
+];
+
+const CORE_EXPERTISE = [
+  { label: "Data Science", weight: "xl", tone: "ember", tilt: "left" },
+  { label: "Machine Learning", weight: "lg", tone: "teal", tilt: "right" },
+  { label: "AI", weight: "lg", tone: "amber", tilt: "flat" },
+  { label: "Statistics", weight: "md", tone: "teal", tilt: "left" },
+  { label: "Python", weight: "lg", tone: "ember", tilt: "flat" },
+  { label: "Deep Learning", weight: "md", tone: "violet", tilt: "right" },
+  { label: "NLP", weight: "sm", tone: "amber", tilt: "flat" },
+  { label: "Causal Inference", weight: "md", tone: "ember", tilt: "right" },
+  { label: "Bayesian Stats", weight: "sm", tone: "teal", tilt: "left" },
+  { label: "Next.js", weight: "sm", tone: "violet", tilt: "flat" },
+  { label: "React", weight: "sm", tone: "amber", tilt: "right" },
+  { label: "Full Stack", weight: "sm", tone: "ember", tilt: "flat" },
+  { label: "API Design", weight: "sm", tone: "teal", tilt: "left" },
+  { label: "Productivity", weight: "sm", tone: "violet", tilt: "right" },
 ];
 
 async function fetchAllRepos(username) {
@@ -207,11 +225,21 @@ function Projects({ topics, repositories, portfolioSyncError, activityStats }) {
     .sort(([, a], [, b]) => b - a)
     .slice(0, 8);
   const maxLanguageCount = languageBreakdown.length > 0 ? languageBreakdown[0][1] : 1;
-  const topicCloud = Array.from(
-    new Set(
-      repositories.flatMap((repo) => repo.topics || [])
-    )
-  ).slice(0, 18);
+  const rawTopics = Array.from(
+    new Set([
+      ...repositories.flatMap((repo) => repo.topics || []),
+      ...(topics || [])
+    ])
+  );
+  
+  const topicCloud = rawTopics.length > 0 
+    ? rawTopics.slice(0, 24).map(topic => ({ 
+        label: topic,
+        weight: topic.length > 10 ? "md" : "sm",
+        tone: ["ember", "teal", "violet", "amber"][Math.floor(Math.random() * 4)],
+        tilt: ["left", "right", "flat"][Math.floor(Math.random() * 3)]
+      }))
+    : CORE_EXPERTISE;
   const activityWindow =
     activityStats?.newestTimestamp && activityStats?.oldestTimestamp
       ? `${new Date(activityStats.newestTimestamp).toLocaleDateString("en-IN")} - ${new Date(
@@ -365,24 +393,12 @@ function Projects({ topics, repositories, portfolioSyncError, activityStats }) {
               </div>
             </section>
 
-            <section className="rounded-3xl bg-white dark:bg-[#2C2A27] border border-[#E0DDD9] dark:border-[#3D3A36] p-6">
-              <h3 className="text-xl font-bold text-[#161513] dark:text-[#F5F4F2] mb-4" style={CHARTER}>
-                Topic cloud
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {topicCloud.map((topic) => (
-                  <span
-                    key={topic}
-                    className="px-3 py-1 text-xs rounded-full bg-[#F7EFE6] dark:bg-[#3D3A36] text-[#5c5140] dark:text-[#D6D1CA] border border-[#E0DDD9] dark:border-[#4A453F]"
-                  >
-                    {topic}
-                  </span>
-                ))}
-                {topicCloud.length === 0 && (
-                  <p className="text-sm text-[#7f735f] dark:text-[#9f988d]">No repository topics detected yet.</p>
-                )}
-              </div>
-            </section>
+            <TopicWordCloud 
+              words={topicCloud}
+              title="Project Ecosystem"
+              subtitle="The technologies, domains, and methods underlying these repositories."
+              className="lg:col-span-1"
+            />
           </div>
 
           <div className="mb-10 rounded-3xl bg-white dark:bg-[#2C2A27] border border-[#E0DDD9] dark:border-[#3D3A36] p-6">
