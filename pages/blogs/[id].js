@@ -15,6 +15,7 @@ import { getHeadings } from "../../Lib/GetHeadings";
 import ReadingProgress from "../../Components/ReadingProgress";
 import ReadingProgressSync from "../../Components/ReadingProgressSync";
 import RelatedPosts from "../../Components/RelatedPosts";
+import BackToTop from "../../Components/BackToTop";
 import BookmarkBtn from "../../Components/BookmarkBtn";
 import ReadingHistory from "../../Components/ReadingHistory";
 import PrintButton from "../../Components/PrintButton";
@@ -91,11 +92,12 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
   // - Local paths like /BL-8/foo.jpg  → https://sughoshdixit.com/BL-8/foo.jpg
   // - External URLs (miro.medium.com) → used as-is
   // - Missing HeaderImage             → fall back to site-wide OG image
+  // Build a fully-qualified OG image URL served from the live domain.
   const ogImage = data.HeaderImage
     ? data.HeaderImage.startsWith("http")
       ? data.HeaderImage
       : `${SITE_URL}${data.HeaderImage}`
-    : siteOgImageUrl();
+    : `${SITE_URL}/api/og?title=${encodeURIComponent(data.Title)}&topic=${encodeURIComponent(data.Topic || "Blog")}`;
 
   return (
     <>
@@ -143,6 +145,7 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
         <ReadingProgress />
         <ReadingProgressSync slug={id} />
         <Navbar topics={topics} />
+        <BackToTop />
         <div className="pt-20">
           {/* best-effort visit counter per post */}
           <Script id="visit-counter" strategy="afterInteractive">

@@ -3,8 +3,9 @@ import Footer from "../Components/Footer";
 import Head from "next/head";
 import { getProminentTopics } from "../Lib/Data";
 import { SITE_URL } from "../Lib/siteConfig";
-import { FiCheckCircle, FiTrendingUp, FiTarget, FiBox, FiMail } from "react-icons/fi";
-import { FaHandshake } from "react-icons/fa";
+import { FiCheckCircle, FiTrendingUp, FiTarget, FiBox, FiMail, FiExternalLink } from "react-icons/fi";
+import { FaHandshake, FaDatabase } from "react-icons/fa";
+import FootballStatsChart from "../Components/FootballStatsChart";
 
 export const getStaticProps = () => {
   const allTopics = getProminentTopics();
@@ -102,6 +103,90 @@ function Consulting({ topics }) {
                       </li>
                     ))}
                   </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Data Visualization Showcase */}
+        <section className="py-24 max-w-7xl mx-auto px-4 md:px-8">
+          <div className="flex flex-col lg:flex-row gap-16 items-center">
+            <div className="lg:w-1/2">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C74634]/10 text-[#C74634] text-xs font-bold uppercase tracking-wider mb-6">
+                <FaDatabase />
+                <span>Data-Driven Decision Making</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold text-[#161513] dark:text-[#F5F4F2] mb-8 leading-tight" style={CHARTER}>
+                Visualizing the <br/> Unseen Patterns.
+              </h2>
+              <p className="text-lg text-[#6E6B68] dark:text-[#B8B4B0] mb-8 leading-relaxed">
+                Raw data is a liability; processed intelligence is an asset. I specialize in building custom interactive dashboards that transform complex metrics into actionable narratives. 
+              </p>
+              <p className="text-lg text-[#6E6B68] dark:text-[#B8B4B0] mb-10 leading-relaxed">
+                Whether it's tracking athlete performance or monitoring model drift in a production environment, my solutions prioritize clarity and professional aesthetics.
+              </p>
+              <div className="grid grid-cols-2 gap-6">
+                <div className="p-4 rounded-xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27]">
+                  <div className="text-2xl font-bold text-[#C74634] mb-1">99.2%</div>
+                  <div className="text-sm text-[#6E6B68] dark:text-[#B8B4B0]">Data Pipeline Reliability</div>
+                </div>
+                <div className="p-4 rounded-xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27]">
+                  <div className="text-2xl font-bold text-[#C74634] mb-1">4.5x</div>
+                  <div className="text-sm text-[#6E6B68] dark:text-[#B8B4B0]">Decision Speed Increase</div>
+                </div>
+              </div>
+            </div>
+            <div className="lg:w-1/2 w-full">
+              <FootballStatsChart title="Example: Professional Scouting Analytics" />
+            </div>
+          </div>
+        </section>
+
+        {/* Case Studies Section */}
+        <section className="bg-[#161513] py-24 text-white overflow-hidden relative">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#C74634]/10 rounded-full blur-[120px] -mr-48 -mt-48"></div>
+          <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+            <div className="text-center mb-20">
+              <h2 className="text-3xl md:text-5xl font-bold mb-6" style={CHARTER}>Proven Results</h2>
+              <p className="text-[#B8B4B0] max-w-2xl mx-auto">Selected projects where AI-driven strategy met production-grade execution.</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-12">
+              {[
+                {
+                  client: "FinTech Scaleup",
+                  title: "Real-time Fraud Detection Pipeline",
+                  challenge: "High false-positive rates in credit card transactions were impacting user experience.",
+                  result: "Implemented a custom LightGBM model integrated with Kafka, reducing false positives by 34% while maintaining sub-50ms latency.",
+                  tags: ["MLOps", "Streaming", "Finance"]
+                },
+                {
+                  client: "Sports Analytics Firm",
+                  title: "Automated Player Scouting Model",
+                  challenge: "Manual scouting of lower-tier leagues was labor-intensive and error-prone.",
+                  result: "Built a computer-vision powered pipeline to extract tracking data from video feeds, feeding a Bayesian ranking model to identify 'undervalued' talent.",
+                  tags: ["Computer Vision", "Statistics", "Sports"]
+                }
+              ].map((study, idx) => (
+                <div key={idx} className="group p-10 rounded-3xl bg-[#2C2A27] border border-[#3D3A36] hover:border-[#C74634]/50 transition-colors">
+                  <div className="text-[#C74634] font-bold text-sm uppercase tracking-widest mb-4">{study.client}</div>
+                  <h3 className="text-2xl font-bold mb-6 group-hover:text-[#C74634] transition-colors">{study.title}</h3>
+                  <div className="space-y-6 text-[#B8B4B0] mb-8">
+                    <div>
+                      <div className="text-white text-sm font-bold mb-1 italic">Challenge:</div>
+                      <p className="leading-relaxed">{study.challenge}</p>
+                    </div>
+                    <div>
+                      <div className="text-[#C74634] text-sm font-bold mb-1 italic">Outcome:</div>
+                      <p className="leading-relaxed">{study.result}</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {study.tags.map(tag => (
+                      <span key={tag} className="px-3 py-1 rounded-full bg-[#161513] text-xs border border-[#3D3A36]">{tag}</span>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>

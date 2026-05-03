@@ -18,6 +18,8 @@ import PrintSummary from "./PrintSummary";
 import { FiBookmark, FiShare2, FiArrowRight } from "react-icons/fi";
 import { generateSlug } from "../Lib/utils";
 import { isProminentShelf } from "../Lib/postVisibility";
+import FootballStatsChart from "./FootballStatsChart";
+import ComparisonChart from "./ComparisonChart";
 
 const LOTTIE_ANIMATIONS = {
   boxplotIntro: "https://assets10.lottiefiles.com/packages/lf20_tutvdkg0.json",
@@ -267,6 +269,8 @@ function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
     Lottie: (props) => <LottiePlayer {...props} />,
     HypergeomCalculator: (props) => <HypergeomCalculator {...props} />,
     PercentileThresholdTuner: (props) => <PercentileThresholdTuner {...props} />,
+    FootballStatsChart: (props) => <FootballStatsChart {...props} />,
+    ComparisonChart: (props) => <ComparisonChart {...props} />,
     h2: (props) => {
       const { id, children, ...rest } = props;
       const headingText = typeof children === 'string' ? children : children?.props?.children || '';

@@ -26,38 +26,35 @@ function RelatedPosts({ currentPost, allBlogs, maxPosts = 3 }) {
       const blogId = generateSlug(blog.data.Title);
       if (blogId === currentId) return false; // Exclude current post
       if (!blog.data.isPublished) return false; // Only published posts
-
+      return true;
+    })
+    .map((blog) => {
       const blogTopic = blog.data.Topic;
       const blogTags = (blog.data.Tags || "").split(" ").filter(Boolean);
 
-      // Score based on topic match (higher weight) and tag matches
+      // Score based on topic match and tag matches
       let score = 0;
-      if (blogTopic === currentTopic) {
+      const isSameTopic = blogTopic === currentTopic;
+      
+      if (isSameTopic) {
         score += 10;
       }
       
       // Count matching tags
-      const matchingTags = blogTags.filter(tag => currentTags.includes(tag)).length;
-      score += matchingTags * 2;
+      const matchingTagsCount = blogTags.filter(tag => currentTags.includes(tag)).length;
+      score += matchingTagsCount * 3; // Boost tags slightly more
 
-      return score > 0;
+      // Cross-topic discovery bonus
+      if (!isSameTopic && matchingTagsCount >= 2) {
+        score += 5; // Bonus for relevant content in different topics
+      }
+
+      return { ...blog, score };
     })
-    .sort((a, b) => {
-      // Sort by relevance score (simplified - you could enhance this)
-      const aTopic = a.data.Topic === currentTopic ? 10 : 0;
-      const aTags = (a.data.Tags || "").split(" ").filter(tag => currentTags.includes(tag)).length * 2;
-      const aScore = aTopic + aTags;
+    .filter(blog => blog.score > 0)
+    .sort((a, b) => b.score - a.score);
 
-      const bTopic = b.data.Topic === currentTopic ? 10 : 0;
-      const bTags = (b.data.Tags || "").split(" ").filter(tag => currentTags.includes(tag)).length * 2;
-      const bScore = bTopic + bTags;
-
-      return bScore - aScore;
-    });
-
-  const sameTopic = scoredPosts.filter((post) => post.data.Topic === currentTopic).slice(0, 2);
-  const crossTopic = scoredPosts.filter((post) => post.data.Topic !== currentTopic).slice(0, Math.max(1, maxPosts - sameTopic.length));
-  const relatedPosts = [...sameTopic, ...crossTopic].slice(0, maxPosts);
+  const relatedPosts = scoredPosts.slice(0, maxPosts);
 
   if (relatedPosts.length === 0) {
     return null;

@@ -238,6 +238,15 @@ It's time to break free from the colonial cricket mindset and embrace sports tha
 
 **Verdict:** Football creates real drama, requires diverse skills, has genuine passion, and is accessible to everyone. Cricket creates artificial excitement, requires repetitive actions, has manufactured hype, and is for those who can afford it.
 
+<ComparisonChart 
+  title="Quantitative Comparison: The Beautiful Game vs The Lazy Game"
+  labels={['Physical Intensity', 'Global Reach', 'Accessibility', 'Action per Minute', 'Athleticism Required']}
+  footballData={[98, 99, 95, 90, 96]}
+  cricketData={[35, 20, 40, 15, 30]}
+  footballLabel="Football (Dynamic action)"
+  cricketLabel="Cricket (Slow-paced)"
+/>
+
 ---
 
 ## 🎯 The Harsh Truth About Cricket 💀
