@@ -42,26 +42,56 @@ function FootballSplashScreen({ isVisible }) {
 
 const ROUTE_LOADER_CONFIG = [
   {
+    match: (url) => url === "/" || url === "",
+    type: "ripple",
+    title: "Entering Home...",
+    subtitle: "Connecting to the network",
+  },
+  {
     match: (url) => url.startsWith("/football"),
     type: "football-goal",
     title: "Kicking off...",
     subtitle: "Final third run in progress",
   },
   {
-    match: (url) => url.startsWith("/dashboard") || url.startsWith("/projects"),
-    type: "gif-1",
-    title: "Loading stats...",
+    match: (url) => url.startsWith("/dashboard"),
+    type: "data-pulse",
+    title: "Analyzing Data...",
     subtitle: "Crunching the latest signals",
   },
   {
-    match: (url) => url.startsWith("/blogs/") || url.startsWith("/topic/"),
-    type: "gif-2",
-    title: "Opening story...",
-    subtitle: "Bringing your next read",
+    match: (url) => url.startsWith("/projects"),
+    type: "data-pulse",
+    title: "Building Projects...",
+    subtitle: "Assembling components",
+  },
+  {
+    match: (url) => url.startsWith("/blogs/") || url.startsWith("/archive") || url.startsWith("/topic/"),
+    type: "book",
+    title: "Opening Story...",
+    subtitle: "Flipping through the archives",
+  },
+  {
+    match: (url) => url.startsWith("/garden"),
+    type: "garden",
+    title: "Entering the Garden...",
+    subtitle: "Nurturing digital seeds",
+  },
+  {
+    match: (url) => url.startsWith("/ai-gallery") || url.startsWith("/learning-path"),
+    type: "atom",
+    title: "Generating Vision...",
+    subtitle: "Synthesizing patterns",
+  },
+  {
+    match: (url) => url.startsWith("/consulting") || url.startsWith("/about"),
+    type: "atom",
+    title: "Expert Strategy...",
+    subtitle: "Preparing professional view",
   },
   {
     match: () => true,
-    type: "gif-1",
+    type: "ripple",
     title: "Loading...",
     subtitle: "Preparing your next page",
   },
@@ -84,6 +114,71 @@ function RouteSplashScreen({ isVisible, loaderConfig }) {
 
   if (!render) return null;
 
+  const renderLoader = () => {
+    switch (loaderConfig?.type) {
+      case "football-goal":
+        return (
+          <div className="goal-loader-scene" aria-hidden="true">
+            <div className="goal-loader-ground" />
+            <div className="goal-loader-player">
+              <span className="goal-loader-head" />
+              <span className="goal-loader-body" />
+              <span className="goal-loader-leg goal-loader-leg-back" />
+              <span className="goal-loader-leg goal-loader-leg-front" />
+            </div>
+            <div className="goal-loader-ball" />
+            <div className="goal-loader-goal">
+              <span /> <span /> <span />
+            </div>
+          </div>
+        );
+      case "atom":
+        return (
+          <div className="atom-loader">
+            <div className="atom-core" />
+            <div className="atom-orbit"><div className="atom-electron" /></div>
+            <div className="atom-orbit"><div className="atom-electron" /></div>
+            <div className="atom-orbit"><div className="atom-electron" /></div>
+          </div>
+        );
+      case "book":
+        return (
+          <div className="book-loader">
+            <div className="book-page" />
+            <div className="book-page" />
+            <div className="book-page" />
+          </div>
+        );
+      case "data-pulse":
+        return (
+          <div className="data-pulse-loader">
+            <div className="data-bar" />
+            <div className="data-bar" />
+            <div className="data-bar" />
+            <div className="data-bar" />
+            <div className="data-bar" />
+          </div>
+        );
+      case "garden":
+        return (
+          <div className="garden-loader">
+            <div className="garden-stem">
+              <div className="garden-leaf leaf-left" />
+              <div className="garden-leaf leaf-right" />
+            </div>
+          </div>
+        );
+      case "ripple":
+      default:
+        return (
+          <div className="ripple-loader">
+            <div className="ripple-circle" />
+            <div className="ripple-circle" />
+          </div>
+        );
+    }
+  };
+
   return (
     <div
       className={`fixed inset-0 z-[99998] flex flex-col items-center justify-center bg-[#161513]/95 backdrop-blur-sm transition-opacity duration-500 ease-in-out ${
@@ -91,31 +186,9 @@ function RouteSplashScreen({ isVisible, loaderConfig }) {
       }`}
       onTransitionEnd={onTransitionEnd}
     >
-      {loaderConfig?.type === "football-goal" ? (
-        <div className="goal-loader-scene" aria-hidden="true">
-          <div className="goal-loader-ground" />
-          <div className="goal-loader-player">
-            <span className="goal-loader-head" />
-            <span className="goal-loader-body" />
-            <span className="goal-loader-leg goal-loader-leg-back" />
-            <span className="goal-loader-leg goal-loader-leg-front" />
-          </div>
-          <div className="goal-loader-ball" />
-          <div className="goal-loader-goal">
-            <span />
-            <span />
-            <span />
-          </div>
-        </div>
-      ) : (
-        <div className="flex flex-col items-center">
-          <img
-            src={loaderConfig?.type === "gif-2" ? "/redwood-imgs/loading-2.gif" : "/redwood-imgs/loading-1.gif"}
-            alt=""
-            className="w-44 h-44 object-contain rounded-2xl border border-white/10 shadow-2xl shadow-black/40"
-          />
-        </div>
-      )}
+      <div className="flex flex-col items-center justify-center min-h-[200px]">
+        {renderLoader()}
+      </div>
 
       <h2 className="mt-8 text-lg font-semibold tracking-[0.2em] text-[#B8E0D8] uppercase animate-pulse">
         {loaderConfig?.title || "Loading..."}
