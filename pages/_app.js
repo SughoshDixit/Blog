@@ -134,47 +134,41 @@ function RouteSplashScreen({ isVisible, loaderConfig }) {
         );
       case "atom":
         return (
-          <div className="atom-loader">
-            <div className="atom-core" />
-            <div className="atom-orbit"><div className="atom-electron" /></div>
-            <div className="atom-orbit"><div className="atom-electron" /></div>
-            <div className="atom-orbit"><div className="atom-electron" /></div>
+          <div className="neural-loader">
+            <div className="neural-node" />
+            <div className="neural-node" />
+            <div className="neural-node" />
+            <div className="neural-node" />
           </div>
         );
       case "book":
         return (
-          <div className="book-loader">
-            <div className="book-page" />
-            <div className="book-page" />
-            <div className="book-page" />
+          <div className="cinematic-loader">
+            <div className="cinematic-mask" />
+            <div className="cinematic-text">STORY</div>
           </div>
         );
       case "data-pulse":
         return (
-          <div className="data-pulse-loader">
-            <div className="data-bar" />
-            <div className="data-bar" />
-            <div className="data-bar" />
-            <div className="data-bar" />
-            <div className="data-bar" />
+          <div className="gooey-loader">
+            <div className="gooey-dot" />
+            <div className="gooey-dot" />
+            <div className="gooey-dot" />
           </div>
         );
       case "garden":
         return (
-          <div className="garden-loader">
-            <div className="garden-stem">
-              <div className="garden-leaf leaf-left" />
-              <div className="garden-leaf leaf-right" />
-            </div>
+          <div className="neural-loader">
+            <div className="neural-node" />
+            <div className="neural-node" />
+            <div className="neural-node" />
+            <div className="neural-node" />
           </div>
         );
       case "ripple":
       default:
         return (
-          <div className="ripple-loader">
-            <div className="ripple-circle" />
-            <div className="ripple-circle" />
-          </div>
+          <div className="morph-loader" />
         );
     }
   };
@@ -186,9 +180,19 @@ function RouteSplashScreen({ isVisible, loaderConfig }) {
       }`}
       onTransitionEnd={onTransitionEnd}
     >
-      <div className="flex flex-col items-center justify-center min-h-[200px]">
+      <div className="flex flex-col items-center justify-center min-h-[200px] w-full">
         {renderLoader()}
       </div>
+
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style={{ position: 'absolute', width: 0, height: 0 }}>
+        <defs>
+          <filter id="gooey">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -10" result="gooey" />
+            <feComposite in="SourceGraphic" in2="gooey" operator="atop" />
+          </filter>
+        </defs>
+      </svg>
 
       <h2 className="mt-8 text-lg font-semibold tracking-[0.2em] text-[#B8E0D8] uppercase animate-pulse">
         {loaderConfig?.title || "Loading..."}
