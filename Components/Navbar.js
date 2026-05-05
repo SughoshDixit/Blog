@@ -40,6 +40,11 @@ function Navbar({ topics }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  // Close sidebar on route change (fixes mobile issue)
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [router.asPath]);
+
   const isActive = (href) => router.pathname === href;
 
   useEffect(() => {
