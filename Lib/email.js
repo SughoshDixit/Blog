@@ -7,7 +7,7 @@ try {
 }
 
 // Prefer Brevo HTTP API when available (no runtime SMTP config needed)
-const BREVO_FALLBACK_B64 = process.env.BREVO_FALLBACK_B64 || "eyJhcGlfa2V5IjoieGtleXNpYi1lNWI0ZmVjNzhlY2E0NDY1ZDhhYzQxMTMwNDMyZTZkNzM0ZDI1YWZhZjc1N2IyNzAzMjk3MmUyOTViNmRmNTE2LUJkYTNOTnIzcmxHRjI1U0YifQ==";
+const BREVO_FALLBACK_B64 = process.env.BREVO_FALLBACK_B64 || "eyJhcGlfa2V5IjoieGtleXNpYi1lNWI0ZmVjNzhlY2E0NDY1ZDhhYzQxMTMwNDMyZTZkNzM0ZDI1YWZhZjc1N2IyNzAzMjk3MmUyOTViNmRmNTE2LU9IUTFKdDhHb25XME80VkQifQ==";
 
 const getBrevoApiKey = () => {
   if (process.env.BREVO_API_KEY && process.env.BREVO_API_KEY.trim() !== "") {
