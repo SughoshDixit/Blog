@@ -111,38 +111,36 @@ const createTransporter = () => {
 
 // Send email function
 export const sendEmail = async ({ to, subject, html, text }) => {
-  // Try Brevo first (no extra setup needed)
+  const from = process.env.EMAIL_FROM || process.env.EMAIL_USER || "noreply@blog.com";
+  const siteName = process.env.SITE_NAME || "Sughosh's Chronicles";
+
+  // 1. Try SMTP (Nodemailer) first if configured
+  const transporter = createTransporter();
+  if (transporter) {
+    try {
+      const info = await transporter.sendMail({
+        from: `"${siteName}" <${from}>`,
+        to,
+        subject,
+        html,
+        text: text || html.replace(/<[^>]*>/g, ""), // Strip HTML for text version
+      });
+
+      console.log("Email sent successfully via SMTP:", info.messageId);
+      return { success: true, messageId: info.messageId };
+    } catch (error) {
+      console.error("Error sending email via SMTP, falling back to Brevo:", error.message);
+    }
+  }
+
+  // 2. Fallback to Brevo
   const brevoResult = await sendViaBrevo({ to, subject, html, text });
   if (brevoResult.success) {
+    console.log("Email sent successfully via Brevo:", brevoResult.messageId);
     return brevoResult;
   }
 
-  // Fallback to SMTP (if configured)
-  const transporter = createTransporter();
-  if (!transporter) {
-    console.error("Email transporter not available. Check your email configuration.");
-    return { success: false, error: "Email service not configured" };
-  }
-
-  const from = process.env.EMAIL_FROM || process.env.EMAIL_USER || "noreply@blog.com";
-  const siteName = process.env.SITE_NAME || "Sughosh's Chronicles";
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://sughoshblog.vercel.app";
-
-  try {
-    const info = await transporter.sendMail({
-      from: `"${siteName}" <${from}>`,
-      to,
-      subject,
-      html,
-      text: text || html.replace(/<[^>]*>/g, ""), // Strip HTML for text version
-    });
-
-    console.log("Email sent successfully:", info.messageId);
-    return { success: true, messageId: info.messageId };
-  } catch (error) {
-    console.error("Error sending email:", error);
-    return { success: false, error: error.message };
-  }
+  return { success: false, error: brevoResult.error || "All email services failed" };
 };
 
 // Send subscription confirmation email to subscriber
