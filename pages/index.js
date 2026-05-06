@@ -85,10 +85,7 @@ export default function Home({ blogs, topics }) {
   const [activeTopic, setActiveTopic] = useState("All");
   const [engagementMap, setEngagementMap] = useState({});
   const [totalVisits, setTotalVisits] = useState(null);
-  const [newsletterEmail, setNewsletterEmail] = useState("");
-  const [newsletterTrack, setNewsletterTrack] = useState("general");
-  const [newsletterState, setNewsletterState] = useState({ type: "idle", message: "" });
-  const [isSubmittingNewsletter, setIsSubmittingNewsletter] = useState(false);
+
   const isDSPost = (blog) => blog?.data?.Topic === "Data Science";
 
   useEffect(() => {
@@ -307,61 +304,7 @@ export default function Home({ blogs, topics }) {
     return "https://miro.medium.com/v2/resize:fit:640/1*9dZCMV2XpN7dBDEHMyC-qA.png";
   };
 
-  const newsletterTrackOptions = [
-    { value: "general", label: "All major updates" },
-    { value: "data-science-ai", label: "Data Science & AI" },
-    { value: "history-civilization", label: "History & Civilization" },
-    { value: "finance-decisions", label: "Finance & Decision-Making" },
-    { value: "books-intellectual", label: "Books & Intellectual Notes" },
-    { value: "football", label: "Football Lens" },
-  ];
 
-  const handleNewsletterSubmit = async (e) => {
-    e.preventDefault();
-    const email = newsletterEmail.trim();
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailRegex.test(email)) {
-      setNewsletterState({ type: "error", message: "Please enter a valid email address." });
-      return;
-    }
-
-    setIsSubmittingNewsletter(true);
-    setNewsletterState({ type: "loading", message: "Signing you up..." });
-
-    try {
-      const response = await fetch("/api/newsletter/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          track: newsletterTrack,
-          sourcePage: "home",
-        }),
-      });
-
-      const data = await response.json().catch(() => ({}));
-      if (response.ok) {
-        setNewsletterState({
-          type: "success",
-          message: data.message || "Subscribed successfully. Check your inbox for confirmation.",
-        });
-        setNewsletterEmail("");
-      } else {
-        setNewsletterState({
-          type: "error",
-          message: data.error || "Unable to subscribe right now. Please try again.",
-        });
-      }
-    } catch (error) {
-      setNewsletterState({
-        type: "error",
-        message: "Network error. Please try again in a moment.",
-      });
-    } finally {
-      setIsSubmittingNewsletter(false);
-    }
-  };
 
   const getRecentByTopic = (topicName, limit = 2) =>
     [...publishedBlogs]
