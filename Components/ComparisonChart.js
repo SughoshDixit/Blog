@@ -78,6 +78,7 @@ const ComparisonChart = ({
         },
         ticks: {
           color: 'currentColor',
+          precision: 0,
           font: {
             size: 11
           }
