@@ -18,7 +18,7 @@ isPublished: true
 </div>
 
 <div style={{background: 'linear-gradient(135deg, #A30000 0%, #DC143C 100%)', padding: '1.5rem', borderRadius: '15px', color: 'white', textAlign: 'center', margin: '2rem 0', boxShadow: '0 5px 20px rgba(163,0,0,0.3)'}}>
-<p style={{fontStyle: 'italic', fontSize: '1.3rem', margin: 0, fontWeight: 'bold'}}>🔴 Once a Red, Always a Red. You'll Never Walk Alone. ⚽❤️ 🔴</p>
+<div style={{fontStyle: 'italic', fontSize: '1.3rem', margin: 0, fontWeight: 'bold'}}>🔴 Once a Red, Always a Red. You'll Never Walk Alone. ⚽❤️ 🔴</div>
 </div>
 
 > 💡 **Note:** This is a passionate piece about football, Liverpool FC, and why the beautiful game deserves your attention over cricket. Get ready for some hard truths, cheeky comparisons, and a whole lot of football love! 🚀
@@ -103,7 +103,7 @@ Later, **Jurgen Klopp's arrival** transformed everything. His passion, tactical 
 </div>
 
 <div style={{background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', padding: '2rem', borderRadius: '15px', color: 'white', margin: '2rem 0', textAlign: 'center', boxShadow: '0 10px 30px rgba(0,0,0,0.3)'}}>
-<p style={{fontSize: '1.5rem', margin: 0, fontWeight: 'bold'}}>Cricket is a colonial mindset hangover that continues to dominate Indian sports culture. It's time we break free from it. 💪</p>
+<div style={{fontSize: '1.5rem', margin: 0, fontWeight: 'bold'}}>Cricket is a colonial mindset hangover that continues to dominate Indian sports culture. It's time we break free from it. 💪</div>
 </div>
 
 ### **The Colonial Legacy** 🇬🇧📜
@@ -123,9 +123,9 @@ Cricket was introduced to India by the British during colonial rule as a **tool 
 Swami Vivekananda understood the importance of physical strength and dynamic sports. His complete statement:
 
 <div style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '2rem', borderRadius: '15px', color: 'white', margin: '2rem 0', boxShadow: '0 10px 30px rgba(0,0,0,0.2)'}}>
-<p style={{fontSize: '1.1rem', lineHeight: '1.8'}}>
+<div style={{fontSize: '1.1rem', lineHeight: '1.8'}}>
 <strong>"First of all, our young men must be strong. Religion will come afterwards. Be strong, my young friends; that is my advice to you. You will be nearer to Heaven through football than through the study of the Gita... You will understand the Gita better with your biceps, your muscles, a little stronger. You will understand the Upanishads better and the glory of the Atman when your body stands firm upon your feet, and you feel like men."</strong>
-</p>
+</div>
 </div>
 
 **The Real Meaning:** Swamiji is NOT asking anyone to throw away the Gita. Physical strength is the foundation for Karma Yoga. Strength enhances understanding—it complements spiritual study, it doesn't replace it. **He said this about football**—a game requiring constant movement and athleticism—not cricket.
@@ -254,8 +254,8 @@ It's time to break free from the colonial cricket mindset and embrace sports tha
 **Cricket is a lazy game.** 😴 It's slow (5-day matches that can end in draws), boring (hours of blocking), regional (only a handful of countries), not athletic (standing still for hours), repetitive, and meaningless (most matches don't matter).
 
 <div style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '2rem', borderRadius: '15px', color: 'white', textAlign: 'center', margin: '2rem 0'}}>
-<p style={{fontSize: '1.2rem', margin: 0}}><strong>Cricket is what you watch when you want to fall asleep. 😴</strong></p>
-<p style={{fontSize: '1.2rem', margin: '1rem 0 0'}}><strong>Football is what you watch when you want to feel alive! ⚽🔥</strong></p>
+<div style={{fontSize: '1.2rem', margin: 0}}><strong>Cricket is what you watch when you want to fall asleep. 😴</strong></div>
+<div style={{fontSize: '1.2rem', margin: '1rem 0 0'}}><strong>Football is what you watch when you want to feel alive! ⚽🔥</strong></div>
 </div>
 
 ---
@@ -276,15 +276,15 @@ Beyond all the reasons mentioned, Liverpool is special because of their rich his
 
 <div style={{background: 'linear-gradient(135deg, #A30000 0%, #DC143C 100%)', padding: '2.5rem', borderRadius: '15px', color: 'white', margin: '2rem 0', textAlign: 'center', boxShadow: '0 10px 30px rgba(163,0,0,0.4)'}}>
 <h3 style={{color: 'white', marginTop: 0, fontSize: '1.8rem'}}>🔴 You'll Never Walk Alone 🔴</h3>
-<p style={{fontSize: '1.2rem', lineHeight: '1.8', margin: '1rem 0'}}>
+<div style={{fontSize: '1.2rem', lineHeight: '1.8', margin: '1rem 0'}}>
 <strong>There are good times and bad times while supporting Liverpool FC, but I am proud and lucky to be a fan of this glorious club.</strong> 🏆
-</p>
-<p style={{fontSize: '1.3rem', lineHeight: '1.8', margin: '1.5rem 0'}}>
+</div>
+<div style={{fontSize: '1.3rem', lineHeight: '1.8', margin: '1.5rem 0'}}>
 <strong>Once you are a Liverpool fan, You'll Never Walk Alone for the rest of your life.</strong> ⚽❤️
-</p>
-<p style={{fontSize: '1.5rem', margin: '1.5rem 0 0', fontWeight: 'bold'}}>
+</div>
+<div style={{fontSize: '1.5rem', margin: '1.5rem 0 0', fontWeight: 'bold'}}>
 <strong>Once A Red, Always A Red.</strong> 🔴
-</p>
+</div>
 </div>
 
 ---
@@ -293,14 +293,14 @@ Beyond all the reasons mentioned, Liverpool is special because of their rich his
 
 <div style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '2.5rem', borderRadius: '15px', color: 'white', margin: '2rem 0', textAlign: 'center', boxShadow: '0 10px 30px rgba(0,0,0,0.3)'}}>
 <h2 style={{color: 'white', marginTop: 0, fontSize: '2rem'}}>⚽ Ready to Make the Switch? ⚽</h2>
-<p style={{margin: '1rem 0', fontSize: '1.2rem'}}>🛑 <strong>Stop watching the lazy game.</strong> ⚡ <strong>Start watching the beautiful game.</strong></p>
-<p style={{margin: '1rem 0', fontSize: '1.2rem'}}>🛑 <strong>Stop supporting teams that play boring football.</strong> ⚡ <strong>Start supporting Liverpool.</strong></p>
-<p style={{margin: '1.5rem 0', fontSize: '1.3rem', fontWeight: 'bold'}}>
+<div style={{margin: '1rem 0', fontSize: '1.2rem'}}>🛑 <strong>Stop watching the lazy game.</strong> ⚡ <strong>Start watching the beautiful game.</strong></div>
+<div style={{margin: '1rem 0', fontSize: '1.2rem'}}>🛑 <strong>Stop supporting teams that play boring football.</strong> ⚡ <strong>Start supporting Liverpool.</strong></div>
+<div style={{margin: '1.5rem 0', fontSize: '1.3rem', fontWeight: 'bold'}}>
 <strong>Football is the world's most followed sport for a reason. It's time you discovered why.</strong> 🌍⚽
-</p>
-<p style={{margin: '2rem 0 0', fontSize: '1.5rem', fontWeight: 'bold'}}>
+</div>
+<div style={{margin: '2rem 0 0', fontSize: '1.5rem', fontWeight: 'bold'}}>
 <strong>Join the Red family. You'll Never Walk Alone.</strong> 🔴⚽❤️
-</p>
+</div>
 </div>
 
 ---
