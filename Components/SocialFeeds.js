@@ -16,19 +16,6 @@ export default function SocialFeeds() {
     }
   };
 
-  // Load Twitter script dynamically
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://platform.twitter.com/widgets.js";
-    script.async = true;
-    script.charset = "utf-8";
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
   return (
     <div className="flex flex-col gap-8 w-full mt-10">
       {/* LinkedIn Section */}
@@ -89,21 +76,24 @@ export default function SocialFeeds() {
           X (Twitter) Feed
         </h3>
         
-        {/* We use a similar scroll container for X in case there are multiple tweets, 
-            but for a timeline, the widget itself scrolls vertically. 
-            We'll wrap it nicely. */}
         <div className="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          <div className="flex-shrink-0 w-[90%] sm:w-[80%] snap-center rounded-xl overflow-hidden border border-[#E0DDD9] dark:border-[#3D3A36] bg-white">
-            <div className="min-h-[400px] w-full bg-white">
-              <a 
-                className="twitter-timeline" 
-                data-height="600" 
-                data-theme="light" 
-                href="https://twitter.com/PSughosh?ref_src=twsrc%5Etfw"
-              >
-                Tweets by PSughosh
-              </a>
-            </div>
+          <div className="flex-shrink-0 w-full sm:w-[90%] snap-center rounded-xl overflow-hidden border border-[#E0DDD9] dark:border-[#3D3A36] bg-gradient-to-br from-black to-gray-800 dark:from-white dark:to-gray-200 text-white dark:text-black p-8 flex flex-col items-center justify-center text-center shadow-lg relative group transition-transform hover:scale-[1.02]">
+            <svg className="w-16 h-16 mb-6 opacity-90" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.005 3.869H5.078z" />
+            </svg>
+            <h4 className="text-2xl font-bold mb-2">Connect on X</h4>
+            <p className="text-gray-300 dark:text-gray-700 mb-8 max-w-[280px]">
+              Join the conversation for real-time updates on tech, data science, and my latest writings.
+            </p>
+            <a 
+              href="https://x.com/PSughosh" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white dark:bg-black text-black dark:text-white rounded-full font-semibold hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors shadow-md"
+            >
+              <span>Follow @PSughosh</span>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            </a>
           </div>
         </div>
       </div>
