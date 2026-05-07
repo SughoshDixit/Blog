@@ -33,6 +33,7 @@
     "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
     "react-redux": "^7.2.6",
+    "react-twitter-embed": "^4.0.4",
     "reading-time": "^1.5.0",
     "redux": "^4.1.2",
     "rehype-slug": "^6.0.0",

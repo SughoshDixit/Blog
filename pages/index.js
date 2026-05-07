@@ -24,6 +24,7 @@ import HeroLottieAccent from "../Components/HeroLottieAccent";
 import FocusStripLottieAccent from "../Components/FocusStripLottieAccent";
 import TopicWordCloud from "../Components/TopicWordCloud";
 import NewsletterForm from "../Components/NewsletterForm";
+import SocialFeeds from "../Components/SocialFeeds";
 
 export const getStaticProps = () => {
   const allBlogs = getAllBlogPosts();
@@ -1115,6 +1116,10 @@ export default function Home({ blogs, topics }) {
                       <span className="text-xs text-[#9a8f75] dark:text-[#6E6B68]">Off the main shelf</span>
                     </a>
                   </div>
+                </div>
+
+                <div className="reveal-right stagger-4">
+                  <SocialFeeds />
                 </div>
               </aside>
             </div>
