@@ -65,6 +65,7 @@ const FootballStatsChart = ({ title = "Player Performance Metrics" }) => {
         },
         ticks: {
           display: false,
+          precision: 0,
           max: 100,
           min: 0,
           stepSize: 20
