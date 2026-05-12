@@ -11,6 +11,7 @@ import {
   SITE_OG_IMAGE_HEIGHT,
   SITE_OG_IMAGE_ALT,
 } from "../Lib/siteConfig";
+import AdUnit from "../Components/AdUnit";
 
 export const getStaticProps = () => {
   const allBlogs = getAllBlogPosts();
@@ -130,6 +131,13 @@ export default function ArchivePage({ posts, topics }) {
               </ul>
             )}
           </div>
+
+          {/* Multiplex ad at foot of archive — looks like related content, not a banner */}
+          <AdUnit
+            slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_MULTIPLEX || ''}
+            format="multiplex"
+            style={{ marginTop: '40px' }}
+          />
         </main>
 
         <Footer />

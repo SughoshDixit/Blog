@@ -26,6 +26,7 @@ import LikeBtn from "../../Components/LikeBtn";
 import Comments from "../../Components/Comments";
 import NewsletterForm from "../../Components/NewsletterForm";
 import { SITE_URL, siteOgImageUrl } from "../../Lib/siteConfig";
+import AdUnit from "../../Components/AdUnit";
 
 export const getStaticPaths = () => {
   const allBlogs = getAllBlogPosts();
@@ -161,6 +162,13 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
               <NewsletterForm compact={true} />
             </div>
 
+            {/* Ad Unit — in-article, shown after newsletter (non-intrusive) */}
+            <AdUnit
+              slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_IN_ARTICLE || ''}
+              format="in-article"
+              style={{ margin: '32px auto' }}
+            />
+
             {/* Reading History Tracker */}
             <ReadingHistory postId={id} postTitle={data.Title} postData={data} />
 
@@ -206,6 +214,13 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
 
             {/* Related Posts */}
             <RelatedPosts currentPost={currentPost} allBlogs={allBlogs} maxPosts={3} />
+
+            {/* Ad Unit — auto responsive, after related posts */}
+            <AdUnit
+              slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_BELOW_ARTICLE || ''}
+              format="auto"
+              style={{ margin: '24px auto' }}
+            />
 
             {/* Post Navigation */}
             <PostNavigation currentPost={currentPost} allPosts={allBlogs} />

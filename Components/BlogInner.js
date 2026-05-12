@@ -20,6 +20,7 @@ import { generateSlug } from "../Lib/utils";
 import { isProminentShelf } from "../Lib/postVisibility";
 import FootballStatsChart from "./FootballStatsChart";
 import ComparisonChart from "./ComparisonChart";
+import AdUnit from "./AdUnit";
 
 const LOTTIE_ANIMATIONS = {
   boxplotIntro: "https://assets10.lottiefiles.com/packages/lf20_tutvdkg0.json",
@@ -668,10 +669,22 @@ function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
         </div>
         
         {/* TOC Sidebar - Hidden on mobile, visible on desktop */}
-        <div className="hidden lg:block w-64 flex-shrink-0">
+        <div className="hidden lg:flex lg:flex-col w-64 flex-shrink-0 gap-6">
           <Toc headings={headings} />
+          {/* Sticky sidebar ad — sits in the natural empty space beside TOC */}
+          <AdUnit
+            slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_SIDEBAR || ''}
+            format="sticky-sidebar"
+          />
         </div>
       </div>
+
+      {/* Mid-article ad — fires between content and author bio, very natural break */}
+      <AdUnit
+        slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_MID_ARTICLE || ''}
+        format="in-article"
+        style={{ margin: '40px auto' }}
+      />
 
       {/* Enhanced Author Bio Section */}
       <AuthorBio data={data} allBlogs={allBlogs} />

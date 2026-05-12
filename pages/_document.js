@@ -1,5 +1,10 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 
+// ─── Google AdSense ───────────────────────────────────────────────────────────
+// Replace REPLACE_WITH_YOUR_PUBLISHER_ID with your actual ca-pub-XXXXXXXXXXXXXXXX
+// You get this from https://adsense.google.com after approval.
+const ADSENSE_PUBLISHER_ID = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || '';
+
 export default function Document() {
   return (
     <Html lang="en">
@@ -12,6 +17,21 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap"
           rel="stylesheet"
         />
+        {/* 
+          Google AdSense Auto Ads
+          —————————————————————————————————————
+          The script below activates both manual ad units AND Google's Auto Ads.
+          Auto Ads uses ML to find optimal placements on top of our manual ones.
+          You can tune Auto Ad frequency/formats in AdSense > Ads > Auto Ads.
+        */}
+        {ADSENSE_PUBLISHER_ID && (
+          <script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUBLISHER_ID}`}
+            crossOrigin="anonymous"
+            data-overlapping-ad-unit-optimization="false"
+          />
+        )}
       </Head>
       <body>
         <Main />
