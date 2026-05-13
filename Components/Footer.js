@@ -105,6 +105,9 @@ function Footer() {
             <a href="/api/sitemap" className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] hover:text-[#C74634] dark:hover:text-[#E8572A] transition-colors">
               Sitemap
             </a>
+            <a href="/privacy-policy" className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] hover:text-[#C74634] dark:hover:text-[#E8572A] transition-colors">
+              Privacy Policy
+            </a>
           </div>
         </div>
       </div>
