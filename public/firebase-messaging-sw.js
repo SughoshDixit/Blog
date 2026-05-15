@@ -15,7 +15,7 @@ messaging.onBackgroundMessage((payload) => {
   const { title, body, icon, url } = payload.notification || payload.data || {};
   self.registration.showNotification(title || "New post on SughoshDixit.com", {
     body: body || "A new article has been published!",
-    icon: icon || "/favicon.svg",
+    icon: icon || "/favicon-192x192.png",
     data: { url: url || "/" },
   });
 });
