@@ -16,6 +16,7 @@ export default function Document() {
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#C74634" />
         <meta name="author" content="Sughosh Dixit" />
+        <meta name="google-site-verification" content="7jpxCtf5OzvkwFGo3dgcoAGr2W2nqKP4rP2Yn9RwOtQ" />
         <link rel="alternate" type="application/rss+xml" title="Sughosh Dixit — RSS Feed" href="/api/feed" />
         <link
           href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap"
