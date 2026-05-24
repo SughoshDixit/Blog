@@ -29,14 +29,11 @@ export default function Document() {
           Auto Ads uses ML to find optimal placements on top of our manual ones.
           You can tune Auto Ad frequency/formats in AdSense > Ads > Auto Ads.
         */}
-        {ADSENSE_PUBLISHER_ID && (
-          <script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUBLISHER_ID}`}
-            crossOrigin="anonymous"
-            data-overlapping-ad-unit-optimization="false"
-          />
-        )}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5371818145935476"
+          crossOrigin="anonymous"
+        />
       </Head>
       <body>
         <Main />
