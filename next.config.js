@@ -5,6 +5,15 @@ const nextConfig = {
   images: {
     domains: ["miro.medium.com", "raw.githubusercontent.com", "i.ytimg.com"],
   },
+  // Serve ads.txt via API route for reliable Google crawler access
+  async rewrites() {
+    return [
+      {
+        source: '/ads.txt',
+        destination: '/api/ads-txt',
+      },
+    ];
+  },
   webpack: (config, { dev, isServer }) => {
     if (dev && !isServer) {
       config.watchOptions = {
