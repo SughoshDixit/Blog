@@ -12,18 +12,15 @@ isPublished: true
 
 # Day 3 — Percentiles and Quantiles: Understanding Data Distributions
 
-<div style={{textAlign:  'center', margin: '2rem 0'}}>
-<p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Understanding where your data sits! </p>
-</div>
+*Understanding where your data sits! *
 
->  **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
 
 ---
 
 ## Introduction
 Percentiles and quantiles are fundamental tools for understanding data distributions. They tell us where values sit relative to the rest of the data, providing robust measures that resist outliers and work well with transformations.
 
-**TL;DR:**
+**In a nutshell:**
 
 Percentiles describe "how far up the data" a value sits. They come from the empirical CDF ([ECDF](/key)) and [order statistics](/key). They are robust to outliers compared to means, and they behave nicely under [monotone transforms](/key) (e.g., rescaling). Knowing your [quantile](/key) definition (interpolation rule) matters because different tools use slightly different formulas.
 
@@ -182,12 +179,19 @@ Check invariance:
 
 ---
 
-## Takeaway
+## Wrapping Up
 [Percentiles](/key) and [quantiles](/key) are simple, powerful ways to describe "where" a value sits in the data. They're stable, interpretable, and play well with transformations. Whether you're setting thresholds, creating strata, or monitoring distributions, quantiles give you a clean, math‑first foundation.
 
 ---
 
+
+## Where This Shows Up in Practice
+* **Data Pipelines:** Ensuring high-quality filtering and robust statistical metrics before feeding downstream ML models.
+* **Production Anomaly Detection:** Tracking system logs, performance latencies, or transaction volumes under heavy skew.
+* **A/B Testing & Evaluation:** Correctly partitioning user cohorts or comparing treatment outcomes without normal distribution assumptions.
+
 ## References
+
 1. Hyndman, R. J., & Fan, Y. (1996). Sample quantiles in statistical packages. *The American Statistician*, 50(4), 361-365.
 
 2. Serfling, R. J. (2009). *Approximation Theorems of Mathematical Statistics*. John Wiley & Sons.
@@ -205,8 +209,3 @@ Check invariance:
 8. Cramér, H. (1946). *Mathematical Methods of Statistics*. Princeton University Press.
 
 9. Hoaglin, D. C., Mosteller, F., & Tukey, J. W. (Eds.). (1983). *Understanding Robust and Exploratory Data Analysis*. John Wiley & Sons.
-
-10. Shorack, G. R., & Wellner, J. A. (2009). *Empirical Processes with Applications to Statistics*. Society for Industrial and Applied Mathematics.
-
----
-

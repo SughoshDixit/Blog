@@ -12,18 +12,15 @@ isPublished: true
 
 # **Day 6 — Distribution Shape: Skewness and Kurtosis (Simple Guide + Visuals)**
 
-<div style={{textAlign: 'center', margin: '2rem 0'}}>
-<p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Understanding distribution shape! </p>
-</div>
+*Understanding distribution shape! *
 
->  **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
 
 ---
 
 ## Introduction
 While mean and variance tell us about the center and spread of data, [skewness](/key) and [kurtosis](/key) reveal the shape of the distribution. Understanding these shape features helps us choose appropriate methods for outlier detection, binning, and modeling.
 
-**TL;DR:**
+**In a nutshell:**
 
 [Skewness](/key) tells you if data lean left or right (asymmetry). ↩↪
 
@@ -256,7 +253,7 @@ Re-evaluate after cleaning
 
 ---
 
-## Takeaway
+## Wrapping Up
 Every dataset has a shape signature.
 
 [Skewness](/key) and [kurtosis](/key) let you read it like a fingerprint — revealing tilt, tail, and trustworthiness.
@@ -270,6 +267,7 @@ And once you see it, you can't unsee it.
 ---
 
 ## References
+
 1. Joanes, D. N., & Gill, C. A. (1998). Comparing measures of sample skewness and kurtosis. *Journal of the Royal Statistical Society: Series D (The Statistician)*, 47(1), 183-189.
 
 2. DeCarlo, L. T. (1997). On the meaning and use of kurtosis. *Psychological Methods*, 2(3), 292-307.
@@ -283,12 +281,3 @@ And once you see it, you can't unsee it.
 6. Tukey, J. W. (1977). *Exploratory Data Analysis*. Addison-Wesley.
 
 7. Hoaglin, D. C., Mosteller, F., & Tukey, J. W. (Eds.). (1983). *Understanding Robust and Exploratory Data Analysis*. John Wiley & Sons.
-
-8. Rousseeuw, P. J., & Croux, C. (1993). Alternatives to the median absolute deviation. *Journal of the American Statistical Association*, 88(424), 1273-1283.
-
-9. D'Agostino, R. B., & Stephens, M. A. (Eds.). (1986). *Goodness-of-Fit Techniques*. Marcel Dekker.
-
-10. Hyndman, R. J., & Fan, Y. (1996). Sample quantiles in statistical packages. *The American Statistician*, 50(4), 361-365.
-
----
-

@@ -21,6 +21,8 @@ import { isProminentShelf } from "../Lib/postVisibility";
 import FootballStatsChart from "./FootballStatsChart";
 import ComparisonChart from "./ComparisonChart";
 import AdUnit from "./AdUnit";
+import RecentlyViewed from "./RecentlyViewed";
+import ReadingStreak from "./ReadingStreak";
 
 const LOTTIE_ANIMATIONS = {
   boxplotIntro: "https://assets10.lottiefiles.com/packages/lf20_tutvdkg0.json",
@@ -32,6 +34,39 @@ const LOTTIE_ANIMATIONS = {
   breakdownFortress: "/lottie/breakdown_fortress.json",
   robustWorkflow: "/lottie/robust_workflow.json"
 };
+
+function MobileToc({ headings }) {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  return (
+    <div className="lg:hidden mb-6 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-gray-800/50 text-sm font-medium text-gray-700 dark:text-gray-300"
+      >
+        <span>📑 Table of Contents</span>
+        <span className={`transform transition-transform ${isOpen ? 'rotate-180' : ''}`}>▾</span>
+      </button>
+      {isOpen && (
+        <nav className="px-4 py-3 max-h-60 overflow-y-auto">
+          <ul className="space-y-2">
+            {headings.map((h, i) => (
+              <li key={i} style={{ paddingLeft: `${(h.level - 2) * 12}px` }}>
+                <a
+                  href={`#${h.id}`}
+                  onClick={() => setIsOpen(false)}
+                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-[#C74634] dark:hover:text-[#26c281] transition-colors block py-0.5"
+                >
+                  {h.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+    </div>
+  );
+}
 
 function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -656,6 +691,11 @@ function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
         </button>
       </div>
 
+      {/* Mobile TOC — visible on small screens only */}
+      {headings && headings.length > 0 && (
+        <MobileToc headings={headings} />
+      )}
+
       {/* Medium-style article content with TOC */}
       <div className="flex gap-8 w-full">
         {/* Main content */}
@@ -676,6 +716,8 @@ function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
             slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_SIDEBAR || ''}
             format="sticky-sidebar"
           />
+          <ReadingStreak />
+          <RecentlyViewed maxPosts={3} />
         </div>
       </div>
 

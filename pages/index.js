@@ -25,6 +25,7 @@ import FocusStripLottieAccent from "../Components/FocusStripLottieAccent";
 import TopicWordCloud from "../Components/TopicWordCloud";
 import NewsletterForm from "../Components/NewsletterForm";
 import SocialFeeds from "../Components/SocialFeeds";
+import AdUnit from "../Components/AdUnit";
 
 export const getStaticProps = () => {
   const allBlogs = getAllBlogPosts();
@@ -917,6 +918,15 @@ export default function Home({ blogs, topics }) {
               </div>
             </section>
           )}
+
+          {/* Homepage mid-page ad */}
+          <div className="max-w-7xl mx-auto px-4 md:px-8">
+            <AdUnit
+              slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_MID_ARTICLE || ''}
+              format="auto"
+              style={{ margin: '40px auto', maxWidth: '728px' }}
+            />
+          </div>
 
           {/* Main feed */}
           <section id="latest-posts" className="py-16">

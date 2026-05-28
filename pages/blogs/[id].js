@@ -215,6 +215,13 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
             {/* Related Posts */}
             <RelatedPosts currentPost={currentPost} allBlogs={allBlogs} maxPosts={3} />
 
+            {/* Multiplex ad — matched content style, between related posts and post navigation */}
+            <AdUnit
+              slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_MULTIPLEX || ''}
+              format="multiplex"
+              style={{ margin: '32px auto' }}
+            />
+
             {/* Ad Unit — auto responsive, after related posts */}
             <AdUnit
               slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_BELOW_ARTICLE || ''}

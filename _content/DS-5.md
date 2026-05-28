@@ -12,18 +12,15 @@ isPublished: true
 
 # **Day 5 — Robust Location and Scale: Median & MAD (Simple Guide + Worked Example)**
 
-<div style={{textAlign: 'center', margin: '2rem 0'}}>
-<p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Robust statistics that resist outliers! </p>
-</div>
 
->  **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
+
 
 ---
 
 ## Introduction
 When data contains outliers, traditional measures like mean and [SD](/key) can be misleading. [Robust statistics](/key) like the [median](/key) and [MAD](/key) provide stable estimates that resist distortion from extreme values.
 
-**TL;DR:**
+**In a nutshell:**
 
 The mean and standard deviation ([SD](/key)) can be swayed by outliers like reeds in the wind  — a single extreme value can pull them off course.
 
@@ -275,7 +272,7 @@ A picture that says a thousand outliers.
 
 ---
 
-##  Takeaway
+## Wrapping Up
 * [Median](/key) + [MAD](/key) = the sturdier cousins of mean/[SD](/key).
 * They stay centered when [outliers](/key) appear.
 * Robust [z-scores](/key) reveal what classical [z-scores](/key) often hide.
@@ -286,6 +283,7 @@ They'll never overreact — or underreact — to the wild ones.
 ---
 
 ## References
+
 1. Hampel, F. R., Ronchetti, E. M., Rousseeuw, P. J., & Stahel, W. A. (2011). *Robust Statistics: The Approach Based on Influence Functions*. John Wiley & Sons.
 
 2. Huber, P. J., & Ronchetti, E. M. (2009). *Robust Statistics* (2nd ed.). John Wiley & Sons.
@@ -301,10 +299,3 @@ They'll never overreact — or underreact — to the wild ones.
 7. Wilcox, R. R. (2012). *Introduction to Robust Estimation and Hypothesis Testing* (3rd ed.). Academic Press.
 
 8. Maronna, R. A., Martin, R. D., & Yohai, V. J. (2019). *Robust Statistics: Theory and Methods* (2nd ed.). John Wiley & Sons.
-
-9. Iglewicz, B., & Hoaglin, D. C. (1993). How to detect and handle outliers. *ASQ Basic References in Quality Control: Statistical Techniques*, 16, 87-88.
-
-10. Rousseeuw, P. J., & Leroy, A. M. (2005). *Robust Regression and Outlier Detection*. John Wiley & Sons.
-
----
-

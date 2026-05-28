@@ -13,7 +13,7 @@ isPublished: true
 # **Day 4 — Percentile Rank and Stratification (with Solved Examples)**
 
 <div style={{textAlign: 'center', margin: '2rem 0'}}>
-<p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Ranking and stratifying data for insights! </p>
+<p style={{fontStyle: 'italic', color: '#888', marginTop: '1rem'}}>Ranking and stratifying data for insights! </p>
 </div>
 
 >  **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
@@ -23,7 +23,7 @@ isPublished: true
 ## Introduction
 [Percentile ranks](/key) provide a powerful way to normalize features onto a common scale, making it easy to combine multiple features and create meaningful [stratifications](/key) for analysis and sampling.
 
-**TL;DR:**
+**In a nutshell:**
 
 [Percentile ranks](/key) turn any numeric feature into a simple score in `[0,1]` that says *"what fraction of the data is at or below this value."*
 
@@ -342,16 +342,17 @@ Using max is liberal — more points rise into higher strata.
 
 ---
 
-## Takeaway
+## Wrapping Up
 [Percentile ranks](/key) normalize features onto a **common [0,1] scale**.
 
 Combining them with **min (AND)** or **max (OR)** gives an interpretable, monotone score ideal for **sampling, prioritization, and reporting.**
 
-Simple  Robust  Explainable
+Robust and transparent.
 
 ---
 
 ## References
+
 1. Hyndman, R. J., & Fan, Y. (1996). Sample quantiles in statistical packages. *The American Statistician*, 50(4), 361-365.
 
 2. Serfling, R. J. (2009). *Approximation Theorems of Mathematical Statistics*. John Wiley & Sons.
@@ -361,16 +362,3 @@ Simple  Robust  Explainable
 4. Hoaglin, D. C., Mosteller, F., & Tukey, J. W. (Eds.). (1983). *Understanding Robust and Exploratory Data Analysis*. John Wiley & Sons.
 
 5. David, H. A., & Nagaraja, H. N. (2003). *Order Statistics* (3rd ed.). John Wiley & Sons.
-
-6. Parzen, E. (1979). Nonparametric statistical data modeling. *Journal of the American Statistical Association*, 74(365), 105-121.
-
-7. Koenker, R. (2005). *Quantile Regression*. Cambridge University Press.
-
-8. Langford, E. (2006). Quartiles in elementary statistics. *Journal of Statistics Education*, 14(3).
-
-9. Hyndman, R. J. (1996). Computing and graphing highest density regions. *The American Statistician*, 50(2), 120-126.
-
-10. Cramér, H. (1946). *Mathematical Methods of Statistics*. Princeton University Press.
-
----
-

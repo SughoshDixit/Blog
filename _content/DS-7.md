@@ -12,30 +12,11 @@ isPublished: true
 
 # **Day 7 — Boxplots, IQR, and Tukey Fences**
 
-<p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem', textAlign: 'center'}}>Spotting outliers with boxplots and robust fences! </p>
-
->  **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
 
 ---
 
 ## Introduction
-[Boxplots](/key) provide a simple visual way to identify [outliers](/key) using the [IQR](/key) (Interquartile Range) and [Tukey fences](/key). This method is robust, doesn't assume normality, and works well with skewed or heavy-tailed data.
-
-**TL;DR:**
-
-[Boxplots](/key) are the simplest visual way to spot [outliers](/key).
-
-They rely on the **[IQR](/key) (Interquartile Range)** — the middle 50% of your data — and build "fences" around it:
-
-**[IQR](/key) = [Q₃](/key) − [Q₁](/key)**
-
-**Lower Fence = [Q₁](/key) − 1.5 × [IQR](/key)**
-
-**Upper Fence = [Q₃](/key) + 1.5 × [IQR](/key)**
-
-Points outside these fences are suspected [outliers](/key).
-
-It's simple, robust, and doesn't assume your data are Normal.
+How do you flag suspicious data points without assuming anything about the shape of your distribution? What if the mean and standard deviation are themselves warped by extremes? [Boxplots](/key) answer both questions by leaning on the [IQR](/key) (Interquartile Range) and [Tukey fences](/key) — a method that's robust, visual, and works just as well on skewed or heavy-tailed data as it does on textbook bell curves.
 
 ![Boxplot Concept](/DS-7/boxplot_concept.png)
 
@@ -47,7 +28,7 @@ Find a rule-of-thumb for outliers that:
 * Works on skewed or heavy-tailed data,
 * Is visual, explainable, and easy to compute.
 
-Enter: **[Tukey fences](/key)**, the engine behind every [boxplot](/key).
+This is where **[Tukey fences](/key)** come in — the engine behind every [boxplot](/key).
 
 ---
 
@@ -73,7 +54,7 @@ The **[IQR](/key)** measures the width of the box — how spread the middle half
 
 ![Tukey Fences Layering](/DS-7/fence_layers_overview.png)
 
-<p style={{textAlign: 'center', fontStyle: 'italic', color: '#555'}}>Tukey's inner and outer fences wrap the box to flag suspicious points.</p>
+*Tukey's inner and outer fences wrap the box to flag suspicious points.*
 
 ![Boxplot Anatomy](/DS-7/boxplot_anatomy.png)
 
@@ -182,7 +163,7 @@ Use two examples:
 
 ---
 
-##  Takeaway
+## What to remember
 * **[Boxplots](/key)** = a picture of the middle + the fences around it.
 * **[IQR](/key)** = [robust](/key) measure of spread.
 * **[Tukey fences](/key)** = simple, [nonparametric](/key) [outlier](/key) rule.
@@ -195,23 +176,33 @@ Use two examples:
 ## References
 1. Tukey, J. W. (1977). *Exploratory Data Analysis*. Addison-Wesley.
 
-2. Hoaglin, D. C., Mosteller, F., & Tukey, J. W. (Eds.). (1983). *Understanding Robust and Exploratory Data Analysis*. John Wiley & Sons.
+2. McGill, R., Tukey, J. W., & Larsen, W. A. (1978). Variations of box plots. *The American Statistician*, 32(1), 12-16.
 
-3. McGill, R., Tukey, J. W., & Larsen, W. A. (1978). Variations of box plots. *The American Statistician*, 32(1), 12-16.
+3. Frigge, M., Hoaglin, D. C., & Iglewicz, B. (1989). Some implementations of the boxplot. *The American Statistician*, 43(1), 50-54.
 
-4. Frigge, M., Hoaglin, D. C., & Iglewicz, B. (1989). Some implementations of the boxplot. *The American Statistician*, 43(1), 50-54.
+4. Rousseeuw, P. J., & Croux, C. (1993). Alternatives to the median absolute deviation. *Journal of the American Statistical Association*, 88(424), 1273-1283.
 
-5. Tukey, J. W. (1962). The future of data analysis. *Annals of Mathematical Statistics*, 33(1), 1-67.
+5. Leys, C., Ley, C., Klein, O., Bernard, P., & Licata, L. (2013). Detecting outliers: Do not use standard deviation around the mean, use absolute deviation around the median. *Journal of Experimental Social Psychology*, 49(4), 764-766.
 
-6. Mosteller, F., & Tukey, J. W. (1977). *Data Analysis and Regression: A Second Course in Statistics*. Addison-Wesley.
+6. Barnett, V., & Lewis, T. (1994). *Outliers in Statistical Data* (3rd ed.). John Wiley & Sons.
 
-7. Rousseeuw, P. J., & Croux, C. (1993). Alternatives to the median absolute deviation. *Journal of the American Statistical Association*, 88(424), 1273-1283.
+---
 
-8. Hubert, M., & Van der Veeken, S. (2008). Outlier detection for skewed data. *Journal of Chemometrics*, 22(3-4), 235-246.
+## Quick Recap
 
-9. Leys, C., Ley, C., Klein, O., Bernard, P., & Licata, L. (2013). Detecting outliers: Do not use standard deviation around the mean, use absolute deviation around the median. *Journal of Experimental Social Psychology*, 49(4), 764-766.
+[Boxplots](/key) are the simplest visual way to spot [outliers](/key).
 
-10. Barnett, V., & Lewis, T. (1994). *Outliers in Statistical Data* (3rd ed.). John Wiley & Sons.
+They rely on the **[IQR](/key) (Interquartile Range)** — the middle 50% of your data — and build "fences" around it:
+
+**[IQR](/key) = [Q₃](/key) − [Q₁](/key)**
+
+**Lower Fence = [Q₁](/key) − 1.5 × [IQR](/key)**
+
+**Upper Fence = [Q₃](/key) + 1.5 × [IQR](/key)**
+
+Points outside these fences are suspected [outliers](/key).
+
+It's simple, robust, and doesn't assume your data are Normal.
 
 ---
 

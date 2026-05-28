@@ -240,10 +240,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     // Splash screen timer
     const splashTimer = setTimeout(() => {
       setInitialLoading(false);
-    }, 2000); // Increased slightly for better effect
+    }, 0); // Removed splash screen delay
 
     let loadStartTime = 0;
-    const MIN_LOAD_TIME = 1200; // Minimum time in ms to show the loader
+    const MIN_LOAD_TIME = 300; // Reduced minimum route transition time
 
     const handleStart = (url) => {
       loadStartTime = Date.now();

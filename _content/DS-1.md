@@ -12,7 +12,7 @@ isPublished: true
 
 # **Day 1 — Boolean Logic to Numbers: AND as min, OR as max**
 
-<p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem', textAlign: 'center'}}>Binary rules meet graded truth so we can score fuzzy conditions with confidence.</p>
+*Binary rules meet graded truth so we can score fuzzy conditions with confidence.*
 
 >  **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
 
@@ -23,7 +23,7 @@ Let's be real—business rules rarely fit neatly into crisp yes/no boxes. In any
 
 Today we're upgrading classical [Boolean Logic](/key#boolean-logic). We're going to let our truth values live anywhere in the continuous interval [0,1]. To keep our sanity (and the math intact), we need operators that behave exactly like AND and OR but respect this new graded reality.
 
-**The short version:**
+**In a nutshell:**
 * Swap out AND for the [Gödel t-norm](/key#godel-t-norm) `min(x,y)` and OR for the [Gödel t-conorm](/key#godel-t-conorm) `max(x,y)`. The laws of logic still hold up.
 * Graded truth lets us score heuristic rules smoothly. Most importantly, it's conservative: tightening a condition will never accidentally increase your score.
 * These operators stay incredibly interpretable, support massive rule trees, and are basically the backbone of modern fuzzy logic systems.
@@ -158,9 +158,7 @@ These are classic lattice identities for totally ordered sets.
 
 These visuals reinforce how AND is bottlenecked by the weakest input, and OR is lifted by the strongest.
 
-<div style={{textAlign: 'center', margin: '2rem 0'}}>
-<p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Visualizing complex concepts makes them click! </p>
-</div>
+*Visualizing complex concepts makes them click!*
 
 ## Worked examples
 **1. Two‑feature rule: "(A AND B) OR C"**
@@ -179,7 +177,7 @@ Using: `min(A,B,C)`
 * **Case 1:** (0.7, 0.65, 0.9) → **0.65**
 * **Case 2:** (0.7, 0.65, 0.1) → **0.1**  (the weakest link dominates!)
 
-The key insight: AND is **bottlenecked** by the weakest input; OR is **lifted** by the strongest input.
+What matters here: AND is **bottlenecked** by the weakest input; OR is **lifted** by the strongest input.
 
 ## Bringing it back to reality: Rule Evaluation
 When you're writing a rule expression in your code (e.g., `feature1 AND (feature2 OR feature3)`), swapping to this numeric approach lets you evaluate it directly on scaled inputs. 
@@ -257,12 +255,6 @@ Replacing AND with `min` and OR with `max` isn't just a neat trick—it gives us
 6. Dubois, D., & Prade, H. (1980). *Fuzzy Sets and Systems: Theory and Applications*. Academic Press.
 
 7. Schweizer, B., & Sklar, A. (1983). *Probabilistic Metric Spaces*. North-Holland.
-
-8. Fodor, J., & Roubens, M. (1994). *Fuzzy Preference Modelling and Multicriteria Decision Support*. Springer Science & Business Media.
-
-9. Yager, R. R. (1980). On a general class of fuzzy connectives. *Fuzzy Sets and Systems*, 4(3), 235-242.
-
-10. Nguyen, H. T., & Walker, E. A. (2006). *A First Course in Fuzzy Logic* (3rd ed.). Chapman and Hall/CRC.
 
 ---
 

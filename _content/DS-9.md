@@ -12,19 +12,12 @@ isPublished: true
 
 # **Day 9 — Z-Scores vs Robust Z-Scores**
 
-<p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem', textAlign: 'center'}}>When one wild point can topple the mean, it is time to switch to statistics that fight back.</p>
-
->  **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
+<p style={{fontStyle: 'italic', color: '#888', marginTop: '1rem', textAlign: 'center'}}>When one wild point can topple the mean, it is time to switch to statistics that fight back.</p>
 
 ---
 
 ## Introduction
-The classical [z-score](/key) normalizes data by subtracting the [mean](/key) and dividing by the [standard deviation](/key). It shines when data are clean and approximately normal. Yet a single wild observation can warp both statistics, hiding true [outliers](/key) the moment you need detection most.
-
-**TL;DR:**
-* Classical z-scores depend on the [mean](/key) and [standard deviation](/key), both of which have a 0% [breakdown point](/key) and an unbounded influence function.
-* Robust z-scores swap in the [median](/key) and [MAD](/key) (Median Absolute Deviation) so half the data must be corrupted before things collapse.
-* Use classical z-scores for clean, well-behaved measurements; prefer robust z-scores as your default for messy, real-world datasets.
+The classical [z-score](/key) normalizes data by subtracting the [mean](/key) and dividing by the [standard deviation](/key). It shines when data are clean and approximately normal. Yet a single wild observation can warp both statistics, hiding true [outliers](/key) the moment you need detection most. Classical z-scores depend on the [mean](/key) and [standard deviation](/key), both of which have a 0% [breakdown point](/key) and an unbounded influence function. Robust z-scores swap in the [median](/key) and [MAD](/key) (Median Absolute Deviation) so half the data must be corrupted before things collapse. The rule of thumb: use classical z-scores for clean, well-behaved measurements; prefer robust z-scores as your default for messy, real-world datasets.
 
 ![Classical vs Robust Summary](/DS-9/robust_vs_classic.png)
 
@@ -176,23 +169,20 @@ Run both; large disagreements are an immediate red flag that classical assumptio
 
 ---
 
-##  Takeaway
+## Wrap-up
 * Classical z-scores crumble in the face of even one contaminated point.
 * Robust z-scores powered by the median and MAD withstand up to 50% corruption.
 * Use diagnostics, iterate, and document which yardstick you chose (and why).
 
 ---
 
-## Coming Up Next
-Day 10 dives into **Local Outlier Factor (LOF)** to catch anomalies hiding in low-density pockets of high-dimensional space.
-
----
-
 ##  References
-* Rousseeuw, P.J., & Croux, C. (1993). Alternatives to the Median Absolute Deviation. *Journal of the American Statistical Association*.
-* Hampel, F.R. (1974). The Influence Curve and Its Role in Robust Estimation. *Journal of the American Statistical Association*.
-* Wilcox, R.R. (2017). *Introduction to Robust Estimation and Hypothesis Testing*.
+1. Rousseeuw, P. J., & Croux, C. (1993). Alternatives to the median absolute deviation. *Journal of the American Statistical Association*, 88(424), 1273–1283.
 
----
+2. Hampel, F. R. (1974). The influence curve and its role in robust estimation. *Journal of the American Statistical Association*, 69(346), 383–393.
 
-Thanks for geeking out with me on robust statistics—see you tomorrow!
+3. Wilcox, R. R. (2017). *Introduction to Robust Estimation and Hypothesis Testing* (4th ed.). Academic Press.
+
+4. Leys, C., Ley, C., Klein, O., Bernard, P., & Licata, L. (2013). Detecting outliers: Do not use standard deviation around the mean, use absolute deviation around the median. *Journal of Experimental Social Psychology*, 49(4), 764–766.
+
+5. Iglewicz, B., & Hoaglin, D. C. (1993). *Volume 16: How to Detect and Handle Outliers*. ASQC Quality Press.

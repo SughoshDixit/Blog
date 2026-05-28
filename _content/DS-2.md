@@ -12,28 +12,14 @@ isPublished: true
 
 # Day 2 — Expressions as Algebra: Tokens, Precedence & Postfix (RPN)
 
-<p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem', textAlign: 'center'}}>Teaching computers to understand expressions! </p>
 
->  **Note:** This article uses technical terms and abbreviations. For definitions, check out the [Key Terms & Glossary](/key) page.
 
 ---
 
 ## Introduction
-Humans read rules with ease. Computers need structure.
+Have you ever wondered how a computer actually reads a rule like `score >= 0.85 and (stability > 0.9 or flag == 0)`? To us it looks natural, but to a machine it's a tangle of symbols with no inherent meaning.
 
-When we write something like `score >= 0.85 and (stability > 0.9 or flag == 0)`, it looks natural to us but computers see a tangle of symbols. To evaluate this reliably, we teach machines three steps: tokenization, operator precedence, and postfix conversion.
-
-**TL;DR:**
-
-How to teach computers to read and evaluate expressions step by step — by tokenizing text, enforcing operator precedence, and converting rules to postfix ([RPN](/key)) form for speed, clarity and consistency.
-
-1. **Tokenize** – split text into meanings (words, numbers, operators).
-
-2. **Respect precedence** – know which operators bind stronger.
-
-3. **Translate to postfix ([RPN](/key))** – remove parentheses so evaluation is fast and unambiguous.
-
-This gives us rules that are consistent, explainable, and lightning-fast to evaluate.
+To evaluate this reliably, we need to teach machines three steps: tokenization, operator precedence, and postfix conversion. Each step strips away ambiguity until what remains is a clean, executable instruction sequence.
 
 ---
 
@@ -106,13 +92,11 @@ Our rule becomes:
 score 0.85 >= stability 0.9 > and flag 0 == or
 ```
 
-Same logic, zero ambiguity. Pure clarity.
+Same logic, zero ambiguity.
 
 ![Infix to Postfix Conversion](/DS-2/infix_postfix.png)
 
-<div style={{textAlign: 'center', margin: '2rem 0'}}>
-<p style={{fontStyle: 'italic', color: '#666', marginTop: '1rem'}}>Algorithms make it all work! </p>
-</div>
+*Algorithms make it all work!*
 
 ## How to Evaluate Postfix
 Use a simple stack:
@@ -285,10 +269,18 @@ drift not quality 0.95 >= coverage 0.98 >= or and
 
 ---
 
-## Takeaway
-Turning rule strings into tokens, honoring a clear precedence order, and evaluating postfix makes your logic solid, predictable, and explainable.
+## Quick Recap
+Here's the summary of what we covered:
 
-A small engineering habit that scales beautifully from data validation to full-blown rule engines
+1. **Tokenize** – split text into meanings (words, numbers, operators).
+
+2. **Respect precedence** – know which operators bind stronger.
+
+3. **Translate to postfix ([RPN](/key))** – remove parentheses so evaluation is fast and unambiguous.
+
+This gives us rules that are consistent, explainable, and lightning-fast to evaluate. Turning rule strings into tokens, honoring a clear precedence order, and evaluating postfix makes your logic solid, predictable, and explainable.
+
+A small engineering habit that scales beautifully from data validation to full-blown rule engines.
 
 ---
 
@@ -299,19 +291,11 @@ A small engineering habit that scales beautifully from data validation to full-b
 
 3. Dijkstra, E. W. (1961). Algol 60 translation: An algol 60 translator for the x1. In *Automatic Programming Information Centre* (pp. 1-7).
 
-4. Shunting Yard Algorithm. (n.d.). In Wikipedia. Retrieved from https://en.wikipedia.org/wiki/Shunting_yard_algorithm
+4. Pratt, V. R. (1973). Top down operator precedence. In *Proceedings of the 1st Annual ACM SIGACT-SIGPLAN Symposium on Principles of Programming Languages* (pp. 41-51).
 
-5. Pratt, V. R. (1973). Top down operator precedence. In *Proceedings of the 1st Annual ACM SIGACT-SIGPLAN Symposium on Principles of Programming Languages* (pp. 41-51).
+5. Grune, D., & Jacobs, C. J. (2008). *Parsing Techniques: A Practical Guide* (2nd ed.). Springer.
 
-6. Aho, A. V., & Ullman, J. D. (1972). *The Theory of Parsing, Translation, and Compiling* (Vol. 1). Prentice-Hall.
-
-7. Grune, D., & Jacobs, C. J. (2008). *Parsing Techniques: A Practical Guide* (2nd ed.). Springer.
-
-8. Wirth, N. (1996). *Compiler Construction*. Addison-Wesley.
-
-9. Louden, K. C. (1997). *Compiler Construction: Principles and Practice*. PWS Publishing.
-
-10. Sedgewick, R., & Wayne, K. (2011). *Algorithms* (4th ed.). Addison-Wesley Professional.
+6. Sedgewick, R., & Wayne, K. (2011). *Algorithms* (4th ed.). Addison-Wesley Professional.
 
 ---
 
