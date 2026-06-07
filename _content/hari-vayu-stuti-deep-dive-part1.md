@@ -285,6 +285,17 @@ Stay tuned for **Part 2**, where we will do a deep-dive into the exploits of Han
 
 ---
 
+## 📚 Academic & Historical References
+
+The historical, theological, and linguistic parameters of the *Hari Vayu Stuti* are documented in several academic and primary works:
+
+*   **Sharma, Dr. B. N. K. (2008).** *A History of the Dvaita School of Vedānta and Its Literature.* Motilal Banarsidass. (This is the definitive academic treatise that discusses Trivikrama Panditacharya's works, his conversion debate with Madhvacharya, and how the stotra establishes the theological status of *Vayu Jivottama*).
+*   **Sheridan, Daniel P. (1986).** *The Devotionalism of the Bhāgavata Purāṇa and Madhva.* Journal of Vaishnava Studies. (Discusses the unique position of Vayu as the cosmic mediator and primary devotee of Sri Hari).
+*   **Sumadhva Vijaya (by Narayana Panditacharya):** The authentic 13th-century biographical epic of Sri Madhvacharya. Sargas 13–15 describe the debate, conversion of Trivikrama Panditacharya, and the subsequent composition of the *Hari Vayu Stuti* and *Nakha Stuti*.
+*   **Sanskrit Meter Studies:** Scholarly papers on Sanskrit prosody cite the Vayu Stuti for its complex implementation of the 21-syllable *Sragdhara* meter yoked to *Slesha Alankara* (dual description of Vayu's incarnations simultaneously).
+
+---
+
 <div style={{background: '#FFF4ED', padding: '1.5rem', borderRadius: '15px', color: '#2d1a0e', margin: '2rem 0', textAlign: 'center', boxShadow: '0 5px 20px rgba(199,70,52,0.15)'}}>
 <p style={{fontStyle: 'italic', fontSize: '1.15rem', margin: 0, lineHeight: '1.8'}}>🙏 <strong>Srimad-Ananda-Teertha-Bhagavadpadacharya-Gurubhyo-Namaha.</strong><br/>Dedicated to the glory of Sri Hari and Vayu Devaru. 🚩</p>
 </div>

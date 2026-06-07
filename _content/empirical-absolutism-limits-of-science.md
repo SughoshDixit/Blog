@@ -177,6 +177,23 @@ It is time to move beyond the limitations of scientific absolutism and reclaim a
 
 ---
 
+## 📚 References & Further Reading
+
+### Scientific & Philosophical Works
+*   **Gödel, K. (1931).** *Über formal unentscheidbare Sätze der Principia Mathematica und verwandter Systeme I.* Monatshefte für Mathematik und Physik. (Gödel's Incompleteness Theorems).
+*   **Heisenberg, W. (1927).** *Über den anschaulichen Inhalt der quantentheoretischen Kinematik und Mechanik.* Zeitschrift für Physik. (Heisenberg's Uncertainty Principle).
+*   **Chalmers, D. J. (1995).** *Facing Up to the Problem of Consciousness.* Journal of Consciousness Studies, 2(3), 200-219. (The Hard Problem of Consciousness).
+*   **Chalmers, D. J. (1996).** *The Conscious Mind: In Search of a Fundamental Theory.* Oxford University Press.
+
+### Scriptural & Vedic Sources
+*   **Mahabharata:** *Vana Parva (Yaksha Prashna, Sarga 313, Verse 117).* (The Instability of dry logic / *Tarkō'pratiṣṭhaḥ*).
+*   **Valmiki Ramayana:** *Ayodhya Kanda (Sarga 109).* (Refutation of Nastika/Materialism by Rama to Jabali).
+*   **Rigveda:** *Mandala 10, Sukta 129 (Nasadiya Sukta).* (Hymn of Creation, exploring cognitive limits).
+*   **Katha Upanishad:** *Adhyaya 1, Valli 2, Verse 9.* (Logical limits of the Self / *Naiṣā tarkēṇa matirāpanēyā*).
+*   **Nyaya & Dvaita Epistemology:** Classical commentaries on *Pramana-Lakshana* regarding the four human defects (*Bhrama, Pramada, Vipralipsa, Karana-apātava*).
+
+---
+
 <div style={{background: '#F0FDF4', padding: '1.5rem', borderRadius: '15px', color: '#14532d', margin: '2rem 0', textAlign: 'center', boxShadow: '0 5px 20px rgba(22,163,74,0.15)'}}>
 <p style={{fontStyle: 'italic', fontSize: '1.15rem', margin: 0, lineHeight: '1.8'}}>🙏 <strong>Om Shanti Shanti Shanti.</strong><br/>Let truth come to us from all directions. 🕉️</p>
 </div>
