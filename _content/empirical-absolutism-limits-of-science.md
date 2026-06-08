@@ -1,6 +1,6 @@
 ---
 Id: 2004
-Title: "Is Science the Epitome of Everything?"
+Title: "Stop Defending Hindu Rituals with Pseudoscience"
 Author: Sughosh P Dixit
 Date: "2026-06-07"
 Tags: VedicStudies Philosophy ScienceEpistemology Materialism Consciousness Upanishads Mahabharata Ramayana Godel
@@ -10,7 +10,7 @@ HeaderImage: /science_vs_spirituality.png
 isPublished: true
 ---
 
-# Is Science the Epitome of Everything? 🕉️🔬
+# Stop Defending Hindu Rituals with Pseudoscience 🕉️🔬
 
 First of all, **Hi all** 👋
 
