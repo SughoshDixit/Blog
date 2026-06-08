@@ -1,6 +1,6 @@
 ---
 Id: 2004
-Title: "Is Science the Epitome of Everything? A Manifesto for the 'More Informed and Less Opinionated'"
+Title: "Is Science the Epitome of Everything?"
 Author: Sughosh P Dixit
 Date: "2026-06-07"
 Tags: VedicStudies Philosophy ScienceEpistemology Materialism Consciousness Upanishads Mahabharata Ramayana Godel
@@ -10,7 +10,7 @@ HeaderImage: /science_vs_spirituality.png
 isPublished: true
 ---
 
-# Is Science the Epitome of Everything? A Manifesto for the "More Informed and Less Opinionated" 🕉️🔬
+# Is Science the Epitome of Everything? 🕉️🔬
 
 First of all, **Hi all** 👋
 
