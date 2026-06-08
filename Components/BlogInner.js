@@ -68,6 +68,36 @@ function MobileToc({ headings }) {
   );
 }
 
+function ToggleView({ children }) {
+  const [activeTab, setActiveTab] = useState(0); // 0 = Layman, 1 = Technical
+  const tabs = ["💡 Layman Version", "🔬 Technical Version"];
+  const childrenArray = Array.isArray(children) ? children : [children];
+  
+  return (
+    <div className="border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden my-8 shadow-sm">
+      <div className="flex bg-gray-50 dark:bg-gray-800/50 p-2 gap-2 border-b border-gray-200 dark:border-gray-700">
+        {tabs.map((tab, idx) => (
+          <button
+            key={idx}
+            type="button"
+            onClick={() => setActiveTab(idx)}
+            className={`flex-1 text-center py-2.5 px-4 rounded-xl text-sm font-medium transition-all ${
+              activeTab === idx
+                ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm ring-1 ring-black/5"
+                : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100/50 dark:hover:bg-gray-800/50"
+            }`}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+      <div className="p-6 bg-white dark:bg-gray-900">
+        {childrenArray[activeTab] || childrenArray[0]}
+      </div>
+    </div>
+  );
+}
+
 function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -302,6 +332,7 @@ function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
   }, [selectedImage]);
 
   const mdxComponents = {
+    ToggleView: (props) => <ToggleView {...props} />,
     Lottie: (props) => <LottiePlayer {...props} />,
     HypergeomCalculator: (props) => <HypergeomCalculator {...props} />,
     PercentileThresholdTuner: (props) => <PercentileThresholdTuner {...props} />,
@@ -699,7 +730,12 @@ function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
       {/* Medium-style article content with TOC */}
       <div className="flex gap-8 w-full">
         {/* Main content */}
-        <div className={`flex-1 article-content min-w-0 w-full${data.Topic && data.Topic.includes('Love Story') ? ' manuscript-post' : ''}`}>
+        <div className={`flex-1 article-content min-w-0 w-full ${
+          data.Topic && data.Topic.includes('Love Story') ? 'manuscript-post' : 
+          data.Topic === 'Vedic Studies' ? 'vedic-post' :
+          data.Topic === 'Football' || data.Topic === 'Sports' ? 'sports-post' :
+          data.Topic === 'Data Science' || data.Topic === 'Engineering' ? 'engineering-post' : ''
+        }`}>
           <article 
             ref={articleRef}
             className="prose prose-sm sm:prose-lg max-w-none break-words overflow-x-hidden"

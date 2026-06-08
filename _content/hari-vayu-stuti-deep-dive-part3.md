@@ -5,6 +5,8 @@ Author: Sughosh P Dixit
 Date: "2026-06-07"
 Tags: Madhwa Dvaita HariVayuStuti VayuJivottama TrivikramaPanditacharya Bhimasena Madhvacharya Kurukshetra UdupiKrishna AdhikaMaasam
 Topic: Vedic Studies
+Series: "Hari Vayu Stuti"
+SeriesPart: "3"
 Abstract: "A word-by-word and sentence-by-sentence exegesis of Verses 16 to 25 of Sri Trivikrama Panditacharya's Hari Vayu Stuti, capturing Bhimasena's battlefield valor in Mahabharata and Sri Madhvacharya's establishment of Tatvavada."
 HeaderImage:
 isPublished: true

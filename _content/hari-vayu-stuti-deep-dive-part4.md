@@ -5,6 +5,8 @@ Author: Sughosh P Dixit
 Date: "2026-06-07"
 Tags: Madhwa Dvaita HariVayuStuti VayuJivottama TrivikramaPanditacharya Madhvacharya Narasimha NakhaStuti AdhikaMaasam
 Topic: Vedic Studies
+Series: "Hari Vayu Stuti"
+SeriesPart: "4"
 Abstract: "A word-by-word and sentence-by-sentence exegesis of the final verses (26 to 41) of Sri Trivikrama Panditacharya's Hari Vayu Stuti, highlighting Sri Madhvacharya's miracles, the core philosophy of Vayu Jivottama, and the Phala-shruti."
 HeaderImage:
 isPublished: true

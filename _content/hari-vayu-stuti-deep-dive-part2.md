@@ -5,6 +5,8 @@ Author: Sughosh P Dixit
 Date: "2026-06-07"
 Tags: Madhwa Dvaita HariVayuStuti VayuJivottama TrivikramaPanditacharya Hanuman Bhimasena Mahabharata Ramayana AdhikaMaasam
 Topic: Vedic Studies
+Series: "Hari Vayu Stuti"
+SeriesPart: "2"
 Abstract: "A word-by-word and sentence-by-sentence exegesis of Verses 6 to 15 of Sri Trivikrama Panditacharya's Hari Vayu Stuti, capturing the epic feats of Hanuman in Treta Yuga and Bhimasena in Dwapara Yuga."
 HeaderImage:
 isPublished: true

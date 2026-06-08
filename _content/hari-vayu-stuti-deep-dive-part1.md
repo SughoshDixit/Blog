@@ -5,6 +5,8 @@ Author: Sughosh P Dixit
 Date: "2026-06-07"
 Tags: Madhwa Dvaita HariVayuStuti VayuJivottama TrivikramaPanditacharya Madhvacharya Hanuman Bhimasena AdhikaMaasam
 Topic: Vedic Studies
+Series: "Hari Vayu Stuti"
+SeriesPart: "1"
 Abstract: "A word-by-word and sentence-by-sentence exegesis of the Nakha Stuti and the opening verses of Sri Trivikrama Panditacharya's Hari Vayu Stuti, explaining the deeper Dvaita philosophy and the glory of Jivottama Vayu."
 HeaderImage:
 isPublished: true
