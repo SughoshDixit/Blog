@@ -22,12 +22,12 @@ But is science truly the epitome of everything? Can it explain the entirety of h
 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', margin: '2rem 0' }}>
   <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl border border-gray-200 dark:border-gray-750 shadow-sm">
     <h4 className="text-gray-900 dark:text-white font-bold mb-2 flex items-center gap-2" style={{ margin: '0 0 0.5rem 0' }}>
-      🇮🇳 Explainer (Part 1)
+      🇬🇧 English Explainer
     </h4>
     <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', borderRadius: '12px' }}>
       <iframe
         src="https://www.youtube.com/embed/KaIsCbOSEkk"
-        title="Video Explainer Part 1"
+        title="English Video Explainer"
         style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
@@ -36,12 +36,12 @@ But is science truly the epitome of everything? Can it explain the entirety of h
   </div>
   <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl border border-gray-200 dark:border-gray-750 shadow-sm">
     <h4 className="text-gray-900 dark:text-white font-bold mb-2 flex items-center gap-2" style={{ margin: '0 0 0.5rem 0' }}>
-      🇮🇳 Explainer (Part 2)
+      🇮🇳 Kannada Explainer
     </h4>
     <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', borderRadius: '12px' }}>
       <iframe
         src="https://www.youtube.com/embed/mnZ5xPTS9zQ"
-        title="Video Explainer Part 2"
+        title="Kannada Video Explainer"
         style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
