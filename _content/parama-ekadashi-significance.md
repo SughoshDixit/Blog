@@ -24,6 +24,8 @@ Choose your language version below to read the detailed article:
 <ToggleView labels={['English', 'Kannada']}>
 <div>
 
+![Guide to Parama Ekadashi](/parama-ekadashi-guide-en.png)
+
 ## 🌟 The Significance of Parama Ekadashi
 
 Parama Ekadashi is unique because it only occurs once every three years during the Adhika Masa (also known as the **Purushottama Masa**, the month dedicated to Lord Vishnu). 
@@ -81,6 +83,8 @@ Instead of proudly assuming we can command our destiny or that we worship perfec
 
 </div>
 <div>
+
+![ಪರಮ ಏಕಾದಶಿ ವ್ರತದ ಮಾರ್ಗದರ್ಶಿ](/parama-ekadashi-guide.png)
 
 ## 1. ಪೀಠಿಕೆ: ಅಧಿಕ ಮಾಸದ ಮಹಿಮೆ ಮತ್ತು ಏಕಾದಶಿಯ ಪಾವಿತ್ರ್ಯ
 
