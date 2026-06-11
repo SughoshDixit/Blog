@@ -20,6 +20,7 @@ import {
 import TechPodcastsShelf from "../Components/TechPodcastsShelf";
 import FootballShelf from "../Components/FootballShelf";
 import DataScienceYouTubeShelf from "../Components/DataScienceYouTubeShelf";
+import VedicStudiesShelf from "../Components/VedicStudiesShelf";
 import HeroLottieAccent from "../Components/HeroLottieAccent";
 import FocusStripLottieAccent from "../Components/FocusStripLottieAccent";
 import TopicWordCloud from "../Components/TopicWordCloud";
@@ -946,6 +947,7 @@ export default function Home({ blogs, topics }) {
                     Long-form writing across civilization, football, AI, and personal reflections.
                   </p>
                 </div>
+                <VedicStudiesShelf blogs={publishedBlogs} />
                 <DataScienceYouTubeShelf />
                 <FootballShelf />
                 <TechPodcastsShelf />
