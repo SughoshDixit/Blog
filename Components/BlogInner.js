@@ -68,9 +68,10 @@ function MobileToc({ headings }) {
   );
 }
 
-function ToggleView({ children }) {
-  const [activeTab, setActiveTab] = useState(0); // 0 = Layman, 1 = Technical
-  const tabs = ["💡 Layman Version", "🔬 Technical Version"];
+function ToggleView({ children, labels }) {
+  const [activeTab, setActiveTab] = useState(0); // 0 = First view, 1 = Second view
+  const defaultLabels = ["💡 Layman Version", "🔬 Technical Version"];
+  const tabs = Array.isArray(labels) ? labels : defaultLabels;
   const childrenArray = Array.isArray(children) ? children : [children];
   
   return (
