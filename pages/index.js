@@ -865,12 +865,12 @@ export default function Home({ blogs, topics }) {
                 </div>
                 <div className="grid gap-10 md:grid-cols-2">
                   {trendingPosts.map((post, index) => (
-                    <article key={post.data.Id} className={`flex space-x-6 reveal stagger-${Math.min(index + 1, 6)}`}>
-                      <span className="text-3xl md:text-[42px] font-bold text-[#d4c5a7] leading-none dark:text-[#f3d6a8]">
+                    <article key={post.data.Id} className={`flex space-x-4 md:space-x-6 reveal stagger-${Math.min(index + 1, 6)}`}>
+                      <span className="text-3xl md:text-[42px] font-bold text-[#d4c5a7] leading-none dark:text-[#f3d6a8] shrink-0">
                         {(index + 1).toString().padStart(2, "0")}
                       </span>
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-2 text-sm text-[#6E6B68] dark:text-[#B8B4B0]">
+                      <div className="space-y-3 flex-1 min-w-0">
+                        <div className="flex items-center flex-wrap gap-2 text-sm text-[#6E6B68] dark:text-[#B8B4B0]">
                           <span className="font-medium">
                             {post.data.Author || "Sughosh Dixit"}
                           </span>
@@ -1024,7 +1024,7 @@ export default function Home({ blogs, topics }) {
                               </span>
                             ))}
                         </div>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center flex-wrap gap-4 mt-auto">
                           {(() => {
                             const slug = generateSlug(blog.data.Title);
                             const eng = engagementMap[slug];

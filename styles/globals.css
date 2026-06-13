@@ -2663,172 +2663,11 @@ html {
 }
 
 /* ============================================
-   COMPREHENSIVE MOBILE RESPONSIVENESS
-   Index page — every section/card/grid
+   TARGETED MOBILE RESPONSIVENESS FIXES
+   Index page overflow prevention without layout destruction
    ============================================ */
 @media (max-width: 768px) {
-
-  /* ── Global containment ── */
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  /* Root wrapper — belt-and-suspenders */
-  html, body, #__next, .index-page {
-    max-width: 100vw;
-    overflow-x: clip;
-  }
-
-  /* Every section and container on index page */
-  .index-page main,
-  .index-page main > section,
-  .index-page main > div {
-    max-width: 100vw;
-    overflow-x: clip;
-  }
-
-  /* ── Grid collapse: force index page main grids to single column ── */
-  .index-page .grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* ── Containers that use max-w-7xl — keep padding safe ── */
-  .index-page [class*="max-w-7xl"] {
-    max-width: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  /* ── Card & shelf sections ── */
-  .index-page section[aria-labelledby],
-  .index-page .rounded-3xl,
-  .index-page .rounded-2xl {
-    max-width: 100%;
-    overflow: hidden;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-  }
-
-  /* ── Inline cards with padding ── */
-  .index-page .p-8 {
-    padding: 1.25rem !important;
-  }
-
-  /* ── YouTube iframes & embeds ── */
-  .index-page iframe {
-    max-width: 100% !important;
-  }
-
-  /* Aspect-ratio video boxes */
-  .index-page [style*="paddingTop"] {
-    max-width: 100%;
-  }
-
-  .index-page .aspect-video,
-  .index-page .aspect-\[2\/1\] {
-    max-width: 100%;
-  }
-
-  /* ── Images ── */
-  .index-page img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  /* ── Text overflow safety ── */
-  .index-page h1, 
-  .index-page h2, 
-  .index-page h3, 
-  .index-page h4, 
-  .index-page h5, 
-  .index-page h6, 
-  .index-page p, 
-  .index-page span, 
-  .index-page a, 
-  .index-page li {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-  }
-
-  /* ── Flex-wrap safety for button/chip rows ── */
-  .index-page .flex-wrap,
-  .index-page [class*="flex"][class*="gap-"] {
-    max-width: 100%;
-  }
-
-  /* ── Topic rail horizontal scrollbar ── */
-  .index-page .overflow-x-auto {
-    max-width: 100%;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* ── Hero section ── */
-  .index-page .rw-hero {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .index-page .rw-hero .grid {
-    gap: 2rem;
-    padding: 2rem 0;
-  }
-
-  /* Hero buttons styling for mobile proportionality */
-  .index-page .rw-hero .rw-btn-primary,
-  .index-page .rw-hero .rw-btn-ghost {
-    padding-left: 1.25rem !important;
-    padding-right: 1.25rem !important;
-    padding-top: 0.625rem !important;
-    padding-bottom: 0.625rem !important;
-    font-size: 0.875rem !important;
-  }
-
-  /* ── Learning path section — long buttons ── */
-  .index-page .pro-cta,
-  .index-page .pro-ghost {
-    max-width: 100%;
-    white-space: normal;
-    text-align: center;
-  }
-
-  /* ── Signal cards ── */
-  .index-page .signal-card {
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  /* ── Trending essays — number + text ── */
-  .index-page .space-x-6 {
-    gap: 1rem;
-  }
-
-  .index-page .text-3xl.font-bold.leading-none,
-  .index-page .md\:text-\[42px\] {
-    font-size: 1.75rem;
-  }
-
-  /* ── Newsletter form ── */
-  .index-page .rounded-3xl.p-8.border {
-    padding: 1.25rem;
-  }
-
-  /* ── Social feeds embeds ── */
-  .index-page .flex-shrink-0[class*="w-[90%]"],
-  .index-page .flex-shrink-0[class*="w-[80%]"] {
-    width: 100% !important;
-  }
-
-  /* ── Pagination controls ── */
-  .index-page .inline-flex.items-center.gap-4.px-6 {
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 1rem;
-    gap: 0.75rem;
-  }
-
-  /* ── Absolute blobs that can cause overflow ── */
+  /* Safely hide absolute decorative blobs that often cause horizontal scroll on mobile */
   .index-page .blur-\[100px\],
   .index-page .blur-\[80px\],
   .index-page .blur-3xl,
@@ -2836,16 +2675,93 @@ html {
     display: none;
   }
 
-  /* ── Footer safety ── */
-  .index-page footer {
-    max-width: 100vw;
-    overflow-x: clip;
+  /* ── Root & Main Containment ── */
+  html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
+    position: relative;
   }
 
-  /* ── Sidebar aside — force full-width ── */
-  .index-page aside {
+  #__next, .index-page {
+    width: 100%;
     max-width: 100%;
-    overflow: hidden;
+    overflow-x: hidden !important;
+  }
+
+  .index-page main,
+  .index-page main > section,
+  .index-page main > div {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
+  }
+
+  /* ── Card & Shelf Containment ── */
+  .index-page section[aria-labelledby],
+  .index-page .rounded-3xl,
+  .index-page .rounded-2xl,
+  .index-page article {
+    max-width: 100%;
+    width: 100%;
+    overflow: hidden !important;
+    min-width: 0;
+  }
+
+  /* ── Sidebar & Footer Containment ── */
+  .index-page aside,
+  .index-page footer {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
+    min-width: 0;
+  }
+
+  /* ── Fix Flex and Grid Blowouts ── */
+  .index-page .grid,
+  .index-page .flex {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  /* Prevent text elements from pushing container widths */
+  .index-page p, 
+  .index-page h1, 
+  .index-page h2, 
+  .index-page h3, 
+  .index-page h4, 
+  .index-page h5, 
+  .index-page h6,
+  .index-page a {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Ensure horizontal scroll on rails stays contained */
+  .index-page .overflow-x-auto {
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Keep Hero section padding proportional */
+  .index-page .rw-hero {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  .index-page .rw-hero .grid {
+    gap: 2rem;
+    padding: 2rem 0;
+  }
+
+  /* Make Hero buttons more proportional on mobile */
+  .index-page .rw-hero .rw-btn-primary,
+  .index-page .rw-hero .rw-btn-ghost {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+    padding-top: 0.625rem !important;
+    padding-bottom: 0.625rem !important;
+    font-size: 0.875rem !important;
   }
 }
 
