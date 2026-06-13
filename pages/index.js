@@ -932,7 +932,7 @@ export default function Home({ blogs, topics }) {
           {/* Main feed */}
           <section id="latest-posts" className="py-16">
             <div className="max-w-7xl mx-auto px-4 md:px-8 grid gap-16 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)]">
-              <div className="space-y-14">
+              <div className="space-y-14 min-w-0">
                 <div className="reveal rounded-3xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-white/90 dark:bg-[#2C2A27] p-8 shadow-soft">
                   <p className="text-xs uppercase tracking-[0.2em] text-[#9a8f75] dark:text-[#6E6B68] mb-2">
                     Editorial Feed
@@ -1059,7 +1059,7 @@ export default function Home({ blogs, topics }) {
                 ))}
               </div>
 
-              <aside className="space-y-12">
+              <aside className="space-y-12 min-w-0">
                 <div className="reveal-right rounded-3xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27] p-8 shadow-soft">
                   <h2
                     className="text-xl font-semibold text-[#161513] dark:text-[#F5F4F2] mb-6"

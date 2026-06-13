@@ -69,7 +69,7 @@ function VedicStudiesShelf({ blogs }) {
       <div className="p-6 md:p-8">
         <div className="grid gap-8 lg:grid-cols-2">
           {/* Left: Deep-Dive Essays */}
-          <div className="space-y-5">
+          <div className="space-y-5 min-w-0">
             <h3 className="text-xs font-bold uppercase tracking-wider text-[#9a8f75] dark:text-[#8C857B] flex items-center gap-1.5 mb-2">
               <FiBookOpen className="w-4 h-4 text-[#D97706]" />
               Deep-Dive Essays &amp; Exegesis
@@ -79,7 +79,7 @@ function VedicStudiesShelf({ blogs }) {
                 <a
                   key={blog.data.Id}
                   href={`/blogs/${generateSlug(blog.data.Title)}`}
-                  className="block p-5 rounded-2xl border border-[#EEE4D5] dark:border-[#3D3A36] bg-[#FFFBF7]/50 dark:bg-[#25211D]/40 hover:border-[#D97706] hover:bg-[#FFFBF7] dark:hover:bg-[#2A231C] transition-all duration-300 group"
+                  className="block p-5 rounded-2xl border border-[#EEE4D5] dark:border-[#3D3A36] bg-[#FFFBF7]/50 dark:bg-[#25211D]/40 hover:border-[#D97706] hover:bg-[#FFFBF7] dark:hover:bg-[#2A231C] transition-all duration-300 group min-w-0"
                 >
                   <div className="flex items-center gap-2 text-xs text-[#8C857B] dark:text-[#A19A91] mb-2">
                     <span>{blog.data.Date}</span>
@@ -98,7 +98,7 @@ function VedicStudiesShelf({ blogs }) {
           </div>
 
           {/* Right: Ekadashi & Significance Playlist */}
-          <div className="space-y-5">
+          <div className="space-y-5 min-w-0">
             <h3 className="text-xs font-bold uppercase tracking-wider text-[#9a8f75] dark:text-[#8C857B] flex items-center gap-1.5 mb-2">
               <FiBookmark className="w-4 h-4 text-[#D97706]" />
               Ekadashi &amp; Sacred Series
