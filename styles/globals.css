@@ -35,7 +35,6 @@ html {
   background-color: #FAF8F6;
   background-image: url("/redwood-imgs/texture-6.png");
   background-repeat: repeat;
-  overflow-x: hidden;
 }
 
 .dark html {
@@ -46,9 +45,6 @@ html {
 #__next {
   min-height: 100%;
   background-color: transparent;
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
 }
 
 /* Oracle Redwood body — match html grain (scroll attachment: fixed breaks iOS backgrounds) */
@@ -61,9 +57,6 @@ body {
   background-image: url("/redwood-imgs/texture-6.png");
   background-repeat: repeat;
   transition: background-color 0.3s ease, color 0.3s ease;
-  overflow-x: hidden;
-  width: 100%;
-  max-width: 100%;
 }
 
 .dark body {
