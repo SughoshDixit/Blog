@@ -808,7 +808,9 @@ body.sidebar-open {
     flex-direction: row !important;
     align-items: center !important;
   }
+}
 
+@media (max-width: 768px) {
   .mobile-nav {
     display: block;
   }
