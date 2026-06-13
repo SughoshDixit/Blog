@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import dynamic from "next/dynamic";
+import Head from "next/head";
 import { ThemeProvider } from "next-themes";
 import { Provider } from "react-redux";
 import { store } from "../Redux/store";
@@ -276,6 +277,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     <SessionProvider session={session}>
       <Provider store={store}>
         <ThemeProvider attribute="class">
+          <Head>
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+          </Head>
           <FootballSplashScreen isVisible={initialLoading} />
           <RouteSplashScreen isVisible={loading} loaderConfig={loaderConfig} />
           <PageProgressBar loading={loading} />
