@@ -458,7 +458,7 @@ export default function Home({ blogs, topics }) {
         />
       </Head>
 
-      <div className="min-h-screen relative transition-colors duration-300 w-full" style={{ overflowX: "clip" }}>
+      <div className="index-page min-h-screen relative transition-colors duration-300 w-full" style={{ overflowX: "clip" }}>
         <Navbar topics={topics} />
 
         <main className="pt-24 pb-16 transition-colors duration-300">
