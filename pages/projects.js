@@ -256,6 +256,15 @@ function Projects({ topics, repositories, portfolioSyncError, activityStats }) {
           content="GitHub-backed portfolio of projects by Sughosh Dixit across data science, AI, engineering, and research."
         />
         <link rel="canonical" href={`${SITE_URL}/projects`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${SITE_URL}/projects`} />
+        <meta property="og:title" content="Portfolio & Projects — Sughosh Dixit" />
+        <meta property="og:description" content="GitHub-backed portfolio of projects by Sughosh Dixit across data science, AI, engineering, and research." />
+        <meta property="og:image" content={siteOgImageUrl()} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Portfolio & Projects — Sughosh Dixit" />
+        <meta name="twitter:description" content="GitHub-backed portfolio of projects by Sughosh Dixit across data science, AI, engineering, and research." />
+        <meta name="twitter:image" content={siteOgImageUrl()} />
       </Head>
 
       <Navbar topics={topics} />

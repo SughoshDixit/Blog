@@ -3,7 +3,7 @@ import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { getAllBlogPosts, getProminentTopics } from "../Lib/Data";
 import { generateSlug } from "../Lib/utils";
-import { SITE_URL } from "../Lib/siteConfig";
+import { SITE_URL, siteOgImageUrl } from "../Lib/siteConfig";
 
 const CHARTER = { fontFamily: "Charter, Georgia, serif" };
 
@@ -82,6 +82,15 @@ export default function StartHere({ blogMap, topics }) {
         <title>Start Here — Sughosh Dixit</title>
         <meta name="description" content="New here? This curated guide walks you through the best posts across data science, personal essays, culture, and football." />
         <link rel="canonical" href={`${SITE_URL}/start-here`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${SITE_URL}/start-here`} />
+        <meta property="og:title" content="Start Here — Sughosh Dixit" />
+        <meta property="og:description" content="New here? This curated guide walks you through the best posts across data science, personal essays, culture, and football." />
+        <meta property="og:image" content={siteOgImageUrl()} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Start Here — Sughosh Dixit" />
+        <meta name="twitter:description" content="New here? This curated guide walks you through the best posts across data science, personal essays, culture, and football." />
+        <meta name="twitter:image" content={siteOgImageUrl()} />
       </Head>
 
       <div className="min-h-screen bg-[#FAF8F6] dark:bg-[#201E1C]">

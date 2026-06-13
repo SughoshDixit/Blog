@@ -2,7 +2,7 @@ import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import Head from "next/head";
 import { getProminentTopics } from "../Lib/Data";
-import { SITE_URL } from "../Lib/siteConfig";
+import { SITE_URL, siteOgImageUrl } from "../Lib/siteConfig";
 import { FiClock, FiTag, FiBookOpen, FiExternalLink } from "react-icons/fi";
 import { FaSeedling } from "react-icons/fa";
 
@@ -109,6 +109,15 @@ function DigitalGarden({ topics }) {
           content="A collection of rough notes, Today-I-Learned (TIL) snippets, and continuous learning logs."
         />
         <link rel="canonical" href={`${SITE_URL}/garden`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${SITE_URL}/garden`} />
+        <meta property="og:title" content="Digital Garden — Sughosh Dixit" />
+        <meta property="og:description" content="A collection of rough notes, Today-I-Learned (TIL) snippets, and continuous learning logs." />
+        <meta property="og:image" content={siteOgImageUrl()} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Digital Garden — Sughosh Dixit" />
+        <meta name="twitter:description" content="A collection of rough notes, Today-I-Learned (TIL) snippets, and continuous learning logs." />
+        <meta name="twitter:image" content={siteOgImageUrl()} />
       </Head>
 
       <Navbar topics={topics} />

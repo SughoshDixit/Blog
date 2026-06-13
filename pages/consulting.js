@@ -2,7 +2,7 @@ import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import Head from "next/head";
 import { getProminentTopics } from "../Lib/Data";
-import { SITE_URL } from "../Lib/siteConfig";
+import { SITE_URL, siteOgImageUrl } from "../Lib/siteConfig";
 import { FiCheckCircle, FiTrendingUp, FiTarget, FiBox, FiMail, FiExternalLink } from "react-icons/fi";
 import { FaHandshake, FaDatabase } from "react-icons/fa";
 import FootballStatsChart from "../Components/FootballStatsChart";
@@ -45,6 +45,15 @@ function Consulting({ topics }) {
           content="Hire Sughosh Dixit for Machine Learning, Generative AI, and Data Architecture consulting."
         />
         <link rel="canonical" href={`${SITE_URL}/consulting`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${SITE_URL}/consulting`} />
+        <meta property="og:title" content="Consulting & Advisory — Sughosh Dixit" />
+        <meta property="og:description" content="Hire Sughosh Dixit for Machine Learning, Generative AI, and Data Architecture consulting." />
+        <meta property="og:image" content={siteOgImageUrl()} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Consulting & Advisory — Sughosh Dixit" />
+        <meta name="twitter:description" content="Hire Sughosh Dixit for Machine Learning, Generative AI, and Data Architecture consulting." />
+        <meta name="twitter:image" content={siteOgImageUrl()} />
       </Head>
 
       <Navbar topics={topics} />

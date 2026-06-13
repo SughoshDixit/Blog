@@ -2,6 +2,7 @@ import Head from "next/head";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { getProminentTopics } from "../Lib/Data";
+import { SITE_URL, siteOgImageUrl } from "../Lib/siteConfig";
 
 export const getStaticProps = () => {
   const allTopics = getProminentTopics();
@@ -229,6 +230,16 @@ export default function KeyPage({ topics }) {
       <Head>
         <title>Key Terms & Glossary | Sughosh's Chronicles</title>
         <meta name="description" content="Comprehensive glossary of abbreviations and technical terms used in data science and statistics articles." />
+        <link rel="canonical" href={`${SITE_URL}/key`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${SITE_URL}/key`} />
+        <meta property="og:title" content="Key Terms & Glossary | Sughosh's Chronicles" />
+        <meta property="og:description" content="Comprehensive glossary of abbreviations and technical terms used in data science and statistics articles." />
+        <meta property="og:image" content={siteOgImageUrl()} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Key Terms & Glossary | Sughosh's Chronicles" />
+        <meta name="twitter:description" content="Comprehensive glossary of abbreviations and technical terms used in data science and statistics articles." />
+        <meta name="twitter:image" content={siteOgImageUrl()} />
       </Head>
 
       <div className="min-h-screen bg-white dark:bg-gray-900">

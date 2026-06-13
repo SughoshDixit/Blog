@@ -6,6 +6,8 @@ import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import BlogHeader from "../../Components/BlogHeader";
+import Head from "next/head";
+import { SITE_URL, siteOgImageUrl } from "../../Lib/siteConfig";
 
 export const getStaticPaths = () => {
   const allTopics = getAllTopics();
@@ -84,8 +86,23 @@ function name({ blogs, topics, topicName }) {
       "Field notes from work, growth, and learning by doing.",
   };
 
+  const currentDesc = topicDescriptions[topicName] || `Read articles and deep-dives about ${topicName} by Sughosh Dixit.`;
+
   return (
     <div className="min-h-screen relative bg-white dark:bg-gray-900">
+      <Head>
+        <title>{topicName} Articles — Sughosh Dixit</title>
+        <meta name="description" content={currentDesc} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${SITE_URL}/topic/${generateSlug(topicName)}`} />
+        <meta property="og:title" content={`${topicName} Articles — Sughosh Dixit`} />
+        <meta property="og:description" content={currentDesc} />
+        <meta property="og:image" content={siteOgImageUrl()} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${topicName} Articles — Sughosh Dixit`} />
+        <meta name="twitter:description" content={currentDesc} />
+        <meta name="twitter:image" content={siteOgImageUrl()} />
+      </Head>
       <Navbar topics={topics} />
       
       {/* Medium-style topic header */}

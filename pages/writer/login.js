@@ -37,6 +37,7 @@ export default function WriterLogin() {
     <>
       <Head>
         <title>Writer Login • Sughosh&apos;s Chronicles</title>
+        <meta name="robots" content="noindex, follow" />
       </Head>
       <div className="min-h-screen flex items-center justify-center bg-[#f7f5f2] dark:bg-[#050810] py-16 px-4">
         <div className="w-full max-w-md rounded-3xl border border-[#e6dfd3] dark:border-[#1b263d] bg-white dark:bg-[#101a2d] p-8 shadow-2xl">

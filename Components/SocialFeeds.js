@@ -40,7 +40,7 @@ export default function SocialFeeds() {
         {/* Carousel Container */}
         <div 
           ref={scrollContainerRef}
-          className="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          className="flex w-full max-w-full overflow-x-auto gap-6 pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
           <div className="flex-shrink-0 w-[90%] sm:w-[80%] snap-center rounded-xl overflow-hidden border border-[#E0DDD9] dark:border-[#3D3A36] bg-white">
             <iframe
@@ -76,7 +76,7 @@ export default function SocialFeeds() {
           X (Twitter) Feed
         </h3>
         
-        <div className="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div className="flex w-full max-w-full overflow-x-auto gap-6 pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           <div className="flex-shrink-0 w-full sm:w-[90%] snap-center rounded-xl overflow-hidden border border-[#E0DDD9] dark:border-[#3D3A36] bg-gradient-to-br from-black to-gray-800 dark:from-white dark:to-gray-200 text-white dark:text-black p-8 flex flex-col items-center justify-center text-center shadow-lg relative group transition-transform hover:scale-[1.02]">
             <svg className="w-16 h-16 mb-6 opacity-90" fill="currentColor" viewBox="0 0 24 24">
               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.005 3.869H5.078z" />

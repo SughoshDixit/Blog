@@ -83,7 +83,7 @@ export const getStaticProps = async (context) => {
       topics: allTopics,
       readTime: readTime,
       allBlogs: allBlogsForRelated,
-      currentPost: { data, content },
+      currentPost: { data },
     },
   };
 };

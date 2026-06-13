@@ -4,6 +4,7 @@ import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { getAllBlogPosts, getProminentTopics } from "../Lib/Data";
 import { generateSlug } from "../Lib/utils";
+import { SITE_URL, siteOgImageUrl } from "../Lib/siteConfig";
 import { useState, useEffect } from "react";
 import { 
   FiCheck, 
@@ -204,6 +205,16 @@ export default function LearningPath({ blogs, topics }) {
       <Head>
         <title>30-Day Data Science Challenge | Learning Path</title>
         <meta name="description" content="A structured learning path through 30 days of mathematical foundations for data science and decision frameworks." />
+        <link rel="canonical" href={`${SITE_URL}/learning-path`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${SITE_URL}/learning-path`} />
+        <meta property="og:title" content="30-Day Data Science Challenge | Learning Path" />
+        <meta property="og:description" content="A structured learning path through 30 days of mathematical foundations for data science and decision frameworks." />
+        <meta property="og:image" content={siteOgImageUrl()} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="30-Day Data Science Challenge | Learning Path" />
+        <meta name="twitter:description" content="A structured learning path through 30 days of mathematical foundations for data science and decision frameworks." />
+        <meta name="twitter:image" content={siteOgImageUrl()} />
       </Head>
       
       <Navbar topics={topics} />

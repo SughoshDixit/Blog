@@ -241,6 +241,7 @@ export default function WriterDashboard() {
     <>
       <Head>
         <title>Dashboard • Sughosh&apos;s Chronicles</title>
+        <meta name="robots" content="noindex, follow" />
       </Head>
       <div className="min-h-screen bg-[#f7f5f2] dark:bg-[#050810] py-12">
         <div className="max-w-7xl mx-auto px-4 md:px-8">

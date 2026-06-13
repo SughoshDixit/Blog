@@ -2,7 +2,7 @@ import Head from "next/head";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { getProminentTopics } from "../Lib/Data";
-import { SITE_URL } from "../Lib/siteConfig";
+import { SITE_URL, siteOgImageUrl } from "../Lib/siteConfig";
 
 const VIDEO_ID = "5fBTT9MwQio";
 const VIDEO_URL = `https://youtu.be/${VIDEO_ID}`;
@@ -28,6 +28,11 @@ export default function SavarkarDocumentaryPage({ topics }) {
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:url" content={`${SITE_URL}/savarkar-documentary`} />
+        <meta property="og:image" content={siteOgImageUrl()} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={siteOgImageUrl()} />
       </Head>
 
       <div className="min-h-screen bg-[#FAF8F6] dark:bg-[#201E1C] transition-colors duration-300">

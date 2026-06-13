@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { getProminentTopics } from "../Lib/Data";
+import { SITE_URL, siteOgImageUrl } from "../Lib/siteConfig";
 import Link from "next/link";
 import { FiBookmark, FiTrash2, FiCloud } from "react-icons/fi";
 import { useSelector } from "react-redux";
@@ -78,6 +79,18 @@ export default function SavedPosts({ topics }) {
     <>
       <Head>
         <title>Saved Posts — Sughosh Dixit</title>
+        <meta name="description" content="View and manage your saved blog posts and articles for offline reading." />
+        <meta name="robots" content="noindex, follow" />
+        <link rel="canonical" href={`${SITE_URL}/saved`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${SITE_URL}/saved`} />
+        <meta property="og:title" content="Saved Posts — Sughosh Dixit" />
+        <meta property="og:description" content="View and manage your saved blog posts and articles for offline reading." />
+        <meta property="og:image" content={siteOgImageUrl()} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Saved Posts — Sughosh Dixit" />
+        <meta name="twitter:description" content="View and manage your saved blog posts and articles for offline reading." />
+        <meta name="twitter:image" content={siteOgImageUrl()} />
       </Head>
       <div className="min-h-screen bg-[#FAF8F6] dark:bg-[#201E1C]">
         <Navbar topics={topics} />

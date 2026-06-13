@@ -641,6 +641,7 @@ export default function Dashboard({ blogs, topics }) {
       <Head>
         <title>Dashboard — Sughosh Dixit</title>
         <meta name="description" content="Analytics dashboard for blog performance, topics, and readership" />
+        <meta name="robots" content="noindex, follow" />
       </Head>
 
       <div className="min-h-screen relative bg-[#FAF8F6] dark:bg-[#201E1C] transition-all duration-300">
