@@ -91,7 +91,7 @@ function DataScienceYouTubeShelf() {
                     <FiYoutube className="w-8 h-8 text-white drop-shadow" />
                   </span>
                 </div>
-                <span className="text-sm font-medium text-[#161513] dark:text-[#F5F4F2] group-hover:text-[#C74634] dark:group-hover:text-[#E8572A] leading-snug line-clamp-3">
+                <span className="text-sm font-medium text-[#161513] dark:text-[#F5F4F2] group-hover:text-[#C74634] dark:group-hover:text-[#E8572A] leading-snug line-clamp-3 flex-1 min-w-0">
                   {title}
                 </span>
               </a>
