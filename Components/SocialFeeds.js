@@ -19,7 +19,7 @@ export default function SocialFeeds() {
   return (
     <div className="flex flex-col gap-8 w-full mt-10">
       {/* LinkedIn Section */}
-      <div className="bg-white/80 dark:bg-[#1E1C1A]/80 border border-[#E0DDD9] dark:border-[#3D3A36] rounded-2xl p-6 shadow-soft relative group">
+      <div className="bg-white/80 dark:bg-[#1E1C1A]/80 border border-[#E0DDD9] dark:border-[#3D3A36] rounded-2xl p-6 shadow-soft relative group w-full max-w-full overflow-hidden">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-sm uppercase tracking-[0.2em] font-semibold text-[#695f4b] dark:text-[#B8B4B0] flex items-center gap-2">
             <svg className="w-4 h-4 text-[#0077b5]" fill="currentColor" viewBox="0 0 24 24">
@@ -68,7 +68,7 @@ export default function SocialFeeds() {
       </div>
 
       {/* Twitter Section */}
-      <div className="bg-white/80 dark:bg-[#1E1C1A]/80 border border-[#E0DDD9] dark:border-[#3D3A36] rounded-2xl p-6 shadow-soft">
+      <div className="bg-white/80 dark:bg-[#1E1C1A]/80 border border-[#E0DDD9] dark:border-[#3D3A36] rounded-2xl p-6 shadow-soft w-full max-w-full overflow-hidden">
         <h3 className="text-sm uppercase tracking-[0.2em] font-semibold text-[#695f4b] dark:text-[#B8B4B0] mb-6 flex items-center gap-2">
           <svg className="w-4 h-4 text-black dark:text-white" fill="currentColor" viewBox="0 0 24 24">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.005 3.869H5.078z" />
