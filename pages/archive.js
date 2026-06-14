@@ -2,8 +2,8 @@ import Head from "next/head";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { getAllBlogPosts, getProminentTopics } from "../Lib/Data";
-import { generateSlug } from "../Lib/utils";
-import { isProminentShelf } from "../Lib/postVisibility";
+import { generateSlug, sortByDateDesc } from "../Lib/utils";
+import { isProminentShelf, isUnlisted } from "../Lib/postVisibility";
 import {
   SITE_URL,
   siteOgImageUrl,
@@ -18,19 +18,12 @@ export const getStaticProps = () => {
   const topics = getProminentTopics();
 
   const archivePosts = allBlogs
-    .filter((b) => b?.data?.isPublished && !isProminentShelf(b))
+    .filter((b) => b?.data?.isPublished && !isUnlisted(b) && !isProminentShelf(b))
     .map((blog) => ({
       data: blog.data,
       readTime: blog.readTime,
     }))
-    .sort((a, b) => {
-      const da = Date.parse(a?.data?.Date);
-      const db = Date.parse(b?.data?.Date);
-      if (!Number.isNaN(da) && !Number.isNaN(db)) return db - da;
-      if (!Number.isNaN(da)) return -1;
-      if (!Number.isNaN(db)) return 1;
-      return (Number(b?.data?.Id) || 0) - (Number(a?.data?.Id) || 0);
-    });
+    .sort(sortByDateDesc);
 
   return {
     props: {

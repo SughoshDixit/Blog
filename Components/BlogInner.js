@@ -16,8 +16,8 @@ import HypergeomCalculator from "./HypergeomCalculator";
 import PercentileThresholdTuner from "./PercentileThresholdTuner";
 import PrintSummary from "./PrintSummary";
 import { FiBookmark, FiShare2, FiArrowRight } from "react-icons/fi";
-import { generateSlug } from "../Lib/utils";
-import { isProminentShelf } from "../Lib/postVisibility";
+import { generateSlug, sortByDateDesc } from "../Lib/utils";
+import { isProminentShelf, isUnlisted } from "../Lib/postVisibility";
 import FootballStatsChart from "./FootballStatsChart";
 import ComparisonChart from "./ComparisonChart";
 import AdUnit from "./AdUnit";
@@ -112,17 +112,8 @@ function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
   const publishedPosts = useMemo(
     () =>
       (allBlogs || [])
-        .filter((blog) => blog?.data?.isPublished)
-        .sort((a, b) => {
-          const dateA = Date.parse(a?.data?.Date || "");
-          const dateB = Date.parse(b?.data?.Date || "");
-          const validA = !Number.isNaN(dateA);
-          const validB = !Number.isNaN(dateB);
-          if (validA && validB) return dateB - dateA;
-          if (validA) return -1;
-          if (validB) return 1;
-          return (Number(b?.data?.Id) || 0) - (Number(a?.data?.Id) || 0);
-        }),
+        .filter((blog) => blog?.data?.isPublished && !isUnlisted(blog))
+        .sort(sortByDateDesc),
     [allBlogs]
   );
 

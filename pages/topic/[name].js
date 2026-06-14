@@ -1,7 +1,7 @@
 import React from "react";
 import { getAllBlogPosts, getAllTopics, getProminentTopics } from "../../Lib/Data";
-import { isProminentShelf } from "../../Lib/postVisibility";
-import { generateSlug } from "../../Lib/utils";
+import { isProminentShelf, isUnlisted } from "../../Lib/postVisibility";
+import { generateSlug, sortByDateDesc } from "../../Lib/utils";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
@@ -48,21 +48,14 @@ export const getStaticProps = async (context) => {
 };
 
 function name({ blogs, topics, topicName }) {
-  const allPublished = (blogs || []).filter((blog) => blog?.data?.isPublished);
+  const allPublished = (blogs || []).filter(
+    (blog) => blog?.data?.isPublished && !isUnlisted(blog)
+  );
 
   // Filter out playlist blogs from the main topic list
   const publishedBlogs = allPublished
     .filter((blog) => blog.data?.Series !== "Ekadashi and its significance" && blog.data?.prominentShelf !== false)
-    .sort((a, b) => {
-      const dateA = Date.parse(a?.data?.Date || "");
-      const dateB = Date.parse(b?.data?.Date || "");
-      const validA = !Number.isNaN(dateA);
-      const validB = !Number.isNaN(dateB);
-      if (validA && validB) return dateB - dateA;
-      if (validA) return -1;
-      if (validB) return 1;
-      return (Number(b?.data?.Id) || 0) - (Number(a?.data?.Id) || 0);
-    });
+    .sort(sortByDateDesc);
 
   const playlistBlogs = allPublished
     .filter((blog) => blog.data?.Series === "Ekadashi and its significance")

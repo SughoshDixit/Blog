@@ -1,5 +1,6 @@
 import { getAllBlogPosts, getProminentTopics } from "../../Lib/Data";
 import { generateSlug } from "../../Lib/utils";
+import { isUnlisted } from "../../Lib/postVisibility";
 import readingTime from "reading-time";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
@@ -68,11 +69,14 @@ export const getStaticProps = async (context) => {
 
   const headings = await getHeadings(content);
 
-  // Get all blogs for related posts (without content to reduce payload)
-  const allBlogsForRelated = allBlogs.map((blog) => ({
-    data: blog.data,
-    readTime: blog.readTime,
-  }));
+  // Get all blogs for related posts (without content to reduce payload).
+  // Exclude unlisted posts so nothing links to them via related/next/prev.
+  const allBlogsForRelated = allBlogs
+    .filter((blog) => !isUnlisted(blog))
+    .map((blog) => ({
+      data: blog.data,
+      readTime: blog.readTime,
+    }));
 
   return {
     props: {
@@ -100,13 +104,22 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
       : `${SITE_URL}${data.HeaderImage}`
     : `${SITE_URL}/api/og?title=${encodeURIComponent(data.Title)}&topic=${encodeURIComponent(data.Topic || "Blog")}`;
 
+  // Unlisted posts are reachable only by their direct URL. Keep them out of
+  // search engines (and out of AdSense's site-quality assessment) — but leave
+  // every real article fully indexable.
+  const isUnlistedPost = data?.unlisted === true;
+
   return (
     <>
       <Head>
         <title>{data.Title}</title>
         <meta name="title" content={data.Title} />
         <meta name="description" content={data.Abstract} />
-        <link rel="canonical" href={`${SITE_URL}/blogs/${id}`} />
+        {isUnlistedPost ? (
+          <meta name="robots" content="noindex, nofollow" />
+        ) : (
+          <link rel="canonical" href={`${SITE_URL}/blogs/${id}`} />
+        )}
 
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`${SITE_URL}/blogs/${id}`} />

@@ -88,6 +88,10 @@ export default function handler(req, res) {
       .sort((a, b) => b.score - a.score)
       .slice(0, 15);
 
+    res.setHeader(
+      "Cache-Control",
+      "public, s-maxage=300, stale-while-revalidate=600"
+    );
     res.status(200).json({
       query: q,
       results: searchResults,

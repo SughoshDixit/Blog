@@ -1,10 +1,11 @@
 import { getAllBlogPosts, getProminentTopics } from "../../Lib/Data";
 import { generateSlug } from "../../Lib/utils";
+import { isUnlisted } from "../../Lib/postVisibility";
 import { SITE_URL } from "../../Lib/siteConfig";
 
 export default function handler(req, res) {
   const posts = getAllBlogPosts()
-    .filter((p) => p?.data?.isPublished)
+    .filter((p) => p?.data?.isPublished && !isUnlisted(p))
     .sort((a, b) => {
       const da = Date.parse(a?.data?.Date);
       const db = Date.parse(b?.data?.Date);

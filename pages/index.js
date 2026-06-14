@@ -4,7 +4,7 @@ import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { getAllBlogPosts, getProminentTopics } from "../Lib/Data";
 import { isProminentShelf } from "../Lib/postVisibility";
-import { generateSlug } from "../Lib/utils";
+import { generateSlug, sortByDateDesc } from "../Lib/utils";
 import { useState, useEffect, useMemo } from "react";
 import useScrollReveal from "../Lib/useScrollReveal";
 import {
@@ -20,7 +20,8 @@ import {
 import TechPodcastsShelf from "../Components/TechPodcastsShelf";
 import FootballShelf from "../Components/FootballShelf";
 import DataScienceYouTubeShelf from "../Components/DataScienceYouTubeShelf";
-import VedicStudiesShelf from "../Components/VedicStudiesShelf";
+import BlogPlaylists from "../Components/BlogPlaylists";
+import { FEATURED_FEED_TITLES, FEATURED_FEED_SLUGS } from "../Lib/homeCuration";
 import HeroLottieAccent from "../Components/HeroLottieAccent";
 import FocusStripLottieAccent from "../Components/FocusStripLottieAccent";
 import TopicWordCloud from "../Components/TopicWordCloud";
@@ -55,29 +56,7 @@ export default function Home({ blogs, topics }) {
       ? blogs.filter((blog) => blog?.data?.isPublished)
       : [];
 
-    return withPublishFlag.sort((a, b) => {
-      const dateA = Date.parse(a?.data?.Date);
-      const dateB = Date.parse(b?.data?.Date);
-
-      const isValidDateA = !Number.isNaN(dateA);
-      const isValidDateB = !Number.isNaN(dateB);
-
-      if (isValidDateA && isValidDateB) {
-        return dateB - dateA;
-      }
-
-      if (isValidDateA) {
-        return -1;
-      }
-
-      if (isValidDateB) {
-        return 1;
-      }
-
-      const idA = Number(a?.data?.Id) || 0;
-      const idB = Number(b?.data?.Id) || 0;
-      return idB - idA;
-    });
+    return withPublishFlag.sort(sortByDateDesc);
   }, [blogs]);
 
   const shelfBlogs = useMemo(
@@ -85,7 +64,6 @@ export default function Home({ blogs, topics }) {
     [publishedBlogs]
   );
 
-  const [activeTopic, setActiveTopic] = useState("All");
   const [engagementMap, setEngagementMap] = useState({});
   const [totalVisits, setTotalVisits] = useState(null);
 
@@ -154,16 +132,7 @@ export default function Home({ blogs, topics }) {
 
   const dsChallengePosts = useMemo(
     () =>
-      shelfBlogs
-        .filter((blog) => isDSPost(blog))
-        .sort((a, b) => {
-          const da = Date.parse(a?.data?.Date);
-          const db = Date.parse(b?.data?.Date);
-          if (!Number.isNaN(da) && !Number.isNaN(db)) return db - da;
-          if (!Number.isNaN(da)) return -1;
-          if (!Number.isNaN(db)) return 1;
-          return (Number(b?.data?.Id) || 0) - (Number(a?.data?.Id) || 0);
-        }),
+      shelfBlogs.filter((blog) => isDSPost(blog)).sort(sortByDateDesc),
     [shelfBlogs]
   );
 
@@ -172,114 +141,52 @@ export default function Home({ blogs, topics }) {
     [shelfBlogs]
   );
 
-  const rankedBlogs = useMemo(() => {
-    return editorialBlogs
+  // Curated editorial picks: the ONLY individual posts promoted on the home page
+  // (hero, trending, recent rail, and the main feed). Everything else is grouped
+  // into playlists via <BlogPlaylists />.
+  const featuredFeedPosts = useMemo(() => {
+    const bySlug = new Map(
+      publishedBlogs.map((b) => [generateSlug(b?.data?.Title || ""), b])
+    );
+    return FEATURED_FEED_TITLES.map((title) => bySlug.get(generateSlug(title))).filter(
+      Boolean
+    );
+  }, [publishedBlogs]);
+
+  // Trending = the curated picks, ordered by engagement (likes/comments).
+  const trendingPosts = useMemo(() => {
+    return featuredFeedPosts
       .map((blog) => {
         const slug = generateSlug(blog?.data?.Title);
         const engagement = engagementMap[slug] || { likes: 0, comments: 0 };
         const dateValue = Date.parse(blog?.data?.Date);
         const recencyScore = Number.isNaN(dateValue) ? 0 : dateValue;
         const popularityScore = engagement.likes * 5000 + engagement.comments * 2000;
-        const compositeScore = recencyScore + popularityScore;
-
-        return {
-          ...blog,
-          _score: compositeScore
-        };
+        return { ...blog, _score: recencyScore + popularityScore };
       })
-      .sort((a, b) => b._score - a._score);
-  }, [editorialBlogs, engagementMap]);
- 
-  const trendingPosts = useMemo(
-    () => rankedBlogs.slice(0, 6),
-    [rankedBlogs]
-  );
+      .sort((a, b) => b._score - a._score)
+      .slice(0, 6);
+  }, [featuredFeedPosts, engagementMap]);
 
-  const featureHighlight = useMemo(() => {
-    const sortedByRecency = [...editorialBlogs].sort((a, b) => {
-      const dateA = Date.parse(a?.data?.Date);
-      const dateB = Date.parse(b?.data?.Date);
-      const isValidDateA = !Number.isNaN(dateA);
-      const isValidDateB = !Number.isNaN(dateB);
-      if (isValidDateA && isValidDateB) return dateB - dateA;
-      if (isValidDateA) return -1;
-      if (isValidDateB) return 1;
-      const idA = Number(a?.data?.Id) || 0;
-      const idB = Number(b?.data?.Id) || 0;
-      return idB - idA;
-    });
-    return sortedByRecency[0];
-  }, [editorialBlogs]);
-
-  const recentPosts = useMemo(
-    () =>
-      [...editorialBlogs]
-        .sort((a, b) => {
-          const da = Date.parse(a?.data?.Date);
-          const db = Date.parse(b?.data?.Date);
-          if (!Number.isNaN(da) && !Number.isNaN(db)) return db - da;
-          if (!Number.isNaN(da)) return -1;
-          if (!Number.isNaN(db)) return 1;
-          return (Number(b?.data?.Id) || 0) - (Number(a?.data?.Id) || 0);
-        })
-        .slice(0, 5),
-    [editorialBlogs]
-  );
-
-  const remainingPosts = useMemo(
-    () =>
-      editorialBlogs
-        .filter((blog) => {
-          const isInRecent = recentPosts.some((r) => r?.data?.Id === blog?.data?.Id);
-          const isFeatured = featureHighlight?.data?.Id === blog?.data?.Id;
-          const matchesTopic = activeTopic === "All" || blog?.data?.Topic === activeTopic;
-          return !isInRecent && !isFeatured && matchesTopic;
-        })
-        .sort((a, b) => {
-          const da = Date.parse(a?.data?.Date);
-          const db = Date.parse(b?.data?.Date);
-          if (!Number.isNaN(da) && !Number.isNaN(db)) return db - da;
-          if (!Number.isNaN(da)) return -1;
-          if (!Number.isNaN(db)) return 1;
-          return (Number(b?.data?.Id) || 0) - (Number(a?.data?.Id) || 0);
-        }),
-    [editorialBlogs, recentPosts, featureHighlight]
-  );
-
-  const POSTS_PER_PAGE = 6;
-  const [currentPage, setCurrentPage] = useState(1);
   const [currentFeaturedIndex, setCurrentFeaturedIndex] = useState(0);
   const [isFeaturedFading, setIsFeaturedFading] = useState(false);
 
   useEffect(() => {
-    if (!recentPosts || recentPosts.length <= 1) return;
+    if (!featuredFeedPosts || featuredFeedPosts.length <= 1) return;
     const interval = setInterval(() => {
       setIsFeaturedFading(true);
       setTimeout(() => {
-        setCurrentFeaturedIndex((prev) => (prev + 1) % recentPosts.length);
+        setCurrentFeaturedIndex((prev) => (prev + 1) % featuredFeedPosts.length);
         setIsFeaturedFading(false);
       }, 500);
     }, 7000); // Cycle every 7 seconds
     return () => clearInterval(interval);
-  }, [recentPosts]);
+  }, [featuredFeedPosts]);
 
-  const currentFeaturedPost = recentPosts && recentPosts.length > 0 ? recentPosts[currentFeaturedIndex] : featureHighlight;
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [remainingPosts.length, activeTopic]);
-
-  const paginatedPosts = useMemo(
-    () => remainingPosts.slice(0, currentPage * POSTS_PER_PAGE),
-    [remainingPosts, currentPage]
-  );
-
-  const totalPages = useMemo(
-    () => Math.ceil(remainingPosts.length / POSTS_PER_PAGE) || 1,
-    [remainingPosts.length]
-  );
-
-  const canLoadMore = paginatedPosts.length < remainingPosts.length;
+  const currentFeaturedPost =
+    featuredFeedPosts.length > 0
+      ? featuredFeedPosts[currentFeaturedIndex % featuredFeedPosts.length]
+      : null;
 
   const tagPills = useMemo(
     () =>
@@ -296,8 +203,8 @@ export default function Home({ blogs, topics }) {
 
   const latestDSPost = dsChallengePosts[0] || null;
 
-  // Re-observe whenever the visible post count changes (including Load More)
-  useScrollReveal([paginatedPosts.length, trendingPosts.length]);
+  // Re-observe whenever the visible post count changes
+  useScrollReveal([featuredFeedPosts.length, trendingPosts.length]);
 
   const getImageForBlog = (blog) => {
     const header = blog?.data?.HeaderImage;
@@ -534,9 +441,9 @@ export default function Home({ blogs, topics }) {
                             <span>&middot;</span>
                             <span>{currentFeaturedPost.readTime.text}</span>
                           </div>
-                          {recentPosts && recentPosts.length > 1 && (
+                          {featuredFeedPosts && featuredFeedPosts.length > 1 && (
                             <div className="flex items-center gap-1.5">
-                              {recentPosts.map((_, i) => (
+                              {featuredFeedPosts.map((_, i) => (
                                 <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === currentFeaturedIndex ? 'w-4 bg-[#E8572A]' : 'w-1.5 bg-white/20'}`}></div>
                               ))}
                             </div>
@@ -806,28 +713,20 @@ export default function Home({ blogs, topics }) {
                   <span className="uppercase tracking-wider text-xs font-semibold text-[#8c8169] dark:text-[#B8B4B0]">
                     Explore topics
                   </span>
-                  <button
-                    onClick={() => setActiveTopic("All")}
-                    className={`pro-chip inline-flex items-center whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                      activeTopic === "All"
-                        ? "bg-[#C74634] text-white border-[#C74634] dark:bg-[#E8572A] dark:border-[#E8572A]"
-                        : "bg-white text-[#4f4636] border border-[#E0DDD9] hover:border-[#cbbf9f] hover:bg-[#faf5ec] dark:bg-gray-900 dark:text-gray-200 dark:border-gray-800 dark:hover:border-gray-700 dark:hover:bg-gray-800/80"
-                    }`}
+                  <a
+                    href="/archive"
+                    className="pro-chip inline-flex items-center whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors bg-white text-[#4f4636] border border-[#E0DDD9] hover:border-[#cbbf9f] hover:bg-[#faf5ec] dark:bg-gray-900 dark:text-gray-200 dark:border-gray-800 dark:hover:border-gray-700 dark:hover:bg-gray-800/80"
                   >
                     All
-                  </button>
+                  </a>
                   {tagPills.map((topic) => (
-                    <button
+                    <a
                       key={topic}
-                      onClick={() => setActiveTopic(topic)}
-                      className={`pro-chip inline-flex items-center whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                        activeTopic === topic
-                          ? "bg-[#C74634] text-white border-[#C74634] dark:bg-[#E8572A] dark:border-[#E8572A]"
-                          : "bg-white text-[#4f4636] border border-[#E0DDD9] hover:border-[#cbbf9f] hover:bg-[#faf5ec] dark:bg-gray-900 dark:text-gray-200 dark:border-gray-800 dark:hover:border-gray-700 dark:hover:bg-gray-800/80"
-                      }`}
+                      href={`/topic/${encodeURIComponent(topic)}`}
+                      className="pro-chip inline-flex items-center whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors bg-white text-[#4f4636] border border-[#E0DDD9] hover:border-[#cbbf9f] hover:bg-[#faf5ec] dark:bg-gray-900 dark:text-gray-200 dark:border-gray-800 dark:hover:border-gray-700 dark:hover:bg-gray-800/80"
                     >
                       {topic}
-                    </button>
+                    </a>
                   ))}
                 </div>
               </div>
@@ -947,11 +846,11 @@ export default function Home({ blogs, topics }) {
                     Long-form writing across civilization, football, AI, and personal reflections.
                   </p>
                 </div>
-                <VedicStudiesShelf blogs={publishedBlogs} />
+                <BlogPlaylists blogs={publishedBlogs} featuredSlugs={FEATURED_FEED_SLUGS} />
                 <DataScienceYouTubeShelf />
                 <FootballShelf />
                 <TechPodcastsShelf />
-                {paginatedPosts.length === 0 ? (
+                {featuredFeedPosts.length === 0 ? (
                   <div className="reveal rounded-3xl border border-dashed border-[#d8cdb2] dark:border-[#3D3A36] bg-[#fffaf3] dark:bg-[#2C2A27] p-8">
                     <h3
                       className="text-xl font-semibold text-[#161513] dark:text-[#F5F4F2] mb-3"
@@ -968,7 +867,7 @@ export default function Home({ blogs, topics }) {
                       <a href="/archive" className="pro-chip inline-flex items-center px-4 py-2 rounded-full border border-[#E0DDD9] dark:border-[#3D3A36] text-sm font-medium text-[#4f4636] dark:text-[#F5F4F2]">Archive</a>
                     </div>
                   </div>
-                ) : paginatedPosts.map((blog) => (
+                ) : featuredFeedPosts.map((blog) => (
                   <article
                     key={blog.data.Id}
                     className="reveal group rounded-3xl border border-transparent hover:border-[#dfd2b7] bg-white/85 dark:bg-[#2C2A27]/90 hover:bg-white transition-all duration-300 shadow-lg shadow-transparent hover:shadow-[0_16px_60px_-30px_rgba(0,0,0,0.45)] dark:hover:bg-[#2C2A27]"
@@ -1065,10 +964,10 @@ export default function Home({ blogs, topics }) {
                     className="text-xl font-semibold text-[#161513] dark:text-[#F5F4F2] mb-6"
                     style={{ fontFamily: "Charter, Georgia, serif" }}
                   >
-                    Recent Posts
+                    Editorial Picks
                   </h2>
                   <div className="space-y-6">
-                    {recentPosts.map((post) => (
+                    {featuredFeedPosts.map((post) => (
                       <article key={post.data.Id} className="space-y-2">
                         <a
                           href={`/blogs/${generateSlug(post.data.Title)}`}
@@ -1135,33 +1034,14 @@ export default function Home({ blogs, topics }) {
                 </div>
               </aside>
             </div>
-            {remainingPosts.length > 0 && (
-              <div className="max-w-7xl mx-auto px-4 md:px-8 mt-12 flex justify-center">
-                <div className="inline-flex items-center gap-4 px-6 py-3 rounded-full border border-[#E0DDD9] dark:border-[#3D3A36] bg-white/90 dark:bg-[#2C2A27]/90 text-sm text-[#695f4b] dark:text-[#B8B4B0] shadow-soft">
-                  <span className="text-xs uppercase tracking-[0.2em] text-[#9a8f75] dark:text-[#6E6B68]">
-                    Page {currentPage} of {totalPages}
-                  </span>
-                  <div className="flex items-center gap-3">
-                    <button
-                      type="button"
-                      onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
-                      disabled={currentPage === 1}
-                      className="px-3 py-2 rounded-full border border-transparent disabled:opacity-40 disabled:cursor-not-allowed hover:border-[#d9cdb2] hover:bg-[#faf5ec] dark:hover:border-[#3D3A36] dark:hover:bg-[#201E1C]"
-                    >
-                      Previous
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setCurrentPage((prev) => (canLoadMore ? prev + 1 : prev))}
-                      disabled={!canLoadMore}
-                      className="px-4 py-2 rounded-full bg-[#C74634] text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed shadow-sm shadow-[#C74634]/40"
-                    >
-                      {canLoadMore ? "Load more" : "All stories loaded"}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
+            <div className="max-w-7xl mx-auto px-4 md:px-8 mt-12 flex justify-center">
+              <a
+                href="/archive"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#E0DDD9] dark:border-[#3D3A36] bg-white/90 dark:bg-[#2C2A27]/90 text-sm font-semibold text-[#695f4b] dark:text-[#B8B4B0] shadow-soft hover:border-[#cbbf9f] transition-colors"
+              >
+                Browse the full archive &rarr;
+              </a>
+            </div>
           </section>
         </main>
 

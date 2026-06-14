@@ -3,6 +3,7 @@ import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { getAllBlogPosts, getProminentTopics } from "../Lib/Data";
 import { generateSlug } from "../Lib/utils";
+import { isUnlisted } from "../Lib/postVisibility";
 import { SITE_URL, siteOgImageUrl } from "../Lib/siteConfig";
 
 const CHARTER = { fontFamily: "Charter, Georgia, serif" };
@@ -67,7 +68,7 @@ export const getStaticProps = () => {
   const allTopics = getProminentTopics();
   const blogMap = {};
   allBlogs
-    .filter((b) => b?.data?.isPublished)
+    .filter((b) => b?.data?.isPublished && !isUnlisted(b))
     .forEach((b) => {
       const slug = generateSlug(b.data.Title);
       blogMap[b.data.Title] = { slug, readTime: b.readTime, data: b.data };
