@@ -19,12 +19,12 @@ export default function handler(req, res) {
   const staticPages = [
     { loc: "/", priority: "1.0" },
     { loc: "/about", priority: "0.9" },
+    { loc: "/contact", priority: "0.8" },
     { loc: "/football", priority: "0.8" },
     { loc: "/learning-path", priority: "0.8" },
-    { loc: "/ai-gallery", priority: "0.6" },
-    { loc: "/dashboard", priority: "0.5" },
     { loc: "/key", priority: "0.5" },
     { loc: "/archive", priority: "0.5" },
+    { loc: "/terms-of-service", priority: "0.5" },
     ...topicPages,
   ];
 

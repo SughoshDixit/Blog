@@ -23,6 +23,7 @@ export default function SavarkarDocumentaryPage({ topics }) {
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
+        <meta name="robots" content="noindex, follow" />
         <link rel="canonical" href={`${SITE_URL}/savarkar-documentary`} />
         <meta property="og:type" content="video.other" />
         <meta property="og:title" content={title} />

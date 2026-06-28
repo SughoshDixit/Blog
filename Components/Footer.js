@@ -75,7 +75,7 @@ function Footer() {
               {[
                 { href: "https://sughoshdixit.github.io/", label: "Portfolio", external: true },
                 { href: "https://www.youtube.com/@sughoshdixit", label: "YouTube", external: true },
-                { href: "mailto:sughoshdixit@gmail.com", label: "Contact", external: false },
+                { href: "/contact", label: "Contact", external: false },
               ].map(({ href, label, external }) => (
                 <li key={href}>
                   <a
@@ -104,6 +104,9 @@ function Footer() {
             </a>
             <a href="/api/sitemap" className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] hover:text-[#C74634] dark:hover:text-[#E8572A] transition-colors">
               Sitemap
+            </a>
+            <a href="/terms-of-service" className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] hover:text-[#C74634] dark:hover:text-[#E8572A] transition-colors">
+              Terms of Service
             </a>
             <a href="/privacy-policy" className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] hover:text-[#C74634] dark:hover:text-[#E8572A] transition-colors">
               Privacy Policy

@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { FaRobot, FaImage, FaVideo, FaMagic, FaTimes, FaFilter } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
+import Head from "next/head";
 import fs from "fs";
 import path from "path";
 import { getProminentTopics } from "../Lib/Data";
@@ -154,8 +155,14 @@ function AIGallery({ topics, aiImages }) {
   const closeModal = () => setSelectedImage(null);
 
   return (
-    <div className="min-h-screen bg-[#FAF8F6] dark:bg-[#201E1C] transition-colors duration-300">
-      <Navbar topics={topics} />
+    <>
+      <Head>
+        <title>AI Gallery — Sughosh Dixit</title>
+        <meta name="description" content="A curated collection of AI-generated images, videos, and creative content." />
+        <meta name="robots" content="noindex, follow" />
+      </Head>
+      <div className="min-h-screen bg-[#FAF8F6] dark:bg-[#201E1C] transition-colors duration-300">
+        <Navbar topics={topics} />
 
       {/* Redwood Hero */}
       <div className="pt-20 pb-12 border-b border-[#E0DDD9] dark:border-[#3D3A36]">
@@ -436,6 +443,7 @@ function AIGallery({ topics, aiImages }) {
 
       <Footer />
     </div>
+    </>
   );
 }
 
