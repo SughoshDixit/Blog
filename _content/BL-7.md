@@ -6,8 +6,9 @@ Date: "2026-03-25"
 Tags: Dhurandhar2 MovieReview Bollywood RanveerSingh Patriotism Martyrs Cinema MustWatch Madhavan ArjunRampal RakeshBedi
 Topic: Personal
 Abstract: "I took a half day off work just to watch Dhurandhar 2 on the morning show. Couldn't wait. And MAN — it hit me. As someone from a family that has a martyr, this movie hit different. Here's what it felt like in the hall — not a breakdown of who stitched what, just me, the screen, and the tears."
-HeaderImage: /BL-7/wp16062971.jpg
-isPublished: true
+HeaderImage: ""
+isPublished: false
+unlisted: true
 prominentShelf: false
 ---
 

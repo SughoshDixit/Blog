@@ -6,7 +6,7 @@ Date: "2026-06-16"
 Tags: Titan Business History JRD-Tata Xerxes-Desai
 Topic: Business
 Abstract: "Reflections on the inspiring journey of Xerxes Desai and JRD Tata in building Titan from scratch into a world-class, affordable Indian watchmaker, and how it transformed the Indian market."
-HeaderImage: /Titan-Story/header.png
+HeaderImage: ""
 isPublished: true
 ---
 
@@ -43,7 +43,6 @@ The true secret to Titan's enduring success wasn't just the quartz technology; i
 1. **Design as a Differentiator:** Titan was the first Indian brand to treat a watch as an extension of one's personality rather than just a time-telling tool.
 2. **World-Class Retail Experience:** They completely revolutionized retail. Before Titan, watches were sold in dingy, cluttered stores. Titan introduced exclusive, brightly lit, premium showrooms that made buying an affordable watch feel like a luxury experience.
 
-![Titan Premium Showroom](/Titan-Story/showroom.png)
 
 3. **Continuous Innovation:** From creating the iconic *Raga* collection for women to launching *Fastrack* for the youth, the brand continuously evolved its sub-brands to capture every demographic without diluting its core premium feel.
 

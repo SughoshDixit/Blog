@@ -6,7 +6,7 @@ Date: "2026-04-05"
 Tags: Savarkar VeerSavarkar VinayakDamodarSavarkar FreedomFighter IndianHistory BharatMata AbhinavaBharata KaalaPaani AndamanJail HinduMahasabha Patriotism Civilization
 Topic: Civilization
 Abstract: "I was invited to give a session on Dr. Vinayak Damodar Savarkar — one of the most consequential yet misunderstood figures of Bharat's freedom struggle. With little time to prepare, I bought a detailed book and an Amar Chitra Katha comic on him, read both cover to cover, and here is my take."
-HeaderImage: /BL-8/swatantrya-veer-savarkar.jpg
+HeaderImage: ""
 isPublished: true
 prominentShelf: true
 ---
@@ -23,20 +23,7 @@ prominentShelf: true
 
 I was invited to give a session on Dr. Vinayak Damodar Savarkar (Veer Savarkar) — a figure whose legacy is viewed differently depending on which faction you belong to (be it extreme left or be it extreme right). Once told I really had less time to prepare but I left no stone unturned — bought a detailed book and a comic on him too in Amar Chitra Katha. Ended up reading both of them, and here is my take on Veer Savarkar.
 
-<div style={{display: 'flex', justifyContent: 'center', gap: '2rem', margin: '2rem 0', flexWrap: 'wrap', alignItems: 'flex-start'}}>
-<div style={{textAlign: 'center'}}>
-<img src="/BL-8/swatantrya-veer-savarkar.jpg" alt="Swatantrya Veer Savarkar" style={{maxWidth: '220px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.3)'}} />
-<p style={{fontSize: '0.8rem', color: '#888', marginTop: '0.5rem'}}>Swatantrya Veer Savarkar</p>
-</div>
-<div style={{textAlign: 'center'}}>
-<img src="/BL-8/savarkar-jayanti.webp" alt="Veer Savarkar Jayanti" style={{maxWidth: '220px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.3)'}} />
-<p style={{fontSize: '0.8rem', color: '#888', marginTop: '0.5rem'}}>Savarkar Jayanti — The Revolutionary's Legacy</p>
-</div>
-<div style={{textAlign: 'center'}}>
-<img src="/BL-8/Book-Source.jpeg" alt="Book Source — Research for this post" style={{maxWidth: '220px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.3)'}} />
-<p style={{fontSize: '0.8rem', color: '#888', marginTop: '0.5rem'}}>Books that shaped this take</p>
-</div>
-</div>
+
 
 ---
 
@@ -51,10 +38,7 @@ Like we all know he was born in **1883 May 28th**, his father was **Damodar Sava
 
 With the help of **Lokamanya Bala Gangadhar Tilak** he could complete his degree in Pune University and with the help of a scholarship/sponsorship from **Tilak Ji** could go on to **London** to pursue Law.
 
-<div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
-<img src="/BL-8/tilak.jpg" alt="Lokamanya Bal Gangadhar Tilak" style={{maxWidth: '280px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.25)'}} />
-</div>
-<p style={{textAlign: 'center', fontSize: '0.85rem', color: '#888', marginTop: '-1rem'}}>Lokamanya Bal Gangadhar Tilak — Savarkar's mentor and sponsor</p>
+
 
 ---
 
@@ -62,10 +46,7 @@ With the help of **Lokamanya Bala Gangadhar Tilak** he could complete his degree
 
 Also associated with the revolutionaries at the **India House** in London, in collaboration with **Madam Bikaji Kama** and **Panduranga Mahadeva Bapat**, he instigated the movement for Bharat's freedom in many ways.
 
-<div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
-<img src="/BL-8/india-house.jpg" alt="India House London" style={{maxWidth: '480px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.25)'}} />
-</div>
-<p style={{textAlign: 'center', fontSize: '0.85rem', color: '#888', marginTop: '-1rem'}}>India House, London — the nerve centre of India's revolutionary movement abroad</p>
+
 
 <div style={{background: '#FFFBEA', padding: '1.5rem', borderRadius: '15px', color: '#2d2600', margin: '2rem 0', borderLeft: '4px solid #D4A017'}}>
 <h4 style={{color: '#8B6914', marginTop: 0}}>📚 The Smuggled Book — "The Indian War of Independence 1857"</h4>
@@ -93,15 +74,7 @@ Post his arrest for trials he had to be shifted to Bharat, where he tries to **b
 
 He would face a very cruel time in **Andaman and Nicobar Island's jail** called **Black Water (Kaala Paani)** for **10 years** and will luckily be shifted to other jail at Ratnagiri amid political pressure.
 
-<div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
-<img src="/BL-8/kaala-paani.jpg" alt="Cellular Jail Andaman - Kaala Paani" style={{maxWidth: '560px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.35)'}} />
-</div>
-<p style={{textAlign: 'center', fontSize: '0.85rem', color: '#888', marginTop: '-1rem'}}>Cellular Jail, Andaman — Kaala Paani, where Savarkar was imprisoned for 10 years</p>
 
-<div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
-<img src="/BL-8/cellular-jail-inside.jpg" alt="Inside the Cellular Jail" style={{maxWidth: '560px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.35)'}} />
-</div>
-<p style={{textAlign: 'center', fontSize: '0.85rem', color: '#888', marginTop: '-1rem'}}>Inside the Cellular Jail — solitary cells designed to break the spirit</p>
 
 He faces some really bad and unbearable pain and punishment during his days in the jail, but **the patriot in him keeps him focused on his ultimate purpose** which would be **Swarajya** and **Swatantrya**.
 
@@ -124,10 +97,7 @@ He also becomes the **President of Hindu Mahasabha from 1937 to 1942**.
 
 In **1940 he meets Netaji** and has a conversation. Netaji says all the statues and monuments of the Brits established in Bharat must be demolished and asks Savarkar Ji if it was the right move.
 
-<div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
-<img src="/BL-8/netaji.jpg" alt="Netaji Subhash Chandra Bose" style={{maxWidth: '280px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.25)'}} />
-</div>
-<p style={{textAlign: 'center', fontSize: '0.85rem', color: '#888', marginTop: '-1rem'}}>Netaji Subhash Chandra Bose — Commander of the Indian National Army</p>
+
 
 <div style={{background: '#FAF5FF', padding: '1.5rem', borderRadius: '15px', color: '#1e0a2e', margin: '2rem 0', borderLeft: '4px solid #7C3AED'}}>
 <h4 style={{color: '#6D28D9', marginTop: 0}}>💡 The Counsel that Shaped the INA</h4>
@@ -151,10 +121,7 @@ Further, post independence he again gets **arrested wrongfully** — blamed for 
 
 By then he would have a son and a daughter and a grandson and granddaughter. In **1965** he loses his wife **Yamuna** and in another year he too reaches the abode.
 
-<div style={{display: 'flex', justifyContent: 'center', margin: '2rem 0'}}>
-<img src="/BL-8/savarkar-jayanti.webp" alt="Veer Savarkar" style={{maxWidth: '480px', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 30px rgba(0,0,0,0.25)'}} />
-</div>
-<p style={{textAlign: 'center', fontSize: '0.85rem', color: '#888', marginTop: '-1rem'}}>Veer Savarkar — His legacy lives on</p>
+
 
 ---
 

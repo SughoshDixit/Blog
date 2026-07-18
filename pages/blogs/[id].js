@@ -30,7 +30,7 @@ import { SITE_URL, siteOgImageUrl } from "../../Lib/siteConfig";
 import AdUnit from "../../Components/AdUnit";
 
 export const getStaticPaths = () => {
-  const allBlogs = getAllBlogPosts();
+  const allBlogs = getAllBlogPosts().filter((blog) => blog?.data?.isPublished !== false);
   return {
     paths: allBlogs.map((blog) => ({
       params: {
@@ -48,7 +48,8 @@ export const getStaticProps = async (context) => {
 
   const page = allBlogs.find(
     (blog) =>
-      generateSlug(blog.data.Title) === params.id
+      generateSlug(blog.data.Title) === params.id &&
+      blog?.data?.isPublished !== false
   );
 
   if (!page) {

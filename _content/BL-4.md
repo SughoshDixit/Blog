@@ -6,7 +6,7 @@ Date: "2024-12-31"
 Tags: Geopolitics India ForeignPolicy GlobalOrder Multipolarity G20 BRICS QUAD AI Climate Dedollarization BookNotes
 Topic: Book
 Abstract: A blurb of a book on the Indian Perspective in the current world 
-HeaderImage: /New-India/Book.jpg
+HeaderImage: ""
 isPublished: true
 ---
 
@@ -23,10 +23,6 @@ isPublished: true
 </div>
 
 2025 has been a great reading year—I finished three books (and counting)! 📚 For this one, I stepped into a different genre to understand where the world is headed and, more importantly, where Bharat fits into it. It was an eye-opening read. Dr. Ram Madhav raises many points that deserve wider public attention. Sadly, we still get trapped in echo chambers—of people or ideas. 🪞
-
-![Book cover – The New World](/New-India/Cover.jpg)
-
-_Cover: The New World – 21st-Century Global Order and India_
 
 ## Part 1: The World in Flux 🌍 {#part-1-the-world-in-flux}
 
@@ -48,10 +44,6 @@ From near-collapse to the world’s No. 2 economy in a few decades—fascinating
 - Strengths: speed, scale, state capacity, manufacturing
 - Constraints: demographics, debt, external pushback, overcentralization
 
-![Geopolitics – world map](/New-India/World-Map.png)
-
-_Global political landscape: a shifting balance of power_
-
 ### Multipolarity and Minilateralism 🌐
 Players include Russia, the EU, Turkey, ASEAN, the African Union, Iran, Saudi Arabia, and other rising middle powers. As the UN’s credibility wanes, new groupings—BRI, **BRICS**, **QUAD**, SCO, and especially the **G20**—have stepped in as agile, purpose-driven platforms:
 
@@ -59,20 +51,12 @@ Players include Russia, the EU, Turkey, ASEAN, the African Union, Iran, Saudi Ar
 - Legitimacy is shared; outcomes matter more than process
 - India benefits by being in multiple overlapping coalitions
 
-![G20 India 2023](/New-India/G20.jpg)
-
-_G20: a minilateral platform shaping global coordination_
-
 Religion, culture, and identity politics play an outsized role in today’s geopolitics—something the book doesn’t shy away from.
 
 ## Tech, Climate, Currency: The Tectonic Shifts ⚙️🌱💱 {#tech-climate-currency-the-tectonic-shifts}
 
 ### AI: The Now, Not the Future 🤖
 We're living through a technological revolution—especially with AI—that is reshaping everything from diplomacy to industry. **The future is already here.**
-
-![AI and chips](/New-India/OIP.webp)
-
-_AI and semiconductors: the strategic stack of the 21st century_
 
 ### Climate: From Debate to Action 🌱
 The book briefly surveys climate change and its policy implications. **Policy is shifting from debate to implementation.**
@@ -101,10 +85,6 @@ Did you know? PM Modi articulated five pillars called “Panchamrit”:
 
 We’ve seen this cultural confidence in action—think of Shinzo Abe in Varanasi, Xi Jinping in Mahabalipuram, or Stephen Harper at Akshardham in New Delhi. 🏛️
 
-![Cultural India – Kashi corridor](/New-India/Kashi.webp)
-
-_Kashi Vishwanath Corridor: culture as soft power_
-
 ### A Reality Check 📉➡️📈
 
 Let’s be honest: we’re not “Vishwa Guru” yet.
@@ -122,10 +102,6 @@ Since Nehru, India has pursued a “Neighborhood First” approach—rooted in A
 - Geography never retires; neighbors shape your options
 - Culture is a durable lever of influence
 - Coalitions can substitute for slow global forums
-
-![New India – spirit and people](/New-India/WhatsApp%20Image%202025-09-19%20at%2015.55.09_70df016a.jpg)
-
-_Neighborhood First: people, ports, and partnerships_
 
 ## Closing Thoughts 🧠✨ {#closing-thoughts}
 
