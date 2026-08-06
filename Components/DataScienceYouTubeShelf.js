@@ -101,10 +101,10 @@ function DataScienceYouTubeShelf() {
 
         <div className="mt-6 pt-6 border-t border-[#E0DDD9] dark:border-[#3D3A36] flex flex-wrap gap-4">
           <a
-            href="/learning-path"
+            href="/archive"
             className="inline-flex items-center gap-2 text-sm font-semibold text-[#C74634] dark:text-[#E8572A] hover:underline"
           >
-            Read the 30-Day DS Challenge &rarr;
+            Explore all articles &rarr;
           </a>
           <a
             href="/topic/Data Science"

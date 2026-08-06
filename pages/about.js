@@ -202,24 +202,13 @@ function About({ topics }) {
                   </div>
                 </div>
                 <p className="text-[#6E6B68] dark:text-[#B8B4B0] mb-6 leading-relaxed">
-                  From <strong>Boolean logic</strong> to <strong>fuzzy membership functions</strong>, I explore the mathematical foundations that power modern AI.
-                  My 30-Day Challenge covers nonparametric statistics, robust methods, and real-world audit applications.
+                  From <strong>Boolean logic</strong> to <strong>fuzzy membership functions</strong>, I explore the mathematical foundations that power modern AI, robust methods, and real-world data science applications.
                 </p>
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="p-4 rounded-xl rw-bg-page">
-                    <div className="text-2xl font-bold text-[#C74634]">30</div>
-                    <div className="text-sm text-[#6E6B68] dark:text-[#B8B4B0]">Day Challenge</div>
-                  </div>
-                  <div className="p-4 rounded-xl rw-bg-page">
-                    <div className="text-2xl font-bold text-[#C74634]">6</div>
-                    <div className="text-sm text-[#6E6B68] dark:text-[#B8B4B0]">Core Pillars</div>
-                  </div>
-                </div>
                 <a
-                  href="/learning-path"
+                  href="/archive"
                   className="pro-ghost inline-flex items-center gap-2 text-[#C74634] font-semibold hover:gap-3 transition-all"
                 >
-                  Start the DS Challenge
+                  Browse Data Science Essays
                   <FiArrowRight className="w-4 h-4" />
                 </a>
               </div>

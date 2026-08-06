@@ -6,7 +6,6 @@ const CHARTER = { fontFamily: "Charter, Georgia, serif" };
 const QUICK_ACTIONS = [
   { label: "Who is Sughosh?", intent: "about" },
   { label: "Best posts to start", intent: "start" },
-  { label: "30-Day DS Challenge", intent: "ds-challenge" },
   { label: "Browse topics", intent: "topics" },
   { label: "Football posts", intent: "search", query: "football Liverpool" },
   { label: "Contact", intent: "contact" },
@@ -28,14 +27,7 @@ const RESPONSES = {
     text: "The Start Here page has a curated guide to the best posts across every topic — data science, personal essays, culture, and football. It's the best place to begin.",
     actions: [
       { label: "Open Start Here", intent: "link", url: "/start-here" },
-      { label: "30-Day DS Challenge", intent: "ds-challenge" },
-    ],
-  },
-  "ds-challenge": {
-    text: "The 30-Day Data Science Challenge is Sughosh's flagship series — 30 posts covering nonparametric statistics, robust methods, fuzzy logic, and sampling theory. 6 pillars, 100+ formulas, zero prerequisites.",
-    actions: [
-      { label: "View Learning Path", intent: "link", url: "/learning-path" },
-      { label: "Start Day 1", intent: "link", url: "/blogs/day-1-boolean-logic-to-numbers-and-as-min-or-as-max" },
+      { label: "Browse Archive", intent: "link", url: "/archive" },
     ],
   },
   topics: {

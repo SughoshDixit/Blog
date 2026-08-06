@@ -181,9 +181,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: transparent;
 }
 
-/* Special handling for DS images */
-.article-content img[src*="skewness_kurtosis_concept"],
-.article-content img[src*="/DS-"] {
+.article-content img[src*="skewness_kurtosis_concept"] {
   width: 100% !important;
   max-width: 100% !important;
   height: auto !important;
@@ -197,8 +195,7 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 1 !important;
 }
 
-.dark .article-content img[src*="skewness_kurtosis_concept"],
-.dark .article-content img[src*="/DS-"] {
+.dark .article-content img[src*="skewness_kurtosis_concept"] {
   background-color: #2C2A27 !important;
 }
 
@@ -1451,7 +1448,7 @@ a:active, button:active {
   transform: translateY(-1px);
 }
 
-/* Redwood teal accent section (e.g. 30-Day challenge, feature banners) */
+/* Redwood teal accent section (feature banners) */
 .rw-section-teal {
   background-color: #003a4c;
   background-image:

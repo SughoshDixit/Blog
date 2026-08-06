@@ -363,18 +363,16 @@ function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
       return <code className={className} {...rest}>{children}</code>;
     },
     img: (props) => {
-      // Special handling for header images and DS images
       const isHeaderImage = props.src && props.src.includes('skewness_kurtosis_concept');
-      const isDSImage = props.src && (props.src.includes('/DS-6/') || props.src.includes('/DS-7/') || props.src.includes('/DS-11/') || props.src.includes('/DS-12/') || props.src.includes('/DS-16/'));
       
       return (
-        <figure className={`my-6 flex flex-col items-center ${isHeaderImage || isDSImage ? 'bg-gray-50 dark:bg-gray-900 p-4 rounded-lg' : ''}`}>
+        <figure className={`my-6 flex flex-col items-center ${isHeaderImage ? 'bg-gray-50 dark:bg-gray-900 p-4 rounded-lg' : ''}`}>
           <img
             loading="lazy"
             decoding="async"
             referrerPolicy="no-referrer"
             crossOrigin="anonymous"
-            className={`rounded-md skeleton ${isHeaderImage || isDSImage ? 'w-full max-w-5xl' : 'max-w-full'} h-auto cursor-zoom-in hover:opacity-90 transition-opacity`}
+            className={`rounded-md skeleton ${isHeaderImage ? 'w-full max-w-5xl' : 'max-w-full'} h-auto cursor-zoom-in hover:opacity-90 transition-opacity`}
             style={{
               maxWidth: '100%',
               height: 'auto',
@@ -382,7 +380,7 @@ function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
               visibility: 'visible',
               opacity: 0,
               objectFit: 'contain',
-              width: isHeaderImage || isDSImage ? '100%' : 'auto',
+              width: isHeaderImage ? '100%' : 'auto',
               backgroundColor: 'transparent',
               imageRendering: 'auto'
             }}
@@ -587,24 +585,6 @@ function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
         </h1>
 
         <div className="flex flex-wrap items-center gap-2 mb-4">
-          {isDataSciencePost ? (
-            <>
-              <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200">
-                Day {currentDay} of 30
-              </span>
-              <div className="w-36 h-2 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden" aria-label="Series progress">
-                <div
-                  className="h-full bg-blue-600 dark:bg-blue-400"
-                  style={{ width: `${Math.max(0, Math.min(100, (currentDay / 30) * 100))}%` }}
-                />
-              </div>
-            </>
-          ) : null}
-          {currentDay ? (
-            <span className="text-xs text-gray-500 dark:text-gray-400">
-              Continue from your last DS day in Learning Path
-            </span>
-          ) : null}
         </div>
         
         <div className="flex flex-wrap gap-2 mb-8">

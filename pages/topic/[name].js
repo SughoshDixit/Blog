@@ -68,7 +68,7 @@ function name({ blogs, topics, topicName }) {
   const startHere = publishedBlogs[0];
   const topicDescriptions = {
     "Data Science":
-      "Structured learning notes and practical math from the 30-Day Challenge: robust statistics, nonparametrics, fuzzy logic, and audit-ready thinking.",
+      "Structured notes and practical insights on data science, AI modeling, robust statistics, and machine learning implementations.",
     "Personal":
       "Raw, first-person essays from life: family, grief, identity, films, and moments that shape who we become.",
     "Vedic Studies":

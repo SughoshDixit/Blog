@@ -130,12 +130,6 @@ export default function Home({ blogs, topics }) {
     };
   }, []);
 
-  const dsChallengePosts = useMemo(
-    () =>
-      shelfBlogs.filter((blog) => isDSPost(blog)).sort(sortByDateDesc),
-    [shelfBlogs]
-  );
-
   const editorialBlogs = useMemo(
     () => shelfBlogs.filter((blog) => !isDSPost(blog)),
     [shelfBlogs]
@@ -201,7 +195,7 @@ export default function Home({ blogs, topics }) {
     [editorialBlogs]
   );
 
-  const latestDSPost = dsChallengePosts[0] || null;
+
 
   // Re-observe whenever the visible post count changes
   useScrollReveal([featuredFeedPosts.length, trendingPosts.length]);
@@ -240,8 +234,8 @@ export default function Home({ blogs, topics }) {
         id: "ai-data",
         label: "Data Science & AI",
         intent: "Learn practical modeling, reasoning, and implementation.",
-        href: "/learning-path",
-        cta: "Start learning path",
+        href: "/topic/Data Science",
+        cta: "Explore Data Science",
         picks: getRecentByTopic("Data Science", 2),
       },
       {
@@ -649,61 +643,7 @@ export default function Home({ blogs, topics }) {
             </div>
           </section>
 
-          {/* Dedicated Learning Path track */}
-          <section className="relative overflow-hidden border-b border-[#E0DDD9] dark:border-[#3D3A36]">
-            <div className="absolute inset-0 bg-gradient-to-br rw-section-teal"></div>
-            <div className="absolute inset-0 opacity-20">
-              <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#C74634]/20 rounded-full blur-[100px]"></div>
-              <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-[#0f3460]/40 rounded-full blur-[80px]"></div>
-            </div>
-            <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-14">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-                <div className="max-w-2xl">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C74634]/20 border border-[#C74634]/30 text-[#E8572A] text-xs font-semibold mb-4 backdrop-blur-sm">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C74634] opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E8572A]"></span>
-                    </span>
-                    LEARNING PATH
-                  </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-3" style={{ fontFamily: "Charter, Georgia, serif" }}>
-                    30-Day Data Science Challenge
-                  </h2>
-                  <p className="text-base text-[#a8b2d1] leading-relaxed">
-                    A dedicated curriculum, separate from the editorial blog: nonparametric statistics, robust methods, fuzzy logic, and sampling theory. <strong className="text-white">30 days. 6 pillars. 100+ formulas.</strong>
-                  </p>
-                  <div className="mt-4 flex flex-wrap items-center gap-3 text-xs">
-                    <span className="px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[#dbe7ff]">
-                      {dsChallengePosts.length} learning notes published
-                    </span>
-                    {latestDSPost && (
-                      <a
-                        href={`/blogs/${generateSlug(latestDSPost.data.Title)}`}
-                        className="px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[#dbe7ff] hover:bg-white/20 transition-colors"
-                      >
-                        Latest: {latestDSPost.data.Title}
-                      </a>
-                    )}
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-3 shrink-0">
-                  <a
-                    href="/learning-path"
-                    className="pro-cta inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#C74634] to-[#E8572A] text-white font-semibold shadow-lg shadow-[#C74634]/30 hover:shadow-[#C74634]/50 hover:scale-105 transition-all duration-300"
-                  >
-                    View Learning Path
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                  </a>
-                  <a
-                    href="/blogs/day-1-boolean-logic-to-numbers-and-as-min-or-as-max"
-                    className="pro-ghost inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-all duration-300"
-                  >
-                    Open latest lesson
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
+
 
           {/* Topics rail */}
           {tagPills.length > 0 && (

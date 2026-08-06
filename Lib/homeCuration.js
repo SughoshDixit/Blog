@@ -18,12 +18,7 @@ export const FEATURED_FEED_TITLES = [
 
 export const FEATURED_FEED_SLUGS = FEATURED_FEED_TITLES.map(generateSlug);
 
-/**
- * Topics that are presented through their own dedicated experiences elsewhere
- * and should NOT be auto-grouped into the generic blog playlists region.
- * (Data Science = the 30-Day Challenge / Learning Path section.)
- */
-export const PLAYLIST_EXCLUDED_TOPICS = ["Data Science"];
+export const PLAYLIST_EXCLUDED_TOPICS = [];
 
 /**
  * Optional presentation metadata for playlists, keyed by `Series` name first,

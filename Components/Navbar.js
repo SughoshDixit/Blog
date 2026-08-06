@@ -202,11 +202,6 @@ function Navbar({ topics }) {
               <Link href="/consulting">
                 <a className={`hover:text-[#C74634] transition-colors relative ${isActive("/consulting") ? "nav-link-active" : ""}`}>Consulting</a>
               </Link>
-              <Link href="/learning-path">
-                <a className={`hover:text-[#C74634] transition-colors flex items-center gap-1 relative ${isActive("/learning-path") ? "nav-link-active" : ""}`}>
-                  30-Day Challenge
-                </a>
-              </Link>
               <Link href="/about">
                 <a className={`hover:text-[#C74634] transition-colors relative ${isActive("/about") ? "nav-link-active" : ""}`}>About</a>
               </Link>
@@ -397,13 +392,6 @@ function Navbar({ topics }) {
               </a>
             </Link>
             
-            <Link href="/learning-path">
-              <a className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
-                <FiBookOpen className="w-5 h-5" />
-                <span>30-Day Challenge</span>
-                <span className="ml-auto inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-redwood-100 dark:bg-redwood-900 text-redwood-700 dark:text-redwood-200">New</span>
-              </a>
-            </Link>
             
             <Link href="/dashboard">
               <a className="flex items-center space-x-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">

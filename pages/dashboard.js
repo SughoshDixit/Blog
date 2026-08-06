@@ -249,7 +249,7 @@ export default function Dashboard({ blogs, topics }) {
       
       // Create download link
       const link = document.createElement('a');
-      link.download = `30-day-challenge-${viewMode}-${new Date().toISOString().split('T')[0]}.png`;
+      link.download = `publishing-activity-${viewMode}-${new Date().toISOString().split('T')[0]}.png`;
       link.href = canvas.toDataURL('image/png', 1.0);
       document.body.appendChild(link);
       link.click();
@@ -664,7 +664,7 @@ export default function Dashboard({ blogs, topics }) {
                 Reader journey
               </a>
               <a href="/learning-path" className="pro-chip inline-flex items-center px-4 py-2 rounded-full border border-[#E0DDD9] dark:border-[#3D3A36] text-sm text-[#4f4636] dark:text-[#F5F4F2]">
-                30-Day challenge
+                Reading paths
               </a>
               <a href="/savarkar-documentary" className="pro-chip inline-flex items-center px-4 py-2 rounded-full border border-[#E0DDD9] dark:border-[#3D3A36] text-sm text-[#4f4636] dark:text-[#F5F4F2]">
                 Featured documentary
@@ -773,13 +773,12 @@ export default function Dashboard({ blogs, topics }) {
               <div>
                 <h3 className="text-lg font-semibold text-[#161513] dark:text-[#F5F4F2] flex items-center gap-2">
                   <FiCalendar className="h-5 w-5 text-emerald-500" />
-                  30-Day Challenge Consistency
-                  <span className="text-xs font-normal text-[#6E6B68] dark:text-[#B8B4B0]">(Nov 2025+)</span>
+                  Publishing Consistency
                 </h3>
                 <p className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] mt-1">
                   {viewMode === 'daily'
-                    ? 'Day-by-day posting streak for the Data Science Challenge'
-                    : 'Monthly overview of challenge progress'}
+                    ? 'Day-by-day posting activity across the blog'
+                    : 'Monthly overview of published essays'}
                 </p>
               </div>
               <div className="flex items-center gap-3">
