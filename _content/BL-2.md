@@ -51,4 +51,10 @@ To anyone seeking to find direction or build character, I offer a simple suggest
 
 Update from 2026, as I almost complete 6 months into my marriage, I still carry some of the valuable learnings that have got concrete the last few years and credit where it's due - the RSS. I've understood that - anything you want to achieve as the goal - the secret to success is consistency and system built around self-discipline rather than Motivation. Yes, momentary and periodic motivation is key to achieve any kind of goal in life, but repeatition and perserverence holds far more weightage. 
 
-It has been sometime where I would say my priorities have changed, where I do still respect what the RSS does, what I feel personally is that I need to step up and level up in things that I specialize on - before going back to the field to teach others. Just preaching is one thing but preaching what you're being holds special and guaranteed inspiration for people to follow. This has been something I want to follow and continue to pursue in the near future. 
+It has been sometime where I would say my priorities have changed, where I do still respect what the RSS does, what I feel personally is that I need to step up and level up in things that I specialize on - before going back to the field to teach others. Just preaching is one thing but preaching what you're being holds special and guaranteed inspiration for people to follow. This has been something I want to follow and continue to pursue in the near future.
+
+#### Building Technical Mastery & Personal Legacy
+
+Looking back on this transition, every major life stage brings a shift in how we deploy our time and energy. As I balance my career in data science with the responsibilities of family life, I've realized that self-mastery is not a static destination—it is an evolving discipline. 
+
+Before stepping onto a platform to mentor or lead others, one must possess deep domain expertise and a proven track record. In engineering and data science, as in life, depth precedes influence. By focusing heavily on technical rigor, continuous learning, and everyday accountability, I aim to build a foundation that speaks for itself. When you consistently deliver value and embody your core principles in daily practice, you create an enduring legacy that naturally inspires those around you. 
