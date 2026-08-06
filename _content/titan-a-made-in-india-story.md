@@ -1,6 +1,10 @@
 ---
+
+
+
+
 Id: 101
-Title: "Titan: A Made In India Story - The Journey of Xerxes Desai & JRD Tata"
+Title: "Titan's Horological Revolution: Business Strategy Lessons from Xerxes Desai & JRD Tata"
 Author: Sughosh P Dixit
 Date: "2026-06-16"
 Tags: Titan Business History JRD-Tata Xerxes-Desai
@@ -9,6 +13,9 @@ Abstract: "Reflections on the inspiring journey of Xerxes Desai and JRD Tata in 
 HeaderImage: ""
 isPublished: true
 ---
+
+*Case Analysis & Strategic Commentary by Sughosh P Dixit*
+
 
 Yesterday, I completely binge-watched **"Made In India: A Titan Story"**, a brilliant six-episode biographical drama series streaming on Amazon MX Player. The show is elevated to another level by the masterful performances of its cast, particularly the legendary **Naseeruddin Shah** playing the visionary JRD Tata, and the incredibly talented **Jim Sarbh** portraying the meticulous and ambitious Xerxes Desai. Their acting brilliantly captures the essence and gravitas of these real-life titans.
 
@@ -46,4 +53,4 @@ The true secret to Titan's enduring success wasn't just the quartz technology; i
 
 3. **Continuous Innovation:** From creating the iconic *Raga* collection for women to launching *Fastrack* for the youth, the brand continuously evolved its sub-brands to capture every demographic without diluting its core premium feel.
 
-The story of Titan is a testament to the power of persistence, visionary leadership, and the unyielding belief that an Indian company could compete—and win—on the global stage. It is a masterclass in building a legacy.
+The story of Titan is a proof to the power of persistence, visionary leadership, and the unyielding belief that an Indian company could compete—and win—on the global stage. It is a masterclass in building a legacy.

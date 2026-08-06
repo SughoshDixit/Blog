@@ -1,6 +1,6 @@
 ---
 Id: 1007
-Title: "Day 7 — Boxplots, IQR, and Tukey Fences"
+Title: "Outlier Detection with Boxplots, IQR, and Tukey Fences"
 Author: Sughosh P Dixit
 Date: "2025-11-07"
 Tags: Data Science Statistics Boxplots IQR Interquartile Range Tukey Fences Outliers Robust Statistics Nonparametric

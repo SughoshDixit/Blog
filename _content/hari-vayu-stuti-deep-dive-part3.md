@@ -12,6 +12,10 @@ HeaderImage:
 isPublished: true
 ---
 
+> **Author's Note:** This article provides original analytical commentary, translation analysis, and philosophical synthesis based on traditional Dvaita Vedanta scholarship and authentic source texts.
+
+
+
 # Hari Vayu Stuti Deep-Dive Part 3: Bhimasena's Kurukshetra Deeds and Sri Madhvacharya's Mission 🚩🦁
 
 First of all, **Hi all** 👋

@@ -1,6 +1,6 @@
 ---
 Id: 1004
-Title: "Day 4 — Percentile Rank and Stratifications"
+Title: "Percentile Rank and Stratifications in Practice"
 Author: Sughosh P Dixit
 Date: "2025-11-04"
 Tags: Data Science Statistics Percentile Rank Stratification ECDF Quantiles Sampling
@@ -342,7 +342,7 @@ Using max is liberal — more points rise into higher strata.
 
 ---
 
-## Wrapping Up
+## Conclusion & Takeaways
 [Percentile ranks](/key) normalize features onto a **common [0,1] scale**.
 
 Combining them with **min (AND)** or **max (OR)** gives an interpretable, monotone score ideal for **sampling, prioritization, and reporting.**

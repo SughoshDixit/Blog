@@ -1,6 +1,6 @@
 ---
 Id: 1009
-Title: "Day 9 — Z-Scores vs Robust Z-Scores"
+Title: "Standard Z-Scores vs Robust Z-Scores for Outlier Analysis"
 Author: Sughosh P Dixit
 Date: "2025-11-09"
 Tags: Data Science Statistics Z-Score Robust Statistics MAD Outliers Influence Breakdown Point

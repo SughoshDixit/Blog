@@ -12,6 +12,10 @@ HeaderImage:
 isPublished: true
 ---
 
+> **Author's Note:** This article provides original analytical commentary, translation analysis, and philosophical synthesis based on traditional Dvaita Vedanta scholarship and authentic source texts.
+
+
+
 # Hari Vayu Stuti Deep-Dive Part 4: Miracles, Meditations, and Concluding Prayers 🚩🔱
 
 First of all, **Hi all** 👋

@@ -1,6 +1,6 @@
 ---
 Id: 1001
-Title: "Day 1 — Boolean Logic to Numbers: AND as min, OR as max"
+Title: "Boolean Logic to Numbers: AND as Min, OR as Max"
 Author: Sughosh P Dixit
 Date: "2025-11-01"
 Tags: Data Science Mathematics Boolean Logic Fuzzy Logic T-norms
@@ -44,7 +44,7 @@ Follow along, experiment, and share your takeaways—the goal is to build a robu
 ---
 
 ## Why go beyond 0 or 1?
-Think about how often rules have shades of gray. Two numeric conditions might be "mostly satisfied" rather than strictly true or false. When we move from the Boolean {0,1} to the real-valued [0,1], we unlock a few superpowers:
+Think about how often rules have shades of gray. Two numeric conditions might be "mostly satisfied" rather than strictly true or false. When we move from the Boolean {0,1} to the real-valued [0,1], we discover a few superpowers:
 * **Graded satisfaction:** You can finally say "this rule is 0.7 satisfied".
 * **Smooth aggregation:** Combining multiple conditions doesn't result in a harsh cutoff.
 * **Predictable behavior:** If you tighten an input, the overall score won't unexpectedly jump up.
@@ -196,7 +196,7 @@ Other popular [t‑norms](/key) and [t‑conorms](/key):
 
 These can be smoother or more conservative/aggressive, but min/max are idempotent (`T(x,x)=x`), preserve ordering cleanly, and exactly recover Boolean logic on {0,1}. They're a standard, robust starting point.
 
-## Exercises
+## Practical Walkthroughs
 **1. Prove the basics**
 * Show that min and max satisfy commutativity, associativity, and monotonicity on [0,1].
 * Show identity elements: `min(x,1)=x` and `max(x,0)=x`.

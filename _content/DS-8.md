@@ -1,6 +1,6 @@
 ---
 Id: 1008
-Title: "Day 8 — Adjusted Boxplots & Medcouple"
+Title: "Handling Skewed Distributions: Adjusted Boxplots & Medcouple"
 Author: Sughosh P Dixit
 Date: "2025-11-08"
 Tags: Data Science Statistics Boxplots Adjusted Boxplot Medcouple Skewness Robust Statistics Outliers Nonparametric

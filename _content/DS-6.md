@@ -1,6 +1,6 @@
 ---
 Id: 1006
-Title: "Day 6 — Distribution Shape: Skewness and Kurtosis (Simple Guide + Visuals)"
+Title: "Distribution Shape: Understanding Skewness and Kurtosis"
 Author: Sughosh P Dixit
 Date: "2025-11-06"
 Tags: Data Science Statistics Skewness Kurtosis Distribution Shape Asymmetry Tails Outliers
@@ -253,7 +253,7 @@ Re-evaluate after cleaning
 
 ---
 
-## Wrapping Up
+## Conclusion & Takeaways
 Every dataset has a shape signature.
 
 [Skewness](/key) and [kurtosis](/key) let you read it like a fingerprint — revealing tilt, tail, and trustworthiness.

@@ -12,6 +12,10 @@ HeaderImage:
 isPublished: true
 ---
 
+> **Author's Note:** This article provides original analytical commentary, translation analysis, and philosophical synthesis based on traditional Dvaita Vedanta scholarship and authentic source texts.
+
+
+
 # Hari Vayu Stuti Deep-Dive Part 2: The Mighty Deeds of Hanuman and Bhimasena 🚩🦁
 
 First of all, **Hi all** 👋

@@ -81,7 +81,7 @@ To the right-wing apologist, I ask: **Is science the absolute limit of reality?*
 
 If you say yes, you have already lost. Science is a dynamic, evolving method of observation and testing. It changes its mind constantly. If you tie the eternal principles of Dharma to the science of 2026, what happens when that science is disproven in 2050? 
 
-Moreover, science is structurally unable to explain the most fundamental aspects of our existence:
+In addition, science is structurally unable to explain the most fundamental aspects of our existence:
 *   **Consciousness:** What is the "observer" inside you?
 *   **Birth & Death:** What is the transition of life-force?
 *   **The Soul (Atman):** The spark of awareness.

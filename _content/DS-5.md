@@ -1,6 +1,6 @@
 ---
 Id: 1005
-Title: "Day 5 — Robust Location and Scale: Median & MAD (Simple Guide + Worked Example)"
+Title: "Robust Location and Scale: Median & MAD Guide"
 Author: Sughosh P Dixit
 Date: "2025-11-05"
 Tags: Data Science Statistics Robust Statistics Median MAD Outliers Z-Scores Anomaly Detection
@@ -272,7 +272,7 @@ A picture that says a thousand outliers.
 
 ---
 
-## Wrapping Up
+## Conclusion & Takeaways
 * [Median](/key) + [MAD](/key) = the sturdier cousins of mean/[SD](/key).
 * They stay centered when [outliers](/key) appear.
 * Robust [z-scores](/key) reveal what classical [z-scores](/key) often hide.

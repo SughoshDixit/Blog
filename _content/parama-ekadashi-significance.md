@@ -13,11 +13,15 @@ HeaderImage: /parama-ekadashi-guide.png
 Abstract: "A comprehensive guide to Parama (Kamala) Ekadashi of the Adhika Masa, detailing its significance, rituals, scriptural stories of the devoted couple and Jayasharma, and spiritual takeaways."
 ---
 
+> **Author's Note:** This article provides original analytical commentary, translation analysis, and philosophical synthesis based on traditional Dvaita Vedanta scholarship and authentic source texts.
+
+
+
 # Parama Ekadashi: The Sacred Kamala Fast of the Adhika Masa 🕉️🌸
 
 First of all, **Hi all** 👋
 
-Fasting on Ekadashi is one of the most revered spiritual practices in Sanatana Dharma. However, when an **Adhika Masa** (the intercalary leap month) occurs, the Ekadashis within it carry extraordinary merit. Today, we delve into the sacred **Parama Ekadashi** (also known as **Kamala Ekadashi**), which falls during the waning phase (Krishna Paksha) of the Adhika Jyeshtha month.
+Fasting on Ekadashi is one of the most revered spiritual practices in Sanatana Dharma. However, when an **Adhika Masa** (the intercalary leap month) occurs, the Ekadashis within it carry extraordinary merit. Today, we explore into the sacred **Parama Ekadashi** (also known as **Kamala Ekadashi**), which falls during the waning phase (Krishna Paksha) of the Adhika Jyeshtha month.
 
 Choose your language version below to read the detailed article:
 

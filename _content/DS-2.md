@@ -1,6 +1,6 @@
 ---
 Id: 1002
-Title: "Day 2 — Expressions as Algebra: Tokens, Precedence, and Infix → Postfix"
+Title: "Expressions as Algebra: Tokens, Precedence, and Infix to Postfix"
 Author: Sughosh P Dixit
 Date: "2025-11-02"
 Tags: Data Science Mathematics Parsing Expressions Algorithms Rule Engines
@@ -10,7 +10,7 @@ HeaderImage: /DS-2/expression_pipeline.png
 isPublished: true
 ---
 
-# Day 2 — Expressions as Algebra: Tokens, Precedence & Postfix (RPN)
+# Expressions as Algebra: Tokens, Precedence & Postfix (RPN)
 
 
 

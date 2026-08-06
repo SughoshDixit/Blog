@@ -1,6 +1,6 @@
 ---
 Id: 1003
-Title: "Day 3 — Percentiles and Quantiles: Understanding Data Distributions"
+Title: "Percentiles and Quantiles: Demystifying Data Distributions"
 Author: Sughosh P Dixit
 Date: "2025-11-03"
 Tags: Data Science Statistics Percentiles Quantiles ECDF Order Statistics Robustness
@@ -10,7 +10,7 @@ HeaderImage: /DS-3/percentiles_concept.png
 isPublished: true
 ---
 
-# Day 3 — Percentiles and Quantiles: Understanding Data Distributions
+# Percentiles and Quantiles: Understanding Data Distributions
 
 *Understanding where your data sits! *
 
@@ -179,7 +179,7 @@ Check invariance:
 
 ---
 
-## Wrapping Up
+## Conclusion & Takeaways
 [Percentiles](/key) and [quantiles](/key) are simple, powerful ways to describe "where" a value sits in the data. They're stable, interpretable, and play well with transformations. Whether you're setting thresholds, creating strata, or monitoring distributions, quantiles give you a clean, math‑first foundation.
 
 ---
