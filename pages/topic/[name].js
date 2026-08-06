@@ -52,18 +52,11 @@ function name({ blogs, topics, topicName }) {
     (blog) => blog?.data?.isPublished && !isUnlisted(blog)
   );
 
-  // Filter out playlist blogs from the main topic list
   const publishedBlogs = allPublished
-    .filter((blog) => blog.data?.Series !== "Ekadashi and its significance" && blog.data?.prominentShelf !== false)
+    .filter((blog) => blog.data?.prominentShelf !== false)
     .sort(sortByDateDesc);
 
-  const playlistBlogs = allPublished
-    .filter((blog) => blog.data?.Series === "Ekadashi and its significance")
-    .sort((a, b) => {
-      const partA = parseInt(a.data?.SeriesPart || "0");
-      const partB = parseInt(b.data?.SeriesPart || "0");
-      return partA - partB;
-    });
+
 
   const startHere = publishedBlogs[0];
   const topicDescriptions = {
@@ -106,10 +99,10 @@ function name({ blogs, topics, topicName }) {
               {topicName}
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-4">
-              {publishedBlogs.length + playlistBlogs.length}{" "}
-              {publishedBlogs.length + playlistBlogs.length === 1 ? "article" : "articles"} about {topicName}
+              {publishedBlogs.length}{" "}
+              {publishedBlogs.length === 1 ? "article" : "articles"} about {topicName}
             </p>
-            {publishedBlogs.length === 0 && playlistBlogs.length === 0 && (
+            {publishedBlogs.length === 0 && (
               <p className="text-base text-amber-800 dark:text-amber-200/90 max-w-2xl mx-auto mb-6">
                 No featured articles in this topic on the main shelf.{" "}
                 <a href="/archive" className="underline hover:text-[#C74634] dark:hover:text-[#E8572A]">
@@ -142,47 +135,7 @@ function name({ blogs, topics, topicName }) {
         </div>
       )}
 
-      {/* Custom Series/Playlist for Ekadashi (only on Vedic Studies topic page) */}
-      {topicName === "Vedic Studies" && playlistBlogs.length > 0 && (
-        <div className="max-w-4xl mx-auto px-6 mb-12">
-          <div className="border-t-2 border-dashed border-[#D97706]/30 pt-10">
-            <div className="flex items-center gap-3 mb-6">
-              <span className="text-3xl">🪔</span>
-              <div>
-                <h2 className="text-2xl font-bold text-[#D97706] dark:text-[#F59E0B]" style={{ fontFamily: "Charter, Georgia, serif" }}>
-                  Ekadashi & Its Significance Playlist
-                </h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                  A curated chronological series explaining the history, stories, rituals, and spiritual takeaways of holy Ekadashi fasts.
-                </p>
-              </div>
-            </div>
-            
-            <div className="grid gap-6 sm:grid-cols-2">
-              {playlistBlogs.map((blog, idx) => (
-                <div key={blog.data.Id} className="bg-gradient-to-r from-amber-50 to-orange-50/70 dark:from-amber-950/10 dark:to-orange-950/10 rounded-2xl border border-amber-200/50 dark:border-amber-900/20 p-6 shadow-sm hover:shadow-md transition-all duration-355 flex flex-col justify-between">
-                  <div>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D97706]/10 text-[#D97706] dark:text-[#F59E0B] text-xs font-semibold mb-4">
-                      Part {blog.data.SeriesPart || idx + 1}
-                    </span>
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-snug" style={{ fontFamily: "Charter, Georgia, serif" }}>
-                      <a href={`/blogs/${generateSlug(blog.data.Title)}`} className="hover:underline">
-                        {blog.data.Title}
-                      </a>
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-3 mb-4 leading-relaxed">
-                      {blog.data.Abstract}
-                    </p>
-                  </div>
-                  <a href={`/blogs/${generateSlug(blog.data.Title)}`} className="text-sm font-semibold text-[#D97706] dark:text-[#F59E0B] hover:underline flex items-center gap-1 mt-auto">
-                    Read explainer →
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
+
 
       {/* Medium-style articles */}
       <div className="max-w-4xl mx-auto px-6 pb-16">
