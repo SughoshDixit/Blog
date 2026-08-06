@@ -35,3 +35,7 @@ To anyone who has ever wondered what it means to find purpose, I say — give yo
 ### Bharat Mata Ki Jai!
 
 — Sughosh Dixit
+
+Edit: Update from 2026, as I almost complete 6 months into my marriage, I still carry some of the valuable learnings that have got concrete the last few years and credit where it's due - the RSS. I've understood that - anything you want to achieve as the goal - the secret to success is consistency and system built around self-discipline rather than Motivation. Yes, momentary and periodic motivation is key to achieve any kind of goal in life, but repeatition and perserverence holds far more weightage. 
+
+It has been sometime where I would say my priorities have changed, where I do still respect what the RSS does, what I feel personally is that I need to step up and level up in things that I specialize on - before going back to the field to teach others. Just preaching is one thing but preaching what you're being holds special and guaranteed inspiration for people to follow. This has been something I want to follow and continue to pursue in the near future. 
