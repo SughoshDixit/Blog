@@ -31,19 +31,9 @@ It's a beautiful irony. Some of the sharpest minds, leaders in their industries,
 
 ## Systems and Operational Discipline {#systems-and-operational-discipline}
 
-Serving behind the scenes as a Prabandhak (event organizer) opened my eyes to the incredible operational execution required for large-scale gatherings. When thousands of representatives convene from every corner of India, enthusiasm alone does not keep things running smoothly—systems do. 
+Serving behind the scenes as a Prabandhak (event organizer) opened my eyes to the operational execution required for large-scale gatherings. When thousands of representatives convene from every corner of India, enthusiasm alone does not keep things running smoothly—systems do. 
 
-From logistics and scheduling to meal distribution and protocol management, every detail operates with quiet precision. Observing how decentralized teams execute complex workflows without noise or friction reinforced a fundamental lesson: inspiration gets an initiative off the ground, but structured systems sustain it.
-
-## Retrospective (2026 Update): Discipline Over Motivation {#retrospective-2026-update}
-
-Reflecting on these experiences nearly six months into my marriage, the core principles of discipline and service continue to shape how I approach my daily responsibilities, relationships, and professional career.
-
-Over the past few years, one lesson has crystallized above all others: the secret to achieving any long-term goal lies in building reliable systems around self-discipline, rather than relying on fleeting motivation. While periodic sparks of motivation are helpful for starting a project or setting a milestone, routine repetition and perseverance carry far more weight when navigating real-life challenges.
-
-As my personal and professional responsibilities expand, my perspective on leadership has also matured. While I deeply respect the foundational work of the RSS, I recognize that my immediate priority must be to build mastery in my specialized field of data science and technology before attempting to guide others. 
-
-Abstract advice or preaching carries little weight on its own. True influence comes from demonstrated competence and leading by personal example—embodying the principles you advocate before expecting others to follow. Moving forward, this commitment to personal mastery and authentic practice remains my primary focus.
+From logistics and scheduling to meal distribution and protocol management, every detail operates with quiet precision. Observing how decentralized teams execute complex workflows without noise or friction reinforced a fundamental lesson: inspiration gets an initiative off the ground, but structured systems sustain it over time.
 
 ## Moving Forward with Gratitude {#moving-forward-with-gratitude}
 
@@ -53,4 +43,12 @@ To anyone seeking to find direction or build character, I offer a simple suggest
 
 ### Bharat Mata Ki Jai!
 
-— Sughosh Dixit 
+— Sughosh Dixit
+
+---
+
+### Edit: Update from 2026
+
+Update from 2026, as I almost complete 6 months into my marriage, I still carry some of the valuable learnings that have got concrete the last few years and credit where it's due - the RSS. I've understood that - anything you want to achieve as the goal - the secret to success is consistency and system built around self-discipline rather than Motivation. Yes, momentary and periodic motivation is key to achieve any kind of goal in life, but repeatition and perserverence holds far more weightage. 
+
+It has been sometime where I would say my priorities have changed, where I do still respect what the RSS does, what I feel personally is that I need to step up and level up in things that I specialize on - before going back to the field to teach others. Just preaching is one thing but preaching what you're being holds special and guaranteed inspiration for people to follow. This has been something I want to follow and continue to pursue in the near future. 
