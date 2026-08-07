@@ -80,12 +80,6 @@ export const PLAYLIST_META = {
     blurb: "Stories, tributes, and reflections from life off the keyboard.",
     order: 8,
   },
-  "My Love Story 💌": {
-    kicker: "Personal",
-    title: "My Love Story",
-    blurb: "A personal chapter, told the long way.",
-    order: 9,
-  },
 };
 
 export function playlistMetaFor(key) {

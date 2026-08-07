@@ -37,7 +37,6 @@ const GOAL_TRACKS = [
     picks: [
       { title: "Stop Defending Hindu Rituals with Pseudoscience", why: "Classical scriptural interpretation vs superficial science claims." },
       { title: "A heartfelt Ode and a Tribute to Ajjju", why: "A personal tribute on family, memory, and enduring values." },
-      { title: "My Marriage", why: "Reflections on life milestones, love, and family." },
     ],
     cta: { label: "Browse Vedic Studies topic", href: "/topic/Vedic%20Studies" },
   },
