@@ -58,3 +58,5 @@ It has been sometime where I would say my priorities have changed, where I do st
 Looking back on this transition, every major life stage brings a shift in how we deploy our time and energy. As I balance my career in data science with the responsibilities of family life, I've realized that self-mastery is not a static destination—it is an evolving discipline. 
 
 Before stepping onto a platform to mentor or lead others, one must possess deep domain expertise and a proven track record. In engineering and data science, as in life, depth precedes influence. By focusing heavily on technical rigor, continuous learning, and everyday accountability, I aim to build a foundation that speaks for itself. When you consistently deliver value and embody your core principles in daily practice, you create an enduring legacy that naturally inspires those around you. 
+
+#LiveToInspire #WalkTheTalk
