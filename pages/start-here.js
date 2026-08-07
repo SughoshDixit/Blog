@@ -14,7 +14,6 @@ const GOAL_TRACKS = [
     desc: "Reflections on data science models, corporate compounding, and analytical thinking.",
     outcome: "You get practical takeaways from engineering, statistics, and career growth.",
     picks: [
-      { title: "Empirical Absolutism: The Limits of Scientific Reductionism", why: "Explore the limits of pure reductionist models in real-world data science." },
       { title: "Five Years at Oracle: From Cloud Analyst to Data Scientist", why: "Career compounding, skill bets, and technical evolution." },
     ],
     cta: { label: "Browse Data Science essays", href: "/topic/Data%20Science" },
