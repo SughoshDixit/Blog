@@ -35,7 +35,8 @@ const GOAL_TRACKS = [
     outcome: "You get grounded perspectives on classical thought and lived experiences.",
     picks: [
       { title: "Stop Defending Hindu Rituals with Pseudoscience", why: "Classical scriptural interpretation vs superficial science claims." },
-      { title: "A heartfelt Ode and a Tribute to Ajjju", why: "A personal tribute on family, memory, and enduring values." },
+      { title: "A Heartfelt Ode and a Tribute to Ajju", why: "A personal tribute on family, memory, and enduring values." },
+      { title: "The Matriarch of Grit: A Heartfelt Tribute to My Ajji, Vanamala Dixit", why: "An ode to an extraordinary grandmother, veer mata, and mentor." },
     ],
     cta: { label: "Browse Vedic Studies topic", href: "/topic/Vedic%20Studies" },
   },
