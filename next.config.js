@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  outputFileTracing: false,
   images: {
     domains: ["miro.medium.com", "raw.githubusercontent.com", "i.ytimg.com"],
   },
