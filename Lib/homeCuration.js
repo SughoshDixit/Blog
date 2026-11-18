@@ -9,8 +9,10 @@ import { generateSlug } from "./utils";
  * differences do not matter.
  */
 export const FEATURED_FEED_TITLES = [
-  "Why Support Liverpool F.C? The Beautiful Game vs The Lazy Game",
+  "The Matriarch of Grit: A Heartfelt Tribute to My Ajji, Vanamala Dixit",
+  "A Heartfelt Ode and a Tribute to Ajju",
   "Stop Defending Hindu Rituals with Pseudoscience",
+  "Why Support Liverpool F.C? The Beautiful Game vs The Lazy Game",
   "Dr. Vinayak Damodar Savarkar — The Underrated Colossus of Bharat's Freedom Struggle",
   "India in a Shifting Global Order — Book Notes",
   "Five Years at Oracle: From Cloud Analyst to Data Scientist",
