@@ -6,7 +6,7 @@ Date: "2024-12-30"
 Tags: Ajji Grandmother Matriarch VeerMata Family Grit Values Suggajji Inspiration Personal
 Topic: Personal
 Abstract: "Brilliant, fierce, and unbreakable. Married at 15 and denied her dream of schooling, she raised four children through biting poverty, gave a braveheart son to the nation, and shaped my very soul. Here is the life story of Vanamala Dixit—my grandmother, my mentor, and the true architect of our family."
-HeaderImage: /Ajji/Ajit%20doddappa.jpeg
+HeaderImage: /Ajji/IMG_20180405_195646.jpg
 isPublished: true
 prominentShelf: true
 ---

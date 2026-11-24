@@ -10,7 +10,7 @@ Date: "2026-06-16"
 Tags: Titan Business History JRD-Tata Xerxes-Desai
 Topic: Business
 Abstract: "Reflections on the inspiring journey of Xerxes Desai and JRD Tata in building Titan from scratch into a world-class, affordable Indian watchmaker, and how it transformed the Indian market."
-HeaderImage: ""
+HeaderImage: /Titan-Story/header.png
 isPublished: true
 ---
 

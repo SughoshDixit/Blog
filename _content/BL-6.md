@@ -6,7 +6,7 @@ Date: "2025-11-13"
 Tags: Liverpool Football Soccer Sports Passion Beautiful Game Cricket
 Topic: Personal
 Abstract: "Being an ardent Liverpool fan, I can tell you supporting Liverpool is not like supporting any ordinary club—it's a way of life. This is why football, the world's most followed sport, beats cricket every single time. It's time to stop watching the lazy game and embrace the beautiful game."
-HeaderImage: ""
+HeaderImage: /BL-6/liverpool-header.jpg
 isPublished: true
 ---
 

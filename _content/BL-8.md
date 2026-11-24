@@ -6,7 +6,7 @@ Date: "2026-04-05"
 Tags: Savarkar VeerSavarkar VinayakDamodarSavarkar FreedomFighter IndianHistory BharatMata AbhinavaBharata KaalaPaani AndamanJail HinduMahasabha Patriotism Civilization
 Topic: Civilization
 Abstract: "I was invited to give a session on Dr. Vinayak Damodar Savarkar — one of the most consequential yet misunderstood figures of Bharat's freedom struggle. With little time to prepare, I bought a detailed book and an Amar Chitra Katha comic on him, read both cover to cover, and here is my take."
-HeaderImage: ""
+HeaderImage: /BL-8/swatantrya-veer-savarkar.jpg
 isPublished: true
 prominentShelf: true
 ---
