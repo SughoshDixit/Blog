@@ -6,7 +6,7 @@ Date: "2024-12-31"
 Tags: Geopolitics India ForeignPolicy GlobalOrder Multipolarity G20 BRICS QUAD AI Climate Dedollarization BookNotes
 Topic: Book
 Abstract: A blurb of a book on the Indian Perspective in the current world 
-HeaderImage: /New-India/Book.jpg
+HeaderImage: /New-India/book-header.jpg
 isPublished: true
 ---
 
