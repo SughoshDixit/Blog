@@ -52,6 +52,9 @@ For my Ajju and Ajji, every sight of the Tiranga carried both reverence and pier
 
 Their son’s martyrdom was not just the loss of a life, it was the offering of an entire family’s peace at the altar of the nation. And still, my grandparents lived on, teaching us not to bow to despair but to rise with resilience. That is why, when I think of sacrifice, courage, and patriotism, I first think of **Ajit the braveheart**, and then of his parents—because they bore the heaviest weight any citizen can bear: the cost of freedom, paid in their own bloodline. 
 
+![Commando Ajit Annaji Dixit](/Ajji/Ajit%20doddappa.jpeg)
+<em>Commando Ajit Annaji Dixit — Special Forces braveheart, immortal in our memory and gratitude.</em>
+
 ![Remembrance, strength and pride](/Ajju/WhatsApp%20Image%202025-09-03%20at%2022.41.37_8f735b23.jpg)  
 <em>We remember with pride and love. The memories of our braveheart never fade.</em>  
 

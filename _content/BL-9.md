@@ -73,6 +73,9 @@ Then came the year 1990. The family had newly shifted to Bangalore, hoping for a
 
 **Her second son, Commando Ajit Annaji Dixit, had been martyred near Ayodhya at the age of just 25.**  
 
+![Commando Ajit Annaji Dixit](/Ajji/Ajit%20doddappa.jpeg)
+<em>Commando Ajit Annaji Dixit — Special Forces braveheart who made the supreme sacrifice for Bharat Mata.</em>
+
 ![Remembering our Veer](/Ajji/IMG_20181021_141123.jpg)  
 <em>The sacrifice of a martyr, held in eternal reverence.</em>  
 
