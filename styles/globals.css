@@ -97,9 +97,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Blog article content */
 .article-content {
-  font-family: 'Charter', Georgia, serif !important;
-  font-size: 21px;
-  line-height: 1.58;
+  font-family: 'Cormorant Garamond', 'Charter', Georgia, serif !important;
+  font-size: 24px;
+  line-height: 1.78;
   color: #161513 !important;
 }
 
@@ -114,7 +114,7 @@ h1, h2, h3, h4, h5, h6 {
 .article-content h5,
 .article-content h6 {
   color: #161513 !important;
-  font-family: 'Charter', Georgia, serif !important;
+  font-family: 'Cormorant Garamond', 'Charter', Georgia, serif !important;
 }
 
 .article-content strong {
