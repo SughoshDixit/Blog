@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
+import BlogWriter from "../Components/BlogWriter";
 import { getAllBlogPosts, getProminentTopics } from "../Lib/Data";
 import { generateSlug } from "../Lib/utils";
 import { useState, useEffect, useRef, useMemo } from "react";
@@ -994,6 +995,9 @@ export default function Dashboard({ blogs, topics }) {
               ))}
             </div>
           </div>
+
+          {/* Admin-only Blog Writer Studio */}
+          {isAdmin && <BlogWriter />}
 
           {/* Users Table - Admin only */}
           {isAdmin && (
