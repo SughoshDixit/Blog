@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { onAuthStateChanged } from "firebase/auth";
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 import { auth } from "../../Firebase/Firebase";
 import {
   FiArrowLeft,
@@ -273,13 +274,31 @@ export default function DedicatedBlogWriter() {
       const json = await res.json();
       if (!res.ok) throw new Error(json?.error || "Image upload failed");
 
-      if (target === "header") {
-        setFormState((prev) => ({ ...prev, headerImage: json.url }));
-      } else {
-        const alt = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]+/g, " ");
-        insertMarkdown(`\n![${alt}](${json.url})\n`, "", "");
+      let finalUrl = json.url;
+      let finalMsg = json.message || "Image attached!";
+
+      // On read-only production hosts (Vercel), upload to Firebase Storage for a clean permanent URL
+      if (json.readOnlyEnv) {
+        try {
+          const storage = getStorage();
+          const folder = (formState.fileName || slugifyTitle(formState.title) || "uploads").replace(/[^a-zA-Z0-9-_]/g, "-");
+          const safeName = (file.name || "pasted-image.png").replace(/[^a-zA-Z0-9.-]/g, "-");
+          const imgRef = storageRef(storage, `blog-writer/${folder}/${Date.now()}-${safeName}`);
+          await uploadBytes(imgRef, file);
+          finalUrl = await getDownloadURL(imgRef);
+          finalMsg = "Image uploaded to Firebase Storage!";
+        } catch {
+          // Keep inline preview data URL if Firebase Storage rules reject upload
+        }
       }
-      setStatus({ type: "success", message: json.message || "Image attached!" });
+
+      if (target === "header") {
+        setFormState((prev) => ({ ...prev, headerImage: finalUrl }));
+      } else {
+        const alt = (file.name || "image").replace(/\.[^/.]+$/, "").replace(/[-_]+/g, " ");
+        insertMarkdown(`\n![${alt}](${finalUrl})\n`, "", "");
+      }
+      setStatus({ type: "success", message: finalMsg });
     } catch (err) {
       setStatus({ type: "error", message: err.message });
     } finally {
@@ -702,14 +721,27 @@ export default function DedicatedBlogWriter() {
                       }
                     }}
                     onPaste={(e) => {
-                      const item = Array.from(e.clipboardData?.items || []).find((it) =>
+                      const fileFromFiles = Array.from(e.clipboardData?.files || []).find((f) =>
+                        f.type.startsWith("image/")
+                      );
+                      const itemImage = Array.from(e.clipboardData?.items || []).find((it) =>
                         it.type.startsWith("image/")
                       );
-                      if (item) {
-                        const file = item.getAsFile();
-                        if (file) {
+                      const imageFile = fileFromFiles || itemImage?.getAsFile();
+                      if (imageFile) {
+                        e.preventDefault();
+                        uploadImageFile(imageFile, "body");
+                        return;
+                      }
+
+                      // If user copied an image from a webpage (HTML <img> with no plain text)
+                      const plain = e.clipboardData?.getData("text/plain") || "";
+                      const html = e.clipboardData?.getData("text/html") || "";
+                      if (!plain.trim() && html) {
+                        const match = html.match(/<img[^>]+src=["']([^"']+)["']/i);
+                        if (match?.[1]) {
                           e.preventDefault();
-                          uploadImageFile(file, "body");
+                          insertMarkdown(`\n![image](${match[1]})\n`, "", "");
                         }
                       }
                     }}
