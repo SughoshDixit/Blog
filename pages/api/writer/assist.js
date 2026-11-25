@@ -70,10 +70,11 @@ async function callGeminiIfConfigured(prompt) {
   if (!apiKey) return null;
 
   const models = [
-    "gemini-2.5-flash",
-    "gemini-2.5-flash-lite",
+    "gemini-3-flash-preview",
+    "gemini-flash-lite-latest",
+    "gemini-3.1-flash-lite-preview",
     "gemini-flash-latest",
-    "gemini-2.5-pro",
+    "gemma-4-26b-a4b-it",
   ];
   let lastError = null;
 
