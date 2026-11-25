@@ -2464,11 +2464,22 @@ html {
   font-weight: 400;
 }
 
-.manuscript-post p {
+.manuscript-post p,
+.manuscript-post li {
   font-family: 'Cormorant Garamond', 'Charter', Georgia, serif !important;
   font-size: 24px !important;
   line-height: 1.78 !important;
+  margin-bottom: 1.2rem;
+}
+
+.manuscript-post p {
   margin-bottom: 1.6rem;
+}
+
+.manuscript-post h1,
+.manuscript-post h3,
+.manuscript-post h4 {
+  font-family: 'Cormorant Garamond', 'Charter', Georgia, serif !important;
 }
 
 .manuscript-post .prose > p:first-of-type::first-letter {
@@ -2579,7 +2590,8 @@ html {
     line-height: 1.72 !important;
   }
 
-  .manuscript-post p {
+  .manuscript-post p,
+  .manuscript-post li {
     font-size: 20px !important;
     line-height: 1.72 !important;
   }

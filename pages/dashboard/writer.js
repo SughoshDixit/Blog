@@ -790,7 +790,7 @@ export default function DedicatedBlogWriter() {
 
                   {isPreviewLoading && <p className="text-xs text-[#9a8f75] mb-3">Updating preview…</p>}
 
-                  <div className="prose prose-sm sm:prose-lg dark:prose-invert max-w-none break-words">
+                  <div className="article-content manuscript-post prose prose-sm sm:prose-lg dark:prose-invert max-w-none break-words">
                     {previewContent ? (
                       <MDXRemote {...previewContent} />
                     ) : (

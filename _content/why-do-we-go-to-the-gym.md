@@ -35,7 +35,7 @@ So in this endeavor what was blocking was my knowledge or know-how about fitness
 
 Sunil Chhetri says "Ek din mein 10 baje sone mein utna farak nhi padega, lekin ek saal 10 baje sone mein app yahaan se yahaan honge" (Barney Stinson comes to mind).
 
-![Barney Stinson](/Barney%20Stinson.gif)
+![Barney Stinson](/Barney.gif)
 
 So what does this app do for me? Let me show the details and other functionalities it possesses below:
 
