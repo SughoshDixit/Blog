@@ -69,7 +69,12 @@ async function callGeminiIfConfigured(prompt) {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) return null;
 
-  const models = ["gemini-2.5-flash", "gemini-flash-latest"];
+  const models = [
+    "gemini-2.5-flash",
+    "gemini-2.5-flash-lite",
+    "gemini-flash-latest",
+    "gemini-2.5-pro",
+  ];
   let lastError = null;
 
   for (const model of models) {
@@ -92,7 +97,8 @@ async function callGeminiIfConfigured(prompt) {
 
     const errText = await resp.text().catch(() => "");
     lastError = new Error(`Gemini API error ${resp.status}${errText ? `: ${errText.slice(0, 120)}` : ""}`);
-    if (resp.status !== 404) {
+    // Retry next model on transient capacity/rate/404 errors
+    if (![404, 429, 500, 502, 503, 504].includes(resp.status)) {
       throw lastError;
     }
   }
