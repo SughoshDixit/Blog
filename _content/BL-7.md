@@ -9,7 +9,7 @@ Abstract: "I took a half day off work just to watch Dhurandhar 2 on the morning 
 HeaderImage: ""
 isPublished: true
 unlisted: false
-prominentShelf: true
+prominentShelf: false
 ---
 
 # The HYPE IS REAL — Dhurandhar 2 Hit Me Where It Hurts the Most 🇮🇳🔥
