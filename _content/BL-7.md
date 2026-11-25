@@ -7,9 +7,9 @@ Tags: Dhurandhar2 MovieReview Bollywood RanveerSingh Patriotism Martyrs Cinema M
 Topic: Personal
 Abstract: "I took a half day off work just to watch Dhurandhar 2 on the morning show. Couldn't wait. And MAN — it hit me. As someone from a family that has a martyr, this movie hit different. Here's what it felt like in the hall — not a breakdown of who stitched what, just me, the screen, and the tears."
 HeaderImage: ""
-isPublished: false
-unlisted: true
-prominentShelf: false
+isPublished: true
+unlisted: false
+prominentShelf: true
 ---
 
 # The HYPE IS REAL — Dhurandhar 2 Hit Me Where It Hurts the Most 🇮🇳🔥

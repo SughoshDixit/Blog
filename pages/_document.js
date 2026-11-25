@@ -1,9 +1,7 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 
-// ─── Google AdSense ───────────────────────────────────────────────────────────
-// Replace REPLACE_WITH_YOUR_PUBLISHER_ID with your actual ca-pub-XXXXXXXXXXXXXXXX
-// You get this from https://adsense.google.com after approval.
-const ADSENSE_PUBLISHER_ID = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || '';
+const ADSENSE_PUBLISHER_ID =
+  process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || 'ca-pub-5371818145935476';
 
 export default function Document() {
   return (
@@ -31,7 +29,7 @@ export default function Document() {
         */}
         <script
           async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5371818145935476"
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUBLISHER_ID}`}
           crossOrigin="anonymous"
         />
       </Head>

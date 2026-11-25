@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/generate-sitemap.js && next build",
     "deploy": "gh-pages master -d build",
     "start": "next start"
   },

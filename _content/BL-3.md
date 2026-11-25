@@ -8,8 +8,8 @@ Topic: Personal
 Abstract: "A heartfelt ode and tribute to my grandfather, Lt. Annaji Ananth Dixit—a pre-independence swayamsevak, the resilient father of a martyred braveheart, and my lifelong companion and best friend. A moving reflection on grit, quiet sacrifice, and enduring love."
 HeaderImage: /Ajju/WhatsApp%20Image%202025-09-03%20at%2022.48.16_c74e6520.jpg
 isPublished: true
-prominentShelf: false
-unlisted: true
+prominentShelf: true
+unlisted: false
 ---
 
 Let me tell you a story.  

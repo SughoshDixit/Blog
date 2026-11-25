@@ -27,6 +27,7 @@ export default function TermsOfService({ topics }) {
       <Head>
         <title>{PAGE_TITLE}</title>
         <meta name="description" content={PAGE_DESC} />
+        <link rel="canonical" href={`${SITE_URL}/terms-of-service`} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${SITE_URL}/terms-of-service`} />
         <meta property="og:title" content={PAGE_TITLE} />

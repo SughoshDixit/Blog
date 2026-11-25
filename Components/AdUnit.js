@@ -113,6 +113,10 @@ function StickyAd({ slot, publisherId, style, className }) {
 
   useEffect(() => {
     if (pushed) return;
+    if (adRef.current?.getAttribute('data-adsbygoogle-status')) {
+      setPushed(true);
+      return;
+    }
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
       setPushed(true);
@@ -127,13 +131,18 @@ function StickyAd({ slot, publisherId, style, className }) {
         position: 'sticky',
         top: '100px',           // clears the navbar
         width: '160px',         // compact leaderboard on sidebar
+        minHeight: '600px',
         margin: '0 auto',
         ...style,
       }}
       className={className}
       aria-hidden="true"
     >
+      <p className="text-[10px] uppercase tracking-[0.14em] text-[#9a8f75] dark:text-[#6E6B68] text-center mb-1.5 select-none">
+        Advertisement
+      </p>
       <ins
+        key={slot}
         ref={adRef}
         className="adsbygoogle"
         style={{ display: 'block', width: '160px', height: '600px' }}
@@ -153,13 +162,17 @@ function InlineAd({ slot, format, publisherId, style, className }) {
 
   useEffect(() => {
     if (pushed) return;
+    if (adRef.current?.getAttribute('data-adsbygoogle-status')) {
+      setPushed(true);
+      return;
+    }
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
       setPushed(true);
     } catch (e) {
       console.warn(`[AdUnit:${format}] push failed:`, e);
     }
-  }, [pushed]);
+  }, [pushed, format]);
 
   const isInArticle  = format === 'in-article';
   const isMultiplex  = format === 'multiplex';
@@ -170,6 +183,7 @@ function InlineAd({ slot, format, publisherId, style, className }) {
     textAlign: 'center',
     overflow: 'hidden',
     maxWidth: isRectangle ? '336px' : '100%',
+    minHeight: isRectangle ? '280px' : '100px',
     ...style,
   };
 
@@ -209,7 +223,10 @@ function InlineAd({ slot, format, publisherId, style, className }) {
 
   return (
     <div style={wrapperStyle} className={className} aria-hidden="true">
-      <ins ref={adRef} {...insProps} />
+      <p className="text-[10px] uppercase tracking-[0.14em] text-[#9a8f75] dark:text-[#6E6B68] text-center mb-1.5 select-none">
+        Advertisement
+      </p>
+      <ins key={slot} ref={adRef} {...insProps} />
     </div>
   );
 }

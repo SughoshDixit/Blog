@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sughoshdixit.com/api/sitemap
+Sitemap: https://sughoshdixit.com/sitemap.xml

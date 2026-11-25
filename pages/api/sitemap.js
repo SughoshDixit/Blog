@@ -4,26 +4,38 @@ import { isUnlisted } from "../../Lib/postVisibility";
 import { SITE_URL } from "../../Lib/siteConfig";
 
 export default function handler(req, res) {
-  const posts = getAllBlogPosts()
-    .filter((p) => p?.data?.isPublished && !isUnlisted(p))
-    .sort((a, b) => {
-      const da = Date.parse(a?.data?.Date);
-      const db = Date.parse(b?.data?.Date);
-      if (!Number.isNaN(da) && !Number.isNaN(db)) return db - da;
-      return 0;
-    });
-
-  const topics = getProminentTopics() || [];
+  let posts = [];
+  let topics = [];
+  try {
+    posts = getAllBlogPosts()
+      .filter((p) => p?.data?.isPublished && !isUnlisted(p))
+      .sort((a, b) => {
+        const da = Date.parse(a?.data?.Date);
+        const db = Date.parse(b?.data?.Date);
+        if (!Number.isNaN(da) && !Number.isNaN(db)) return db - da;
+        return 0;
+      });
+    topics = getProminentTopics() || [];
+  } catch (err) {
+    console.warn("Sitemap fallback without _content:", err?.message);
+  }
   const topicPages = topics.map((t) => ({ loc: `/topic/${encodeURIComponent(t)}`, priority: "0.6" }));
 
   const staticPages = [
     { loc: "/", priority: "1.0" },
+    { loc: "/start-here", priority: "0.9" },
     { loc: "/about", priority: "0.9" },
     { loc: "/contact", priority: "0.8" },
+    { loc: "/consulting", priority: "0.8" },
+    { loc: "/projects", priority: "0.8" },
     { loc: "/football", priority: "0.8" },
     { loc: "/learning-path", priority: "0.8" },
+    { loc: "/garden", priority: "0.7" },
+    { loc: "/ai-gallery", priority: "0.7" },
+    { loc: "/savarkar-documentary", priority: "0.7" },
     { loc: "/key", priority: "0.5" },
     { loc: "/archive", priority: "0.5" },
+    { loc: "/privacy-policy", priority: "0.5" },
     { loc: "/terms-of-service", priority: "0.5" },
     ...topicPages,
   ];

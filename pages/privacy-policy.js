@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
+import { openCookieSettings } from "../Components/CookieConsent";
 import { getProminentTopics } from "../Lib/Data";
 import {
   SITE_URL,
@@ -27,6 +28,7 @@ export default function PrivacyPolicy({ topics }) {
       <Head>
         <title>{PAGE_TITLE}</title>
         <meta name="description" content={PAGE_DESC} />
+        <link rel="canonical" href={`${SITE_URL}/privacy-policy`} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${SITE_URL}/privacy-policy`} />
         <meta property="og:title" content={PAGE_TITLE} />
@@ -178,8 +180,27 @@ export default function PrivacyPolicy({ topics }) {
                   <li>Serving relevant advertisements via Google AdSense</li>
                 </ul>
                 <p>
-                  You can control cookies through your browser settings. Note
-                  that disabling cookies may affect Site functionality.
+                  You can control cookies through your browser settings or{" "}
+                  <button
+                    type="button"
+                    onClick={openCookieSettings}
+                    className="text-[#C74634] dark:text-[#E8572A] hover:underline font-medium cursor-pointer"
+                  >
+                    update your cookie preferences here
+                  </button>
+                  . Note that disabling cookies may affect Site functionality.
+                </p>
+              </Section>
+
+              {/* ── Affiliate & Monetization Disclosure ───────────── */}
+              <Section title="Advertising, Affiliate & Monetization Disclosure">
+                <p>
+                  To keep articles and technical guides free to read, this Site is
+                  supported by display advertising (Google AdSense), consulting
+                  services, and occasional affiliate or partner links. If you
+                  click an affiliate link and make a purchase, we may earn a small
+                  commission at no extra cost to you. Editorial opinions remain
+                  strictly independent.
                 </p>
               </Section>
 

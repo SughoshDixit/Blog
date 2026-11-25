@@ -13,8 +13,9 @@ export const getStaticProps = () => {
 };
 
 export default function ContactPage({ topics }) {
-  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "", website: "" });
   const [status, setStatus] = useState("idle"); // idle, sending, success, error
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,12 +25,26 @@ export default function ContactPage({ topics }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("sending");
+    setErrorMsg("");
 
-    // Simulate sending email (since it's a static site, we mock the submission)
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setStatus("error");
+        setErrorMsg(data.error || "Failed to send message.");
+        return;
+      }
       setStatus("success");
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    }, 1200);
+      setFormData({ name: "", email: "", subject: "", message: "", website: "" });
+    } catch {
+      setStatus("error");
+      setErrorMsg("Network error. Please email sughoshpdixit@gmail.com directly.");
+    }
   };
 
   const title = "Contact — Sughosh Dixit";
@@ -156,6 +171,22 @@ export default function ContactPage({ topics }) {
                     </div>
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-6">
+                      {/* Honeypot field to deter bots */}
+                      <input
+                        type="text"
+                        name="website"
+                        value={formData.website}
+                        onChange={handleChange}
+                        tabIndex={-1}
+                        autoComplete="off"
+                        className="hidden"
+                        aria-hidden="true"
+                      />
+                      {status === "error" && errorMsg && (
+                        <div className="p-3.5 rounded-xl border border-red-300 dark:border-red-800 bg-red-50 dark:bg-red-950/30 text-sm text-red-700 dark:text-red-300">
+                          {errorMsg}
+                        </div>
+                      )}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
                           <label htmlFor="name" className="text-xs font-semibold uppercase tracking-wider text-[#6E6B68] dark:text-[#B8B4B0]">

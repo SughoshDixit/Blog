@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { FaFutbol } from "react-icons/fa";
 
 const ChatBot = dynamic(() => import("../Components/ChatBot"), { ssr: false });
+const CookieConsent = dynamic(() => import("../Components/CookieConsent"), { ssr: false });
 
 function FootballSplashScreen({ isVisible }) {
   const [render, setRender] = useState(isVisible);
@@ -284,6 +285,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           <RouteSplashScreen isVisible={loading} loaderConfig={loaderConfig} />
           <PageProgressBar loading={loading} />
           <Component {...pageProps} />
+          <CookieConsent />
           <ChatBot />
           <Analytics />
         </ThemeProvider>

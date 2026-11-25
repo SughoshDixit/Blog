@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
 import {
   Chart as ChartJS,
   RadialLinearScale,
@@ -19,6 +21,17 @@ ChartJS.register(
 );
 
 const FootballStatsChart = ({ title = "Player Performance Metrics" }) => {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = mounted && resolvedTheme === 'dark';
+  const labelColor = isDark ? '#F5F4F2' : '#161513';
+  const gridColor = isDark ? 'rgba(245, 244, 242, 0.18)' : 'rgba(110, 107, 104, 0.2)';
+
   const data = {
     labels: ['Goals', 'Assists', 'Passing Accuracy', 'Successful Dribbles', 'Interceptions', 'Aerial Duels'],
     datasets: [
@@ -36,13 +49,13 @@ const FootballStatsChart = ({ title = "Player Performance Metrics" }) => {
       {
         label: 'League Average',
         data: [60, 50, 75, 65, 55, 50],
-        backgroundColor: 'rgba(110, 107, 104, 0.2)',
-        borderColor: 'rgba(110, 107, 104, 1)',
+        backgroundColor: isDark ? 'rgba(184, 180, 176, 0.22)' : 'rgba(110, 107, 104, 0.2)',
+        borderColor: isDark ? 'rgba(184, 180, 176, 0.9)' : 'rgba(110, 107, 104, 1)',
         borderWidth: 2,
-        pointBackgroundColor: 'rgba(110, 107, 104, 1)',
+        pointBackgroundColor: isDark ? 'rgba(184, 180, 176, 1)' : 'rgba(110, 107, 104, 1)',
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(110, 107, 104, 1)',
+        pointHoverBorderColor: isDark ? 'rgba(184, 180, 176, 1)' : 'rgba(110, 107, 104, 1)',
       },
     ],
   };
@@ -51,13 +64,13 @@ const FootballStatsChart = ({ title = "Player Performance Metrics" }) => {
     scales: {
       r: {
         angleLines: {
-          color: 'rgba(110, 107, 104, 0.2)',
+          color: gridColor,
         },
         grid: {
-          color: 'rgba(110, 107, 104, 0.2)',
+          color: gridColor,
         },
         pointLabels: {
-          color: 'currentColor',
+          color: labelColor,
           font: {
             size: 12,
             weight: '600'
@@ -76,7 +89,7 @@ const FootballStatsChart = ({ title = "Player Performance Metrics" }) => {
       legend: {
         position: 'bottom',
         labels: {
-          color: 'currentColor',
+          color: labelColor,
           usePointStyle: true,
           padding: 20,
           font: {
@@ -102,7 +115,7 @@ const FootballStatsChart = ({ title = "Player Performance Metrics" }) => {
         {title}
       </h3>
       <div className="h-[350px]">
-        <Radar data={data} options={options} />
+        <Radar key={isDark ? 'dark' : 'light'} data={data} options={options} />
       </div>
       <p className="mt-6 text-xs text-center text-[#6E6B68] dark:text-[#B8B4B0]">
         Interactive Data Visualization Example — Powered by Chart.js

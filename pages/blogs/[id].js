@@ -119,7 +119,10 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
         {isUnlistedPost ? (
           <meta name="robots" content="noindex, nofollow" />
         ) : (
-          <link rel="canonical" href={`${SITE_URL}/blogs/${id}`} />
+          <>
+            <meta name="robots" content="index, follow" />
+            <link rel="canonical" href={`${SITE_URL}/blogs/${id}`} />
+          </>
         )}
 
         <meta property="og:type" content="article" />
@@ -136,25 +139,37 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
         <meta property="twitter:title" content={data.Title} />
         <meta property="twitter:description" content={data.Abstract} />
         <meta property="twitter:image" content={ogImage} />
-      </Head>
 
-      <Script id="ld-json-article" type="application/ld+json">
-        {JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'Article',
-          headline: data.Title,
-          description: data.Abstract,
-          image: [ogImage],
-          author: {
-            '@type': 'Person',
-            name: data.Author,
-          },
-          mainEntityOfPage: {
-            '@type': 'WebPage',
-            '@id': `${SITE_URL}/blogs/${id}`,
-          },
-        })}
-      </Script>
+        <script
+          id="ld-json-article"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Article",
+              headline: data.Title,
+              description: data.Abstract,
+              image: [ogImage],
+              url: `${SITE_URL}/blogs/${id}`,
+              ...(data.Date ? { datePublished: data.Date, dateModified: data.Date } : {}),
+              author: {
+                "@type": "Person",
+                name: data.Author || "Sughosh Dixit",
+                url: SITE_URL,
+              },
+              publisher: {
+                "@type": "Person",
+                name: "Sughosh Dixit",
+                url: SITE_URL,
+              },
+              mainEntityOfPage: {
+                "@type": "WebPage",
+                "@id": `${SITE_URL}/blogs/${id}`,
+              },
+            }),
+          }}
+        />
+      </Head>
 
       <div className="min-h-screen relative bg-white dark:bg-gray-900">
         <ReadingProgress />
@@ -234,13 +249,6 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
               slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_MULTIPLEX || ''}
               format="multiplex"
               style={{ margin: '32px auto' }}
-            />
-
-            {/* Ad Unit — auto responsive, after related posts */}
-            <AdUnit
-              slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_BELOW_ARTICLE || ''}
-              format="auto"
-              style={{ margin: '24px auto' }}
             />
 
             {/* Post Navigation */}

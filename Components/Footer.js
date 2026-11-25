@@ -1,6 +1,7 @@
 import { SiTwitter, SiGithub, SiInstagram } from "react-icons/si";
 import { FiLinkedin } from "react-icons/fi";
 import NewsletterForm from "./NewsletterForm";
+import { openCookieSettings } from "./CookieConsent";
 
 function Footer() {
   const year = new Date().getFullYear();
@@ -97,11 +98,11 @@ function Footer() {
           <p className="text-sm text-[#6E6B68] dark:text-[#B8B4B0]">
             © {year} Sughosh Dixit. All rights reserved.
           </p>
-          <div className="flex space-x-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             <a href="/api/feed" className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] hover:text-[#C74634] dark:hover:text-[#E8572A] transition-colors">
               RSS Feed
             </a>
-            <a href="/api/sitemap" className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] hover:text-[#C74634] dark:hover:text-[#E8572A] transition-colors">
+            <a href="/sitemap.xml" className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] hover:text-[#C74634] dark:hover:text-[#E8572A] transition-colors">
               Sitemap
             </a>
             <a href="/terms-of-service" className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] hover:text-[#C74634] dark:hover:text-[#E8572A] transition-colors">
@@ -110,6 +111,13 @@ function Footer() {
             <a href="/privacy-policy" className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] hover:text-[#C74634] dark:hover:text-[#E8572A] transition-colors">
               Privacy Policy
             </a>
+            <button
+              type="button"
+              onClick={openCookieSettings}
+              className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] hover:text-[#C74634] dark:hover:text-[#E8572A] transition-colors cursor-pointer"
+            >
+              Cookie Settings
+            </button>
           </div>
         </div>
       </div>
