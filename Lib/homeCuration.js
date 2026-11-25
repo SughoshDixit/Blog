@@ -9,6 +9,7 @@ import { generateSlug } from "./utils";
  * differences do not matter.
  */
 export const FEATURED_FEED_TITLES = [
+  "Why Do We Go to the Gym? Rented Discipline vs. Real Stamina",
   "Stop Defending Hindu Rituals with Pseudoscience",
   "Why Support Liverpool F.C? The Beautiful Game vs The Lazy Game",
   "Dr. Vinayak Damodar Savarkar — The Underrated Colossus of Bharat's Freedom Struggle",
