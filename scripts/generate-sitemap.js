@@ -7,13 +7,25 @@ const CONTENT_DIR = path.join(process.cwd(), "_content");
 const OUT_FILE = path.join(process.cwd(), "public", "sitemap.xml");
 
 function generateSlug(title) {
-  return String(title || "")
-    .trim()
+  if (!title) return "";
+  return String(title)
     .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, (ch) => (ch === "'" ? "'" : ""))
-    .split(/\s+/)
-    .filter(Boolean)
-    .join("-");
+    .replace(/[\u2014\u2013\u2015]/g, "-")
+    .replace(/:/g, "-")
+    .replace(/&/g, "and")
+    .replace(/\+/g, "plus")
+    .replace(/\(/g, "-")
+    .replace(/\)/g, "-")
+    .replace(/\?/g, "")
+    .replace(/!/g, "")
+    .replace(/,/g, "")
+    .replace(/[→←]/g, "-")
+    .replace(/\s+/g, " ")
+    .split(" ")
+    .filter((w) => w.length > 0)
+    .join("-")
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 function main() {
