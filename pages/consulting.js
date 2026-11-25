@@ -157,7 +157,7 @@ function Consulting({ topics }) {
           <div className="absolute top-0 right-0 w-96 h-96 bg-[#C74634]/10 rounded-full blur-[120px] -mr-48 -mt-48"></div>
           <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
             <div className="text-center mb-20">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6" style={CHARTER}>Proven Results</h2>
+              <h2 className="text-3xl md:text-5xl font-bold text-white mb-6" style={CHARTER}>Proven Results</h2>
               <p className="text-[#B8B4B0] max-w-2xl mx-auto">Selected projects where AI-driven strategy met production-grade execution.</p>
             </div>
 
@@ -180,7 +180,7 @@ function Consulting({ topics }) {
               ].map((study, idx) => (
                 <div key={idx} className="group p-10 rounded-3xl bg-[#2C2A27] border border-[#3D3A36] hover:border-[#C74634]/50 transition-colors">
                   <div className="text-[#C74634] font-bold text-sm uppercase tracking-widest mb-4">{study.client}</div>
-                  <h3 className="text-2xl font-bold mb-6 group-hover:text-[#C74634] transition-colors">{study.title}</h3>
+                  <h3 className="text-2xl font-bold text-white mb-6 group-hover:text-[#C74634] transition-colors">{study.title}</h3>
                   <div className="space-y-6 text-[#B8B4B0] mb-8">
                     <div>
                       <div className="text-white text-sm font-bold mb-1 italic">Challenge:</div>
@@ -233,7 +233,7 @@ function Consulting({ topics }) {
             <div className="absolute top-0 left-0 -mt-20 -ml-20 w-64 h-64 bg-[#C74634]/20 rounded-full blur-3xl"></div>
             <div className="relative z-10">
               <FiMail className="w-12 h-12 mx-auto text-[#C74634] mb-6" />
-              <h2 className="text-3xl md:text-4xl font-bold mb-6" style={CHARTER}>Ready to start?</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6" style={CHARTER}>Ready to start?</h2>
               <p className="text-lg text-[#B8B4B0] max-w-xl mx-auto mb-10">
                 Send me an email detailing your project requirements, timeline, and goals. I'll get back to you within 24 hours to schedule a call.
               </p>
