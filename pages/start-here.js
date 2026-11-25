@@ -30,13 +30,11 @@ const GOAL_TRACKS = [
     cta: { label: "Browse Civilization topic", href: "/topic/Civilization" },
   },
   {
-    section: "I want Dharma, Philosophy & Personal Essays",
-    desc: "Thoughtful writing on scriptural interpretation, family, and personal journeys.",
-    outcome: "You get grounded perspectives on classical thought and lived experiences.",
+    section: "I want Dharma & Philosophy",
+    desc: "Thoughtful writing on scriptural interpretation, classical thought, and lived dharma.",
+    outcome: "You get grounded perspectives on classical thought vs superficial claims.",
     picks: [
       { title: "Stop Defending Hindu Rituals with Pseudoscience", why: "Classical scriptural interpretation vs superficial science claims." },
-      { title: "A Heartfelt Ode and a Tribute to Ajju", why: "A personal tribute on family, memory, and enduring values." },
-      { title: "The Matriarch of Grit: A Heartfelt Tribute to My Ajji, Vanamala Dixit", why: "An ode to an extraordinary grandmother, veer mata, and mentor." },
     ],
     cta: { label: "Browse Vedic Studies topic", href: "/topic/Vedic%20Studies" },
   },

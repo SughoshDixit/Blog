@@ -391,6 +391,53 @@ function About({ topics }) {
         </div>
       </section>
 
+      {/* Dixit Family (discrete) */}
+      <section className="py-12 border-b border-[#E0DDD9] dark:border-[#3D3A36] rw-bg-page">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="rounded-2xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-white/70 dark:bg-[#2C2A27]/70 p-6 sm:p-8">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#9a8f75] dark:text-[#6E6B68] mb-2">
+              Family Archive
+            </p>
+            <h2 className="text-xl sm:text-2xl font-semibold text-[#161513] dark:text-[#F5F4F2] mb-2" style={CHARTER}>
+              Dixit Family
+            </h2>
+            <p className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] mb-5 leading-relaxed">
+              Quiet, personal tributes kept here rather than on the main feed — remembering the two pillars who shaped everything.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <a
+                href="/blogs/the-matriarch-of-grit-a-heartfelt-tribute-to-my-ajji-vanamala-dixit"
+                className="group flex items-center justify-between gap-3 rounded-xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-[#FAF8F6] dark:bg-[#201E1C] px-4 py-3.5 hover:border-[#C74634]/50 transition-colors"
+              >
+                <div>
+                  <div className="text-sm font-semibold text-[#161513] dark:text-[#F5F4F2] group-hover:text-[#C74634] dark:group-hover:text-[#E8572A] transition-colors" style={CHARTER}>
+                    Vanamala Dixit (Ajji)
+                  </div>
+                  <div className="text-xs text-[#6E6B68] dark:text-[#B8B4B0]">
+                    The Matriarch of Grit
+                  </div>
+                </div>
+                <FiArrowRight className="w-4 h-4 shrink-0 text-[#6E6B68] group-hover:text-[#C74634] group-hover:translate-x-0.5 transition-all" />
+              </a>
+              <a
+                href="/blogs/a-heartfelt-ode-and-a-tribute-to-ajju"
+                className="group flex items-center justify-between gap-3 rounded-xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-[#FAF8F6] dark:bg-[#201E1C] px-4 py-3.5 hover:border-[#C74634]/50 transition-colors"
+              >
+                <div>
+                  <div className="text-sm font-semibold text-[#161513] dark:text-[#F5F4F2] group-hover:text-[#C74634] dark:group-hover:text-[#E8572A] transition-colors" style={CHARTER}>
+                    Lt. Annaji Ananth Dixit (Ajju)
+                  </div>
+                  <div className="text-xs text-[#6E6B68] dark:text-[#B8B4B0]">
+                    A Heartfelt Ode and a Tribute
+                  </div>
+                </div>
+                <FiArrowRight className="w-4 h-4 shrink-0 text-[#6E6B68] group-hover:text-[#C74634] group-hover:translate-x-0.5 transition-all" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Connect */}
       <section className="py-16 md:py-20 rw-bg-page">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
