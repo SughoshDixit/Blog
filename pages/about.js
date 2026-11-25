@@ -402,9 +402,9 @@ function About({ topics }) {
               Dixit Family
             </h2>
             <p className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] mb-5 leading-relaxed">
-              Quiet, personal tributes kept here rather than on the main feed — remembering the two pillars who shaped everything.
+              Quiet, personal stories kept here rather than on the main feed — remembering the pillars who shaped us and the chapter that began our own.
             </p>
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-3 gap-4">
               <a
                 href="/blogs/the-matriarch-of-grit-a-heartfelt-tribute-to-my-ajji-vanamala-dixit"
                 className="group flex items-center justify-between gap-3 rounded-xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-[#FAF8F6] dark:bg-[#201E1C] px-4 py-3.5 hover:border-[#C74634]/50 transition-colors"
@@ -429,6 +429,20 @@ function About({ topics }) {
                   </div>
                   <div className="text-xs text-[#6E6B68] dark:text-[#B8B4B0]">
                     A Heartfelt Ode and a Tribute
+                  </div>
+                </div>
+                <FiArrowRight className="w-4 h-4 shrink-0 text-[#6E6B68] group-hover:text-[#C74634] group-hover:translate-x-0.5 transition-all" />
+              </a>
+              <a
+                href="/blogs/i-too-had-a-love-story"
+                className="group flex items-center justify-between gap-3 rounded-xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-[#FAF8F6] dark:bg-[#201E1C] px-4 py-3.5 hover:border-[#C74634]/50 transition-colors"
+              >
+                <div>
+                  <div className="text-sm font-semibold text-[#161513] dark:text-[#F5F4F2] group-hover:text-[#C74634] dark:group-hover:text-[#E8572A] transition-colors" style={CHARTER}>
+                    I too had a Love Story
+                  </div>
+                  <div className="text-xs text-[#6E6B68] dark:text-[#B8B4B0]">
+                    Sughosh &amp; Shreya
                   </div>
                 </div>
                 <FiArrowRight className="w-4 h-4 shrink-0 text-[#6E6B68] group-hover:text-[#C74634] group-hover:translate-x-0.5 transition-all" />
