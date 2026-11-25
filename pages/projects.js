@@ -1,3 +1,4 @@
+import { useState, useMemo } from "react";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import Head from "next/head";
@@ -11,9 +12,10 @@ const GITHUB_USERNAME = "SughoshDixit";
 const MAX_REPOS = 36;
 
 const LINKEDIN_ACHIEVEMENTS = [
-  "ML4AML Product Owner at Oracle",
-  "Hackathon Champion (multiple wins, including Top 15 at Rakathon)",
-  "Generative AI practitioner (LoRA + production workflow focus)",
+  "Senior Data Scientist - Product at Oracle (6+ yrs, ML4AML)",
+  "Smart India Hackathon External Jury Member & Industry Examiner (Atria Institute)",
+  "IRJET Published Author (OpenCV JPEG-to-STL 3D Rendering) & Top 15 @ Rakathon",
+  "OCI 2024 Generative AI Certified Professional & LoRA/Workflow Builder",
   "M.Tech in Data Science & Engineering, BITS Pilani",
 ];
 
@@ -207,7 +209,30 @@ export const getStaticProps = async () => {
 
 const CHARTER = { fontFamily: "Charter, Georgia, serif" };
 
+function matchesCategory(repo, category) {
+  if (category === "All") return true;
+  const hay = `${repo.name || ""} ${repo.summary || ""} ${repo.language || ""} ${(repo.topics || []).join(" ")}`.toLowerCase();
+  if (category === "Data Science") {
+    return /data|stat|pandas|numpy|sql|analytics|jupyter|notebook|trading|quant|sensex|diabetes/.test(hay) || repo.language === "Jupyter Notebook";
+  }
+  if (category === "AI/ML") {
+    return /ai|ml|machine|deep|neural|cnn|nlp|llm|genai|lora|face|ocr|vision|minimax|rbfs|dfs/.test(hay);
+  }
+  if (category === "Web Dev") {
+    return /react|next|web|html|css|javascript|typescript|flask|django|php|streamlit|app|portfolio|blog/.test(hay) || ["JavaScript", "TypeScript", "HTML", "CSS", "PHP"].includes(repo.language);
+  }
+  if (category === "Research") {
+    return /paper|irjet|stl|orthographic|cad|drafting|knowledge|graph|ner|covid|bits|research/.test(hay);
+  }
+  return true;
+}
+
 function Projects({ topics, repositories, portfolioSyncError, activityStats }) {
+  const [activeFilter, setActiveFilter] = useState("All");
+  const filteredRepositories = useMemo(
+    () => repositories.filter((repo) => matchesCategory(repo, activeFilter)),
+    [repositories, activeFilter]
+  );
   const totalStars = repositories.reduce((sum, repo) => sum + repo.stars, 0);
   const totalForks = repositories.reduce((sum, repo) => sum + repo.forks, 0);
   const topStarred = [...repositories]
@@ -428,14 +453,23 @@ function Projects({ topics, repositories, portfolioSyncError, activityStats }) {
 
           {/* Project Filtering */}
           <div className="flex flex-wrap justify-center gap-4 mb-16">
-            {['All', 'Data Science', 'AI/ML', 'Web Dev', 'Research'].map((filter) => (
-              <button
-                key={filter}
-                className="px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 border border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27] text-[#6E6B68] dark:text-[#B8B4B0] hover:border-[#C74634] hover:text-[#C74634]"
-              >
-                {filter}
-              </button>
-            ))}
+            {['All', 'Data Science', 'AI/ML', 'Web Dev', 'Research'].map((filter) => {
+              const isActive = activeFilter === filter;
+              return (
+                <button
+                  key={filter}
+                  type="button"
+                  onClick={() => setActiveFilter(filter)}
+                  className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
+                    isActive
+                      ? "border-[#C74634] bg-[#C74634] text-white shadow-md"
+                      : "border-[#E0DDD9] dark:border-[#3D3A36] bg-white dark:bg-[#2C2A27] text-[#6E6B68] dark:text-[#B8B4B0] hover:border-[#C74634] hover:text-[#C74634]"
+                  }`}
+                >
+                  {filter}
+                </button>
+              );
+            })}
           </div>
 
           {/* Featured Projects Section */}
@@ -451,10 +485,10 @@ function Projects({ topics, repositories, portfolioSyncError, activityStats }) {
               <div className="group relative rounded-[2rem] bg-white dark:bg-[#1C1B19] border border-[#E0DDD9] dark:border-[#3D3A36] p-8 overflow-hidden hover:shadow-2xl transition-all duration-500">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#C74634]/5 rounded-bl-[100px] group-hover:bg-[#C74634]/10 transition-colors" />
                 <div className="relative z-10">
-                  <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#C74634] bg-[#C74634]/10 rounded-full mb-4 inline-block">Enterprise AI</span>
+                  <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#C74634] bg-[#C74634]/10 rounded-full mb-4 inline-block">Enterprise AI · Senior DS</span>
                   <h3 className="text-3xl font-bold mb-4 dark:text-white" style={CHARTER}>ML4AML Engine</h3>
                   <p className="text-[#6E6B68] dark:text-[#B8B4B0] leading-relaxed mb-6">
-                    Leading the development of Oracle's Anti-Money Laundering engine. Implementing robust statistical models and scalable ML pipelines to detect complex financial crime patterns in real-time.
+                    Leading product ML development for Oracle&apos;s Anti-Money Laundering engine in Financial Crimes &amp; Compliance Management. Implementing robust statistical models and scalable ML pipelines to detect complex financial crime patterns.
                   </p>
                   <div className="flex flex-wrap gap-2 mb-8">
                     {['Python', 'PyTorch', 'Robust Stats', 'Oracle Cloud'].map(tag => (
@@ -462,12 +496,51 @@ function Projects({ topics, repositories, portfolioSyncError, activityStats }) {
                     ))}
                   </div>
                   <div className="flex gap-4">
-                    <button className="px-5 py-2.5 bg-[#161513] dark:bg-white text-white dark:text-[#161513] rounded-xl text-sm font-bold hover:scale-105 transition-transform">Read Case Study</button>
+                    <a href="/blogs/five-years-at-oracle-from-cloud-analyst-to-data-scientist" className="px-5 py-2.5 bg-[#161513] dark:bg-white text-white dark:text-[#161513] rounded-xl text-sm font-bold hover:scale-105 transition-transform">Read Oracle Journey</a>
                   </div>
                 </div>
               </div>
 
-              {/* Featured Card 2: SughoshKiShreya */}
+              {/* Featured Card 2: Anything App (Kuchh Bhii App) */}
+              <div className="group relative rounded-[2rem] bg-gradient-to-br from-[#FDFCFB] to-[#F5F2EE] dark:from-[#2C2A27] dark:to-[#161513] border border-[#E0DDD9] dark:border-[#3D3A36] p-8 overflow-hidden hover:shadow-2xl transition-all duration-500">
+                <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-[#C74634]/5 rounded-full blur-3xl group-hover:bg-[#C74634]/10 transition-all" />
+                <div className="relative z-10">
+                  <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#C74634] bg-[#C74634]/10 rounded-full mb-4 inline-block">Mobile &amp; Firebase MVP</span>
+                  <h3 className="text-3xl font-bold mb-4 dark:text-white" style={CHARTER}>Anything App (Kuchh Bhii)</h3>
+                  <p className="text-[#6E6B68] dark:text-[#B8B4B0] leading-relaxed mb-6">
+                    An Android self-discipline &amp; fitness app reversing the RL reward loop: tracks running/cycling/walking, syncs historical Google Fit &amp; Strava data via Firebase, includes guided calisthenics, and renders shareable workout recap cards.
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {['Android', 'Firebase', 'Google Fit', 'Strava Sync'].map(tag => (
+                      <span key={tag} className="text-[11px] px-2 py-1 bg-white/50 dark:bg-black/20 rounded text-[#8F846F]">{tag}</span>
+                    ))}
+                  </div>
+                  <div className="flex gap-4">
+                    <a href="https://github.com/SughoshDixit" target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 bg-[#C74634] text-white rounded-xl text-sm font-bold hover:scale-105 transition-transform">View on GitHub</a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Featured Card 3: #JustPostIt */}
+              <div className="group relative rounded-[2rem] bg-white dark:bg-[#1C1B19] border border-[#E0DDD9] dark:border-[#3D3A36] p-8 overflow-hidden hover:shadow-2xl transition-all duration-500">
+                <div className="relative z-10">
+                  <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#C74634] bg-[#C74634]/10 rounded-full mb-4 inline-block">Creator Utility</span>
+                  <h3 className="text-3xl font-bold mb-4 dark:text-white" style={CHARTER}>#JustPostIt</h3>
+                  <p className="text-[#6E6B68] dark:text-[#B8B4B0] leading-relaxed mb-6">
+                    A Python &amp; Streamlit utility app that turns raw screenshots into polished social media cards and auto-carousels with 4K upscaling, custom branding, and background presets.
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {['Python', 'Streamlit', 'Image Processing', '4K Upscaling'].map(tag => (
+                      <span key={tag} className="text-[11px] px-2 py-1 bg-[#F5F2ED] dark:bg-[#2C2A27] rounded text-[#8F846F]">{tag}</span>
+                    ))}
+                  </div>
+                  <div className="flex gap-4">
+                    <a href="https://github.com/SughoshDixit/just-post-it" target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 bg-[#161513] dark:bg-white text-white dark:text-[#161513] rounded-xl text-sm font-bold hover:scale-105 transition-transform">View Repository</a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Featured Card 4: SughoshKiShreya */}
               <div className="group relative rounded-[2rem] bg-gradient-to-br from-[#FDFCFB] to-[#F5F2EE] dark:from-[#2C2A27] dark:to-[#161513] border border-[#E0DDD9] dark:border-[#3D3A36] p-8 overflow-hidden hover:shadow-2xl transition-all duration-500">
                 <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-[#C74634]/5 rounded-full blur-3xl group-hover:bg-[#C74634]/10 transition-all" />
                 <div className="relative z-10">
@@ -482,7 +555,7 @@ function Projects({ topics, repositories, portfolioSyncError, activityStats }) {
                     ))}
                   </div>
                   <div className="flex gap-4">
-                    <a href="https://github.com/SughoshDixit/SughoshKiShreya" target="_blank" className="px-5 py-2.5 bg-[#C74634] text-white rounded-xl text-sm font-bold hover:scale-105 transition-transform">View Source</a>
+                    <a href="https://github.com/SughoshDixit/SughoshKiShreya" target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 bg-[#C74634] text-white rounded-xl text-sm font-bold hover:scale-105 transition-transform">View Source</a>
                   </div>
                 </div>
               </div>
@@ -495,12 +568,14 @@ function Projects({ topics, repositories, portfolioSyncError, activityStats }) {
               All Repositories
             </h2>
             <div className="h-px flex-1 bg-[#E0DDD9] dark:bg-[#3D3A36]" />
-            <span className="text-sm text-[#8F846F] dark:text-[#9F988D]">{repositories.length} Total</span>
+            <span className="text-sm text-[#8F846F] dark:text-[#9F988D]">
+              {activeFilter === "All" ? `${repositories.length} Total` : `${filteredRepositories.length} of ${repositories.length} Total`}
+            </span>
           </div>
 
           {/* Projects List */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {repositories.map((repo) => (
+            {filteredRepositories.map((repo) => (
               <article
                 key={repo.id}
                 className="group flex flex-col rounded-3xl bg-white dark:bg-[#2C2A27] border border-[#E0DDD9] dark:border-[#3D3A36] p-6 hover:border-[#C74634] transition-all duration-300 hover:shadow-xl"

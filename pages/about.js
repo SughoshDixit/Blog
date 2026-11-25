@@ -25,26 +25,26 @@ const achievements = [
   {
     icon: <FiCpu className="text-white text-xl" />,
     gradient: "from-[#C74634] to-[#E8572A]",
-    title: "ML4AML Product Owner",
-    desc: "Leading ML product development at Oracle",
+    title: "Senior Data Scientist - Product",
+    desc: "Leading ML4AML product development at Oracle (6+ years)",
   },
   {
     icon: <FiAward className="text-white text-xl" />,
     gradient: "from-[#C74634] to-[#E8572A]",
-    title: "Hackathon Champion",
-    desc: "Multiple wins including Top 15 @ Rakathon",
+    title: "SIH Jury & Industry Examiner",
+    desc: "External Jury for Smart India Hackathon & Examiner at Atria Institute",
   },
   {
     icon: <FaCode className="text-white text-xl" />,
     gradient: "from-[#C74634] to-[#E8572A]",
-    title: "Generative AI Expert",
-    desc: "Trained LoRA models, ComfyUI workflows",
+    title: "Generative AI & OCI Certified",
+    desc: "OCI 2024 GenAI Professional, LoRA models & ComfyUI workflows",
   },
   {
     icon: <FiBookOpen className="text-white text-xl" />,
     gradient: "from-[#C74634] to-[#E8572A]",
-    title: "BITS Pilani Masters",
-    desc: "M.Tech in Data Science & Engineering",
+    title: "BITS Pilani M.Tech & IRJET Author",
+    desc: "M.Tech in Data Science & Engineering; published in IRJET",
   },
 ];
 
@@ -69,17 +69,17 @@ function About({ topics }) {
         <title>About — Sughosh Dixit</title>
         <meta
           name="description"
-          content="Data Scientist at Oracle, BITS Pilani. Writing about data science, personal stories, Vedic studies, football, and life in India."
+          content="Senior Data Scientist - Product at Oracle, BITS Pilani M.Tech. Writing about data science, personal stories, Vedic studies, football, and life in India."
         />
         <link rel="canonical" href={`${SITE_URL}/about`} />
         <meta property="og:type" content="profile" />
         <meta property="og:url" content={`${SITE_URL}/about`} />
         <meta property="og:title" content="About — Sughosh Dixit" />
-        <meta property="og:description" content="Data Scientist at Oracle, BITS Pilani. Writing about data science, personal stories, Vedic studies, football, and life in India." />
+        <meta property="og:description" content="Senior Data Scientist - Product at Oracle, BITS Pilani M.Tech. Writing about data science, personal stories, Vedic studies, football, and life in India." />
         <meta property="og:image" content={siteOgImageUrl()} />
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:title" content="About — Sughosh Dixit" />
-        <meta property="twitter:description" content="Data Scientist at Oracle, BITS Pilani. Writing about data science, personal stories, Vedic studies, football, and life in India." />
+        <meta property="twitter:description" content="Senior Data Scientist - Product at Oracle, BITS Pilani M.Tech. Writing about data science, personal stories, Vedic studies, football, and life in India." />
         <meta property="twitter:image" content={siteOgImageUrl()} />
       </Head>
 
@@ -102,18 +102,18 @@ function About({ topics }) {
           </h1>
 
           <p className="text-xl sm:text-2xl text-[#B8E0D8] mb-4 font-light">
-            Data Scientist &middot; Writer &middot; Liverpool Fan
+            Senior Data Scientist &middot; Writer &middot; Liverpool Fan
           </p>
 
           <p className="text-lg text-[#B8E0D8]/80 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Building intelligent systems at Oracle by day; writing long-form essays by night —
+            Building intelligent systems at Oracle (6+ years) by day; writing long-form essays by night —
             rigorous data science, personal stories, Vedic studies, cinema, and the beautiful game.
           </p>
 
           <div className="flex flex-wrap justify-center gap-6 mb-10">
             {[
               { label: "30+ DS Articles", color: "text-[#F5E4D3]" },
-              { label: "Oracle", color: "text-[#F5E4D3]" },
+              { label: "6+ Yrs @ Oracle", color: "text-[#F5E4D3]" },
               { label: "BITS Pilani", color: "text-[#F5E4D3]" },
             ].map(({ label, color }) => (
               <span key={label} className="px-5 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm text-sm">
@@ -312,11 +312,13 @@ function About({ topics }) {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { co: "Oracle", role: "Data Scientist", desc: "Leading ML4AML product development, building scalable data science solutions for enterprise anti-money laundering systems.", current: true, color: "from-[#C74634] to-[#E8572A]", letter: "O", letterBg: "bg-red-100 dark:bg-red-900/30", letterColor: "text-red-600" },
-              { co: "Oracle", role: "Cloud Consultant", desc: "Provided cloud architecture guidance and implemented Oracle Cloud solutions for enterprise clients.", current: false, color: "from-[#C74634] to-[#E8572A]", letter: "O", letterBg: "bg-red-100 dark:bg-red-900/30", letterColor: "text-red-600" },
-              { co: "Siemens", role: "Full Stack Developer", desc: "Built end-to-end web applications and digital solutions for industrial automation clients.", current: false, color: "from-teal-400 to-cyan-500", letter: "S", letterBg: "bg-teal-100 dark:bg-teal-900/30", letterColor: "text-teal-600" },
+              { co: "Oracle · Oct 2026 – Present", role: "Senior Data Scientist", desc: "Leading ML4AML product development at Oracle Financial Crime & Compliance Management, scaling AI/ML solutions for financial crime detection.", current: true, color: "from-[#C74634] to-[#E8572A]", letter: "O", letterBg: "bg-red-100 dark:bg-red-900/30", letterColor: "text-red-600" },
+              { co: "Oracle · Sep 2024 – Oct 2026", role: "Data Scientist", desc: "Transitioned into Financial Crimes & Compliance Management (FCCM), building predictive ML models for Anti-Money Laundering and fraud detection.", current: false, color: "from-[#C74634] to-[#E8572A]", letter: "O", letterBg: "bg-red-100 dark:bg-red-900/30", letterColor: "text-red-600" },
+              { co: "Oracle · Sep 2020 – Sep 2024", role: "Cloud Consultant", desc: "Built ETL/BI reports, SQL/PLSQL pipelines, Oracle APEX apps, and Oracle Digital Assistant chatbots across Automotive, Retail, and Luxury Hotel clients.", current: false, color: "from-[#C74634] to-[#E8572A]", letter: "O", letterBg: "bg-red-100 dark:bg-red-900/30", letterColor: "text-red-600" },
+              { co: "Siemens · Feb 2020 – May 2020", role: "Full Stack Developer Intern", desc: "Built 'Project Chanakya' demand-planning lead generation platform and OCR billing automation using Flask, SQLAlchemy, and MSSQL.", current: false, color: "from-teal-400 to-cyan-500", letter: "S", letterBg: "bg-teal-100 dark:bg-teal-900/30", letterColor: "text-teal-600" },
+              { co: "Printalytix · 2018 & 2020", role: "Web & Software Developer Intern", desc: "Contributed to web development, BPMN process modeling, and 3D-printed prototypes for a NITI Aayog innovation competition.", current: false, color: "from-amber-400 to-orange-500", letter: "P", letterBg: "bg-amber-100 dark:bg-amber-900/30", letterColor: "text-amber-600" },
             ].map(({ co, role, desc, current, color, letter, letterBg, letterColor }) => (
               <div key={`${co}-${role}`} className="relative">
                 <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${color} rounded-t-xl`} />

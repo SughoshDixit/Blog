@@ -30,7 +30,7 @@ function AuthorBio({ data, allBlogs }) {
           />
           <div>
             <div className="text-base font-semibold text-gray-900 dark:text-white">{data.Author}</div>
-            <div className="text-sm text-gray-500 dark:text-gray-400">Data Scientist & Tech Writer</div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">Senior Data Scientist & Tech Writer</div>
           </div>
         </div>
         <button 

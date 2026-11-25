@@ -24,7 +24,7 @@ const GOAL_TRACKS = [
     outcome: "You gain historical context with argument-driven reading instead of noisy takes.",
     picks: [
       { title: "Gratitude for Being Born in the Ancient Civilization of Bharatavarsha", why: "Begin from a cultural lens and civilizational self-understanding." },
-      { title: "Dr. Vinayak Damodar Savarkar: The Underrated Colossus of Bharat's Freedom Struggle", why: "Study a key historical figure with depth and perspective." },
+      { title: "Dr. Vinayak Damodar Savarkar — The Underrated Colossus of Bharat's Freedom Struggle", why: "Study a key historical figure with depth and perspective." },
       { title: "Reflections from the Akhila Bharateeya Pratinidhi Sabha 2025", why: "Synthesis of national themes, events, and broader societal vision." },
     ],
     cta: { label: "Browse Civilization topic", href: "/topic/Civilization" },

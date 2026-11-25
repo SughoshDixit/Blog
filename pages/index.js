@@ -316,7 +316,7 @@ export default function Home({ blogs, topics }) {
               name: "Sughosh Dixit",
               url: SITE_URL,
               image: `${SITE_URL}/og/social-share.jpg`,
-              jobTitle: "Data Scientist",
+              jobTitle: "Senior Data Scientist",
               worksFor: {
                 "@type": "Organization",
                 name: "Oracle",
@@ -326,7 +326,7 @@ export default function Home({ blogs, topics }) {
                 name: "BITS Pilani",
               },
               description:
-                "Data Scientist at Oracle, M.Tech from BITS Pilani. Long-form writer on data science, AI, football, Vedic studies, and life in India.",
+                "Senior Data Scientist - Product at Oracle, M.Tech from BITS Pilani. Long-form writer on data science, AI, football, Vedic studies, and life in India.",
               sameAs: [
                 "https://www.youtube.com/@sughoshdixit",
                 "https://github.com/SughoshDixit",
@@ -381,7 +381,7 @@ export default function Home({ blogs, topics }) {
                     Hey, <span className="text-[#F5E4D3]">Sughosh</span> here..
                   </h1>
                   <p className="text-lg md:text-xl text-[#B8E0D8] max-w-xl leading-relaxed mb-10 text-center md:text-left">
-                    Data scientist at Oracle. Small minds discuss people; strong minds discuss ideas.
+                    Senior Data Scientist at Oracle. Small minds discuss people; strong minds discuss ideas.
                   </p>
                   <div className="flex flex-wrap justify-center md:justify-start gap-4">
                     <a

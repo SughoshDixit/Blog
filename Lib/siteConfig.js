@@ -10,10 +10,10 @@ export const SITE_URL =
 export const SITE_NAME = "Sughosh Dixit";
 
 export const SITE_TITLE_HOME =
-  "Sughosh Dixit — Data Scientist & Writer";
+  "Sughosh Dixit — Senior Data Scientist & Writer";
 
 export const SITE_DESCRIPTION =
-  "Sughosh Dixit — Data Scientist at Oracle, BITS Pilani M.Tech, footballer, and writer. Explore data science deep dives, football analysis, AI art, and long-form essays on life in India.";
+  "Sughosh Dixit — Senior Data Scientist (Product) at Oracle, BITS Pilani M.Tech, footballer, and writer. Explore data science deep dives, football analysis, AI art, and long-form essays on life in India.";
 
 /** Served from /public/og — swap the file to change social previews (LinkedIn caches; use Post Inspector after deploy). */
 export const SITE_OG_IMAGE_PATH = "/og/social-share.jpg";

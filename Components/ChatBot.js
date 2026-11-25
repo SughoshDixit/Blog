@@ -17,7 +17,7 @@ const RESPONSES = {
     actions: QUICK_ACTIONS.slice(0, 4),
   },
   about: {
-    text: "Sughosh Dixit is a Data Scientist at Oracle (Financial Crime & Compliance), BITS Pilani alum, footballer, singer, and writer. He writes about data science, personal stories, Vedic studies, football, and life in India.",
+    text: "Sughosh Dixit is a Senior Data Scientist (Product) at Oracle (Financial Crime & Compliance), BITS Pilani alum, footballer, singer, and writer. He writes about data science, personal stories, Vedic studies, football, and life in India.",
     actions: [
       { label: "Read full bio", intent: "link", url: "/about" },
       { label: "Start Here guide", intent: "link", url: "/start-here" },
