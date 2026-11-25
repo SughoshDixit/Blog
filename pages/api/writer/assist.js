@@ -69,24 +69,35 @@ async function callGeminiIfConfigured(prompt) {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) return null;
 
-  const resp = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${encodeURIComponent(apiKey)}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { temperature: 0.6, maxOutputTokens: 900 },
-      }),
-    }
-  );
+  const models = ["gemini-2.5-flash", "gemini-flash-latest"];
+  let lastError = null;
 
-  if (!resp.ok) {
-    throw new Error(`Gemini API error ${resp.status}`);
+  for (const model of models) {
+    const resp = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { temperature: 0.6, maxOutputTokens: 1200 },
+        }),
+      }
+    );
+
+    if (resp.ok) {
+      const json = await resp.json();
+      return json?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+    }
+
+    const errText = await resp.text().catch(() => "");
+    lastError = new Error(`Gemini API error ${resp.status}${errText ? `: ${errText.slice(0, 120)}` : ""}`);
+    if (resp.status !== 404) {
+      throw lastError;
+    }
   }
 
-  const json = await resp.json();
-  return json?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+  throw lastError || new Error("Gemini API error");
 }
 
 export default async function handler(req, res) {
