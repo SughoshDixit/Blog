@@ -1,7 +1,7 @@
 import Head from "next/head";
+import Link from "next/link";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
-import BlogWriter from "../Components/BlogWriter";
 import { getAllBlogPosts, getProminentTopics } from "../Lib/Data";
 import { generateSlug } from "../Lib/utils";
 import { useState, useEffect, useRef, useMemo } from "react";
@@ -996,8 +996,32 @@ export default function Dashboard({ blogs, topics }) {
             </div>
           </div>
 
-          {/* Admin-only Blog Writer Studio */}
-          {isAdmin && <BlogWriter />}
+          {/* Admin-only Blog Writer Studio Launcher */}
+          {isAdmin && (
+            <div className="bg-white dark:bg-[#2C2A27] rounded-2xl shadow-sm p-6 border border-[#E0DDD9] dark:border-[#3D3A36] mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2.5">
+                  <h3
+                    className="text-lg font-semibold text-[#161513] dark:text-[#F5F4F2]"
+                    style={{ fontFamily: "Charter, Georgia, serif" }}
+                  >
+                    Blog Writer Studio
+                  </h3>
+                  <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-[#C74634]/10 text-[#C74634] dark:text-[#E8572A]">
+                    Admin Only
+                  </span>
+                </div>
+                <p className="text-sm text-[#6E6B68] dark:text-[#B8B4B0] mt-1">
+                  Open the dedicated distraction-free editor with live blog preview, image attachments, and grammar/AI writing coach.
+                </p>
+              </div>
+              <Link href="/dashboard/writer">
+                <a className="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-[#C74634] hover:bg-[#A73A2C] text-white text-sm font-semibold transition-colors shrink-0">
+                  Open Writer Studio →
+                </a>
+              </Link>
+            </div>
+          )}
 
           {/* Users Table - Admin only */}
           {isAdmin && (
