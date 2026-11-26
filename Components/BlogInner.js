@@ -14,7 +14,6 @@ import ReadingTimeRemaining from "./ReadingTimeRemaining";
 import Tldr from "./Tldr";
 import HypergeomCalculator from "./HypergeomCalculator";
 import PercentileThresholdTuner from "./PercentileThresholdTuner";
-import PrintSummary from "./PrintSummary";
 import { FiBookmark, FiShare2, FiArrowRight } from "react-icons/fi";
 import { generateSlug, sortByDateDesc } from "../Lib/utils";
 import { isProminentShelf, isUnlisted } from "../Lib/postVisibility";
@@ -663,36 +662,6 @@ function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
 
       {/* TL;DR */}
       <Tldr title={data.Title} abstract={data.Abstract} headings={headings} />
-      {/* PDF Summary Download */}
-      <PrintSummary title={data.Title} abstract={data.Abstract} headings={headings} headerImage={data.HeaderImage} articleRef={articleRef} />
-
-      {/* Code controls */}
-      <div className="flex items-center gap-2 mb-6">
-        <button
-          type="button"
-          onClick={() => {
-            try {
-              const nodes = document.querySelectorAll('details[data-code="true"]');
-              nodes.forEach((n) => { n.open = true; });
-            } catch {}
-          }}
-          className="px-3 py-1.5 rounded-md text-xs bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700"
-        >
-          Expand all code
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            try {
-              const nodes = document.querySelectorAll('details[data-code="true"]');
-              nodes.forEach((n) => { n.open = false; });
-            } catch {}
-          }}
-          className="px-3 py-1.5 rounded-md text-xs bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700"
-        >
-          Collapse all code
-        </button>
-      </div>
 
       {/* Mobile TOC — visible on small screens only */}
       {headings && headings.length > 0 && (
