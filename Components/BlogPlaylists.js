@@ -6,7 +6,7 @@ import {
   PLAYLIST_EXCLUDED_TOPICS,
   playlistMetaFor,
 } from "../Lib/homeCuration";
-import { isUnlisted } from "../Lib/postVisibility";
+import { isProminentShelf } from "../Lib/postVisibility";
 
 const byDateDesc = sortByDateDesc;
 
@@ -29,7 +29,7 @@ function BlogPlaylists({ blogs = [], featuredSlugs = FEATURED_FEED_SLUGS }) {
   const playlists = useMemo(() => {
     const candidates = (blogs || []).filter((blog) => {
       if (!blog?.data?.isPublished) return false;
-      if (isUnlisted(blog)) return false;
+      if (!isProminentShelf(blog)) return false;
       const topic = blog?.data?.Topic || "";
       if (PLAYLIST_EXCLUDED_TOPICS.includes(topic)) return false;
       const slug = generateSlug(blog?.data?.Title || "");

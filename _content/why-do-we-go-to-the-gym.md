@@ -6,7 +6,7 @@ Date: "2026-11-25"
 Tags: Fitness Calisthenics Discipline KuchhBhii Lifestyle Stamina Bodyweight
 Topic: Lifestyle
 Abstract: "Do people go to the gym for lifelong fitness, or just because they paid for it? From an Army-family mindset and Yellow Dude calisthenics to building Kuchh Bhii—my mobile app for daily discipline, strength, and stamina."
-HeaderImage: /gym-vs-discipline/header.png
+HeaderImage: "/header images/gym.png"
 isPublished: true
 prominentShelf: true
 unlisted: false

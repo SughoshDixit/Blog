@@ -102,7 +102,7 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
   const ogImage = data.HeaderImage
     ? data.HeaderImage.startsWith("http")
       ? data.HeaderImage
-      : `${SITE_URL}${data.HeaderImage}`
+      : encodeURI(`${SITE_URL}${data.HeaderImage}`)
     : `${SITE_URL}/api/og?title=${encodeURIComponent(data.Title)}&topic=${encodeURIComponent(data.Topic || "Blog")}`;
 
   // Unlisted posts are reachable only by their direct URL. Keep them out of

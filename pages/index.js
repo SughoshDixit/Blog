@@ -140,12 +140,12 @@ export default function Home({ blogs, topics }) {
   // into playlists via <BlogPlaylists />.
   const featuredFeedPosts = useMemo(() => {
     const bySlug = new Map(
-      publishedBlogs.map((b) => [generateSlug(b?.data?.Title || ""), b])
+      shelfBlogs.map((b) => [generateSlug(b?.data?.Title || ""), b])
     );
     return FEATURED_FEED_TITLES.map((title) => bySlug.get(generateSlug(title))).filter(
       Boolean
     );
-  }, [publishedBlogs]);
+  }, [shelfBlogs]);
 
   // Trending = the curated picks, ordered by engagement (likes/comments).
   const trendingPosts = useMemo(() => {
@@ -211,12 +211,12 @@ export default function Home({ blogs, topics }) {
 
 
   const getRecentByTopic = (topicName, limit = 2) =>
-    [...publishedBlogs]
+    [...shelfBlogs]
       .filter((post) => (post?.data?.Topic || "").toLowerCase() === topicName.toLowerCase())
       .slice(0, limit);
 
   const getRecentByKeywords = (keywords, limit = 2) =>
-    [...publishedBlogs]
+    [...shelfBlogs]
       .filter((post) => {
         const topic = (post?.data?.Topic || "").toLowerCase();
         const title = (post?.data?.Title || "").toLowerCase();
@@ -278,7 +278,7 @@ export default function Home({ blogs, topics }) {
         picks: track.picks.filter(Boolean),
       }))
       .filter((track) => track.picks.length > 0);
-  }, [publishedBlogs]);
+  }, [shelfBlogs]);
 
   return (
     <>
@@ -786,7 +786,7 @@ export default function Home({ blogs, topics }) {
                     Long-form writing across civilization, football, AI, and personal reflections.
                   </p>
                 </div>
-                <BlogPlaylists blogs={publishedBlogs} featuredSlugs={FEATURED_FEED_SLUGS} />
+                <BlogPlaylists blogs={shelfBlogs} featuredSlugs={FEATURED_FEED_SLUGS} />
                 <DataScienceYouTubeShelf />
                 <FootballShelf />
                 <TechPodcastsShelf />
