@@ -16,24 +16,24 @@ unlisted: false
 
 Why do people really go to the gym? Is it to build lifelong fitness—or is it for short-term toning, aesthetics, and the guilt of a paid receipt?
 
-My actual argument here is two part:
-1. Most people I know simply go to this closed suffocated room called gym just because they have paid money for it? That is not actual self-discipline, not actual routine which shall remain consistent. 
-2. Even if they go, the question is will it provide real strength. Stamina in the longer run, or is it just a spike where you get it to impress your crush which can easily be short-lived and you end up gaining a lot of weight when you do not continue.
+My actual argument here has two parts:
+1. Most people I know simply go to this closed, suffocating room called a gym just because they have paid money for it. That is not actual self-discipline, nor an actual routine that will remain consistent. 
+2. Even if they go, the question is: will it provide real strength and stamina in the long run, or is it just a spike where you get it to impress your crush, which can easily be short-lived and cause you to end up gaining a lot of weight when you do not continue?
 
-I have been working out myself consistently myself and now it's part of my life, where I feel I can't live without. After years of trial, error, and showing up on low-energy days, I've finally built a visible four-pack (finally uff).
+I have been working out consistently myself, and now it's part of my life—something I feel I can't live without. After years of trial, error, and showing up on low-energy days, I've finally built a visible four-pack (finally uff).
 
-I originate from an Army family and have inherited a "Discipline or Nothing" mindset. I often discourage people to go to gym and lift unknown weights, where they basically can't even be flexible enough to run on their own body weight for long or can bend in ways a normal person could bend (buffy guy!). This has been mindset and I wanted to change and bring a change in at least some people's lives. Do I know people who are already doing it and smashing it in their own lives. Yes! Obviously!! But how can we make it easier for normal/ordinary people like us have or build self discipline, consistency, army mindset? That had and has been the problem that I'm trying to solve for.
+I originate from an Army family and have inherited a "Discipline or Nothing" mindset. I often discourage people from going to the gym and lifting unknown weights, where they basically can't even be flexible enough to run with their own body weight for long or bend in ways a normal person can bend (bulky guy!). This has been my mindset, and I wanted to bring a change in at least some people's lives. Do I know people who are already doing it and smashing it in their own lives? Yes! Obviously!! But how can we make it easier for normal/ordinary people like us to build self-discipline, consistency, and an Army mindset? That has been the problem I'm trying to solve.
 
-Now I think I'm getting closer to solving it, and it would be through a mobile app, which shall push me every single day to wake up and just show up and be consistent in my endeavors to become fitter, stronger and a higher stamina guy with obviously strong body but actually stronger from the inside.
+Now I think I'm getting closer to solving it, and it would be through a mobile app that will push me every single day to wake up, just show up, and be consistent in my endeavors to become fitter, stronger, and a higher-stamina guy—with an obviously strong body, yet actually stronger from the inside.
 
 1. Can I push my limits every day?
-2. Is my body controlling me or I am controlling my body?
+2. Is my body controlling me, or am I controlling my body?
 
-These are some really simple questions that I want to solve for and make my body work for v/s I working for my body's happiness or laziness! 
+These are some really simple questions that I want to solve and make my body work for me vs. me working for my body's happiness or laziness! 
 
-So in this endeavor what was blocking was my knowledge or know-how about fitness. While I oppose gym and basically workouts involving extreme weights, I was specifically inspired by this Youtuber called the Yellow Dude - who has been nothing but an inspiration to put in fuel to my already unstoppable energy and motivation to level up every single day and also gave multiple hacks to be fitter than yesterday. Finally I was fed up of weighting (literally LOL) wanted to take things in my own hand, as I was not progressing at all.
+So in this endeavor, what was blocking me was my knowledge or know-how about fitness. While I oppose the gym and workouts involving extreme weights, I was specifically inspired by this YouTuber called Yellow Dude—who has been nothing but an inspiration to add fuel to my already unstoppable energy and motivation to level up every single day, and also gave multiple hacks to be fitter than yesterday. Finally, I was fed up with weighting (literally LOL) and wanted to take things into my own hands, as I was not progressing at all.
 
-Sunil Chhetri says "Ek din mein 10 baje sone mein utna farak nhi padega, lekin ek saal 10 baje sone mein app yahaan se yahaan honge" (Barney Stinson comes to mind).
+Sunil Chhetri says, "Ek din mein 10 baje sone mein utna farak nahi padega, lekin ek saal 10 baje sone mein aap yahaan se yahaan honge" (Barney Stinson comes to mind).
 
 ![Barney Stinson](/Barney.gif)
 
