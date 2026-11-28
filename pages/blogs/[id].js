@@ -16,7 +16,6 @@ import { getHeadings } from "../../Lib/GetHeadings";
 import ReadingProgress from "../../Components/ReadingProgress";
 import ReadingProgressSync from "../../Components/ReadingProgressSync";
 import RelatedPosts from "../../Components/RelatedPosts";
-import BackToTop from "../../Components/BackToTop";
 import BookmarkBtn from "../../Components/BookmarkBtn";
 import ReadingHistory from "../../Components/ReadingHistory";
 import PrintButton from "../../Components/PrintButton";
@@ -217,7 +216,6 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
         <ReadingProgress />
         <ReadingProgressSync slug={id} />
         <Navbar topics={topics} />
-        <BackToTop />
         <div className="pt-20">
           {/* best-effort visit counter per post */}
           <Script id="visit-counter" strategy="afterInteractive">

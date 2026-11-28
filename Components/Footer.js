@@ -54,6 +54,7 @@ function Footer() {
             <ul className="space-y-3 text-sm">
               {[
                 { href: "/start-here", label: "Start Here" },
+                { href: "/bookshelf", label: "Bookshelf" },
                 { href: "/about", label: "About" },
                 { href: "/savarkar-documentary", label: "Savarkar Documentary" },
                 { href: "/archive", label: "Archive" },

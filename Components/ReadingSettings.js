@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { FaFont, FaEye, FaKeyboard } from 'react-icons/fa';
 import { HiAdjustments } from 'react-icons/hi';
 
-function ReadingSettings({ articleRef }) {
+function ReadingSettings({ articleRef, docked = false, externalOpen = false, onExternalClose }) {
   const [isOpen, setIsOpen] = useState(false);
   const [fontSize, setFontSize] = useState(24);
   const [lineHeight, setLineHeight] = useState(1.78);
@@ -65,25 +65,34 @@ function ReadingSettings({ articleRef }) {
 
   if (!isMounted) return null;
 
+  const panelOpen = docked ? externalOpen : isOpen;
+  const closePanel = () => {
+    if (docked) {
+      onExternalClose && onExternalClose();
+    } else {
+      setIsOpen(false);
+    }
+  };
+
+  if (docked && !panelOpen) return null;
+
   return (
     <>
-      {/* Floating Settings Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 bg-gray-700 hover:bg-gray-800 dark:bg-gray-600 dark:hover:bg-gray-700 text-white rounded-full p-3 sm:p-4 shadow-lg transition-all duration-200 hover:scale-110 active:scale-95"
-        title="Reading Settings"
-        aria-label="Open Reading Settings"
-      >
-        <HiAdjustments className="text-lg sm:text-xl" />
-      </button>
+      {!docked && (
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 bg-gray-700 hover:bg-gray-800 dark:bg-gray-600 dark:hover:bg-gray-700 text-white rounded-full p-3 sm:p-4 shadow-lg transition-all duration-200 hover:scale-110 active:scale-95"
+          title="Reading Settings"
+          aria-label="Open Reading Settings"
+        >
+          <HiAdjustments className="text-lg sm:text-xl" />
+        </button>
+      )}
 
       {/* Settings Panel */}
-      {isOpen && (
+      {panelOpen && (
         <div 
-          className="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 z-40 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 p-4 w-[280px] sm:w-[320px]"
-          style={{ 
-            bottom: 'calc(4rem + 60px)', // Position above buttons
-          }}
+          className={`fixed ${docked ? "bottom-16 left-4 sm:bottom-20 sm:left-6" : "bottom-20 right-4 sm:bottom-24 sm:right-6"} z-40 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-4 w-[280px] sm:w-[320px]`}
         >
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-sm flex items-center gap-2">
@@ -91,7 +100,7 @@ function ReadingSettings({ articleRef }) {
               Reading Settings
             </h3>
             <button
-              onClick={() => setIsOpen(false)}
+              onClick={closePanel}
               className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
               aria-label="Close"
             >

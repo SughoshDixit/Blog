@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { FaPlay, FaPause, FaStop, FaVolumeUp, FaTimes } from 'react-icons/fa';
 
-function ReadAloud({ articleRef }) {
+function ReadAloud({ articleRef, docked = false, externalOpen = false, onExternalClose }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -389,8 +389,22 @@ function ReadAloud({ articleRef }) {
     return null; // Don't show button if not supported
   }
 
-  // Floating button when collapsed
-  if (!isExpanded) {
+  const panelOpen = docked ? externalOpen : isExpanded;
+  const closePanel = () => {
+    if (docked) {
+      onExternalClose && onExternalClose();
+    } else {
+      setIsExpanded(false);
+    }
+    stopReading();
+  };
+
+  if (docked && !panelOpen) {
+    return null;
+  }
+
+  // Floating button when collapsed (standalone mode only)
+  if (!docked && !isExpanded) {
     return (
       <button
         onClick={() => setIsExpanded(true)}
@@ -404,7 +418,7 @@ function ReadAloud({ articleRef }) {
   }
 
   return (
-    <div className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-40 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 p-3 sm:p-4 max-w-sm w-[calc(100vw-2rem)] sm:w-[360px]">
+    <div className={`fixed ${docked ? "bottom-16 left-4 sm:bottom-20 sm:left-6" : "bottom-4 left-4 sm:bottom-6 sm:left-6"} z-40 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-3 sm:p-4 max-w-sm w-[calc(100vw-2rem)] sm:w-[360px]`}>
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <FaVolumeUp className="text-blue-600 dark:text-blue-400" />
@@ -413,10 +427,7 @@ function ReadAloud({ articleRef }) {
           </h3>
         </div>
         <button
-          onClick={() => {
-            setIsExpanded(false);
-            stopReading();
-          }}
+          onClick={closePanel}
           className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
           title="Close"
           aria-label="Close Read Aloud"

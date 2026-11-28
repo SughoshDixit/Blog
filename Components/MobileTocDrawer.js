@@ -1,27 +1,38 @@
 import { useState } from "react";
 import { FiList, FiX } from "react-icons/fi";
 
-export default function MobileTocDrawer({ headings = [] }) {
+export default function MobileTocDrawer({ headings = [], docked = false, externalOpen = false, onExternalClose }) {
   const [open, setOpen] = useState(false);
 
   if (!headings || headings.length === 0) return null;
 
+  const isOpen = docked ? externalOpen : open;
+  const closeDrawer = () => {
+    if (docked) {
+      onExternalClose && onExternalClose();
+    } else {
+      setOpen(false);
+    }
+  };
+
   return (
     <div className="lg:hidden">
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="fixed bottom-20 left-4 z-40 inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-full bg-white/95 dark:bg-[#2C2A27]/95 border border-[#E0DDD9] dark:border-[#3D3A36] text-xs font-semibold text-[#161513] dark:text-[#F5F4F2] shadow-lg backdrop-blur-md hover:border-[#C74634] transition-all cursor-pointer"
-        aria-label="Open table of contents"
-      >
-        <FiList className="w-3.5 h-3.5 text-[#C74634] dark:text-[#E8572A]" />
-        <span>Contents</span>
-      </button>
+      {!docked && (
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="fixed bottom-20 left-4 z-40 inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-full bg-white/95 dark:bg-[#2C2A27]/95 border border-[#E0DDD9] dark:border-[#3D3A36] text-xs font-semibold text-[#161513] dark:text-[#F5F4F2] shadow-lg backdrop-blur-md hover:border-[#C74634] transition-all cursor-pointer"
+          aria-label="Open table of contents"
+        >
+          <FiList className="w-3.5 h-3.5 text-[#C74634] dark:text-[#E8572A]" />
+          <span>Contents</span>
+        </button>
+      )}
 
-      {open && (
+      {isOpen && (
         <div
           className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-end justify-center"
-          onClick={() => setOpen(false)}
+          onClick={closeDrawer}
         >
           <div
             className="w-full max-w-lg rounded-t-3xl bg-white dark:bg-[#2C2A27] border-t border-[#E0DDD9] dark:border-[#3D3A36] p-6 max-h-[70vh] overflow-y-auto shadow-2xl"
@@ -36,7 +47,7 @@ export default function MobileTocDrawer({ headings = [] }) {
               </h3>
               <button
                 type="button"
-                onClick={() => setOpen(false)}
+                onClick={closeDrawer}
                 className="p-1.5 rounded-full text-[#6E6B68] hover:text-[#161513] dark:text-[#B8B4B0] dark:hover:text-[#F5F4F2] cursor-pointer"
                 aria-label="Close table of contents"
               >
@@ -52,7 +63,7 @@ export default function MobileTocDrawer({ headings = [] }) {
                   >
                     <a
                       href={`#${h.id}`}
-                      onClick={() => setOpen(false)}
+                      onClick={closeDrawer}
                       className="block py-1 text-sm text-[#5e5645] dark:text-[#B8B4B0] hover:text-[#C74634] dark:hover:text-[#E8572A] transition-colors"
                     >
                       {h.text}

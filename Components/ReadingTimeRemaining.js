@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
-import { FaClock } from 'react-icons/fa';
+import { useState, useEffect } from "react";
+import { FaClock } from "react-icons/fa";
 
 function ReadingTimeRemaining({ readTime, articleRef }) {
   const [timeRemaining, setTimeRemaining] = useState(null);
+  const [finishBy, setFinishBy] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     if (!readTime || !articleRef?.current) return;
 
-    // Extract minutes from readTime string (e.g., "5 min read" -> 5)
     const minutesMatch = readTime.match(/(\d+)\s*min/);
     if (!minutesMatch) return;
 
@@ -24,41 +24,40 @@ function ReadingTimeRemaining({ readTime, articleRef }) {
       const windowHeight = window.innerHeight;
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-      // Calculate how much of the article has been read
       const scrollPosition = scrollTop + windowHeight;
-      const articleBottom = articleTop + articleHeight;
-      
-      // How much has been read (0 to 1)
       const readProgress = Math.max(0, Math.min(1, (scrollPosition - articleTop) / articleHeight));
-      
-      // Calculate remaining time
+
       const remainingMinutes = Math.max(0, totalMinutes * (1 - readProgress));
       const remainingSeconds = Math.floor((remainingMinutes % 1) * 60);
       const remainingWholeMinutes = Math.floor(remainingMinutes);
 
       if (remainingWholeMinutes > 0 || remainingSeconds > 30) {
-        let timeText = '';
+        let timeText = "";
         if (remainingWholeMinutes > 0) {
           timeText = `${remainingWholeMinutes} min`;
           if (remainingSeconds > 0) {
-            timeText += ` ${remainingSeconds} sec`;
+            timeText += ` ${remainingSeconds}s`;
           }
         } else {
-          timeText = `${remainingSeconds} sec`;
+          timeText = `${remainingSeconds}s`;
         }
+
+        const eta = new Date(Date.now() + remainingMinutes * 60 * 1000);
+        const etaStr = eta.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+
         setTimeRemaining(timeText);
-        setIsVisible(true);
+        setFinishBy(etaStr);
+        setIsVisible(scrollTop > 180);
       } else {
         setIsVisible(false);
       }
     };
 
-    // Update on scroll
-    window.addEventListener('scroll', updateTimeRemaining);
-    updateTimeRemaining(); // Initial calculation
+    window.addEventListener("scroll", updateTimeRemaining, { passive: true });
+    updateTimeRemaining();
 
     return () => {
-      window.removeEventListener('scroll', updateTimeRemaining);
+      window.removeEventListener("scroll", updateTimeRemaining);
     };
   }, [readTime, articleRef]);
 
@@ -67,14 +66,17 @@ function ReadingTimeRemaining({ readTime, articleRef }) {
   }
 
   return (
-    <div className="fixed top-20 right-4 sm:right-6 z-30 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 px-3 py-2 flex items-center gap-2">
-      <FaClock className="text-blue-600 dark:text-blue-400 text-sm" />
-      <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">
-        {timeRemaining} left
-      </span>
+    <div className="fixed top-20 right-4 sm:right-6 z-30 bg-white/95 dark:bg-[#2C2A27]/95 backdrop-blur-md rounded-full shadow-lg border border-[#E0DDD9] dark:border-[#3D3A36] px-3.5 py-1.5 flex items-center gap-2 text-xs text-[#5e5645] dark:text-[#B8B4B0] font-medium">
+      <FaClock className="text-[#C74634] dark:text-[#E8572A] text-xs" />
+      <span>{timeRemaining} left</span>
+      {finishBy && (
+        <>
+          <span className="opacity-40">·</span>
+          <span className="hidden sm:inline">Finish by {finishBy}</span>
+        </>
+      )}
     </div>
   );
 }
 
 export default ReadingTimeRemaining;
-

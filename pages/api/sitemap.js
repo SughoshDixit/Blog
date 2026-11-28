@@ -32,6 +32,7 @@ export default function handler(req, res) {
     { loc: "/learning-path", priority: "0.8" },
     { loc: "/garden", priority: "0.7" },
     { loc: "/ai-gallery", priority: "0.7" },
+    { loc: "/bookshelf", priority: "0.7" },
     { loc: "/savarkar-documentary", priority: "0.7" },
     { loc: "/key", priority: "0.5" },
     { loc: "/archive", priority: "0.5" },

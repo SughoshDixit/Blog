@@ -6,15 +6,12 @@ import Link from "next/link";
 import CopyCodeButton from "./CopyCodeButton";
 import ShareSection from "./ShareSection";
 import AuthorBio from "./AuthorBio";
-import ReadAloud from "./ReadAloud";
-import ReadingSettings from "./ReadingSettings";
-import ScrollToTop from "./ScrollToTop";
 import KeyboardShortcuts from "./KeyboardShortcuts";
 import ReadingTimeRemaining from "./ReadingTimeRemaining";
 import Tldr from "./Tldr";
 import HypergeomCalculator from "./HypergeomCalculator";
 import PercentileThresholdTuner from "./PercentileThresholdTuner";
-import { FiBookmark, FiShare2, FiArrowRight } from "react-icons/fi";
+import { FiBookmark, FiShare2, FiArrowRight, FiChevronLeft, FiChevronRight, FiZoomIn, FiZoomOut, FiX } from "react-icons/fi";
 import { generateSlug, sortByDateDesc } from "../Lib/utils";
 import { isProminentShelf, isUnlisted } from "../Lib/postVisibility";
 import FootballStatsChart from "./FootballStatsChart";
@@ -23,7 +20,7 @@ import AdUnit from "./AdUnit";
 import RecentlyViewed from "./RecentlyViewed";
 import ReadingStreak from "./ReadingStreak";
 import QuoteSharePopover from "./QuoteSharePopover";
-import MobileTocDrawer from "./MobileTocDrawer";
+import ReaderDock from "./ReaderDock";
 
 const LOTTIE_ANIMATIONS = {
   boxplotIntro: "https://assets10.lottiefiles.com/packages/lf20_tutvdkg0.json",
@@ -102,9 +99,22 @@ function ToggleView({ children, labels }) {
 
 function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [modalImages, setModalImages] = useState([]);
+  const [modalIndex, setModalIndex] = useState(0);
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [finishBy, setFinishBy] = useState("");
   const [isMobile, setIsMobile] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const articleRef = useRef(null);
+
+  useEffect(() => {
+    const minsMatch = String(readTime || "").match(/(\d+)\s*min/);
+    const mins = minsMatch ? parseInt(minsMatch[1], 10) : 0;
+    if (mins > 0) {
+      const eta = new Date(Date.now() + mins * 60 * 1000);
+      setFinishBy(eta.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }));
+    }
+  }, [readTime]);
 
   const dayMatch = data?.Title?.match(/day[\s\-:]*([0-9]+)/i);
   const currentDay = dayMatch ? Number(dayMatch[1]) : null;
@@ -300,29 +310,61 @@ function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
   };
 
   const openModal = (src, alt) => {
-    setSelectedImage({ src, alt });
+    const collected = [];
+    if (data?.HeaderImage) {
+      collected.push({ src: data.HeaderImage, alt: "Article Header Image" });
+    }
+    if (articleRef.current) {
+      const imgs = Array.from(articleRef.current.querySelectorAll("img"));
+      for (const img of imgs) {
+        const imgSrc = img.getAttribute("src") || img.src;
+        if (imgSrc && !collected.some((c) => c.src === imgSrc)) {
+          collected.push({ src: imgSrc, alt: img.getAttribute("alt") || "" });
+        }
+      }
+    }
+    if (!collected.some((c) => c.src === src)) {
+      collected.push({ src, alt: alt || "" });
+    }
+    const idx = Math.max(0, collected.findIndex((c) => c.src === src));
+    setModalImages(collected);
+    setModalIndex(idx);
+    setIsZoomed(false);
+    setSelectedImage(collected[idx] || { src, alt });
   };
 
   const closeModal = () => {
     setSelectedImage(null);
+    setIsZoomed(false);
   };
 
-  // Escape key handler
+  const stepModal = (delta) => {
+    if (modalImages.length <= 1) return;
+    const nextIdx = (modalIndex + delta + modalImages.length) % modalImages.length;
+    setModalIndex(nextIdx);
+    setIsZoomed(false);
+    setSelectedImage(modalImages[nextIdx]);
+  };
+
+  // Lightbox keyboard navigation (Escape, Left/Right arrows)
   useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape' && selectedImage) setSelectedImage(null);
+    const handleKey = (e) => {
+      if (!selectedImage) return;
+      if (e.key === "Escape") closeModal();
+      if (e.key === "ArrowRight") stepModal(1);
+      if (e.key === "ArrowLeft") stepModal(-1);
     };
-    
+
     if (selectedImage) {
-      document.addEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'hidden';
+      document.addEventListener("keydown", handleKey);
+      document.body.style.overflow = "hidden";
     }
-    
+
     return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      document.removeEventListener("keydown", handleKey);
+      document.body.style.overflow = "unset";
     };
-  }, [selectedImage]);
+  }, [selectedImage, modalIndex, modalImages]);
 
   const mdxComponents = {
     ToggleView: (props) => <ToggleView {...props} />,
@@ -577,9 +619,29 @@ function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
           />
           <div>
             <div className="text-sm font-medium text-gray-900 dark:text-white">{data.Author}</div>
-            <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{data.Date} • {readTime}</div>
+            <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 flex flex-wrap items-center gap-x-2 gap-y-1">
+              <span>{data.Date}</span>
+              <span>•</span>
+              <span>{readTime}</span>
+              {finishBy && (
+                <>
+                  <span>•</span>
+                  <span className="text-[#C74634] dark:text-[#E8572A] font-medium">Finish by ~{finishBy}</span>
+                </>
+              )}
+              {data.UpdatedDate && (
+                <span className="ml-1 px-2 py-0.5 rounded-full text-[11px] bg-[#FAF8F6] dark:bg-[#2C2A27] border border-[#E0DDD9] dark:border-[#3D3A36]">
+                  Updated {data.UpdatedDate}
+                </span>
+              )}
+            </div>
           </div>
         </div>
+        {data.ContextNote && (
+          <div className="mb-5 px-4 py-3 rounded-xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-[#FAF8F6] dark:bg-[#2C2A27] text-xs sm:text-sm text-[#5e5645] dark:text-[#B8B4B0]">
+            {data.ContextNote}
+          </div>
+        )}
         
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 leading-tight" style={{fontFamily: 'Charter, Georgia, serif'}}>
           {data.Title}
@@ -705,14 +767,8 @@ function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
       {/* Enhanced Author Bio Section */}
       <AuthorBio data={data} allBlogs={allBlogs} />
 
-      {/* Read Aloud Component */}
-      <ReadAloud articleRef={articleRef} />
-
-      {/* Reading Settings */}
-      <ReadingSettings articleRef={articleRef} />
-
-      {/* Scroll to Top */}
-      <ScrollToTop />
+      {/* Unified Floating Reader Dock (Listen, Display, Mobile Contents, Top) */}
+      <ReaderDock articleRef={articleRef} headings={headings} />
 
       {/* Keyboard Shortcuts */}
       <KeyboardShortcuts articleRef={articleRef} />
@@ -722,9 +778,6 @@ function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
 
       {/* Selection Quote & Share Popover */}
       <QuoteSharePopover articleRef={articleRef} title={data.Title} slug={postId} />
-
-      {/* Floating Mobile Table of Contents */}
-      <MobileTocDrawer headings={headings} />
 
       {/* Mobile sticky actions */}
       <div className="fixed md:hidden bottom-0 left-0 right-0 z-40 border-t border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95 backdrop-blur px-4 py-2">
@@ -758,40 +811,79 @@ function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
         </div>
       </div>
 
-      {/* Image Modal */}
+      {/* Image Modal (Upgraded Lightbox with Prev/Next + Zoom) */}
       {selectedImage && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
+        <div
+          className="fixed inset-0 bg-black/85 backdrop-blur-sm flex items-center justify-center z-50 p-4"
           onClick={closeModal}
         >
-          <div 
-            className="bg-white dark:bg-gray-800 rounded-xl max-w-4xl max-h-[90vh] overflow-auto w-full"
+          <div
+            className="bg-white dark:bg-[#201E1C] border border-[#E0DDD9] dark:border-[#3D3A36] rounded-2xl max-w-5xl max-h-[92vh] overflow-hidden w-full flex flex-col shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-4 border-b border-gray-200 dark:border-gray-700 sticky top-0 bg-white dark:bg-gray-800 z-10">
-              <div className="flex items-center justify-end">
+            <div className="px-4 py-3 border-b border-[#E0DDD9] dark:border-[#3D3A36] flex items-center justify-between gap-3">
+              <span className="text-xs font-medium text-[#6E6B68] dark:text-[#B8B4B0]">
+                {modalImages.length > 1 ? `Image ${modalIndex + 1} of ${modalImages.length}` : "Image Preview"}
+              </span>
+              <div className="flex items-center gap-2">
                 <button
+                  type="button"
+                  onClick={() => setIsZoomed((z) => !z)}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium border border-[#E0DDD9] dark:border-[#3D3A36] text-[#161513] dark:text-[#F5F4F2] hover:border-[#C74634] cursor-pointer"
+                  aria-label="Toggle zoom"
+                >
+                  {isZoomed ? <FiZoomOut className="w-3.5 h-3.5" /> : <FiZoomIn className="w-3.5 h-3.5" />}
+                  <span>{isZoomed ? "1x" : "2x"}</span>
+                </button>
+                <button
+                  type="button"
                   onClick={closeModal}
-                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                  className="p-1.5 rounded-full text-[#6E6B68] hover:text-[#161513] dark:text-[#B8B4B0] dark:hover:text-[#F5F4F2] cursor-pointer"
                   aria-label="Close modal"
                 >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
+                  <FiX className="w-5 h-5" />
                 </button>
               </div>
             </div>
-            
-            <div className="p-4">
-              <img 
-                src={selectedImage.src} 
+
+            <div className="relative flex-1 overflow-auto p-4 flex items-center justify-center bg-[#FAF8F6] dark:bg-[#161513]">
+              {modalImages.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => stepModal(-1)}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 z-10 p-2.5 rounded-full bg-black/60 text-white hover:bg-[#C74634] transition-colors cursor-pointer"
+                  aria-label="Previous image"
+                >
+                  <FiChevronLeft className="w-5 h-5" />
+                </button>
+              )}
+
+              <img
+                src={selectedImage.src}
                 alt={selectedImage.alt}
-                className="w-full h-auto max-h-[70vh] object-contain"
+                onClick={() => setIsZoomed((z) => !z)}
+                className={`transition-transform duration-200 ${
+                  isZoomed ? "cursor-zoom-out scale-150 sm:scale-175" : "cursor-zoom-in max-h-[72vh] w-auto object-contain"
+                }`}
               />
-              {selectedImage.alt ? (
-                <p className="mt-3 text-sm text-gray-600 dark:text-gray-300 text-center italic">{selectedImage.alt}</p>
-              ) : null}
+
+              {modalImages.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => stepModal(1)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 z-10 p-2.5 rounded-full bg-black/60 text-white hover:bg-[#C74634] transition-colors cursor-pointer"
+                  aria-label="Next image"
+                >
+                  <FiChevronRight className="w-5 h-5" />
+                </button>
+              )}
             </div>
+
+            {selectedImage.alt && (
+              <div className="px-4 py-3 border-t border-[#E0DDD9] dark:border-[#3D3A36] text-xs sm:text-sm text-[#5e5645] dark:text-[#B8B4B0] text-center italic">
+                {selectedImage.alt}
+              </div>
+            )}
           </div>
         </div>
       )}

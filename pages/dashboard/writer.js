@@ -20,6 +20,7 @@ import {
   FiAlertCircle,
   FiZap,
   FiX,
+  FiFolder,
 } from "react-icons/fi";
 
 const MDXRemote = dynamic(
@@ -47,9 +48,11 @@ function makeInitialState() {
     title: "",
     author: "Sughosh P Dixit",
     date: new Date().toISOString().split("T")[0],
+    updatedDate: "",
     tags: "",
     topic: "Data Science",
     abstract: "",
+    contextNote: "",
     headerImage: "",
     isPublished: false,
     prominentShelf: true,
@@ -67,9 +70,11 @@ function buildMarkdownDocument(form) {
     `Title: "${esc(form.title)}"`,
     `Author: ${esc(form.author)}`,
     `Date: "${esc(form.date)}"`,
+    ...(form.updatedDate ? [`UpdatedDate: "${esc(form.updatedDate)}"`] : []),
     `Tags: ${esc(form.tags)}`,
     `Topic: ${esc(form.topic)}`,
     `Abstract: "${esc(form.abstract)}"`,
+    ...(form.contextNote ? [`ContextNote: "${esc(form.contextNote)}"`] : []),
     `HeaderImage: ${esc(form.headerImage)}`,
     `isPublished: ${Boolean(form.isPublished)}`,
     `prominentShelf: ${form.prominentShelf !== false}`,
@@ -95,6 +100,13 @@ export default function DedicatedBlogWriter() {
   const [isPreviewLoading, setIsPreviewLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [status, setStatus] = useState({ type: "idle", message: "" });
+  const [commitToGitHub, setCommitToGitHub] = useState(false);
+  const [lastCommitUrl, setLastCommitUrl] = useState("");
+
+  const [existingPosts, setExistingPosts] = useState([]);
+  const [selectedExistingFile, setSelectedExistingFile] = useState("");
+  const [isLoadingPostList, setIsLoadingPostList] = useState(false);
+  const [isLoadingExistingPost, setIsLoadingExistingPost] = useState(false);
 
   const [coachLoading, setCoachLoading] = useState(false);
   const [coachResult, setCoachResult] = useState(null);
@@ -201,6 +213,73 @@ export default function DedicatedBlogWriter() {
       // Fallback
     }
     return headers;
+  };
+
+  const fetchExistingPosts = async () => {
+    setIsLoadingPostList(true);
+    try {
+      const headers = await getAuthHeaders();
+      const res = await fetch("/api/writer/posts", { headers });
+      const json = await res.json();
+      if (res.ok && Array.isArray(json.posts)) {
+        setExistingPosts(json.posts);
+      }
+    } catch {
+      // Non-fatal
+    } finally {
+      setIsLoadingPostList(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isAdmin) {
+      fetchExistingPosts();
+    }
+  }, [isAdmin]);
+
+  const handleOpenExistingPost = async (fullFileName) => {
+    if (!fullFileName) return;
+    setIsLoadingExistingPost(true);
+    setLastCommitUrl("");
+    setStatus({ type: "loading", message: `Loading ${fullFileName}...` });
+    try {
+      const headers = await getAuthHeaders();
+      const res = await fetch(`/api/writer/posts?file=${encodeURIComponent(fullFileName)}`, {
+        headers,
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json?.error || "Failed to load post.");
+
+      const fm = json.data || {};
+      setFormState({
+        fileName: json.fileName || "",
+        id: fm.Id || String(Math.floor(100 + Math.random() * 900)),
+        title: fm.Title || "",
+        author: fm.Author || "Sughosh P Dixit",
+        date: fm.Date || new Date().toISOString().split("T")[0],
+        updatedDate: fm.UpdatedDate || "",
+        tags: fm.Tags || "",
+        topic: fm.Topic || "Data Science",
+        abstract: fm.Abstract || "",
+        contextNote: fm.ContextNote || "",
+        headerImage: fm.HeaderImage || "",
+        isPublished: Boolean(fm.isPublished),
+        prominentShelf: fm.prominentShelf !== false,
+        unlisted: Boolean(fm.unlisted),
+        body: json.content || "",
+      });
+      setManualFileName(true);
+      setSelectedExistingFile(fullFileName);
+      setCoachResult(null);
+      setStatus({
+        type: "success",
+        message: `Opened ${json.fullFileName} (${json.source === "github" ? "GitHub" : "local"}).`,
+      });
+    } catch (err) {
+      setStatus({ type: "error", message: err.message });
+    } finally {
+      setIsLoadingExistingPost(false);
+    }
   };
 
   const insertMarkdown = (before, after = "", placeholder = "") => {
@@ -359,11 +438,13 @@ export default function DedicatedBlogWriter() {
       return;
     }
 
+    setLastCommitUrl("");
     setStatus({ type: "loading", message: "Saving post..." });
     try {
       const headers = await getAuthHeaders();
       const payload = {
         ...formState,
+        commitToGitHub,
         fileName: formState.fileName || slugifyTitle(formState.title) || "new-article",
         abstract:
           formState.abstract.trim() ||
@@ -376,7 +457,9 @@ export default function DedicatedBlogWriter() {
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json?.error || "Save failed.");
+      if (json.commitUrl) setLastCommitUrl(json.commitUrl);
       setStatus({ type: "success", message: json.message || "Saved!" });
+      fetchExistingPosts();
     } catch (err) {
       setStatus({ type: "error", message: err.message });
     }
@@ -407,6 +490,8 @@ export default function DedicatedBlogWriter() {
   const handleClear = () => {
     setFormState(makeInitialState());
     setManualFileName(false);
+    setSelectedExistingFile("");
+    setLastCommitUrl("");
     setCoachResult(null);
     localStorage.removeItem(DRAFT_KEY);
     setStatus({ type: "idle", message: "" });
@@ -468,7 +553,7 @@ export default function DedicatedBlogWriter() {
         {/* Sticky Top Studio Header */}
         <header className="sticky top-0 z-30 border-b border-[#E0DDD9] dark:border-[#3D3A36] bg-white/95 dark:bg-[#201E1C]/95 backdrop-blur-md px-4 sm:px-6 py-3">
           <div className="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               <Link href="/dashboard">
                 <a className="inline-flex items-center gap-1.5 text-sm font-medium text-[#6E6B68] dark:text-[#B8B4B0] hover:text-[#C74634] transition-colors">
                   <FiArrowLeft className="w-4 h-4" />
@@ -476,6 +561,29 @@ export default function DedicatedBlogWriter() {
                 </a>
               </Link>
               <span className="text-[#E0DDD9] dark:text-[#3D3A36]">|</span>
+              <div className="inline-flex items-center gap-1.5">
+                <FiFolder className="w-3.5 h-3.5 text-[#6E6B68] dark:text-[#B8B4B0] hidden sm:block" />
+                <select
+                  aria-label="Open existing post"
+                  value={selectedExistingFile}
+                  disabled={isLoadingExistingPost || isLoadingPostList}
+                  onChange={(e) => {
+                    if (e.target.value) handleOpenExistingPost(e.target.value);
+                  }}
+                  className="max-w-[180px] sm:max-w-[230px] px-2.5 py-1 rounded-xl border border-[#E0DDD9] dark:border-[#3D3A36] bg-[#FAF8F6] dark:bg-[#2C2A27] text-xs font-medium text-[#161513] dark:text-[#F5F4F2] focus:outline-none focus:border-[#C74634] cursor-pointer truncate"
+                >
+                  <option value="">
+                    {isLoadingPostList ? "Loading posts..." : "Open existing post..."}
+                  </option>
+                  {existingPosts.map((p) => (
+                    <option key={p.fullFileName} value={p.fullFileName}>
+                      {p.isPublished === false ? "[Draft] " : ""}
+                      {p.title && p.title !== p.fileName ? `${p.title} (${p.fileName})` : p.fullFileName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <span className="text-[#E0DDD9] dark:text-[#3D3A36] hidden md:inline">|</span>
               <span className="text-xs text-[#6E6B68] dark:text-[#B8B4B0]">
                 {wordStats.words} words · ~{wordStats.minutes} min read · Auto-saved
               </span>
@@ -572,11 +680,28 @@ export default function DedicatedBlogWriter() {
                   : "bg-[#FAF8F6] dark:bg-[#2C2A27] text-[#6E6B68] dark:text-[#B8B4B0]"
               }`}
             >
-              <span className="flex items-center gap-2">
+              <span className="flex flex-wrap items-center gap-2">
                 {status.type === "success" ? <FiCheckCircle /> : status.type === "error" ? <FiAlertCircle /> : null}
-                {status.message}
+                <span>{status.message}</span>
+                {lastCommitUrl && (
+                  <a
+                    href={lastCommitUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline font-semibold ml-1"
+                  >
+                    View commit →
+                  </a>
+                )}
               </span>
-              <button type="button" onClick={() => setStatus({ type: "idle", message: "" })} className="cursor-pointer">
+              <button
+                type="button"
+                onClick={() => {
+                  setStatus({ type: "idle", message: "" });
+                  setLastCommitUrl("");
+                }}
+                className="cursor-pointer"
+              >
                 <FiX />
               </button>
             </div>
@@ -611,6 +736,24 @@ export default function DedicatedBlogWriter() {
                 </label>
                 <input type="date" name="date" value={formState.date} onChange={handleChange} className={inputClass} />
               </div>
+              <div>
+                <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#6E6B68] dark:text-[#B8B4B0] mb-1">
+                  Updated Date (optional)
+                </label>
+                <input type="date" name="updatedDate" value={formState.updatedDate || ""} onChange={handleChange} className={inputClass} />
+              </div>
+              <div className="sm:col-span-2 lg:col-span-3">
+                <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#6E6B68] dark:text-[#B8B4B0] mb-1">
+                  Context Note (optional callout above article)
+                </label>
+                <input
+                  name="contextNote"
+                  value={formState.contextNote || ""}
+                  onChange={handleChange}
+                  placeholder="Optional editorial note, prerequisite, or update context..."
+                  className={inputClass}
+                />
+              </div>
               <div className="sm:col-span-2">
                 <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#6E6B68] dark:text-[#B8B4B0] mb-1">
                   Tags (space-separated)
@@ -642,6 +785,14 @@ export default function DedicatedBlogWriter() {
                   <label className="inline-flex items-center gap-2 cursor-pointer">
                     <input type="checkbox" name="unlisted" checked={formState.unlisted} onChange={handleChange} />
                     <span>Unlisted</span>
+                  </label>
+                  <label className="inline-flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={commitToGitHub}
+                      onChange={(e) => setCommitToGitHub(e.target.checked)}
+                    />
+                    <span>Also commit to GitHub on Save</span>
                   </label>
                 </div>
                 <button type="button" onClick={handleClear} className="inline-flex items-center gap-1.5 text-xs text-[#6E6B68] hover:text-[#C74634] cursor-pointer">

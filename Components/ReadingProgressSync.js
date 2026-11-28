@@ -13,16 +13,27 @@ export default function ReadingProgressSync({ slug }) {
   useEffect(() => {
     if (!user?.uid || !slug) return;
     const ref = doc(db, "users", user.uid, "progress", slug);
-    getDoc(ref).then((snap) => {
-      if (snap.exists()) {
-        const pct = snap.data().percent || 0;
-        if (pct > 10 && pct < 95) {
-          setSavedPercent(pct);
-          setShowResume(true);
+    getDoc(ref)
+      .then((snap) => {
+        if (snap.exists()) {
+          const pct = snap.data().percent || 0;
+          if (pct > 10 && pct < 95) {
+            setSavedPercent(pct);
+            setShowResume(true);
+          }
         }
-      }
-    }).catch(() => {});
+      })
+      .catch(() => {});
   }, [user, slug]);
+
+  // Auto-dismiss after 8 seconds so it doesn't obstruct reading
+  useEffect(() => {
+    if (!showResume) return;
+    const timer = setTimeout(() => {
+      setShowResume(false);
+    }, 8000);
+    return () => clearTimeout(timer);
+  }, [showResume]);
 
   const saveProgress = useCallback(() => {
     if (!user?.uid || !slug) return;
@@ -64,15 +75,22 @@ export default function ReadingProgressSync({ slug }) {
   if (!showResume || dismissed.current) return null;
 
   return (
-    <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-40 px-5 py-3 rounded-full bg-[#161513] dark:bg-[#FAF8F6] text-white dark:text-[#161513] shadow-2xl flex items-center gap-4 text-sm font-medium animate-slide-up">
-      <span>You were {savedPercent}% through this post</span>
+    <div className="fixed top-20 left-1/2 -translate-x-1/2 z-40 px-4 py-2.5 rounded-full bg-[#161513]/95 dark:bg-[#FAF8F6]/95 backdrop-blur-md text-white dark:text-[#161513] shadow-2xl border border-white/10 dark:border-black/10 flex items-center gap-3 text-xs sm:text-sm font-medium animate-slide-up max-w-[92vw]">
+      <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#C74634]/20 text-[#E8572A] dark:text-[#C74634] text-[11px] font-bold shrink-0">
+        {savedPercent}%
+      </span>
+      <span className="truncate">Resume where you left off</span>
       <button
         onClick={handleResume}
-        className="px-4 py-1.5 rounded-full bg-[#C74634] text-white text-xs font-semibold hover:bg-[#A73A2C] transition-colors"
+        className="px-3.5 py-1 rounded-full bg-[#C74634] text-white text-xs font-semibold hover:bg-[#A73A2C] transition-colors shrink-0 cursor-pointer"
       >
         Resume
       </button>
-      <button onClick={handleDismiss} className="text-gray-400 hover:text-gray-200 dark:hover:text-gray-600">
+      <button
+        onClick={handleDismiss}
+        aria-label="Dismiss resume prompt"
+        className="text-gray-400 hover:text-gray-200 dark:hover:text-gray-600 shrink-0 cursor-pointer"
+      >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
         </svg>
