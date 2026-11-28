@@ -4,22 +4,28 @@ import { HiAdjustments } from 'react-icons/hi';
 
 function ReadingSettings({ articleRef }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [fontSize, setFontSize] = useState(21); // Default from CSS
-  const [lineHeight, setLineHeight] = useState(1.58);
+  const [fontSize, setFontSize] = useState(24);
+  const [lineHeight, setLineHeight] = useState(1.78);
+  const [hasCustomTypography, setHasCustomTypography] = useState(false);
   const [focusMode, setFocusMode] = useState(false);
   const [sepiaMode, setSepiaMode] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
-    // Load saved preferences
     const savedFontSize = localStorage.getItem('readingFontSize');
     const savedLineHeight = localStorage.getItem('readingLineHeight');
     const savedFocusMode = localStorage.getItem('readingFocusMode');
     const savedSepiaMode = localStorage.getItem('readingSepiaMode');
     
-    if (savedFontSize) setFontSize(parseFloat(savedFontSize));
-    if (savedLineHeight) setLineHeight(parseFloat(savedLineHeight));
+    if (savedFontSize) {
+      setFontSize(parseFloat(savedFontSize));
+      setHasCustomTypography(true);
+    }
+    if (savedLineHeight) {
+      setLineHeight(parseFloat(savedLineHeight));
+      setHasCustomTypography(true);
+    }
     if (savedFocusMode === 'true') setFocusMode(true);
     if (savedSepiaMode === 'true') setSepiaMode(true);
   }, []);
@@ -28,14 +34,16 @@ function ReadingSettings({ articleRef }) {
     if (!isMounted || !articleRef?.current) return;
     
     const article = articleRef.current;
-    
-    // Apply font size
-    article.style.fontSize = `${fontSize}px`;
-    localStorage.setItem('readingFontSize', fontSize.toString());
-    
-    // Apply line height
-    article.style.lineHeight = lineHeight.toString();
-    localStorage.setItem('readingLineHeight', lineHeight.toString());
+
+    if (hasCustomTypography) {
+      article.style.setProperty('--article-font-size', `${fontSize}px`);
+      article.style.setProperty('--article-line-height', lineHeight.toString());
+      localStorage.setItem('readingFontSize', fontSize.toString());
+      localStorage.setItem('readingLineHeight', lineHeight.toString());
+    } else {
+      article.style.removeProperty('--article-font-size');
+      article.style.removeProperty('--article-line-height');
+    }
     
     // Apply focus mode
     if (focusMode) {
@@ -53,7 +61,7 @@ function ReadingSettings({ articleRef }) {
       document.body.classList.remove('sepia-mode');
       localStorage.setItem('readingSepiaMode', 'false');
     }
-  }, [fontSize, lineHeight, focusMode, sepiaMode, isMounted, articleRef]);
+  }, [fontSize, lineHeight, hasCustomTypography, focusMode, sepiaMode, isMounted, articleRef]);
 
   if (!isMounted) return null;
 
@@ -103,7 +111,10 @@ function ReadingSettings({ articleRef }) {
                 max="28"
                 step="1"
                 value={fontSize}
-                onChange={(e) => setFontSize(parseInt(e.target.value))}
+                onChange={(e) => {
+                  setHasCustomTypography(true);
+                  setFontSize(parseInt(e.target.value));
+                }}
                 className="w-full"
               />
               <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -123,7 +134,10 @@ function ReadingSettings({ articleRef }) {
                 max="2.0"
                 step="0.1"
                 value={lineHeight}
-                onChange={(e) => setLineHeight(parseFloat(e.target.value))}
+                onChange={(e) => {
+                  setHasCustomTypography(true);
+                  setLineHeight(parseFloat(e.target.value));
+                }}
                 className="w-full"
               />
               <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -177,10 +191,13 @@ function ReadingSettings({ articleRef }) {
             {/* Reset Button */}
             <button
               onClick={() => {
-                setFontSize(21);
-                setLineHeight(1.58);
+                setHasCustomTypography(false);
+                setFontSize(24);
+                setLineHeight(1.78);
                 setFocusMode(false);
                 setSepiaMode(false);
+                localStorage.removeItem('readingFontSize');
+                localStorage.removeItem('readingLineHeight');
               }}
               className="w-full px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-lg transition-colors text-sm"
             >

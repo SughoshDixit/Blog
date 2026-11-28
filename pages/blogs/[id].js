@@ -26,6 +26,7 @@ import PostNavigation from "../../Components/PostNavigation";
 import LikeBtn from "../../Components/LikeBtn";
 import Comments from "../../Components/Comments";
 import NewsletterForm from "../../Components/NewsletterForm";
+import ArticlePoll from "../../Components/ArticlePoll";
 import { SITE_URL, siteOgImageUrl } from "../../Lib/siteConfig";
 import AdUnit from "../../Components/AdUnit";
 
@@ -169,6 +170,47 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
             }),
           }}
         />
+        <script
+          id="ld-json-breadcrumb"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Home",
+                  item: SITE_URL,
+                },
+                ...(data.Topic
+                  ? [
+                      {
+                        "@type": "ListItem",
+                        position: 2,
+                        name: data.Topic,
+                        item: `${SITE_URL}/topic/${encodeURIComponent(data.Topic)}`,
+                      },
+                      {
+                        "@type": "ListItem",
+                        position: 3,
+                        name: data.Title,
+                        item: `${SITE_URL}/blogs/${id}`,
+                      },
+                    ]
+                  : [
+                      {
+                        "@type": "ListItem",
+                        position: 2,
+                        name: data.Title,
+                        item: `${SITE_URL}/blogs/${id}`,
+                      },
+                    ]),
+              ],
+            }),
+          }}
+        />
       </Head>
 
       <div className="min-h-screen relative bg-white dark:bg-gray-900">
@@ -186,6 +228,9 @@ function BlogPost({ data, content, id, headings, topics, readTime, allBlogs, cur
           <div className="max-w-4xl mx-auto px-4 sm:px-6 overflow-x-hidden">
             <BlogInner data={data} content={content} headings={headings} readTime={readTime} allBlogs={allBlogs} postId={id} />
             
+            {/* Interactive 1-click Reader Poll */}
+            <ArticlePoll data={data} slug={id} />
+
             {/* Inline Newsletter Capture */}
             <div className="mt-12 sm:mt-16">
               <NewsletterForm compact={true} />

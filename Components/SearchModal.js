@@ -9,13 +9,22 @@ function SearchModal({ isOpen, onClose, topics = [] }) {
   const [recentSearches, setRecentSearches] = useState([]);
   const [topicFilter, setTopicFilter] = useState('');
   const [maxReadFilter, setMaxReadFilter] = useState('');
+  const [searchIndex, setSearchIndex] = useState(null);
   const inputRef = useRef(null);
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [isOpen]);
+    if (isOpen && !searchIndex) {
+      fetch('/search-index.json')
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data) => {
+          if (Array.isArray(data)) setSearchIndex(data);
+        })
+        .catch(() => {});
+    }
+  }, [isOpen, searchIndex]);
 
   useEffect(() => {
     // Load recent searches from localStorage
@@ -25,6 +34,63 @@ function SearchModal({ isOpen, onClose, topics = [] }) {
     }
   }, []);
 
+  const searchLocally = (items, searchQuery, currentTopic, currentMaxRead) => {
+    const q = searchQuery.toLowerCase().trim();
+    const terms = q.split(/\s+/).filter(Boolean);
+    const toMinutes = (readText) => {
+      const m = String(readText || '').match(/(\d+)\s*min/i);
+      return m ? Number(m[1]) : null;
+    };
+
+    return items
+      .filter((b) => (currentTopic ? b.topic === currentTopic : true))
+      .filter((b) => {
+        if (!currentMaxRead) return true;
+        const mins = toMinutes(b.readTime);
+        return mins !== null ? mins <= Number(currentMaxRead) : true;
+      })
+      .map((b) => {
+        const title = (b.title || '').toLowerCase();
+        const abstract = (b.abstract || '').toLowerCase();
+        const tags = (b.tags || []).join(' ').toLowerCase();
+        const topicText = (b.topic || '').toLowerCase();
+        const body = (b.body || '').toLowerCase();
+
+        let score = 0;
+        const matchedIn = [];
+        terms.forEach((term) => {
+          if (title.includes(term)) { score += 6; if (!matchedIn.includes('title')) matchedIn.push('title'); }
+          if (abstract.includes(term)) { score += 4; if (!matchedIn.includes('abstract')) matchedIn.push('abstract'); }
+          if (tags.includes(term)) { score += 5; if (!matchedIn.includes('tags')) matchedIn.push('tags'); }
+          if (topicText.includes(term)) { score += 4; if (!matchedIn.includes('topic')) matchedIn.push('topic'); }
+          if (body.includes(term)) { score += 2; if (!matchedIn.includes('content')) matchedIn.push('content'); }
+        });
+
+        if (title.includes(q)) score += 6;
+        if (abstract.includes(q)) score += 4;
+        if (tags.includes(q)) score += 4;
+        if (topicText.includes(q)) score += 4;
+        if (body.includes(q)) score += 2;
+
+        return {
+          id: b.id,
+          title: b.title,
+          abstract: b.abstract,
+          author: b.author,
+          date: b.date,
+          topic: b.topic,
+          tags: b.tags || [],
+          readTime: b.readTime,
+          headerImage: b.headerImage,
+          score,
+          matchedIn,
+        };
+      })
+      .filter((r) => r.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 15);
+  };
+
   const handleSearch = async (searchQuery, currentTopic = topicFilter, currentMaxRead = maxReadFilter) => {
     if (!searchQuery.trim()) {
       setResults([]);
@@ -33,14 +99,26 @@ function SearchModal({ isOpen, onClose, topics = [] }) {
 
     setLoading(true);
     try {
-      const params = new URLSearchParams({ q: searchQuery });
-      if (currentTopic) params.set('topic', currentTopic);
-      if (currentMaxRead) params.set('maxRead', currentMaxRead);
-      const response = await fetch(`/api/search?${params.toString()}`);
-      const data = await response.json();
-      setResults(data.results || []);
-      
-      // Save to recent searches
+      let indexData = searchIndex;
+      if (!indexData) {
+        const idxResp = await fetch('/search-index.json');
+        if (idxResp.ok) {
+          indexData = await idxResp.json();
+          if (Array.isArray(indexData)) setSearchIndex(indexData);
+        }
+      }
+
+      if (Array.isArray(indexData)) {
+        setResults(searchLocally(indexData, searchQuery, currentTopic, currentMaxRead));
+      } else {
+        const params = new URLSearchParams({ q: searchQuery });
+        if (currentTopic) params.set('topic', currentTopic);
+        if (currentMaxRead) params.set('maxRead', currentMaxRead);
+        const response = await fetch(`/api/search?${params.toString()}`);
+        const data = await response.json();
+        setResults(data.results || []);
+      }
+
       if (searchQuery.trim() && !recentSearches.includes(searchQuery.trim())) {
         const newRecent = [searchQuery.trim(), ...recentSearches].slice(0, 5);
         setRecentSearches(newRecent);

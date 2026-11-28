@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import { getAllBlogPosts } from "../../Lib/Data";
 import { generateSlug } from "../../Lib/utils";
 import { isProminentShelf } from "../../Lib/postVisibility";
@@ -8,6 +10,14 @@ export default function handler(req, res) {
   }
 
   try {
+    const staticRssPath = path.join(process.cwd(), "public", "rss.xml");
+    if (fs.existsSync(staticRssPath)) {
+      const xml = fs.readFileSync(staticRssPath, "utf8");
+      res.setHeader("Content-Type", "application/rss+xml; charset=utf-8");
+      res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
+      return res.status(200).send(xml);
+    }
+
     const allBlogs = getAllBlogPosts();
     const publishedBlogs = allBlogs
       .filter((blog) => blog.data.isPublished && isProminentShelf(blog))

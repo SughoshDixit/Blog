@@ -7,15 +7,6 @@ const nextConfig = {
     domains: ["miro.medium.com", "raw.githubusercontent.com", "i.ytimg.com"],
   },
 
-  async rewrites() {
-    return [
-      {
-        source: "/rss.xml",
-        destination: "/api/feed",
-      },
-    ];
-  },
-
   async redirects() {
     return [
       {

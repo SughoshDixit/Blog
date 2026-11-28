@@ -22,6 +22,8 @@ import ComparisonChart from "./ComparisonChart";
 import AdUnit from "./AdUnit";
 import RecentlyViewed from "./RecentlyViewed";
 import ReadingStreak from "./ReadingStreak";
+import QuoteSharePopover from "./QuoteSharePopover";
+import MobileTocDrawer from "./MobileTocDrawer";
 
 const LOTTIE_ANIMATIONS = {
   boxplotIntro: "https://assets10.lottiefiles.com/packages/lf20_tutvdkg0.json",
@@ -717,6 +719,12 @@ function BlogInner({ data, content, headings, readTime, allBlogs, postId }) {
 
       {/* Reading Time Remaining */}
       <ReadingTimeRemaining readTime={readTime} articleRef={articleRef} />
+
+      {/* Selection Quote & Share Popover */}
+      <QuoteSharePopover articleRef={articleRef} title={data.Title} slug={postId} />
+
+      {/* Floating Mobile Table of Contents */}
+      <MobileTocDrawer headings={headings} />
 
       {/* Mobile sticky actions */}
       <div className="fixed md:hidden bottom-0 left-0 right-0 z-40 border-t border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95 backdrop-blur px-4 py-2">
